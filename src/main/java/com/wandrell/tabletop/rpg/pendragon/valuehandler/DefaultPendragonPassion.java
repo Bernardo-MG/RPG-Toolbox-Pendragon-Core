@@ -12,6 +12,7 @@ import com.wandrell.util.tag.NewInstantiable;
 public class DefaultPendragonPassion implements PendragonPassion,
 	NewInstantiable {
 
+    private String annotation;
     private final DelegateValueHandler<Integer> vhComposite;
 
     public DefaultPendragonPassion(final DefaultPendragonPassion passion) {
@@ -28,7 +29,7 @@ public class DefaultPendragonPassion implements PendragonPassion,
 	super();
 	vhComposite = new DefaultValueHandler<Integer>(name, generator,
 		interval, store, validator);
-	vhComposite.setAnnotation(annotation);
+	this.annotation = annotation;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class DefaultPendragonPassion implements PendragonPassion,
 
     @Override
     public String getAnnotation() {
-	return getValueHandler().getAnnotation();
+	return annotation;
     }
 
     @Override
@@ -91,9 +92,8 @@ public class DefaultPendragonPassion implements PendragonPassion,
 	return getValueHandler().isAbleToIncrease();
     }
 
-    @Override
-    public Boolean isAnnotated() {
-	return getValueHandler().isAnnotated();
+    public void setAnnotation(final String annotation) {
+	this.annotation = annotation;
     }
 
     @Override

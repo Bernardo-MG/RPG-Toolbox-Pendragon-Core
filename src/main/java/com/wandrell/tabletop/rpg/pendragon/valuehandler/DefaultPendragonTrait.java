@@ -56,11 +56,6 @@ public class DefaultPendragonTrait implements PendragonTrait, NewInstantiable {
     }
 
     @Override
-    public String getAnnotation() {
-	return getValueHandler().getAnnotation();
-    }
-
-    @Override
     public Integer getLowerLimit() {
 	return getValueHandler().getLowerLimit();
     }
@@ -98,11 +93,6 @@ public class DefaultPendragonTrait implements PendragonTrait, NewInstantiable {
     @Override
     public Boolean isAbleToIncrease() {
 	return getValueHandler().isAbleToIncrease();
-    }
-
-    @Override
-    public Boolean isAnnotated() {
-	return getValueHandler().isAnnotated();
     }
 
     @Override

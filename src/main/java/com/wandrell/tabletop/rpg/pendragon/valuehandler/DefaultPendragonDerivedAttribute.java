@@ -26,14 +26,13 @@ public class DefaultPendragonDerivedAttribute implements
     }
 
     public DefaultPendragonDerivedAttribute(final String name,
-	    final String annotation, final GeneratorModule<Integer> generator,
+	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
 	    final ValidatorModule<Integer> validator) {
 	super();
 	vhComposite = new DefaultValueHandler<Integer>(name, generator,
 		interval, store, validator);
-	vhComposite.setAnnotation(annotation);
     }
 
     @Override
@@ -54,11 +53,6 @@ public class DefaultPendragonDerivedAttribute implements
     @Override
     public void decreaseValue() {
 	getValueHandler().decreaseValue();
-    }
-
-    @Override
-    public String getAnnotation() {
-	return getValueHandler().getAnnotation();
     }
 
     @Override
@@ -99,11 +93,6 @@ public class DefaultPendragonDerivedAttribute implements
     @Override
     public Boolean isAbleToIncrease() {
 	return getValueHandler().isAbleToIncrease();
-    }
-
-    @Override
-    public Boolean isAnnotated() {
-	return getValueHandler().isAnnotated();
     }
 
     public void setParentAttributes(

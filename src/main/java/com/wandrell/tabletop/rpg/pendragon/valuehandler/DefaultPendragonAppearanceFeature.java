@@ -11,6 +11,7 @@ import com.wandrell.tabletop.rpg.valuehandler.module.ValidatorModule;
 public class DefaultPendragonAppearanceFeature implements
 	PendragonAppearanceFeature {
 
+    private String annotation;
     private final DelegateValueHandler<Integer> vhComposite;
 
     public DefaultPendragonAppearanceFeature(
@@ -20,13 +21,14 @@ public class DefaultPendragonAppearanceFeature implements
     }
 
     public DefaultPendragonAppearanceFeature(final String name,
-	    final GeneratorModule<Integer> generator,
+	    final String annotation, final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
 	    final ValidatorModule<Integer> validator) {
 	super();
 	vhComposite = new DefaultValueHandler<Integer>(name, generator,
 		interval, store, validator);
+	this.annotation = annotation;
     }
 
     @Override
@@ -51,7 +53,7 @@ public class DefaultPendragonAppearanceFeature implements
 
     @Override
     public String getAnnotation() {
-	return getValueHandler().getAnnotation();
+	return annotation;
     }
 
     @Override
@@ -89,9 +91,8 @@ public class DefaultPendragonAppearanceFeature implements
 	return getValueHandler().isAbleToIncrease();
     }
 
-    @Override
-    public Boolean isAnnotated() {
-	return getValueHandler().isAnnotated();
+    public void setAnnotation(final String annotation) {
+	this.annotation = annotation;
     }
 
     @Override

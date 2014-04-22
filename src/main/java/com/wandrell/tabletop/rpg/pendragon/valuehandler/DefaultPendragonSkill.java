@@ -11,6 +11,7 @@ import com.wandrell.util.tag.NewInstantiable;
 
 public class DefaultPendragonSkill implements PendragonSkill, NewInstantiable {
 
+    private String annotation;
     private boolean flagCombatSkill = false;
     private boolean flagCourtlySkill = false;
     private boolean flagKnightlySkill = false;
@@ -37,7 +38,7 @@ public class DefaultPendragonSkill implements PendragonSkill, NewInstantiable {
 	super();
 	vhComposite = new DefaultValueHandler<Integer>(name, generator,
 		interval, store, validator);
-	vhComposite.setAnnotation(annotation);
+	this.annotation = annotation;
     }
 
     @Override
@@ -62,7 +63,7 @@ public class DefaultPendragonSkill implements PendragonSkill, NewInstantiable {
 
     @Override
     public String getAnnotation() {
-	return getValueHandler().getAnnotation();
+	return annotation;
     }
 
     @Override
@@ -101,11 +102,6 @@ public class DefaultPendragonSkill implements PendragonSkill, NewInstantiable {
     }
 
     @Override
-    public Boolean isAnnotated() {
-	return isRepeteable() && getValueHandler().isAnnotated();
-    }
-
-    @Override
     public boolean isCombatSkill() {
 	return flagCombatSkill;
     }
@@ -128,6 +124,10 @@ public class DefaultPendragonSkill implements PendragonSkill, NewInstantiable {
     @Override
     public boolean isRepeteable() {
 	return flagRepeteable;
+    }
+
+    public void setAnnotation(final String annotation) {
+	this.annotation = annotation;
     }
 
     public void setCombatSkill(final boolean combatSkill) {

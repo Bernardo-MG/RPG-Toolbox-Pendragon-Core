@@ -12,6 +12,7 @@ import com.wandrell.util.tag.NewInstantiable;
 public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait,
 	NewInstantiable {
 
+    private String annotation;
     private final DelegateValueHandler<Integer> vhComposite;
     private ValueHandler<Integer> vhTrait;
 
@@ -30,7 +31,7 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait,
 	super();
 	vhComposite = new DefaultValueHandler<Integer>(name, generator,
 		interval, store, validator);
-	vhComposite.setAnnotation(annotation);
+	this.annotation = annotation;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait,
 
     @Override
     public String getAnnotation() {
-	return getValueHandler().getAnnotation();
+	return annotation;
     }
 
     @Override
@@ -98,9 +99,8 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait,
 	return getValueHandler().isAbleToIncrease();
     }
 
-    @Override
-    public Boolean isAnnotated() {
-	return getValueHandler().isAnnotated();
+    public void setAnnotation(final String annotation) {
+	this.annotation = annotation;
     }
 
     public void setTrait(final ValueHandler<Integer> vhTrait) {

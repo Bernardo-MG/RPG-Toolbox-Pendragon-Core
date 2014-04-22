@@ -25,14 +25,13 @@ public class DefaultPendragonAttribute implements PendragonAttribute,
     }
 
     public DefaultPendragonAttribute(final String name,
-	    final String annotation, final GeneratorModule<Integer> generator,
+	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
 	    final ValidatorModule<Integer> validator) {
 	super();
 	vhComposite = new DefaultValueHandler<Integer>(name, generator,
 		interval, store, validator);
-	vhComposite.setAnnotation(annotation);
     }
 
     @Override
@@ -53,11 +52,6 @@ public class DefaultPendragonAttribute implements PendragonAttribute,
     @Override
     public void decreaseValue() {
 	getValueHandler().decreaseValue();
-    }
-
-    @Override
-    public String getAnnotation() {
-	return getValueHandler().getAnnotation();
     }
 
     @Override
@@ -98,11 +92,6 @@ public class DefaultPendragonAttribute implements PendragonAttribute,
     @Override
     public Boolean isAbleToIncrease() {
 	return getValueHandler().isAbleToIncrease();
-    }
-
-    @Override
-    public Boolean isAnnotated() {
-	return getValueHandler().isAnnotated();
     }
 
     public void setDerivedAttributes(
