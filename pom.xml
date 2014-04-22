@@ -9,7 +9,7 @@
 
 	<name>Pendragon Core</name>
 	<description>Core library for Pendragon</description>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/Bernardo-MG/RPG-Pendragon-Core</url>
 
 	<licenses>
 		<license>
@@ -20,10 +20,10 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:</connection>
-		<developerConnection>scm:git:</developerConnection>
+		<connection>scm:git:https://github.com/Bernardo-MG/RPG-Pendragon-Core.git</connection>
+		<developerConnection>scm:git:https://github.com/Bernardo-MG/RPG-Pendragon-Core.git</developerConnection>
 		<tag>head</tag>
-		<url>https://</url>
+		<url>https://github.com/Bernardo-MG/RPG-Pendragon-Core</url>
 	</scm>
 
 	<organization>
