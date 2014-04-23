@@ -78,6 +78,12 @@ public class PendragonLabels {
     public static final String FLAGS_KNIGHT = "knight";
     public static final String FLAGS_REDUCES_SHIELD_TO_ROLL = "reduces_shield_to_roll";
     public static final String FLAGS_TWO_HANDED = "two_handed";
+    public static final String GLORY_CHIVALDRY = "chivaldry_glory";
+    public static final String GLORY_GENTLEWOMAN = "gentlewoman_glory";
+    public static final String GLORY_PASSIONS = "passions_glory";
+    public static final String GLORY_RELIGIOUS = "religious_glory";
+    public static final String GLORY_TRAITS = "traits_glory";
+    public static final String GLORY_YEAR = "year_glory";
     public static final String PASSION_AMOR = "amor";
     public static final String PASSION_CONCERN = "concern";
     public static final String PASSION_FEAR = "fear";
