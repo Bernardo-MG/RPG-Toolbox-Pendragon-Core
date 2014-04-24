@@ -177,6 +177,11 @@ public class PendragonLabels {
     public static final String VH_WORTH = "worth";
     public static final String VH_YEAR_BORN = "year_born";
     public static final String VH_YEAR_DEATH = "year_death";
+    public static final String VH_YEAR_KNIGHTED = "year_knighted";
+    public static final String VH_YEAR_LANDED = "year_landed";
+    public static final String VH_YEAR_ROUND_TABLE = "year_round";
+    public static final String VH_YEAR_SQUIRED = "year_squired";
+    public static final String VH_YEAR_TITLED = "year_titled";
     public static final String VH_YEAR_WED = "year_wed";
     public static final String VH_YEARS_AGED = "years_aged";
 
