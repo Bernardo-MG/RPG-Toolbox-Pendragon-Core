@@ -73,6 +73,7 @@ public class PendragonLabels {
     public static final String FLAGS_BREAKS_ON_FUMBLE = "breaks_on_fumble";
     public static final String FLAGS_GOOD_VS_HORSEMEN = "good_vs_horsemen";
     public static final String FLAGS_GOOD_VS_LANCE = "good_vs_lance";
+    public static final String FLAGS_HAS_TO_CHOOSE = "has_to_choose";
     public static final String FLAGS_HITS_BACK = "on_one_hits_back";
     public static final String FLAGS_IGNORES_SHIELD = "ignores_shield";
     public static final String FLAGS_KNIGHT = "knight";
