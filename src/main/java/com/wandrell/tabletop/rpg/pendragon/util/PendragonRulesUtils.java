@@ -16,13 +16,18 @@ public class PendragonRulesUtils {
 	mapFeaturesCount.addInterval(Integer.MAX_VALUE, 3);
     }
 
-    public static Integer getFeaturesCount(final Integer appearance) {
+    public static final Integer getFeaturesCount(final Integer appearance) {
 	final Integer result;
 
 	getInstance();
 
 	result = mapFeaturesCount.getValue(appearance);
 	return result;
+    }
+
+    public static final Boolean isRepeatableSkill(final String name) {
+	// TODO: Implement
+	return false;
     }
 
     public final static int weightCalculator(final int size) {
