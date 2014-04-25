@@ -5,7 +5,6 @@ import org.jdom2.Element;
 
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.inventory.PendragonEquipment;
-import com.wandrell.tabletop.rpg.util.XMLUtils;
 import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
 
 public class EquipableItemXMLDocumentBuilder implements
@@ -38,11 +37,12 @@ public class EquipableItemXMLDocumentBuilder implements
 	}
 
 	// Flags
-	node = XMLUtils.buildBooleansSetXMLTree(new Element(FileLabels.FLAGS),
-		holder.getFlagsIterator());
-	if (node.getChildren().size() > 0) {
-	    doc.getRootElement().addContent(node);
-	}
+	// TODO
+	//node = XMLUtils.buildBooleansSetXMLTree(new Element(FileLabels.FLAGS),
+	//	holder.getFlagsIterator());
+	//if (node.getChildren().size() > 0) {
+	//    doc.getRootElement().addContent(node);
+	//}
 
 	// Bonus
 	// TODO

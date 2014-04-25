@@ -1,1 +1,17 @@
+# Git folder #
+/.git
+
+# Compilation folders #
+/bin
+
+# Java compile files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
 /target
+
+# Log files #
+/*.log

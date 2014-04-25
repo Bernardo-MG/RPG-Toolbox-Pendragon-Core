@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.iterator.NotRemoveIterator;
 
 public class DefaultPendragonEquipment extends DefaultPendragonItem implements
 	PendragonEquipment {
@@ -51,8 +50,8 @@ public class DefaultPendragonEquipment extends DefaultPendragonItem implements
     }
 
     @Override
-    public Iterator<String> getFlagsIterator() {
-	return new NotRemoveIterator<>(getFlagsSet().iterator());
+    public Collection<String> getFlags() {
+	return Collections.unmodifiableCollection(getFlagsSet());
     }
 
     @Override

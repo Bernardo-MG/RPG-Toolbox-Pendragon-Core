@@ -1,12 +1,11 @@
 package com.wandrell.tabletop.rpg.pendragon.character.background;
 
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.iterator.NotRemoveIterator;
 import com.wandrell.util.tag.NewInstantiable;
 
 public class DefaultReligion implements Religion, NewInstantiable {
@@ -23,7 +22,7 @@ public class DefaultReligion implements Religion, NewInstantiable {
 
 	name = religion.name;
 
-	setReligiousTraits(religion.getReligiousTraitsIterator());
+	setReligiousTraits(religion.setTraits);
     }
 
     @Override
@@ -61,8 +60,8 @@ public class DefaultReligion implements Religion, NewInstantiable {
     }
 
     @Override
-    public Iterator<String> getReligiousTraitsIterator() {
-	return new NotRemoveIterator<>(getTraitsSet().iterator());
+    public Collection<String> getReligiousTraits() {
+	return Collections.unmodifiableCollection(getTraitsSet());
     }
 
     @Override
@@ -80,9 +79,9 @@ public class DefaultReligion implements Religion, NewInstantiable {
 	this.name = name;
     }
 
-    public void setReligiousTraits(final Iterator<String> itrTraits) {
-	while (itrTraits.hasNext()) {
-	    getTraitsSet().add(itrTraits.next());
+    public void setReligiousTraits(final Collection<String> traits) {
+	for(final String trait : traits){
+	    getTraitsSet().add(trait);
 	}
     }
 
