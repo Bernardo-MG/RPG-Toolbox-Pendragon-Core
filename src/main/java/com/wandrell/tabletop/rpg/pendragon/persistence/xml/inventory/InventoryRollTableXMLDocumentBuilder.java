@@ -11,13 +11,13 @@ import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.conf.PendragonLabels;
 import com.wandrell.tabletop.rpg.pendragon.inventory.AdditionalBelongingsSetData;
 import com.wandrell.tabletop.rpg.util.XMLUtils;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class InventoryRollTableXMLDocumentBuilder implements
-	XMLDocumentBuilder<RollTable<AdditionalBelongingsSetData>> {
+	XMLDocumentWriter<RollTable<AdditionalBelongingsSetData>> {
 
     @Override
-    public Document buildDocument(
+    public Document getDocument(
 	    final RollTable<AdditionalBelongingsSetData> holder) {
 	final Document doc;
 	final Element element;

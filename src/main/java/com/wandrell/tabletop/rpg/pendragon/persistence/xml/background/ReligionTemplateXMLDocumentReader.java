@@ -7,13 +7,13 @@ import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.character.background.DefaultReligion;
 import com.wandrell.tabletop.rpg.pendragon.character.background.Religion;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class ReligionTemplateXMLDocumentReader implements
 	XMLDocumentReader<Religion> {
 
     @Override
-    public Religion readDocument(final Document doc) {
+    public Religion getValue(final Document doc) {
 	final DefaultReligion holder;
 	final Element traits, bonus;
 	final Element root;
@@ -30,7 +30,7 @@ public class ReligionTemplateXMLDocumentReader implements
 
 	// Religious traits
 	// TODO
-	//holder.setReligiousTraits(XMLUtils.readStringsListXMLTree(traits));
+	// holder.setReligiousTraits(XMLUtils.readStringsListXMLTree(traits));
 
 	// Religious bonus
 	// TODO

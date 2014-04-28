@@ -12,8 +12,8 @@ public class ShieldXMLDocumentReader extends
     }
 
     @Override
-    public ShieldEquipment readDocument(final Document doc) {
-	return super.readDocument(doc);
+    public ShieldEquipment getValue(final Document doc) {
+	return super.getValue(doc);
     }
 
 }

@@ -14,12 +14,12 @@ public class WeaponXMLDocumentReader extends
     }
 
     @Override
-    public WeaponEquipment readDocument(final Document doc) {
+    public WeaponEquipment getValue(final Document doc) {
 	final Element skill;
 	final WeaponEquipment weapon;
 	final Element root;
 
-	weapon = super.readDocument(doc);
+	weapon = super.getValue(doc);
 
 	root = doc.getRootElement();
 

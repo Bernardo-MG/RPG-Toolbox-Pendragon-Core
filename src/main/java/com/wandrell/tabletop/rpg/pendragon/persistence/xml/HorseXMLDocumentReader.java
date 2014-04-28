@@ -10,13 +10,13 @@ import com.wandrell.tabletop.rpg.pendragon.character.HorseCharacter;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.rpg.util.XMLUtils;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class HorseXMLDocumentReader implements
 	XMLDocumentReader<HorseCharacter> {
 
     @Override
-    public HorseCharacter readDocument(final Document doc) {
+    public HorseCharacter getValue(final Document doc) {
 	final DefaultHorseCharacter holder;
 	final Element secAttributes, flags;
 	final Element root;

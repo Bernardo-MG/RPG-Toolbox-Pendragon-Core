@@ -20,7 +20,7 @@ import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.glory.DefaultGloryEvent;
 import com.wandrell.tabletop.rpg.pendragon.inventory.PendragonItem;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonAppearanceFeature;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class PlayerCharacterXMLDocumentReader implements
 	XMLDocumentReader<PendragonPlayerCharacter> {
@@ -50,7 +50,7 @@ public class PlayerCharacterXMLDocumentReader implements
     }
 
     @Override
-    public PendragonPlayerCharacter readDocument(final Document doc) {
+    public PendragonPlayerCharacter getValue(final Document doc) {
 	final DefaultPendragonPlayerCharacter holder;
 	final Element glory, vhs, flags, texts, features, wives, famchar, invcarried, invhome, money, horses, squires, followers;
 	final Element root;

@@ -5,18 +5,18 @@ import org.jdom2.Document;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.inventory.PendragonEquipment;
 import com.wandrell.tabletop.rpg.pendragon.inventory.ShieldEquipment;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class ShieldXMLDocumentBuilder implements
-	XMLDocumentBuilder<ShieldEquipment> {
+	XMLDocumentWriter<ShieldEquipment> {
 
-    private final XMLDocumentBuilder<PendragonEquipment> builder = new EquipableItemXMLDocumentBuilder();
+    private final XMLDocumentWriter<PendragonEquipment> builder = new EquipableItemXMLDocumentBuilder();
 
     @Override
-    public Document buildDocument(final ShieldEquipment holder) {
+    public Document getDocument(final ShieldEquipment holder) {
 	final Document doc;
 
-	doc = builder.buildDocument(holder);
+	doc = builder.getDocument(holder);
 
 	doc.getRootElement().setName(FileLabels.SHIELD);
 

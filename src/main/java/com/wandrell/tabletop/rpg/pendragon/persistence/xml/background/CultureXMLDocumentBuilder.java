@@ -7,9 +7,9 @@ import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.character.background.culture.Culture;
 import com.wandrell.tabletop.rpg.pendragon.character.background.culture.CultureCharacterTemplate;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
-public class CultureXMLDocumentBuilder implements XMLDocumentBuilder<Culture> {
+public class CultureXMLDocumentBuilder implements XMLDocumentWriter<Culture> {
 
     private static Element buildAttributesLimitsTemplateXMLNode(
 	    final CultureCharacterTemplate holder, final Element root) {
@@ -40,7 +40,7 @@ public class CultureXMLDocumentBuilder implements XMLDocumentBuilder<Culture> {
     }
 
     @Override
-    public Document buildDocument(final Culture holder) {
+    public Document getDocument(final Culture holder) {
 	final Document doc;
 	Element node;
 

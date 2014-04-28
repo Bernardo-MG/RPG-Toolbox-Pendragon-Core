@@ -7,13 +7,13 @@ import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.glory.FatherClassGlory;
 import com.wandrell.tabletop.rpg.util.XMLUtils;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class FatherClassGloryXMLDocumentBuilder implements
-	XMLDocumentBuilder<FatherClassGlory> {
+	XMLDocumentWriter<FatherClassGlory> {
 
     @Override
-    public Document buildDocument(final FatherClassGlory holder) {
+    public Document getDocument(final FatherClassGlory holder) {
 	final Document doc;
 	Element node;
 

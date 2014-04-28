@@ -6,13 +6,13 @@ import org.jdom2.Element;
 import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.character.background.Homeland;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class HomelandTemplateXMLDocumentBuilder implements
-	XMLDocumentBuilder<Homeland> {
+	XMLDocumentWriter<Homeland> {
 
     @Override
-    public Document buildDocument(final Homeland holder) {
+    public Document getDocument(final Homeland holder) {
 	final Document doc;
 	Element node;
 

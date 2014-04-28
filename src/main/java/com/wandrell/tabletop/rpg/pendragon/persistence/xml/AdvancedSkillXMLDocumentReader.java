@@ -9,13 +9,13 @@ import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.DefaultPendragonAggregatedSkill;
 import com.wandrell.tabletop.rpg.util.XMLUtils;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class AdvancedSkillXMLDocumentReader implements
 	XMLDocumentReader<DefaultPendragonAggregatedSkill> {
 
     @Override
-    public DefaultPendragonAggregatedSkill readDocument(final Document doc) {
+    public DefaultPendragonAggregatedSkill getValue(final Document doc) {
 	final Element skills;
 	final Iterator<String> itrSkills;
 	final String name;

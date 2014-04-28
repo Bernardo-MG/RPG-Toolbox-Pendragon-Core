@@ -8,14 +8,13 @@ import com.wandrell.tabletop.rpg.dice.RollTable;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.inventory.AdditionalBelongingsSetData;
 import com.wandrell.tabletop.rpg.pendragon.inventory.DefaultAdditionalBelongingsSetData;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class InventoryRollTableXMLDocumentReader implements
 	XMLDocumentReader<RollTable<AdditionalBelongingsSetData>> {
 
     @Override
-    public RollTable<AdditionalBelongingsSetData> readDocument(
-	    final Document doc) {
+    public RollTable<AdditionalBelongingsSetData> getValue(final Document doc) {
 	final RollTable<AdditionalBelongingsSetData> holder;
 	final Element intervals;
 	final Element root;

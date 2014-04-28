@@ -6,13 +6,13 @@ import org.jdom2.Element;
 import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.character.background.DefaultHomeland;
 import com.wandrell.tabletop.rpg.pendragon.character.background.Homeland;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class HomelandTemplateXMLDocumentReader implements
 	XMLDocumentReader<Homeland> {
 
     @Override
-    public Homeland readDocument(final Document doc) {
+    public Homeland getValue(final Document doc) {
 	final DefaultHomeland holder;
 	final Element root;
 

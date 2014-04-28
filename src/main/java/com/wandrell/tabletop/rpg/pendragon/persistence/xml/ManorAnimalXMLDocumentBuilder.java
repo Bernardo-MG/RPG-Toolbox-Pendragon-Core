@@ -12,13 +12,13 @@ import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.manor.AnimalYearResult;
 import com.wandrell.tabletop.rpg.pendragon.manor.ManorAnimal;
 import com.wandrell.tabletop.rpg.util.XMLUtils;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class ManorAnimalXMLDocumentBuilder implements
-	XMLDocumentBuilder<ManorAnimal> {
+	XMLDocumentWriter<ManorAnimal> {
 
     @Override
-    public Document buildDocument(final ManorAnimal holder) {
+    public Document getDocument(final ManorAnimal holder) {
 	final Document doc;
 	final Element element;
 

@@ -6,13 +6,13 @@ import org.jdom2.Element;
 import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.DefaultPendragonAggregatedSkill;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class AdvancedSkillXMLDocumentBuilder implements
-	XMLDocumentBuilder<DefaultPendragonAggregatedSkill> {
+	XMLDocumentWriter<DefaultPendragonAggregatedSkill> {
 
     @Override
-    public Document buildDocument(final DefaultPendragonAggregatedSkill holder) {
+    public Document getDocument(final DefaultPendragonAggregatedSkill holder) {
 	final Document doc;
 	Element element;
 

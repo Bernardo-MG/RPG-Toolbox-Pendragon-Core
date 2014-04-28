@@ -6,13 +6,13 @@ import org.jdom2.Element;
 import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.character.background.FatherClass;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class FatherClassTemplateXMLDocumentBuilder implements
-	XMLDocumentBuilder<FatherClass> {
+	XMLDocumentWriter<FatherClass> {
 
     @Override
-    public Document buildDocument(final FatherClass holder) {
+    public Document getDocument(final FatherClass holder) {
 	final Document doc;
 	Element node;
 

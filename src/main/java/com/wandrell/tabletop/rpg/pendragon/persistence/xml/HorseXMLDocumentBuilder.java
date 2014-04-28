@@ -6,13 +6,13 @@ import org.jdom2.Element;
 import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.character.HorseCharacter;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class HorseXMLDocumentBuilder implements
-	XMLDocumentBuilder<HorseCharacter> {
+	XMLDocumentWriter<HorseCharacter> {
 
     @Override
-    public Document buildDocument(final HorseCharacter holder) {
+    public Document getDocument(final HorseCharacter holder) {
 	final Document doc;
 	Element node;
 

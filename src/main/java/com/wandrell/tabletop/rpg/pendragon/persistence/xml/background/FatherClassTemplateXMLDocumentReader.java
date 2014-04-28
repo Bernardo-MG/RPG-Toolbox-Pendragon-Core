@@ -10,13 +10,13 @@ import com.wandrell.tabletop.rpg.pendragon.character.background.DefaultFatherCla
 import com.wandrell.tabletop.rpg.pendragon.character.background.FatherClass;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.DefaultPendragonSkill;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class FatherClassTemplateXMLDocumentReader implements
 	XMLDocumentReader<FatherClass> {
 
     @Override
-    public FatherClass readDocument(final Document doc) {
+    public FatherClass getValue(final Document doc) {
 	final DefaultFatherClass holder;
 	final Element skillsGroup, skillPoints, money;
 	final Element root;

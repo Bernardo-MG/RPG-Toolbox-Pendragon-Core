@@ -10,13 +10,13 @@ import com.wandrell.tabletop.rpg.dice.RollTable;
 import com.wandrell.tabletop.rpg.interval.ContrastInterval;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.util.XMLUtils;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class RollTableXMLDocumentBuilder implements
-	XMLDocumentBuilder<RollTable<String>> {
+	XMLDocumentWriter<RollTable<String>> {
 
     @Override
-    public Document buildDocument(final RollTable<String> holder) {
+    public Document getDocument(final RollTable<String> holder) {
 	final Document doc;
 	final Element element;
 

@@ -5,13 +5,13 @@ import org.jdom2.Element;
 
 import com.wandrell.tabletop.rpg.dice.RollTable;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class TemplateRollableTableXMLDocumentBuilder implements
-	XMLDocumentBuilder<RollTable<?>> {
+	XMLDocumentWriter<RollTable<?>> {
 
     @Override
-    public Document buildDocument(final RollTable<?> holder) {
+    public Document getDocument(final RollTable<?> holder) {
 	final Document doc;
 	final Element element;
 

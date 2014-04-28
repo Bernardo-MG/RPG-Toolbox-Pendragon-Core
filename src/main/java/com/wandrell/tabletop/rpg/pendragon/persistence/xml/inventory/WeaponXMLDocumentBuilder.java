@@ -6,19 +6,19 @@ import org.jdom2.Element;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.inventory.PendragonEquipment;
 import com.wandrell.tabletop.rpg.pendragon.inventory.WeaponEquipment;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class WeaponXMLDocumentBuilder implements
-	XMLDocumentBuilder<WeaponEquipment> {
+	XMLDocumentWriter<WeaponEquipment> {
 
-    private final XMLDocumentBuilder<PendragonEquipment> builder = new EquipableItemXMLDocumentBuilder();
+    private final XMLDocumentWriter<PendragonEquipment> builder = new EquipableItemXMLDocumentBuilder();
 
     @Override
-    public Document buildDocument(final WeaponEquipment holder) {
+    public Document getDocument(final WeaponEquipment holder) {
 	final Document doc;
 	Element node;
 
-	doc = builder.buildDocument(holder);
+	doc = builder.getDocument(holder);
 
 	node = new Element(FileLabels.SKILL);
 	node.setText(holder.getSkill());

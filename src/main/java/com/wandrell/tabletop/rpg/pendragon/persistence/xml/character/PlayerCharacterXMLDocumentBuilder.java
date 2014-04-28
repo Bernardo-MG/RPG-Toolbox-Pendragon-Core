@@ -17,10 +17,10 @@ import com.wandrell.tabletop.rpg.pendragon.glory.DefaultGloryEvent;
 import com.wandrell.tabletop.rpg.pendragon.glory.GloryController;
 import com.wandrell.tabletop.rpg.pendragon.inventory.PendragonItem;
 import com.wandrell.tabletop.rpg.util.XMLUtils;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class PlayerCharacterXMLDocumentBuilder implements
-	XMLDocumentBuilder<PendragonPlayerCharacter> {
+	XMLDocumentWriter<PendragonPlayerCharacter> {
 
     private static Element buildGloryEventXMLNode(final DefaultGloryEvent glory) {
 	final Element gloryNode;
@@ -50,7 +50,7 @@ public class PlayerCharacterXMLDocumentBuilder implements
     }
 
     @Override
-    public Document buildDocument(final PendragonPlayerCharacter holder) {
+    public Document getDocument(final PendragonPlayerCharacter holder) {
 	final Document doc;
 
 	// TODO

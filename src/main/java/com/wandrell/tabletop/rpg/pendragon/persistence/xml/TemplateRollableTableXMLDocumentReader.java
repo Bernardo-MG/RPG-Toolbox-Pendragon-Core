@@ -6,13 +6,13 @@ import org.jdom2.Element;
 import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.dice.RollTable;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class TemplateRollableTableXMLDocumentReader implements
 	XMLDocumentReader<RollTable<?>> {
 
     @Override
-    public RollTable<?> readDocument(final Document doc) {
+    public RollTable<?> getValue(final Document doc) {
 	final Element intervals;
 	final RollTable<?> holder;
 	final Element root;

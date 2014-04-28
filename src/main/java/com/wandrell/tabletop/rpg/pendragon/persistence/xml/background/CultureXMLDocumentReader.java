@@ -11,7 +11,7 @@ import com.wandrell.tabletop.rpg.pendragon.character.background.culture.Culture;
 import com.wandrell.tabletop.rpg.pendragon.character.background.culture.CultureCharacterTemplate;
 import com.wandrell.tabletop.rpg.pendragon.character.background.culture.DefaultCulture;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class CultureXMLDocumentReader implements XMLDocumentReader<Culture> {
 
@@ -56,7 +56,7 @@ public class CultureXMLDocumentReader implements XMLDocumentReader<Culture> {
     }
 
     @Override
-    public Culture readDocument(final Document doc) {
+    public Culture getValue(final Document doc) {
 	final DefaultCulture holder;
 	final Element root;
 	final Element files, templateFemale, templateMale, templateRandomFemale, templateRandomMale;

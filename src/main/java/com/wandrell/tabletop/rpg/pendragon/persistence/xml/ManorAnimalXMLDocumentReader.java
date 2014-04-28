@@ -11,13 +11,13 @@ import com.wandrell.tabletop.rpg.pendragon.manor.AnimalYearResult;
 import com.wandrell.tabletop.rpg.pendragon.manor.DefaultAnimalYearResult;
 import com.wandrell.tabletop.rpg.pendragon.manor.DefaultManorAnimal;
 import com.wandrell.tabletop.rpg.pendragon.manor.ManorAnimal;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class ManorAnimalXMLDocumentReader implements
 	XMLDocumentReader<ManorAnimal> {
 
     @Override
-    public ManorAnimal readDocument(final Document doc) {
+    public ManorAnimal getValue(final Document doc) {
 	final DefaultManorAnimal holder;
 	final Element intervals;
 	final Element root;

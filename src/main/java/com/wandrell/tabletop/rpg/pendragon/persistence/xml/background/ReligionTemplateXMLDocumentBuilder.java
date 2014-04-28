@@ -6,13 +6,13 @@ import org.jdom2.Element;
 import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.character.background.Religion;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.util.stream.api.xml.XMLDocumentBuilder;
+import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class ReligionTemplateXMLDocumentBuilder implements
-	XMLDocumentBuilder<Religion> {
+	XMLDocumentWriter<Religion> {
 
     @Override
-    public Document buildDocument(final Religion holder) {
+    public Document getDocument(final Religion holder) {
 	final Document doc;
 	Element node;
 
@@ -23,9 +23,9 @@ public class ReligionTemplateXMLDocumentBuilder implements
 
 	// Religious traits
 	// TODO
-	//doc.getRootElement().addContent(
-	//	XMLUtils.buildStringListXMLTree(new Element(FileLabels.TRAITS),
-	//		holder.getReligiousTraits(), FileLabels.TRAIT));
+	// doc.getRootElement().addContent(
+	// XMLUtils.buildStringListXMLTree(new Element(FileLabels.TRAITS),
+	// holder.getReligiousTraits(), FileLabels.TRAIT));
 
 	// Religious bonus
 	// TODO

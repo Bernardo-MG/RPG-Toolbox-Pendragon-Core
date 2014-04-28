@@ -12,8 +12,8 @@ public class ArmorXMLDocumentReader extends
     }
 
     @Override
-    public ArmorEquipment readDocument(final Document doc) {
-	return super.readDocument(doc);
+    public ArmorEquipment getValue(final Document doc) {
+	return super.getValue(doc);
     }
 
 }

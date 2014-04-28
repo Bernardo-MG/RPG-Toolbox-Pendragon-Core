@@ -7,13 +7,13 @@ import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
 import com.wandrell.tabletop.rpg.pendragon.glory.DefaultFatherClassGlory;
 import com.wandrell.tabletop.rpg.pendragon.glory.FatherClassGlory;
-import com.wandrell.util.stream.api.xml.XMLDocumentReader;
+import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class FatherClassGloryXMLDocumentReader implements
 	XMLDocumentReader<FatherClassGlory> {
 
     @Override
-    public FatherClassGlory readDocument(final Document doc) {
+    public FatherClassGlory getValue(final Document doc) {
 	final DefaultFatherClassGlory holder;
 	final Element gloryBase, gloryYear;
 	final Element root;

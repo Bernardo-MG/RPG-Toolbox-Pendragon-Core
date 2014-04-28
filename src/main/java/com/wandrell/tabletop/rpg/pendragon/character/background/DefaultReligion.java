@@ -80,7 +80,7 @@ public class DefaultReligion implements Religion, NewInstantiable {
     }
 
     public void setReligiousTraits(final Collection<String> traits) {
-	for(final String trait : traits){
+	for (final String trait : traits) {
 	    getTraitsSet().add(trait);
 	}
     }
