@@ -1,17 +1,51 @@
 # Git folder #
-/.git
+/.git/
 
 # Compilation folders #
-/bin
+/bin/
+/target/
+/build/
 
 # Java compile files #
 *.class
 
-# Package Files #
+# Package files #
 *.jar
 *.war
 *.ear
-/target
+*.db
 
 # Log files #
 /*.log
+
+# Eclipse files #
+.buildpath
+.classpath
+.cproject
+.externalToolBuilders/
+.launch
+.loadpath
+.metadata
+.project
+.settings/
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.nak
+*.swp
+*~.nib
+*.pydevproject
+local.properties
+/src/main/resources/rebel.xml
+
+# Windows files #
+Thumbs.db
+Desktop.ini
+
+# OS files #
+.DS_Store
+.svn
+._*
+.Spotlight-V100
+.Trashes
