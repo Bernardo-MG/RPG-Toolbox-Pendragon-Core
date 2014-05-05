@@ -19,6 +19,8 @@ The list of projects which need to be manually downloaded and installed are:
 * [Wandrell's Core library][]
 * [Wandrell's Framework library][]
 * [RPG Toolbox API library][]
+* [RPG Toolbox Core library][]
+* [RPG Toolbox Pendragon's API library][]
 
 ### Getting the code
 The GitHub project is found at https://github.com/Bernardo-MG/RPG-Toolbox-Pendragon-Swing, and it includes the git clone uri.
@@ -28,5 +30,7 @@ The Spring Framework is released under version 2.0 of the [Apache License][].
 
 [Apache License]: http://www.apache.org/licenses/LICENSE-2.0
 [RPG Toolbox API library]: https://github.com/Bernardo-MG/RPG-Toolbox-API
+[RPG Toolbox Core library]: https://github.com/Bernardo-MG/RPG-Toolbox-Core
+[RPG Toolbox Pendragon's API library]: https://github.com/Bernardo-MG/RPG-Toolbox-Pendragon-API
 [Wandrell's Core library]: https://github.com/Bernardo-MG/Wandrell-Core
 [Wandrell's Framework library]: https://github.com/Bernardo-MG/Wandrell-Framework
