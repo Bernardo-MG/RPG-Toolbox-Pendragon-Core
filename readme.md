@@ -26,7 +26,7 @@ The list of projects which need to be manually downloaded and installed are:
 The GitHub project is found at https://github.com/Bernardo-MG/RPG-Toolbox-Pendragon-Swing, and it includes the git clone uri.
 
 ## License
-The Spring Framework is released under version 2.0 of the [Apache License][].
+The project is released under version 2.0 of the [Apache License][].
 
 [Apache License]: http://www.apache.org/licenses/LICENSE-2.0
 [RPG Toolbox API library]: https://github.com/Bernardo-MG/RPG-Toolbox-API

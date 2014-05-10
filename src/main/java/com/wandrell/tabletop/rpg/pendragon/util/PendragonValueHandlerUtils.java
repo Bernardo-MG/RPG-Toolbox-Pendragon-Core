@@ -9,4 +9,11 @@ public class PendragonValueHandlerUtils {
 	return String.format(TEMPLATE_NAME_ANNOTATION_KEY, name, annotation);
     }
 
+    /**
+     * Private constructor to avoid instantiation.
+     */
+    private PendragonValueHandlerUtils() {
+	super();
+    }
+
 }

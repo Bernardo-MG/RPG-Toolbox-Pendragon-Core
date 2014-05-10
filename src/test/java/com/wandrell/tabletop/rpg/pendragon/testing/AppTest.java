@@ -1,7 +1,5 @@
 package com.wandrell.tabletop.rpg.pendragon.testing;
 
-import com.wandrell.tabletop.rpg.pendragon.testing.AppTest;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
