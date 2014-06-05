@@ -14,10 +14,10 @@ public class DefaultFatherClassGlory implements FatherClassGlory,
 
     public DefaultFatherClassGlory() {
 	super();
-	vhBaseGlory = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_FATHER_CLASS_BASE_GLORY);
-	vhGloryPerYear = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_FATHER_CLASS_GLORY_PER_YEAR);
+	vhBaseGlory = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_FATHER_CLASS_BASE_GLORY);
+	vhGloryPerYear = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_FATHER_CLASS_GLORY_PER_YEAR);
     }
 
     public DefaultFatherClassGlory(

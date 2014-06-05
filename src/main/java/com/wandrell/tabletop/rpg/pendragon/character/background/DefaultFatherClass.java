@@ -27,8 +27,8 @@ public class DefaultFatherClass implements FatherClass, NewInstantiable {
 	super();
 	dataMoney = new DefaultMoneyData();
 
-	vhPointsSkillsGroup = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_SKILLS_POINTS);
+	vhPointsSkillsGroup = ValueHandlerFactory.getInstance()
+		.getValueHandler(PendragonLabels.VH_SKILLS_POINTS);
     }
 
     public DefaultFatherClass(final DefaultFatherClass data) {

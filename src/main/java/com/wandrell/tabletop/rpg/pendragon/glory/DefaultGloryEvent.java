@@ -24,9 +24,9 @@ public class DefaultGloryEvent implements GloryEvent, NewInstantiable,
 	    final String info) {
 	super();
 
-	vhYear = ValueHandlerFactory.getDefaultIntegerValueHandler(
+	vhYear = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonLabels.VH_GLORY_EVENT_YEAR_NAME, year);
-	vhGloryGained = ValueHandlerFactory.getDefaultIntegerValueHandler(
+	vhGloryGained = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonLabels.VH_GLORY_EVENT_GLORY_GAINED, gloryGained);
 	this.infoGlory = info;
     }

@@ -21,8 +21,8 @@ public class DefaultWife implements Wife, NewInstantiable {
 
     public DefaultWife() {
 	super();
-	vhYearWed = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_YEAR_WED);
+	vhYearWed = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_YEAR_WED);
     }
 
     public DefaultWife(final DefaultWife wife) {
@@ -37,14 +37,14 @@ public class DefaultWife implements Wife, NewInstantiable {
 
     public DefaultWife(final String file) {
 	super();
-	vhYearWed = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_YEAR_WED);
+	vhYearWed = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_YEAR_WED);
     }
 
     public DefaultWife(final String file, final PendragonBaseCharacter character) {
 	super();
-	vhYearWed = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_YEAR_WED);
+	vhYearWed = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_YEAR_WED);
     }
 
     @Override

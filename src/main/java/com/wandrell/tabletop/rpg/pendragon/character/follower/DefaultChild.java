@@ -16,10 +16,10 @@ public class DefaultChild implements Child, NewInstantiable {
     public DefaultChild() {
 	super();
 
-	vhYearBorn = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_YEAR_BORN);
-	vhYearDeath = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_YEAR_DEATH);
+	vhYearBorn = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_YEAR_BORN);
+	vhYearDeath = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_YEAR_DEATH);
     }
 
     public DefaultChild(final DefaultChild data) {

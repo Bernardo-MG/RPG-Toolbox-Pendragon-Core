@@ -12,10 +12,10 @@ public class DefaultMoneyData implements PendragonMoneyData, NewInstantiable {
 
     public DefaultMoneyData() {
 	super();
-	vhDenarii = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_DENARII);
-	vhLibra = ValueHandlerFactory
-		.getDefaultIntegerValueHandler(PendragonLabels.VH_LIBRA);
+	vhDenarii = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_DENARII);
+	vhLibra = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_LIBRA);
     }
 
     public DefaultMoneyData(final DefaultMoneyData data) {
@@ -27,9 +27,9 @@ public class DefaultMoneyData implements PendragonMoneyData, NewInstantiable {
 
     public DefaultMoneyData(final Integer libra, final Integer denarii) {
 	super();
-	this.vhDenarii = ValueHandlerFactory.getDefaultIntegerValueHandler(
+	this.vhDenarii = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonLabels.VH_DENARII, denarii);
-	this.vhLibra = ValueHandlerFactory.getDefaultIntegerValueHandler(
+	this.vhLibra = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonLabels.VH_LIBRA, libra);
     }
 
