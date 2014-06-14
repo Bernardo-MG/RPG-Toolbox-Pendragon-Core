@@ -18,6 +18,9 @@
 # Log files #
 /*.log
 
+# Output folders #
+/test-output/
+
 # Eclipse files #
 .buildpath
 .classpath
