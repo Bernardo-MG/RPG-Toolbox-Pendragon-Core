@@ -61,7 +61,7 @@
 		<wandrell.version>alpha</wandrell.version>
 		<!-- Plugins versions -->
 		<plugin.cobertura.version>2.6</plugin.cobertura.version>
-		<plugin.compiler.version>2.3.1</plugin.compiler.version>
+		<plugin.compiler.version>3.1</plugin.compiler.version>
 		<plugin.jar.version>2.4</plugin.jar.version>
 		<plugin.javadoc.version>2.9.1</plugin.javadoc.version>
 		<plugin.reports.version>2.7</plugin.reports.version>
