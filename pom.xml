@@ -56,7 +56,7 @@
 		<jdom.version>2.0.5</jdom.version>
 		<junit.version>4.11</junit.version>
 		<rpg.version>alpha</rpg.version>
-		<slf4j.version>1.7.6</slf4j.version>
+		<slf4j.version>1.7.7</slf4j.version>
 		<spring.version>4.0.2.RELEASE</spring.version>
 		<wandrell.version>alpha</wandrell.version>
 		<!-- Plugins versions -->
