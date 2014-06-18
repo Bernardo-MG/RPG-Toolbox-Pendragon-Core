@@ -57,7 +57,7 @@
 		<junit.version>4.11</junit.version>
 		<rpg.version>alpha</rpg.version>
 		<slf4j.version>1.7.7</slf4j.version>
-		<spring.version>4.0.2.RELEASE</spring.version>
+		<spring.version>4.0.5.RELEASE</spring.version>
 		<wandrell.version>alpha</wandrell.version>
 		<!-- Plugins versions -->
 		<plugin.cobertura.version>2.6</plugin.cobertura.version>
