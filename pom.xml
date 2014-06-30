@@ -7,9 +7,9 @@
 	<version>alpha</version>
 	<packaging>jar</packaging>
 
-	<name>Pendragon Core</name>
-	<description>Core library for Pendragon</description>
-	<url>https://github.com/Bernardo-MG/RPG-Pendragon-Core</url>
+	<name>Tabletop's Pendragon Core</name>
+	<url></url>
+	<description>Core library for the RPG Pendragon, part of the Tabletop project.</description>
 
 	<licenses>
 		<license>
