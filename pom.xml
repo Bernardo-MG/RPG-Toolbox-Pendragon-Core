@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.wandrell.tabletop.rpg</groupId>
-	<artifactId>pendragon-core</artifactId>
+	<groupId>com.wandrell</groupId>
+	<artifactId>tabletop-pendragon-core</artifactId>
 	<version>alpha</version>
 	<packaging>jar</packaging>
 
@@ -90,18 +90,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<!-- RPG core -->
-			<groupId>com.wandrell.tabletop.rpg</groupId>
-			<artifactId>rpg-core</artifactId>
-			<version>${rpg.version}</version>
-		</dependency>
-		<dependency>
-			<!-- RPG Pendragon's API -->
-			<groupId>com.wandrell.tabletop.rpg</groupId>
-			<artifactId>pendragon-api</artifactId>
-			<version>${rpg.version}</version>
-		</dependency>
-		<dependency>
 			<!-- SLF4J API -->
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -125,6 +113,18 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<!-- Tabletop core -->
+			<groupId>com.wandrell</groupId>
+			<artifactId>tabletop-core</artifactId>
+			<version>${rpg.version}</version>
+		</dependency>
+		<dependency>
+			<!-- RPG Pendragon's API -->
+			<groupId>com.wandrell</groupId>
+			<artifactId>tabletop-pendragon-api</artifactId>
+			<version>${rpg.version}</version>
 		</dependency>
 		<dependency>
 			<!-- Wandrell's Core library -->
