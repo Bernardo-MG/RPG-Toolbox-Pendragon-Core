@@ -4,31 +4,30 @@ import com.wandrell.tabletop.rpg.character.Gender;
 import com.wandrell.tabletop.rpg.conf.factory.ValueHandlerFactory;
 import com.wandrell.tabletop.rpg.pendragon.conf.PendragonLabels;
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultChild implements Child, NewInstantiable {
+public class DefaultChild implements Child {
 
-    private Gender genderChild = Gender.MALE;
-    private String nameChild = "";
-    private final ValueHandler<Integer> vhYearBorn;
-    private final ValueHandler<Integer> vhYearDeath;
+    private Gender gender = Gender.MALE;
+    private String name = "";
+    private final ValueHandler<Integer> yearBorn;
+    private final ValueHandler<Integer> yearDeath;
 
     public DefaultChild() {
 	super();
 
-	vhYearBorn = ValueHandlerFactory.getInstance().getValueHandler(
+	yearBorn = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonLabels.VH_YEAR_BORN);
-	vhYearDeath = ValueHandlerFactory.getInstance().getValueHandler(
+	yearDeath = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonLabels.VH_YEAR_DEATH);
     }
 
     public DefaultChild(final DefaultChild data) {
 	super();
 
-	genderChild = data.genderChild;
-	nameChild = data.nameChild;
-	vhYearBorn = data.vhYearBorn.createNewInstance();
-	vhYearDeath = data.vhYearDeath.createNewInstance();
+	gender = data.gender;
+	name = data.name;
+	yearBorn = data.yearBorn.createNewInstance();
+	yearDeath = data.yearDeath.createNewInstance();
     }
 
     @Override
@@ -37,23 +36,23 @@ public class DefaultChild implements Child, NewInstantiable {
     }
 
     @Override
-    public Gender getGender() {
-	return genderChild;
+    public final Gender getGender() {
+	return gender;
     }
 
     @Override
-    public String getName() {
-	return nameChild;
+    public final String getName() {
+	return name;
     }
 
     @Override
-    public ValueHandler<Integer> getYearBorn() {
-	return vhYearBorn;
+    public final ValueHandler<Integer> getYearBorn() {
+	return yearBorn;
     }
 
     @Override
-    public ValueHandler<Integer> getYearDeath() {
-	return vhYearDeath;
+    public final ValueHandler<Integer> getYearDeath() {
+	return yearDeath;
     }
 
     @Override
@@ -61,27 +60,33 @@ public class DefaultChild implements Child, NewInstantiable {
 	final int prime = 31;
 	int result = 1;
 
-	result = prime * result
-		+ ((genderChild == null) ? 0 : genderChild.hashCode());
+	result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+
+	result = prime * result + ((name == null) ? 0 : name.hashCode());
 
 	result = prime * result
-		+ ((nameChild == null) ? 0 : nameChild.hashCode());
+		+ ((yearBorn == null) ? 0 : yearBorn.hashCode());
 
 	result = prime * result
-		+ ((vhYearBorn == null) ? 0 : vhYearBorn.hashCode());
-
-	result = prime * result
-		+ ((vhYearDeath == null) ? 0 : vhYearDeath.hashCode());
+		+ ((yearDeath == null) ? 0 : yearDeath.hashCode());
 
 	return result;
     }
 
-    public void setGender(final Gender gender) {
-	this.genderChild = gender;
+    public final void setGender(final Gender gender) {
+	if (gender == null) {
+	    throw new NullPointerException();
+	}
+
+	this.gender = gender;
     }
 
-    public void setName(final String name) {
-	nameChild = name;
+    public final void setName(final String name) {
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
+	this.name = name;
     }
 
     @Override

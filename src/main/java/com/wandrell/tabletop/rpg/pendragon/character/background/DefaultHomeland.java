@@ -1,19 +1,23 @@
 package com.wandrell.tabletop.rpg.pendragon.character.background;
 
-import com.wandrell.util.tag.NewInstantiable;
+public class DefaultHomeland implements Homeland {
 
-public class DefaultHomeland implements Homeland, NewInstantiable {
-
-    private String name = "";
-
-    public DefaultHomeland() {
-	super();
-    }
+    private final String name;
 
     public DefaultHomeland(final DefaultHomeland homeland) {
 	super();
 
 	name = homeland.name;
+    }
+
+    public DefaultHomeland(final String name) {
+	super();
+
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
+	this.name = name;
     }
 
     @Override
@@ -26,8 +30,9 @@ public class DefaultHomeland implements Homeland, NewInstantiable {
 	return name;
     }
 
-    public void setName(final String name) {
-	this.name = name;
+    @Override
+    public String toString() {
+	return getName();
     }
 
 }

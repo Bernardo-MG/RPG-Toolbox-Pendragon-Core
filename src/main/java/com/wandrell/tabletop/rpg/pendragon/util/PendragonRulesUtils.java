@@ -3,12 +3,14 @@ package com.wandrell.tabletop.rpg.pendragon.util;
 import com.wandrell.tabletop.rpg.dice.DefaultRollTable;
 import com.wandrell.tabletop.rpg.dice.RollTable;
 
-public class PendragonRulesUtils {
+public final class PendragonRulesUtils {
 
     private static PendragonRulesUtils instance;
     private static final RollTable<Integer> mapFeaturesCount;
 
     static {
+	// TODO: Load the configuration from a file
+	// TODO: Do this in some other way
 	mapFeaturesCount = new DefaultRollTable<>(Integer.MIN_VALUE, 6, 3);
 	mapFeaturesCount.addInterval(9, 2);
 	mapFeaturesCount.addInterval(12, 1);
@@ -30,7 +32,7 @@ public class PendragonRulesUtils {
 	return false;
     }
 
-    public final static int weightCalculator(final int size) {
+    public static final Integer weightCalculator(final Integer size) {
 	getInstance();
 
 	return recursiveWeightCalculator(size);
@@ -44,7 +46,7 @@ public class PendragonRulesUtils {
 	return instance;
     }
 
-    private final static int recursiveWeightCalculator(final int size) {
+    private final static Integer recursiveWeightCalculator(final Integer size) {
 	final int sizeValue;
 	int result;
 

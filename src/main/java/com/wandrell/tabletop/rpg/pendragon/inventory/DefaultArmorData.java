@@ -7,11 +7,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultArmorData implements ArmorData, NewInstantiable {
+public class DefaultArmorData implements ArmorData {
 
-    private final Map<String, ValueHandler<Integer>> storeArmor = new LinkedHashMap<>();
+    private final Map<String, ValueHandler<Integer>> armorValues = new LinkedHashMap<>();
 
     public DefaultArmorData() {
 	super();
@@ -38,12 +37,20 @@ public class DefaultArmorData implements ArmorData, NewInstantiable {
     public DefaultArmorData(final DefaultArmorData armor) {
 	super();
 
-	for (final Entry<String, ValueHandler<Integer>> entry : armor.storeArmor
+	for (final Entry<String, ValueHandler<Integer>> entry : armor.armorValues
 		.entrySet()) {
-	    storeArmor
-		    .put(entry.getKey(), entry.getValue().createNewInstance());
+	    armorValues.put(entry.getKey(), entry.getValue()
+		    .createNewInstance());
 	}
 
+    }
+
+    public final void addArmorValue(final ValueHandler<Integer> armor) {
+	if (armor == null) {
+	    throw new NullPointerException();
+	}
+
+	_getArmorValues().put(armor.getName(), armor);
     }
 
     @Override
@@ -64,10 +71,10 @@ public class DefaultArmorData implements ArmorData, NewInstantiable {
 	    equals = false;
 	} else {
 	    received = (DefaultArmorData) obj;
-	    if (received.storeArmor == null) {
-		equals = (storeArmor == null);
+	    if (received.armorValues == null) {
+		equals = (armorValues == null);
 	    } else {
-		equals = (received.storeArmor.equals(storeArmor));
+		equals = (received.armorValues.equals(armorValues));
 	    }
 	}
 
@@ -75,18 +82,18 @@ public class DefaultArmorData implements ArmorData, NewInstantiable {
     }
 
     @Override
-    public ValueHandler<Integer> getArmorPiece(final String name) {
-	return getArmorStore().get(name);
+    public final ValueHandler<Integer> getArmorValue(final String name) {
+	return _getArmorValues().get(name);
     }
 
     @Override
-    public Collection<ValueHandler<Integer>> getArmorPieces() {
-	return Collections.unmodifiableCollection(getArmorStore().values());
+    public final Collection<ValueHandler<Integer>> getArmorValues() {
+	return Collections.unmodifiableCollection(_getArmorValues().values());
     }
 
     @Override
-    public Boolean hasArmorPiece(final String name) {
-	return getArmorStore().containsKey(name);
+    public final Boolean hasArmorValue(final String name) {
+	return _getArmorValues().containsKey(name);
     }
 
     @Override
@@ -95,12 +102,12 @@ public class DefaultArmorData implements ArmorData, NewInstantiable {
 	int result = 1;
 
 	result = prime * result
-		+ ((storeArmor == null) ? 0 : storeArmor.hashCode());
+		+ ((armorValues == null) ? 0 : armorValues.hashCode());
 
 	return result;
     }
 
-    public void initializeReligiousArmor(final Integer armorValue) {
+    public final void initializeReligiousArmor(final Integer armorValue) {
 	// TODO: ¿Y esto qué es?
 	// ModularValueHandler<Integer> vh;
 	//
@@ -119,7 +126,8 @@ public class DefaultArmorData implements ArmorData, NewInstantiable {
 	// vh.setStore(new IntegerSwitchStore(vh, set, 0, armorValue));
     }
 
-    public void setChivaldryArmorSwitch(final ValueHandler<Integer> vhSwitch) {
+    public final void setChivaldryArmorSwitch(
+	    final ValueHandler<Integer> vhSwitch) {
 	// final StatusEventThrower set;
 	// final int chivaldryArmor;
 	// DelegateValueHandler<Integer> vh;
@@ -142,8 +150,8 @@ public class DefaultArmorData implements ArmorData, NewInstantiable {
 	// vh.setStore(new IntegerSwitchStore(vh, set, 0, chivaldryArmor));
     }
 
-    private Map<String, ValueHandler<Integer>> getArmorStore() {
-	return storeArmor;
+    private final Map<String, ValueHandler<Integer>> _getArmorValues() {
+	return armorValues;
     }
 
 }

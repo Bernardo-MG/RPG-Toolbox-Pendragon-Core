@@ -3,32 +3,30 @@ package com.wandrell.tabletop.rpg.pendragon.glory;
 import com.wandrell.tabletop.rpg.conf.factory.ValueHandlerFactory;
 import com.wandrell.tabletop.rpg.pendragon.conf.PendragonLabels;
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultGloryEvent implements GloryEvent, NewInstantiable,
-	Comparable<GloryEvent> {
+public class DefaultGloryEvent implements GloryEvent {
 
-    private final String infoGlory;
-    private final ValueHandler<Integer> vhGloryGained;
-    private final ValueHandler<Integer> vhYear;
+    private final String description;
+    private final ValueHandler<Integer> gloryGained;
+    private final ValueHandler<Integer> year;
 
     public DefaultGloryEvent(final DefaultGloryEvent data) {
 	super();
 
-	vhGloryGained = data.vhGloryGained.createNewInstance();
-	vhYear = data.vhYear.createNewInstance();
-	infoGlory = data.infoGlory;
+	gloryGained = data.gloryGained.createNewInstance();
+	year = data.year.createNewInstance();
+	description = data.description;
     }
 
     public DefaultGloryEvent(final Integer year, final Integer gloryGained,
-	    final String info) {
+	    final String description) {
 	super();
 
-	vhYear = ValueHandlerFactory.getInstance().getValueHandler(
+	this.year = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonLabels.VH_GLORY_EVENT_YEAR_NAME, year);
-	vhGloryGained = ValueHandlerFactory.getInstance().getValueHandler(
+	this.gloryGained = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonLabels.VH_GLORY_EVENT_GLORY_GAINED, gloryGained);
-	this.infoGlory = info;
+	this.description = description;
     }
 
     @Override
@@ -55,20 +53,20 @@ public class DefaultGloryEvent implements GloryEvent, NewInstantiable,
 	    equals = false;
 	} else {
 	    received = (DefaultGloryEvent) obj;
-	    if (received.infoGlory == null) {
-		equals = (infoGlory == null);
+	    if (received.description == null) {
+		equals = (description == null);
 	    } else {
-		equals = (received.infoGlory.equals(infoGlory));
+		equals = (received.description.equals(description));
 	    }
-	    if ((equals) && (received.vhGloryGained == null)) {
-		equals = (vhGloryGained == null);
+	    if ((equals) && (received.gloryGained == null)) {
+		equals = (gloryGained == null);
 	    } else if (equals) {
-		equals = (received.vhGloryGained.equals(vhGloryGained));
+		equals = (received.gloryGained.equals(gloryGained));
 	    }
-	    if ((equals) && (received.vhYear == null)) {
-		equals = (vhYear == null);
+	    if ((equals) && (received.year == null)) {
+		equals = (year == null);
 	    } else if (equals) {
-		equals = (received.vhYear.equals(vhYear));
+		equals = (received.year.equals(year));
 	    }
 	}
 
@@ -76,18 +74,18 @@ public class DefaultGloryEvent implements GloryEvent, NewInstantiable,
     }
 
     @Override
-    public ValueHandler<Integer> getGloryGained() {
-	return vhGloryGained;
+    public final String getDescription() {
+	return description;
     }
 
     @Override
-    public String getInfo() {
-	return infoGlory;
+    public final ValueHandler<Integer> getGloryGained() {
+	return gloryGained;
     }
 
     @Override
-    public ValueHandler<Integer> getYear() {
-	return vhYear;
+    public final ValueHandler<Integer> getYear() {
+	return year;
     }
 
     @Override
@@ -96,15 +94,22 @@ public class DefaultGloryEvent implements GloryEvent, NewInstantiable,
 	int result = 1;
 
 	result = prime * result
-		+ ((infoGlory == null) ? 0 : infoGlory.hashCode());
+		+ ((description == null) ? 0 : description.hashCode());
 	result = prime
 		* result
-		+ (((vhGloryGained == null) || (vhGloryGained.getStoredValue() == null)) ? 0
-			: vhGloryGained.getStoredValue().hashCode());
+		+ (((gloryGained == null) || (gloryGained.getStoredValue() == null)) ? 0
+			: gloryGained.getStoredValue().hashCode());
 	result = prime
 		* result
-		+ (((vhYear == null) || (vhYear.getStoredValue() == null)) ? 0
-			: vhYear.getStoredValue().hashCode());
+		+ (((year == null) || (year.getStoredValue() == null)) ? 0
+			: year.getStoredValue().hashCode());
 	return result;
+    }
+
+    @Override
+    public String toString() {
+	return String.format("[Year %d] [Gained %d] [%s]", getYear()
+		.getStoredValue(), getGloryGained().getStoredValue(),
+		getDescription());
     }
 }

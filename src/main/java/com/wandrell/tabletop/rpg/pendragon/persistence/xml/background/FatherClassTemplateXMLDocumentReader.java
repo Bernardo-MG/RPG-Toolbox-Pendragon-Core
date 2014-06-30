@@ -15,14 +15,17 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 public class FatherClassTemplateXMLDocumentReader implements
 	XMLDocumentReader<FatherClass> {
 
+    public FatherClassTemplateXMLDocumentReader() {
+	super();
+    }
+
     @Override
-    public FatherClass getValue(final Document doc) {
+    public final FatherClass getValue(final Document doc) {
 	final DefaultFatherClass holder;
 	final Element skillsGroup, skillPoints, money;
 	final Element root;
 
 	root = doc.getRootElement();
-	holder = new DefaultFatherClass();
 
 	// TODO
 	// PersistenceFactory.getTemplatesContainerService().readXMLTree(root,
@@ -33,7 +36,8 @@ public class FatherClassTemplateXMLDocumentReader implements
 	money = root.getChild(FileLabels.MONEY);
 
 	// Father's class name
-	holder.setName(root.getAttributeValue(FileStreamerTags.NAME));
+	holder = new DefaultFatherClass(
+		root.getAttributeValue(FileStreamerTags.NAME));
 
 	// Skills groups
 	if (skillsGroup != null) {
@@ -57,7 +61,8 @@ public class FatherClassTemplateXMLDocumentReader implements
 	return holder;
     }
 
-    private Iterator<DefaultPendragonSkill> buildSkillsIterator(
+    @SuppressWarnings("unused")
+    private final Iterator<DefaultPendragonSkill> buildSkillsIterator(
 	    final FatherClass holder, final Element skills) {
 	// TODO
 	// final Iterator<? extends ValueHandler<Integer>> itrSkills;
@@ -82,7 +87,7 @@ public class FatherClassTemplateXMLDocumentReader implements
 	return null;
     }
 
-    private void readSkillsGroupXMLTree(final Element root,
+    private final void readSkillsGroupXMLTree(final Element root,
 	    final FatherClass holder) {
 	// TODO
 	// final Element skills, points;

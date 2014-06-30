@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.wandrell.tabletop.rpg.pendragon.valuehandler.module.store.TraitsBonusMarginStore;
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
 
 public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
@@ -141,19 +140,6 @@ public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
 
     private Map<String, ValueHandler<Integer>> getBonusSwitchsStore() {
 	return storeTraitsBonusSwitchs;
-    }
-
-    private void initializeTraitsBonusSwitch(
-	    final ValueHandler<Integer> vhCount,
-	    final Iterator<ValueHandler<Integer>> itrTraits) {
-	final TraitsBonusMarginStore vc;
-
-	// vc = new TraitsBonusMarginStore(vhCount, 0);
-	// vhCount.setStore(vc);
-
-	// while (itrTraits.hasNext()) {
-	// vc.addValueHandler(itrTraits.next());
-	// }
     }
 
 }

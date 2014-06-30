@@ -10,11 +10,11 @@ public class WeaponXMLDocumentReader extends
 	AbstractEquipableItemXMLDocumentReader<WeaponEquipment> {
 
     public WeaponXMLDocumentReader() {
-	super(WeaponEquipment.class);
+	super();
     }
 
     @Override
-    public WeaponEquipment getValue(final Document doc) {
+    public final WeaponEquipment getValue(final Document doc) {
 	final Element skill;
 	final WeaponEquipment weapon;
 	final Element root;

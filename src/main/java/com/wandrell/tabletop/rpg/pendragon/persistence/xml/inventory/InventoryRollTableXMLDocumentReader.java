@@ -6,16 +6,21 @@ import org.jdom2.Element;
 import com.wandrell.tabletop.rpg.conf.FileStreamerTags;
 import com.wandrell.tabletop.rpg.dice.RollTable;
 import com.wandrell.tabletop.rpg.pendragon.conf.FileLabels;
-import com.wandrell.tabletop.rpg.pendragon.inventory.AdditionalBelongingsSetData;
-import com.wandrell.tabletop.rpg.pendragon.inventory.DefaultAdditionalBelongingsSetData;
+import com.wandrell.tabletop.rpg.pendragon.inventory.AdditionalBelongings;
+import com.wandrell.tabletop.rpg.pendragon.inventory.DefaultAdditionalBelongings;
 import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class InventoryRollTableXMLDocumentReader implements
-	XMLDocumentReader<RollTable<AdditionalBelongingsSetData>> {
+	XMLDocumentReader<RollTable<AdditionalBelongings>> {
 
+    public InventoryRollTableXMLDocumentReader() {
+	super();
+    }
+
+    @SuppressWarnings("unused")
     @Override
-    public RollTable<AdditionalBelongingsSetData> getValue(final Document doc) {
-	final RollTable<AdditionalBelongingsSetData> holder;
+    public final RollTable<AdditionalBelongings> getValue(final Document doc) {
+	final RollTable<AdditionalBelongings> holder;
 	final Element intervals;
 	final Element root;
 
@@ -37,13 +42,14 @@ public class InventoryRollTableXMLDocumentReader implements
 	return null;
     }
 
-    private void readIntervalsXMLTree(final Element root,
-	    final RollTable<AdditionalBelongingsSetData> holder) {
+    @SuppressWarnings("unused")
+    private final void readIntervalsXMLTree(final Element root,
+	    final RollTable<AdditionalBelongings> holder) {
 	Element belongings;
-	DefaultAdditionalBelongingsSetData items;
+	DefaultAdditionalBelongings items;
 
 	for (final Element node : root.getChildren()) {
-	    items = new DefaultAdditionalBelongingsSetData();
+	    items = new DefaultAdditionalBelongings();
 
 	    belongings = node.getChild(FileLabels.BELONGINGS);
 
@@ -56,8 +62,8 @@ public class InventoryRollTableXMLDocumentReader implements
 
     }
 
-    private void readItemsXMLTree(final Element root,
-	    final DefaultAdditionalBelongingsSetData holder) {
+    private final void readItemsXMLTree(final Element root,
+	    final DefaultAdditionalBelongings holder) {
 	final Element flags, horses, equipment, pets, reroll, rerolls, weapons, shields, money, name;
 
 	flags = root.getChild(FileLabels.FLAGS);

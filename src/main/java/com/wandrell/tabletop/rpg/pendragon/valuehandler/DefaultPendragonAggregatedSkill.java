@@ -1,8 +1,8 @@
 package com.wandrell.tabletop.rpg.pendragon.valuehandler;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import com.wandrell.tabletop.rpg.valuehandler.DefaultValueHandler;
@@ -12,18 +12,16 @@ import com.wandrell.tabletop.rpg.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.ValidatorModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.store.ProxyStore;
-import com.wandrell.util.tag.NewInstantiable;
 
 public class DefaultPendragonAggregatedSkill extends
-	DefaultValueHandler<Integer> implements PendragonAggregatedSkill,
-	NewInstantiable {
+	DefaultValueHandler<Integer> implements PendragonSpecialtySkill {
 
-    private final Set<String> setSurrogatedSkills = new HashSet<String>();
+    private final Set<String> skills = new HashSet<String>();
 
     public DefaultPendragonAggregatedSkill(
 	    final DefaultPendragonAggregatedSkill skill) {
 	super(skill);
-	setSurrogatedSkills.addAll(skill.setSurrogatedSkills);
+	skills.addAll(skill.skills);
     }
 
     public DefaultPendragonAggregatedSkill(final String name,
@@ -31,9 +29,9 @@ public class DefaultPendragonAggregatedSkill extends
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
 	    final ValidatorModule<Integer> validator,
-	    final Iterator<String> itrSurrogatedSkills) {
+	    final Collection<String> skills) {
 	super(name, generator, interval, store, validator);
-	setSurrogatedSkillsNames(itrSurrogatedSkills);
+	setSurrogatedSkillsNames(skills);
     }
 
     @Override
@@ -42,38 +40,44 @@ public class DefaultPendragonAggregatedSkill extends
     }
 
     @Override
-    public Collection<String> getSkillsNames() {
-	return getSurrogatedSkillsSet();
+    public final Collection<String> getSurrogatedSkills() {
+	return Collections.unmodifiableCollection(_getSurrogatedSkills());
     }
 
     @Override
-    public boolean isSkillContained(final String name) {
-	return getSurrogatedSkillsSet().contains(name);
+    public final Boolean isSkillContained(final String name) {
+	return _getSurrogatedSkills().contains(name);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void register(final PendragonSkill vhSkill) {
-	if (!(vhSkill instanceof DelegateValueHandler<?>)) {
+    public final void registerSkill(final PendragonSkill skill) {
+	// TODO: This may be better be done somewhere else
+	if (skill == null) {
+	    throw new NullPointerException();
+	}
+
+	if (!(skill instanceof DelegateValueHandler<?>)) {
 	    // TODO: Error
-	} else if (isSkillContained(vhSkill.getName())) {
-	    ((DelegateValueHandler<Integer>) vhSkill)
+	} else if (isSkillContained(skill.getName())) {
+	    ((DelegateValueHandler<Integer>) skill)
 		    .setStore(new ProxyStore<Integer>(this));
 	}
     }
 
-    public void setSurrogatedSkillsNames(final Iterator<String> itrSkills) {
-	getSurrogatedSkillsSet().clear();
-	while (itrSkills.hasNext()) {
-	    addSurrogatedSkillName(itrSkills.next());
+    private final void setSurrogatedSkillsNames(final Collection<String> skills) {
+	_getSurrogatedSkills().clear();
+	for (final String skill : skills) {
+	    if (skill == null) {
+		throw new NullPointerException();
+	    }
+
+	    _getSurrogatedSkills().add(skill);
 	}
     }
 
-    protected void addSurrogatedSkillName(final String skill) {
-	setSurrogatedSkills.add(skill);
-    }
-
-    protected Set<String> getSurrogatedSkillsSet() {
-	return setSurrogatedSkills;
+    protected final Collection<String> _getSurrogatedSkills() {
+	return skills;
     }
 
 }

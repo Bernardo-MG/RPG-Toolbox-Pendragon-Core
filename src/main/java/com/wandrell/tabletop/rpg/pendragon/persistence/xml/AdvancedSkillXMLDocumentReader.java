@@ -14,8 +14,13 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 public class AdvancedSkillXMLDocumentReader implements
 	XMLDocumentReader<DefaultPendragonAggregatedSkill> {
 
+    public AdvancedSkillXMLDocumentReader() {
+	super();
+    }
+
+    @SuppressWarnings("unused")
     @Override
-    public DefaultPendragonAggregatedSkill getValue(final Document doc) {
+    public final DefaultPendragonAggregatedSkill getValue(final Document doc) {
 	final Element skills;
 	final Iterator<String> itrSkills;
 	final String name;

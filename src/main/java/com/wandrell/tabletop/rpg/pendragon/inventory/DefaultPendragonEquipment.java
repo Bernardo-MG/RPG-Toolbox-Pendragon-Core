@@ -14,8 +14,8 @@ import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
 public class DefaultPendragonEquipment extends DefaultPendragonItem implements
 	PendragonEquipment {
 
-    private final Set<String> setFlags = new TreeSet<String>();
-    private final Map<String, ValueHandler<Integer>> storeValues = new LinkedHashMap<>();
+    private final Set<String> flags = new TreeSet<String>();
+    private final Map<String, ValueHandler<Integer>> values = new LinkedHashMap<>();
 
     public DefaultPendragonEquipment() {
 	super();
@@ -24,19 +24,18 @@ public class DefaultPendragonEquipment extends DefaultPendragonItem implements
     public DefaultPendragonEquipment(final DefaultPendragonEquipment item) {
 	super(item);
 
-	for (final Entry<String, ValueHandler<Integer>> entry : storeValues
+	for (final Entry<String, ValueHandler<Integer>> entry : values
 		.entrySet()) {
-	    storeValues.put(entry.getKey(), entry.getValue()
-		    .createNewInstance());
+	    values.put(entry.getKey(), entry.getValue().createNewInstance());
 	}
 
-	for (final String flag : item.setFlags) {
-	    setFlags.add(flag);
+	for (final String flag : item.flags) {
+	    flags.add(flag);
 	}
     }
 
-    public void addValue(final ValueHandler<Integer> bonus) {
-	getValuesStore().put(bonus.getName(), bonus);
+    public final void addValue(final ValueHandler<Integer> bonus) {
+	_getMiscelanyValues().put(bonus.getName(), bonus);
     }
 
     @Override
@@ -45,62 +44,63 @@ public class DefaultPendragonEquipment extends DefaultPendragonItem implements
     }
 
     @Override
-    public Boolean getFlag(final String name) {
-	return getFlagsSet().contains(name);
+    public final Boolean getFlag(final String name) {
+	return _getFlags().contains(name);
     }
 
     @Override
-    public Collection<String> getFlags() {
-	return Collections.unmodifiableCollection(getFlagsSet());
+    public final Collection<String> getFlags() {
+	return Collections.unmodifiableCollection(_getFlags());
     }
 
     @Override
-    public ValueHandler<Integer> getMiscelanyValue(final String name) {
-	return getValuesStore().get(name);
+    public final ValueHandler<Integer> getMiscelanyValue(final String name) {
+	return _getMiscelanyValues().get(name);
     }
 
     @Override
-    public Collection<ValueHandler<Integer>> getMiscelanyValues() {
-	return Collections.unmodifiableCollection(getValuesStore().values());
+    public final Collection<ValueHandler<Integer>> getMiscelanyValues() {
+	return Collections.unmodifiableCollection(_getMiscelanyValues()
+		.values());
     }
 
     @Override
-    public Boolean hasFlag(final String name) {
-	return getFlagsSet().contains(name);
+    public final Boolean hasFlag(final String name) {
+	return _getFlags().contains(name);
     }
 
     @Override
-    public Boolean hasValue(final String name) {
-	return getValuesStore().containsKey(name);
+    public final Boolean hasValue(final String name) {
+	return _getMiscelanyValues().containsKey(name);
     }
 
-    public void setFlag(final String name, final Boolean value) {
+    public final void setFlag(final String name, final Boolean value) {
 	if ((hasFlag(name)) && (!value)) {
-	    getFlagsSet().remove(name);
+	    _getFlags().remove(name);
 	} else if (value) {
-	    getFlagsSet().add(name);
+	    _getFlags().add(name);
 	}
     }
 
-    public void setFlags(final Iterator<String> itrFlags) {
-	getFlagsSet().clear();
+    public final void setFlags(final Iterator<String> itrFlags) {
+	_getFlags().clear();
 	while (itrFlags.hasNext()) {
 	    setFlag(itrFlags.next(), true);
 	}
     }
 
-    public void setValues(final Collection<ValueHandler<Integer>> values) {
+    public final void setValues(final Collection<ValueHandler<Integer>> values) {
 	for (final ValueHandler<Integer> value : values) {
 	    addValue(value);
 	}
     }
 
-    protected Set<String> getFlagsSet() {
-	return setFlags;
+    protected final Collection<String> _getFlags() {
+	return flags;
     }
 
-    protected Map<String, ValueHandler<Integer>> getValuesStore() {
-	return storeValues;
+    protected final Map<String, ValueHandler<Integer>> _getMiscelanyValues() {
+	return values;
     }
 
 }

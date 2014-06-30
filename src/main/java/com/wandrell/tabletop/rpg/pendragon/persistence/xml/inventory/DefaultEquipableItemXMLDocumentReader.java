@@ -6,7 +6,7 @@ public class DefaultEquipableItemXMLDocumentReader extends
 	AbstractEquipableItemXMLDocumentReader<PendragonEquipment> {
 
     public DefaultEquipableItemXMLDocumentReader() {
-	super(PendragonEquipment.class);
+	super();
     }
 
 }

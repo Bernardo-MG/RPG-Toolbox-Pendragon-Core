@@ -2,27 +2,55 @@ package com.wandrell.tabletop.rpg.pendragon.character.background;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import com.wandrell.tabletop.rpg.conf.factory.ValueHandlerFactory;
+import com.wandrell.tabletop.rpg.pendragon.conf.PendragonLabels;
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultReligion implements Religion, NewInstantiable {
+public class DefaultReligion implements Religion {
 
-    private String name = "";
-    private final Set<String> setTraits = new LinkedHashSet<String>();
-
-    public DefaultReligion() {
-	super();
-    }
+    private final ValueHandler<Integer> bonusArmor;
+    private final ValueHandler<Integer> bonusDamage;
+    private final Map<String, ValueHandler<Integer>> bonusDerived = new LinkedHashMap<>();
+    private final String name;
+    private final Set<String> traits = new LinkedHashSet<String>();
 
     public DefaultReligion(final DefaultReligion religion) {
 	super();
 
 	name = religion.name;
 
-	setReligiousTraits(religion.setTraits);
+	for (final String trait : traits) {
+	    traits.add(trait);
+	}
+
+	bonusArmor = religion.bonusArmor.createNewInstance();
+	bonusDamage = religion.bonusDamage.createNewInstance();
+
+	for (final Entry<String, ValueHandler<Integer>> entry : religion.bonusDerived
+		.entrySet()) {
+	    bonusDerived.put(entry.getKey(), entry.getValue());
+	}
+    }
+
+    public DefaultReligion(final String name) {
+	super();
+
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
+	this.name = name;
+
+	bonusArmor = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_ARMOR);
+	bonusDamage = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_DAMAGE);
     }
 
     @Override
@@ -31,62 +59,70 @@ public class DefaultReligion implements Religion, NewInstantiable {
     }
 
     @Override
-    public ValueHandler<Integer> getArmorBonus() {
-	// TODO Auto-generated method stub
-	return null;
+    public final ValueHandler<Integer> getArmorBonus() {
+	return bonusArmor;
     }
 
     @Override
-    public ValueHandler<Integer> getDamageBonus() {
-	// TODO Auto-generated method stub
-	return null;
+    public final ValueHandler<Integer> getDamageBonus() {
+	return bonusDamage;
     }
 
     @Override
-    public ValueHandler<Integer> getDerivedAttributeBonus(String name) {
-	// TODO Auto-generated method stub
-	return null;
+    public final ValueHandler<Integer> getDerivedAttributeBonus(
+	    final String name) {
+	return _getDerivedAttributesBonus().get(name);
     }
 
     @Override
-    public Collection<ValueHandler<Integer>> getDerivedAttributesBonus() {
-	// TODO Auto-generated method stub
-	return null;
+    public final Collection<ValueHandler<Integer>> getDerivedAttributesBonus() {
+	return Collections.unmodifiableCollection(_getDerivedAttributesBonus()
+		.values());
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
 	return name;
     }
 
     @Override
-    public Collection<String> getReligiousTraits() {
-	return Collections.unmodifiableCollection(getTraitsSet());
+    public final Collection<String> getReligiousTraits() {
+	return Collections.unmodifiableCollection(_getTraits());
     }
 
     @Override
-    public boolean hasDerivedAttributeBonus(String name) {
-	// TODO Auto-generated method stub
-	return false;
+    public final Boolean hasDerivedAttributeBonus(final String name) {
+	return _getDerivedAttributesBonus().containsKey(name);
     }
 
     @Override
-    public boolean hasTrait(final String trait) {
-	return getTraitsSet().contains(trait);
+    public final Boolean hasTrait(final String trait) {
+	return _getTraits().contains(trait);
     }
 
-    public void setName(final String name) {
-	this.name = name;
-    }
+    public final void setReligiousTraits(final Collection<String> traits) {
+	_getTraits().clear();
 
-    public void setReligiousTraits(final Collection<String> traits) {
 	for (final String trait : traits) {
-	    getTraitsSet().add(trait);
+	    if (trait == null) {
+		throw new NullPointerException();
+	    }
+
+	    _getTraits().add(trait);
 	}
     }
 
-    private Set<String> getTraitsSet() {
-	return setTraits;
+    @Override
+    public String toString() {
+	return getName();
+    }
+
+    protected final Map<String, ValueHandler<Integer>> _getDerivedAttributesBonus() {
+	return bonusDerived;
+    }
+
+    protected final Set<String> _getTraits() {
+	return traits;
     }
 
 }

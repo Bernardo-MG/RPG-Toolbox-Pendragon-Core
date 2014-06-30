@@ -35,25 +35,25 @@ public class TraitsBonusMarginStore extends StoreModule<Integer> {
     }
 
     @Override
-    public void addValue(final Integer value) {
+    public final void addValue(final Integer value) {
     }
 
     @Override
-    public TraitsBonusMarginStore createNewInstance() {
+    public final TraitsBonusMarginStore createNewInstance() {
 	return new TraitsBonusMarginStore(this);
     }
 
     @Override
-    public Integer getValue() {
+    public final Integer getValue() {
 	return store.getAllSum();
     }
 
-    public boolean isOn() {
+    public final Boolean isOn() {
 	return (getValue() >= store.getMargin());
     }
 
     @Override
-    public void setValue(final Integer value) {
+    public final void setValue(final Integer value) {
     }
 
 }

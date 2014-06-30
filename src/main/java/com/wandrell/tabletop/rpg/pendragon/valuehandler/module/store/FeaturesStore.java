@@ -6,36 +6,37 @@ import com.wandrell.tabletop.rpg.valuehandler.module.StoreModule;
 
 public class FeaturesStore extends StoreModule<Integer> {
 
-    private final ValueHandler<Integer> vhApp;
+    private final ValueHandler<Integer> appearance;
 
-    public FeaturesStore(final FeaturesStore vc) {
-	super(vc);
-	vhApp = vc.vhApp.createNewInstance();
+    public FeaturesStore(final FeaturesStore module) {
+	super(module);
+	appearance = module.appearance.createNewInstance();
     }
 
-    public FeaturesStore(final ValueHandler<Integer> vhApp) {
+    public FeaturesStore(final ValueHandler<Integer> appearance) {
 	super();
 
-	this.vhApp = vhApp;
+	this.appearance = appearance;
     }
 
     @Override
-    public void addValue(final Integer value) {
+    public final void addValue(final Integer value) {
     }
 
     @Override
-    public FeaturesStore createNewInstance() {
+    public final FeaturesStore createNewInstance() {
 	return new FeaturesStore(this);
     }
 
     @Override
-    public Integer getValue() {
+    public final Integer getValue() {
 	// TODO: Recalculate only if the attribute has changed
-	return PendragonRulesUtils.getFeaturesCount(vhApp.getStoredValue());
+	return PendragonRulesUtils
+		.getFeaturesCount(appearance.getStoredValue());
     }
 
     @Override
-    public void setValue(final Integer value) {
+    public final void setValue(final Integer value) {
     }
 
 }

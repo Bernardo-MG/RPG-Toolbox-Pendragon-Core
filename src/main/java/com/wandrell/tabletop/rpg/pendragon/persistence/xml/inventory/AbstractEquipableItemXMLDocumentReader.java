@@ -10,14 +10,11 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 public abstract class AbstractEquipableItemXMLDocumentReader<V extends PendragonEquipment>
 	implements XMLDocumentReader<V> {
 
-    private final Class<V> classValue;
-
-    public AbstractEquipableItemXMLDocumentReader(final Class<V> classValue) {
+    public AbstractEquipableItemXMLDocumentReader() {
 	super();
-
-	this.classValue = classValue;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public V getValue(final Document doc) {
 	final Element values, flags, bonus;

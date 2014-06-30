@@ -5,65 +5,60 @@ import com.wandrell.tabletop.rpg.valuehandler.module.StoreModule;
 
 public class FatherClassGloryStore extends StoreModule<Integer> {
 
-    private final ValueHandler<Integer> vhBaseGlory;
-    private final ValueHandler<Integer> vhGloryPerYear;
-    private final ValueHandler<Integer> vhYears;
+    private final ValueHandler<Integer> baseGlory;
+    private final ValueHandler<Integer> gloryPerYear;
+    private final ValueHandler<Integer> years;
 
-    public FatherClassGloryStore(final FatherClassGloryStore vc) {
-	super(vc);
-	vhBaseGlory = vc.vhBaseGlory.createNewInstance();
-	vhGloryPerYear = vc.vhGloryPerYear.createNewInstance();
-	vhYears = vc.vhYears.createNewInstance();
+    public FatherClassGloryStore(final FatherClassGloryStore module) {
+	super(module);
+	baseGlory = module.baseGlory.createNewInstance();
+	gloryPerYear = module.gloryPerYear.createNewInstance();
+	years = module.years.createNewInstance();
     }
 
     public FatherClassGloryStore(final ValueHandler<Integer> vhBaseGlory,
 	    final ValueHandler<Integer> vhYears,
 	    final ValueHandler<Integer> vhGloryPerYear) {
 	super();
-	this.vhBaseGlory = vhBaseGlory;
-	this.vhYears = vhYears;
-	this.vhGloryPerYear = vhGloryPerYear;
+	this.baseGlory = vhBaseGlory;
+	this.years = vhYears;
+	this.gloryPerYear = vhGloryPerYear;
     }
 
     @Override
-    public void addValue(final Integer value) {
+    public final void addValue(final Integer value) {
     }
 
     @Override
-    public FatherClassGloryStore createNewInstance() {
+    public final FatherClassGloryStore createNewInstance() {
 	return new FatherClassGloryStore(this);
     }
 
-    public ValueHandler<Integer> getBaseGlory() {
-	return vhBaseGlory;
+    public final ValueHandler<Integer> getBaseGlory() {
+	return baseGlory;
     }
 
-    public ValueHandler<Integer> getGloryPerYear() {
-	return vhGloryPerYear;
+    public final ValueHandler<Integer> getGloryPerYear() {
+	return gloryPerYear;
     }
 
     @Override
-    public Integer getValue() {
+    public final Integer getValue() {
 	final Integer value;
 
-	if ((getBaseGlory() != null) && (getGloryPerYear() != null)
-		&& (getYears() != null)) {
-	    value = getBaseGlory().getStoredValue()
-		    + (getGloryPerYear().getStoredValue() * getYears()
-			    .getStoredValue());
-	} else {
-	    value = 0;
-	}
+	value = getBaseGlory().getStoredValue()
+		+ (getGloryPerYear().getStoredValue() * getYears()
+			.getStoredValue());
 
 	return value;
     }
 
-    public ValueHandler<Integer> getYears() {
-	return vhYears;
+    public final ValueHandler<Integer> getYears() {
+	return years;
     }
 
     @Override
-    public void setValue(final Integer value) {
+    public final void setValue(final Integer value) {
     }
 
 }

@@ -7,20 +7,18 @@ import com.wandrell.tabletop.rpg.valuehandler.module.GeneratorModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.ValidatorModule;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait,
-	NewInstantiable {
+public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
 
     private String annotation;
-    private final DelegateValueHandler<Integer> vhComposite;
-    private ValueHandler<Integer> vhTrait;
+    private final DelegateValueHandler<Integer> composite;
+    private ValueHandler<Integer> trait;
 
     public DefaultPendragonDirectedTrait(
 	    final DefaultPendragonDirectedTrait passion) {
 	super();
 
-	vhComposite = passion.vhComposite.createNewInstance();
+	composite = passion.composite.createNewInstance();
     }
 
     public DefaultPendragonDirectedTrait(final String name,
@@ -29,18 +27,18 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait,
 	    final StoreModule<Integer> store,
 	    final ValidatorModule<Integer> validator) {
 	super();
-	vhComposite = new DefaultValueHandler<Integer>(name, generator,
-		interval, store, validator);
+	composite = new DefaultValueHandler<Integer>(name, generator, interval,
+		store, validator);
 	this.annotation = annotation;
     }
 
     @Override
-    public Boolean acceptsValue(final Integer value) {
+    public final Boolean acceptsValue(final Integer value) {
 	return getValueHandler().acceptsValue(value);
     }
 
     @Override
-    public void addValue(final Integer value) {
+    public final void addValue(final Integer value) {
 	getValueHandler().addValue(value);
     }
 
@@ -50,70 +48,78 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait,
     }
 
     @Override
-    public void decreaseValue() {
+    public final void decreaseValue() {
 	getValueHandler().decreaseValue();
     }
 
     @Override
-    public String getAnnotation() {
+    public final String getAnnotation() {
 	return annotation;
     }
 
     @Override
-    public Integer getLowerLimit() {
+    public final Integer getLowerLimit() {
 	return getValueHandler().getLowerLimit();
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
 	return getValueHandler().getName();
     }
 
     @Override
-    public Integer getStoredValue() {
+    public final Integer getStoredValue() {
 	return getValueHandler().getStoredValue();
     }
 
     @Override
-    public ValueHandler<Integer> getTrait() {
-	return vhTrait;
+    public final ValueHandler<Integer> getTrait() {
+	return trait;
     }
 
     @Override
-    public Integer getUpperLimit() {
+    public final Integer getUpperLimit() {
 	return getValueHandler().getUpperLimit();
     }
 
     @Override
-    public void increaseValue() {
+    public final void increaseValue() {
 	getValueHandler().increaseValue();
     }
 
     @Override
-    public Boolean isAbleToDecrease() {
+    public final Boolean isAbleToDecrease() {
 	return getValueHandler().isAbleToDecrease();
     }
 
     @Override
-    public Boolean isAbleToIncrease() {
+    public final Boolean isAbleToIncrease() {
 	return getValueHandler().isAbleToIncrease();
     }
 
-    public void setAnnotation(final String annotation) {
+    public final void setAnnotation(final String annotation) {
+	if (annotation == null) {
+	    throw new NullPointerException();
+	}
+
 	this.annotation = annotation;
     }
 
-    public void setTrait(final ValueHandler<Integer> vhTrait) {
-	this.vhTrait = vhTrait;
+    public final void setTrait(final ValueHandler<Integer> trait) {
+	if (trait == null) {
+	    throw new NullPointerException();
+	}
+
+	this.trait = trait;
     }
 
     @Override
-    public void setValue(final Integer value) {
+    public final void setValue(final Integer value) {
 	getValueHandler().setValue(value);
     }
 
-    protected ValueHandler<Integer> getValueHandler() {
-	return vhComposite;
+    protected final ValueHandler<Integer> getValueHandler() {
+	return composite;
     }
 
 }

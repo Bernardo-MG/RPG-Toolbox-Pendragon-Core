@@ -27,12 +27,12 @@ public class DefaultWeaponEquipment extends DefaultPendragonEquipment implements
     }
 
     @Override
-    public String getSkill() {
+    public final String getSkill() {
 	return skill;
     }
 
     @Override
-    public boolean isDamageOverriden() {
+    public final Boolean isDamageOverriden() {
 	final int die, bonus;
 	boolean result = false;
 
@@ -52,7 +52,7 @@ public class DefaultWeaponEquipment extends DefaultPendragonEquipment implements
     }
 
     @Override
-    public void setSkill(final String skill) {
+    public final void setSkill(final String skill) {
 	this.skill = skill;
     }
 

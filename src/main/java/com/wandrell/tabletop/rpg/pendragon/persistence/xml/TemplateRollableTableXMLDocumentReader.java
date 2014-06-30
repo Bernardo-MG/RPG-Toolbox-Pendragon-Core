@@ -11,8 +11,12 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 public class TemplateRollableTableXMLDocumentReader implements
 	XMLDocumentReader<RollTable<?>> {
 
+    public TemplateRollableTableXMLDocumentReader() {
+	super();
+    }
+
     @Override
-    public RollTable<?> getValue(final Document doc) {
+    public final RollTable<?> getValue(final Document doc) {
 	final Element intervals;
 	final RollTable<?> holder;
 	final Element root;
@@ -36,7 +40,8 @@ public class TemplateRollableTableXMLDocumentReader implements
 	return holder;
     }
 
-    private void readIntervalsXMLTree(final Element root,
+    @SuppressWarnings("unused")
+    private final void readIntervalsXMLTree(final Element root,
 	    final RollTable<?> holder) {
 	String name;
 

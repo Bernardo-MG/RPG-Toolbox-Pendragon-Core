@@ -1,28 +1,26 @@
 package com.wandrell.tabletop.rpg.pendragon.manor;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 import com.wandrell.tabletop.rpg.pendragon.util.DefaultFileNameWrapper;
 import com.wandrell.tabletop.rpg.pendragon.util.FileNameWrapper;
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultAnimalYearResult implements AnimalYearResult,
-	NewInstantiable {
+public class DefaultAnimalYearResult implements AnimalYearResult {
 
-    private final Map<String, Path> mapFiles = new TreeMap<>();
-    private final Map<String, ValueHandler<Integer>> mapValues = new TreeMap<>();
+    private final Map<String, Path> files = new LinkedHashMap<>();
+    private final Set<String> flags = new LinkedHashSet<String>();
     private String name = "";
-    private final Set<String> setFlags = new TreeSet<String>();
+    private final Map<String, ValueHandler<Integer>> values = new LinkedHashMap<>();
 
     public DefaultAnimalYearResult() {
 	super();
@@ -40,8 +38,12 @@ public class DefaultAnimalYearResult implements AnimalYearResult,
 	setFiles(result.getFiles());
     }
 
-    public void addValue(final ValueHandler<Integer> vhValue) {
-	getValuesMap().put(vhValue.getName(), vhValue);
+    public final void addValue(final ValueHandler<Integer> value) {
+	if (value == null) {
+	    throw new NullPointerException();
+	}
+
+	getValuesMap().put(value.getName(), value);
     }
 
     @Override
@@ -50,55 +52,55 @@ public class DefaultAnimalYearResult implements AnimalYearResult,
     }
 
     @Override
-    public Path getFile(final String name) {
-	return getFilesMap().get(name);
+    public final Path getFile(final String name) {
+	return _getFiles().get(name);
     }
 
     @Override
-    public Collection<FileNameWrapper> getFiles() {
+    public final Collection<FileNameWrapper> getFiles() {
 	final List<FileNameWrapper> listFiles;
 
-	listFiles = new ArrayList<FileNameWrapper>(getFilesMap().size());
-	for (final Entry<String, Path> entry : getFilesMap().entrySet()) {
+	listFiles = new LinkedList<FileNameWrapper>();
+	for (final Entry<String, Path> entry : _getFiles().entrySet()) {
 	    listFiles.add(new DefaultFileNameWrapper(entry.getKey(), entry
 		    .getValue()));
 	}
 
-	return Collections.unmodifiableCollection(listFiles);
+	return listFiles;
     }
 
     @Override
-    public boolean getFlag(final String name) {
+    public final Boolean getFlag(final String name) {
 	return _getFlags().contains(name);
     }
 
     @Override
-    public Collection<String> getFlags() {
+    public final Collection<String> getFlags() {
 	return Collections.unmodifiableCollection(_getFlags());
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
 	return name;
     }
 
     @Override
-    public ValueHandler<Integer> getValue(final String name) {
+    public final ValueHandler<Integer> getValue(final String name) {
 	return getValuesMap().get(name);
     }
 
     @Override
-    public Collection<ValueHandler<Integer>> getValues() {
+    public final Collection<ValueHandler<Integer>> getValues() {
 	return Collections.unmodifiableCollection(getValuesMap().values());
     }
 
-    public Map<String, ValueHandler<Integer>> getValuesMap() {
-	return Collections.unmodifiableMap(_getValuesMap());
+    public final Map<String, ValueHandler<Integer>> getValuesMap() {
+	return Collections.unmodifiableMap(_getValues());
     }
 
     @Override
-    public boolean hasFile(final String name) {
-	return getFilesMap().containsKey(name);
+    public final Boolean hasFile(final String name) {
+	return _getFiles().containsKey(name);
     }
 
     @Override
@@ -110,44 +112,65 @@ public class DefaultAnimalYearResult implements AnimalYearResult,
     }
 
     @Override
-    public boolean hasValue(final String name) {
+    public final Boolean hasValue(final String name) {
 	return getValuesMap().containsKey(name);
     }
 
-    public void setFiles(final Collection<FileNameWrapper> files) {
-	getFilesMap().clear();
+    public final void setFiles(final Collection<FileNameWrapper> files) {
+	_getFiles().clear();
 	for (final FileNameWrapper file : files) {
-	    getFilesMap().put(file.getName(), file.getFile());
+	    if (file == null) {
+		throw new NullPointerException();
+	    }
+
+	    _getFiles().put(file.getName(), file.getFile());
 	}
     }
 
-    public void setFlags(final Collection<String> flags) {
+    public final void setFlags(final Collection<String> flags) {
 	_getFlags().clear();
 	for (final String flag : flags) {
+	    if (flag == null) {
+		throw new NullPointerException();
+	    }
+
 	    _getFlags().add(flag);
 	}
     }
 
-    public void setName(final String name) {
+    public final void setName(final String name) {
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
 	this.name = name;
     }
 
-    public void setValues(final Collection<ValueHandler<Integer>> values) {
-	for (final ValueHandler<Integer> vhValue : values) {
-	    _getValuesMap().put(vhValue.getName(), vhValue);
+    public final void setValues(final Collection<ValueHandler<Integer>> values) {
+	for (final ValueHandler<Integer> value : values) {
+	    if (value == null) {
+		throw new NullPointerException();
+	    }
+
+	    _getValues().put(value.getName(), value);
 	}
     }
 
-    protected Collection<String> _getFlags() {
-	return setFlags;
+    @Override
+    public String toString() {
+	return getName();
     }
 
-    protected Map<String, ValueHandler<Integer>> _getValuesMap() {
-	return mapValues;
+    protected final Map<String, Path> _getFiles() {
+	return files;
     }
 
-    protected Map<String, Path> getFilesMap() {
-	return mapFiles;
+    protected final Collection<String> _getFlags() {
+	return flags;
+    }
+
+    protected final Map<String, ValueHandler<Integer>> _getValues() {
+	return values;
     }
 
 }

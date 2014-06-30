@@ -2,57 +2,62 @@ package com.wandrell.tabletop.rpg.pendragon.character.background;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.wandrell.tabletop.rpg.conf.factory.ValueHandlerFactory;
 import com.wandrell.tabletop.rpg.pendragon.conf.PendragonLabels;
-import com.wandrell.tabletop.rpg.pendragon.inventory.DefaultMoneyData;
-import com.wandrell.tabletop.rpg.pendragon.valuehandler.DefaultPendragonSkill;
+import com.wandrell.tabletop.rpg.pendragon.conf.factory.PendragonFactory;
+import com.wandrell.tabletop.rpg.pendragon.inventory.PendragonMoney;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonSkill;
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultFatherClass implements FatherClass, NewInstantiable {
+public class DefaultFatherClass implements FatherClass {
 
-    private final DefaultMoneyData dataMoney;
-    private String name = "";
-    private final Map<String, PendragonSkill> storeSkillsGroup = new LinkedHashMap<>();
-    private final Map<String, ValueHandler<Integer>> storeSkillsPoints = new LinkedHashMap<>();
-    private ValueHandler<Integer> vhPointsSkillsGroup;
-
-    public DefaultFatherClass() {
-	super();
-	dataMoney = new DefaultMoneyData();
-
-	vhPointsSkillsGroup = ValueHandlerFactory.getInstance()
-		.getValueHandler(PendragonLabels.VH_SKILLS_POINTS);
-    }
+    private final PendragonMoney money;
+    private final String name;
+    private final Map<String, PendragonSkill> skillsGroup = new LinkedHashMap<>();
+    private ValueHandler<Integer> skillsGroupPoints;
+    private final Map<String, ValueHandler<Integer>> skillsPoints = new LinkedHashMap<>();
 
     public DefaultFatherClass(final DefaultFatherClass data) {
 	super();
 
-	for (final Entry<String, PendragonSkill> entry : data.storeSkillsGroup
-		.entrySet()) {
-	    storeSkillsGroup.put(entry.getKey(), entry.getValue());
-	}
-	for (final Entry<String, ValueHandler<Integer>> entry : data.storeSkillsPoints
-		.entrySet()) {
-	    storeSkillsPoints.put(entry.getKey(), entry.getValue());
-	}
-
 	name = data.name;
 
-	dataMoney = data.dataMoney.createNewInstance();
+	for (final Entry<String, PendragonSkill> entry : data.skillsGroup
+		.entrySet()) {
+	    skillsGroup.put(entry.getKey(), entry.getValue());
+	}
+	for (final Entry<String, ValueHandler<Integer>> entry : data.skillsPoints
+		.entrySet()) {
+	    skillsPoints.put(entry.getKey(), entry.getValue());
+	}
 
-	vhPointsSkillsGroup = data.vhPointsSkillsGroup.createNewInstance();
+	money = data.money.createNewInstance();
+
+	skillsGroupPoints = data.skillsGroupPoints.createNewInstance();
+    }
+
+    public DefaultFatherClass(final String name) {
+	super();
+
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
+	this.name = name;
+
+	money = PendragonFactory.getInstance().getMoney();
+
+	skillsGroupPoints = ValueHandlerFactory.getInstance().getValueHandler(
+		PendragonLabels.VH_SKILLS_POINTS);
     }
 
     @Override
-    public void addSkillsPoints(final ValueHandler<Integer> vhValue) {
-	getSkillsPointsStore().put(vhValue.getName(), vhValue);
+    public final void addSkillsPoints(final ValueHandler<Integer> vhValue) {
+	_getSkillsPoints().put(vhValue.getName(), vhValue);
     }
 
     @Override
@@ -61,75 +66,69 @@ public class DefaultFatherClass implements FatherClass, NewInstantiable {
     }
 
     @Override
-    public DefaultMoneyData getMoneyData() {
-	return dataMoney;
+    public final PendragonMoney getMoney() {
+	return money;
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
 	return name;
     }
 
     @Override
-    public Collection<PendragonSkill> getSkillsGroup() {
-	return Collections.unmodifiableCollection(getSkillsGroupStore()
-		.values());
+    public final Collection<PendragonSkill> getSkillsGroup() {
+	return Collections.unmodifiableCollection(_getSkillsGroup().values());
     }
 
     @Override
-    public ValueHandler<Integer> getSkillsGroupPoints() {
-	return vhPointsSkillsGroup;
+    public final ValueHandler<Integer> getSkillsGroupPoints() {
+	return skillsGroupPoints;
     }
 
     @Override
-    public Collection<ValueHandler<Integer>> getSkillsPoints() {
-	return Collections.unmodifiableCollection(getSkillsPointsStore()
-		.values());
+    public final Collection<ValueHandler<Integer>> getSkillsPoints() {
+	return Collections.unmodifiableCollection(_getSkillsPoints().values());
     }
 
     @Override
-    public ValueHandler<Integer> getSkillsPoints(final String name) {
-	return getSkillsPointsStore().get(name);
+    public final ValueHandler<Integer> getSkillsPoints(final String name) {
+	return _getSkillsPoints().get(name);
     }
 
     @Override
-    public boolean hasSkillsPoints(final String name) {
-	return getSkillsPointsStore().containsKey(name);
+    public final Boolean hasSkillsPoints(final String name) {
+	return _getSkillsPoints().containsKey(name);
     }
 
-    public void setName(final String name) {
-	this.name = name;
-    }
-
-    public void setSkillPoints(
-	    final Iterator<? extends ValueHandler<Integer>> itrPoints) {
-	getSkillsPointsStore().clear();
-	while (itrPoints.hasNext()) {
-	    addSkillsPoints(itrPoints.next());
+    public final void setSkillPoints(
+	    final Collection<ValueHandler<Integer>> points) {
+	_getSkillsPoints().clear();
+	for (final ValueHandler<Integer> p : points) {
+	    addSkillsPoints(p);
 	}
     }
 
-    public void setSkillsGroup(final Iterator<DefaultPendragonSkill> itrSkills,
-	    final ValueHandler<Integer> vhPoints) {
-	getSkillsGroupStore().clear();
-	while (itrSkills.hasNext()) {
-	    addSkillToSkillsGroup(itrSkills.next());
+    public final void setSkillsGroup(final Collection<PendragonSkill> skills,
+	    final ValueHandler<Integer> points) {
+	_getSkillsGroup().clear();
+	for (final PendragonSkill skill : skills) {
+	    _getSkillsGroup().put(skill.getName(), skill);
 	}
 
-	// TODO: ¿No basta asignar el valor contenido?
-	vhPointsSkillsGroup = vhPoints;
+	skillsGroupPoints.setValue(points.getStoredValue());
     }
 
-    private void addSkillToSkillsGroup(final PendragonSkill vhSkill) {
-	getSkillsGroupStore().put(vhSkill.getName(), vhSkill);
+    @Override
+    public String toString() {
+	return getName();
     }
 
-    private Map<String, PendragonSkill> getSkillsGroupStore() {
-	return storeSkillsGroup;
+    protected final Map<String, PendragonSkill> _getSkillsGroup() {
+	return skillsGroup;
     }
 
-    private Map<String, ValueHandler<Integer>> getSkillsPointsStore() {
-	return storeSkillsPoints;
+    protected final Map<String, ValueHandler<Integer>> _getSkillsPoints() {
+	return skillsPoints;
     }
 
 }

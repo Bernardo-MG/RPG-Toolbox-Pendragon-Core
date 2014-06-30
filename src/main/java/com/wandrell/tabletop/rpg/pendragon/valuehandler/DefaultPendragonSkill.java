@@ -7,156 +7,151 @@ import com.wandrell.tabletop.rpg.valuehandler.module.GeneratorModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.ValidatorModule;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultPendragonSkill implements PendragonSkill, NewInstantiable {
+public class DefaultPendragonSkill implements PendragonSkill {
 
     private String annotation;
-    private boolean flagCombatSkill = false;
-    private boolean flagCourtlySkill = false;
-    private boolean flagKnightlySkill = false;
-    private boolean flagKnowledgeSkill = false;
-    private boolean flagRepeteable = false;
-    private final DelegateValueHandler<Integer> vhComposite;
+    private final boolean combatSkill;
+    private final DelegateValueHandler<Integer> composite;
+    private final boolean courtlySkill;
+    private final boolean knightlySkill;
+    private final boolean knowledgeSkill;
+    private final boolean repeteable;
 
     public DefaultPendragonSkill(final DefaultPendragonSkill skill) {
 	super();
 
-	vhComposite = skill.vhComposite.createNewInstance();
+	composite = skill.composite.createNewInstance();
 
-	flagCombatSkill = skill.flagCombatSkill;
-	flagKnightlySkill = skill.flagKnightlySkill;
-	flagKnowledgeSkill = skill.flagKnowledgeSkill;
-	flagCourtlySkill = skill.flagCourtlySkill;
+	combatSkill = skill.combatSkill;
+	knightlySkill = skill.knightlySkill;
+	knowledgeSkill = skill.knowledgeSkill;
+	courtlySkill = skill.courtlySkill;
+
+	repeteable = skill.repeteable;
     }
 
     public DefaultPendragonSkill(final String name, final String annotation,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
-	    final ValidatorModule<Integer> validator) {
+	    final ValidatorModule<Integer> validator,
+	    final Boolean combatSkill, final Boolean knightlySkill,
+	    final Boolean knowledgeSkill, final Boolean courtlySkill,
+	    final Boolean repeteable) {
 	super();
-	vhComposite = new DefaultValueHandler<Integer>(name, generator,
-		interval, store, validator);
+	composite = new DefaultValueHandler<Integer>(name, generator, interval,
+		store, validator);
 	this.annotation = annotation;
+
+	this.combatSkill = combatSkill;
+	this.knightlySkill = knightlySkill;
+	this.knowledgeSkill = knowledgeSkill;
+	this.courtlySkill = courtlySkill;
+
+	this.repeteable = repeteable;
     }
 
     @Override
-    public Boolean acceptsValue(final Integer value) {
+    public final Boolean acceptsValue(final Integer value) {
 	return getValueHandler().acceptsValue(value);
     }
 
     @Override
-    public void addValue(final Integer value) {
+    public final void addValue(final Integer value) {
 	getValueHandler().acceptsValue(value);
     }
 
     @Override
-    public DefaultPendragonSkill createNewInstance() {
+    public final DefaultPendragonSkill createNewInstance() {
 	return new DefaultPendragonSkill(this);
     }
 
     @Override
-    public void decreaseValue() {
+    public final void decreaseValue() {
 	getValueHandler().decreaseValue();
     }
 
     @Override
-    public String getAnnotation() {
+    public final String getAnnotation() {
 	return annotation;
     }
 
     @Override
-    public Integer getLowerLimit() {
+    public final Integer getLowerLimit() {
 	return getValueHandler().getLowerLimit();
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
 	return getValueHandler().getName();
     }
 
     @Override
-    public Integer getStoredValue() {
+    public final Integer getStoredValue() {
 	return getValueHandler().getStoredValue();
     }
 
     @Override
-    public Integer getUpperLimit() {
+    public final Integer getUpperLimit() {
 	return getValueHandler().getUpperLimit();
     }
 
     @Override
-    public void increaseValue() {
+    public final void increaseValue() {
 	getValueHandler().increaseValue();
     }
 
     @Override
-    public Boolean isAbleToDecrease() {
+    public final Boolean isAbleToDecrease() {
 	return getValueHandler().isAbleToDecrease();
     }
 
     @Override
-    public Boolean isAbleToIncrease() {
+    public final Boolean isAbleToIncrease() {
 	return getValueHandler().isAbleToIncrease();
     }
 
     @Override
-    public boolean isCombatSkill() {
-	return flagCombatSkill;
+    public final Boolean isCombatSkill() {
+	return combatSkill;
     }
 
     @Override
-    public boolean isCourtlySkill() {
-	return flagCourtlySkill;
+    public final Boolean isCourtlySkill() {
+	return courtlySkill;
     }
 
     @Override
-    public boolean isKnightlySkill() {
-	return flagKnightlySkill;
+    public final Boolean isKnightlySkill() {
+	return knightlySkill;
     }
 
     @Override
-    public boolean isKnowledgeSkill() {
-	return flagKnowledgeSkill;
+    public final Boolean isKnowledgeSkill() {
+	return knowledgeSkill;
     }
 
     @Override
-    public boolean isRepeteable() {
-	return flagRepeteable;
+    public final Boolean isRepeteable() {
+	return repeteable;
     }
 
-    public void setAnnotation(final String annotation) {
+    public final void setAnnotation(final String annotation) {
+	if (annotation == null) {
+	    throw new NullPointerException();
+	}
+
 	this.annotation = annotation;
     }
 
-    public void setCombatSkill(final boolean combatSkill) {
-	flagCombatSkill = combatSkill;
-    }
-
-    public void setCourtlySkill(final boolean courtlySkill) {
-	flagCourtlySkill = courtlySkill;
-    }
-
-    public void setKnightlySkill(final boolean knightlySkill) {
-	flagKnightlySkill = knightlySkill;
-    }
-
-    public void setKnowledgeSkill(final boolean knowledgeSkill) {
-	flagKnowledgeSkill = knowledgeSkill;
-    }
-
-    public void setRepeteable(final boolean repeteable) {
-	flagRepeteable = repeteable;
-    }
-
     @Override
-    public void setValue(final Integer value) {
+    public final void setValue(final Integer value) {
 	getValueHandler().setValue(value);
     }
 
-    protected ValueHandler<Integer> getValueHandler() {
-	return vhComposite;
+    protected final ValueHandler<Integer> getValueHandler() {
+	return composite;
     }
 
 }

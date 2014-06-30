@@ -3,44 +3,33 @@ package com.wandrell.tabletop.rpg.pendragon.character.background.culture;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 
 import com.wandrell.tabletop.rpg.character.Gender;
 import com.wandrell.tabletop.rpg.dice.RollTable;
 import com.wandrell.tabletop.rpg.pendragon.conf.PendragonLabels;
-import com.wandrell.tabletop.rpg.pendragon.inventory.AdditionalBelongingsSetData;
+import com.wandrell.tabletop.rpg.pendragon.inventory.AdditionalBelongings;
 import com.wandrell.tabletop.rpg.pendragon.util.DefaultFileNameWrapper;
 import com.wandrell.tabletop.rpg.pendragon.util.FileNameWrapper;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultCulture implements Culture, Comparable<Culture>,
-	NewInstantiable {
+public class DefaultCulture implements Culture {
 
-    private String cultureName = "";
-    private final Map<String, Path> mapFiles = new TreeMap<>();
-    private RollTable<AdditionalBelongingsSetData> mapInitialLuckFemale;
-    private RollTable<AdditionalBelongingsSetData> mapInitialLuckMale;
+    private final Map<String, Path> files = new LinkedHashMap<>();
+    private RollTable<AdditionalBelongings> initialLuckTableFemale;
+    private RollTable<AdditionalBelongings> initialLuckTableMale;
+    private final String name;
     private final DefaultCultureCharacterTemplate templateDefaultFemale;
     private final DefaultCultureCharacterTemplate templateDefaultMale;
     private final DefaultCultureCharacterTemplate templateRandomFemale;
     private final DefaultCultureCharacterTemplate templateRandomMale;
 
-    public DefaultCulture() {
-	super();
-
-	templateDefaultFemale = new DefaultCultureCharacterTemplate();
-	templateDefaultMale = new DefaultCultureCharacterTemplate();
-	templateRandomFemale = new DefaultCultureCharacterTemplate();
-	templateRandomMale = new DefaultCultureCharacterTemplate();
-    }
-
     public DefaultCulture(final DefaultCulture culture) {
 	super();
 
-	setName(culture.cultureName);
+	name = culture.name;
 
 	templateDefaultFemale = culture.templateDefaultFemale
 		.createNewInstance();
@@ -48,18 +37,36 @@ public class DefaultCulture implements Culture, Comparable<Culture>,
 	templateRandomFemale = culture.templateRandomFemale.createNewInstance();
 	templateRandomMale = culture.templateRandomMale.createNewInstance();
 
-	for (final Entry<String, Path> entry : culture.mapFiles.entrySet()) {
-	    mapFiles.put(entry.getKey(), entry.getValue());
+	for (final Entry<String, Path> entry : culture.files.entrySet()) {
+	    files.put(entry.getKey(), entry.getValue());
 	}
     }
 
-    public void addFile(final String name, final Path file) {
-	getFilesMap().put(name, file);
+    public DefaultCulture(final String name) {
+	super();
+
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
+	this.name = name;
+
+	templateDefaultFemale = new DefaultCultureCharacterTemplate();
+	templateDefaultMale = new DefaultCultureCharacterTemplate();
+	templateRandomFemale = new DefaultCultureCharacterTemplate();
+	templateRandomMale = new DefaultCultureCharacterTemplate();
     }
 
-    @Override
-    public int compareTo(final Culture culture) {
-	return getName().compareTo(culture.getName());
+    public final void addFile(final String name, final Path file) {
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
+	if (file == null) {
+	    throw new NullPointerException();
+	}
+
+	getFilesMap().put(name, file);
     }
 
     @Override
@@ -68,7 +75,7 @@ public class DefaultCulture implements Culture, Comparable<Culture>,
     }
 
     @Override
-    public Path getFamilyCharacteristicFile(final Gender gender) {
+    public final Path getFamilyCharacteristicFile(final Gender gender) {
 	final Path result;
 
 	switch (gender) {
@@ -86,22 +93,22 @@ public class DefaultCulture implements Culture, Comparable<Culture>,
     }
 
     @Override
-    public CultureCharacterTemplate getFemaleRandomTemplate() {
+    public final CultureCharacterTemplate getFemaleRandomTemplate() {
 	return templateRandomFemale;
     }
 
     @Override
-    public CultureCharacterTemplate getFemaleTemplate() {
+    public final CultureCharacterTemplate getFemaleTemplate() {
 	return templateDefaultFemale;
     }
 
     @Override
-    public Path getFile(final String name) {
+    public final Path getFile(final String name) {
 	return getFilesMap().get(name);
     }
 
     @Override
-    public Collection<FileNameWrapper> getFiles() {
+    public final Collection<FileNameWrapper> getFiles() {
 	final Collection<FileNameWrapper> files;
 
 	files = new LinkedList<>();
@@ -114,16 +121,16 @@ public class DefaultCulture implements Culture, Comparable<Culture>,
     }
 
     @Override
-    public RollTable<AdditionalBelongingsSetData> getInitialLuckTable(
+    public final RollTable<AdditionalBelongings> getInitialLuckTable(
 	    final Gender gender) {
-	final RollTable<AdditionalBelongingsSetData> result;
+	final RollTable<AdditionalBelongings> result;
 
 	switch (gender) {
 	case MALE:
-	    result = mapInitialLuckMale;
+	    result = initialLuckTableMale;
 	    break;
 	case FEMALE:
-	    result = mapInitialLuckFemale;
+	    result = initialLuckTableFemale;
 	    break;
 	default:
 	    result = null;
@@ -133,38 +140,43 @@ public class DefaultCulture implements Culture, Comparable<Culture>,
     }
 
     @Override
-    public CultureCharacterTemplate getMaleRandomTemplate() {
+    public final CultureCharacterTemplate getMaleRandomTemplate() {
 	return templateRandomMale;
     }
 
     @Override
-    public CultureCharacterTemplate getMaleTemplate() {
+    public final CultureCharacterTemplate getMaleTemplate() {
 	return templateDefaultMale;
     }
 
     @Override
-    public String getName() {
-	return cultureName;
+    public final String getName() {
+	return name;
     }
 
     @Override
-    public Boolean hasFile(final String name) {
+    public final Boolean hasFile(final String name) {
 	return getFilesMap().containsKey(name);
     }
 
-    public void setFiles(final Collection<FileNameWrapper> files) {
+    public final void setFiles(final Collection<FileNameWrapper> files) {
+	if (files == null) {
+	    throw new NullPointerException();
+	}
+
 	getFilesMap().clear();
 	for (final FileNameWrapper file : files) {
 	    addFile(file.getName(), file.getFile());
 	}
     }
 
-    public void setName(final String name) {
-	this.cultureName = name;
+    @Override
+    public String toString() {
+	return getName();
     }
 
-    protected Map<String, Path> getFilesMap() {
-	return mapFiles;
+    protected final Map<String, Path> getFilesMap() {
+	return files;
     }
 
 }

@@ -14,12 +14,12 @@ public class DefaultFileNameWrapper implements FileNameWrapper {
     }
 
     @Override
-    public Path getFile() {
+    public final Path getFile() {
 	return path;
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
 	return name;
     }
 

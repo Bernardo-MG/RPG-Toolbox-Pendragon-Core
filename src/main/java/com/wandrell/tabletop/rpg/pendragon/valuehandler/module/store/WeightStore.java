@@ -6,20 +6,20 @@ import com.wandrell.tabletop.rpg.valuehandler.module.StoreModule;
 
 public class WeightStore extends StoreModule<Integer> {
 
-    private final ValueHandler<Integer> vhWeight;
+    private final ValueHandler<Integer> size;
 
     public WeightStore(final ValueHandler<Integer> size) {
 	super();
-	vhWeight = size;
+	this.size = size;
     }
 
     public WeightStore(final WeightStore store) {
 	super(store);
-	vhWeight = store.vhWeight.createNewInstance();
+	size = store.size.createNewInstance();
     }
 
     @Override
-    public void addValue(final Integer value) {
+    public final void addValue(final Integer value) {
     }
 
     @Override
@@ -28,17 +28,17 @@ public class WeightStore extends StoreModule<Integer> {
     }
 
     @Override
-    public Integer getValue() {
+    public final Integer getValue() {
 	return PendragonRulesUtils.weightCalculator(getWeight()
 		.getStoredValue());
     }
 
     @Override
-    public void setValue(final Integer value) {
+    public final void setValue(final Integer value) {
     }
 
-    protected ValueHandler<Integer> getWeight() {
-	return vhWeight;
+    protected final ValueHandler<Integer> getWeight() {
+	return size;
     }
 
 }

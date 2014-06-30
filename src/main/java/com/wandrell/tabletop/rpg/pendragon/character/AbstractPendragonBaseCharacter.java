@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonDerivedAttribute;
@@ -20,8 +21,9 @@ public abstract class AbstractPendragonBaseCharacter implements
 	super();
 	name = character.name;
 
-	for (final PendragonAttribute attribute : character.attributes.values()) {
-	    attributes.put(attribute.getName(), attribute);
+	for (final Entry<String, PendragonAttribute> entry : character.attributes
+		.entrySet()) {
+	    attributes.put(entry.getKey(), entry.getValue());
 	}
 
 	// initializeDerivedAttributes();
@@ -31,12 +33,24 @@ public abstract class AbstractPendragonBaseCharacter implements
 	    final Collection<PendragonAttribute> attributes) {
 	super();
 
-	setAttributes(attributes);
+	for (final PendragonAttribute attribute : attributes) {
+	    if (attribute == null) {
+		throw new NullPointerException();
+	    }
+
+	    this.attributes.put(attribute.getName(), attribute);
+	}
+
+	// initializeDerivedAttributes();
     }
 
     @Override
     public void addDerivedAttribute(final PendragonDerivedAttribute attribute) {
-	getDerivedAttributesMap().put(attribute.getName(), attribute);
+	if (attribute == null) {
+	    throw new NullPointerException();
+	}
+
+	_getDerivedAttributes().put(attribute.getName(), attribute);
     }
 
     @Override
@@ -64,22 +78,22 @@ public abstract class AbstractPendragonBaseCharacter implements
 
     @Override
     public PendragonAttribute getAttribute(final String name) {
-	return getAttributesMap().get(name);
+	return _getAttributes().get(name);
     }
 
     @Override
     public Collection<PendragonAttribute> getAttributes() {
-	return Collections.unmodifiableCollection(getAttributesMap().values());
+	return Collections.unmodifiableCollection(_getAttributes().values());
     }
 
     @Override
     public PendragonDerivedAttribute getDerivedAttribute(final String name) {
-	return getDerivedAttributesMap().get(name);
+	return _getDerivedAttributes().get(name);
     }
 
     @Override
     public Collection<PendragonDerivedAttribute> getDerivedAttributes() {
-	return Collections.unmodifiableCollection(getDerivedAttributesMap()
+	return Collections.unmodifiableCollection(_getDerivedAttributes()
 		.values());
     }
 
@@ -90,12 +104,12 @@ public abstract class AbstractPendragonBaseCharacter implements
 
     @Override
     public Boolean hasAttribute(final String name) {
-	return getAttributesMap().containsKey(name);
+	return _getAttributes().containsKey(name);
     }
 
     @Override
     public Boolean hasDerivedAttribute(final String name) {
-	return getDerivedAttributesMap().containsKey(name);
+	return _getDerivedAttributes().containsKey(name);
     }
 
     @Override
@@ -110,13 +124,25 @@ public abstract class AbstractPendragonBaseCharacter implements
 
     public void setDerivedAttributes(
 	    final Collection<PendragonDerivedAttribute> attributes) {
-	getDerivedAttributesMap().clear();
+	if (attributes == null) {
+	    throw new NullPointerException();
+	}
+
+	_getDerivedAttributes().clear();
 	for (final PendragonDerivedAttribute attribute : attributes) {
-	    getDerivedAttributesMap().put(attribute.getName(), attribute);
+	    if (attribute == null) {
+		throw new NullPointerException();
+	    }
+
+	    _getDerivedAttributes().put(attribute.getName(), attribute);
 	}
     }
 
     public void setName(final String name) {
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
 	this.name = name;
     }
 
@@ -125,53 +151,16 @@ public abstract class AbstractPendragonBaseCharacter implements
 	return getName();
     }
 
-    private void initializeDerivedAttributes(
-	    final Collection<PendragonDerivedAttribute> attributesDerived) {
-	// TODO: Redo
-	// final Iterator<ValueHandler<Integer>> itrDerAttr;
-	// final List<SecondaryValuesValueHandler<Integer,
-	// ValueHandler<Integer>>> listDerAttr;
-	// SecondaryValuesValueHandler<Integer, ValueHandler<Integer>>
-	// vhStoredDerAttribute;
-	// ValueHandler<Integer> vhDerAttribute;
-	//
-	// itrDerAttr = attributesDerived.iterator();
-	//
-	// getDerivedAttributesMap().clear();
-	// listDerAttr = new ArrayList<SecondaryValuesValueHandler<Integer,
-	// ValueHandler<Integer>>>();
-	// while (itrDerAttr.hasNext()) {
-	// vhDerAttribute = itrDerAttr.next();
-	//
-	// vhStoredDerAttribute = new IntegerSecondaryValuesValueHandler(
-	// vhDerAttribute.getName());
-	// vhStoredDerAttribute.addValueHandler(vhDerAttribute);
-	//
-	// listDerAttr.addInterval(vhStoredDerAttribute);
-	// }
-	//
-	// setDerivedAttributes(listDerAttr.iterator());
-    }
-
-    protected void addAttribute(final PendragonAttribute attribute) {
-	getAttributesMap().put(attribute.getName(), attribute);
-    }
-
-    protected Map<String, PendragonAttribute> getAttributesMap() {
+    protected Map<String, PendragonAttribute> _getAttributes() {
 	return attributes;
     }
 
-    protected Map<String, PendragonDerivedAttribute> getDerivedAttributesMap() {
+    protected Map<String, PendragonDerivedAttribute> _getDerivedAttributes() {
 	return attributesDerived;
     }
 
-    protected void setAttributes(final Collection<PendragonAttribute> attributes) {
-	getAttributesMap().clear();
-	for (final PendragonAttribute attribute : attributes) {
-	    addAttribute(attribute);
-	}
-
-	// initializeDerivedAttributes();
+    protected void addAttribute(final PendragonAttribute attribute) {
+	_getAttributes().put(attribute.getName(), attribute);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.wandrell.tabletop.rpg.pendragon.valuehandler;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import com.wandrell.tabletop.rpg.valuehandler.DefaultValueHandler;
@@ -10,19 +11,18 @@ import com.wandrell.tabletop.rpg.valuehandler.module.GeneratorModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.ValidatorModule;
-import com.wandrell.util.tag.NewInstantiable;
 
 public class DefaultPendragonDerivedAttribute implements
-	PendragonDerivedAttribute, NewInstantiable {
+	PendragonDerivedAttribute {
 
-    private final Collection<ValueHandler<Integer>> attributes = new LinkedList<>();
-    private final DelegateValueHandler<Integer> vhComposite;
+    private final Collection<PendragonAttribute> attributes = new LinkedList<>();
+    private final DelegateValueHandler<Integer> composite;
 
     public DefaultPendragonDerivedAttribute(
 	    final DefaultPendragonDerivedAttribute attribute) {
 	super();
 
-	vhComposite = attribute.vhComposite.createNewInstance();
+	composite = attribute.composite.createNewInstance();
     }
 
     public DefaultPendragonDerivedAttribute(final String name,
@@ -31,17 +31,17 @@ public class DefaultPendragonDerivedAttribute implements
 	    final StoreModule<Integer> store,
 	    final ValidatorModule<Integer> validator) {
 	super();
-	vhComposite = new DefaultValueHandler<Integer>(name, generator,
-		interval, store, validator);
+	composite = new DefaultValueHandler<Integer>(name, generator, interval,
+		store, validator);
     }
 
     @Override
-    public Boolean acceptsValue(final Integer value) {
+    public final Boolean acceptsValue(final Integer value) {
 	return getValueHandler().acceptsValue(value);
     }
 
     @Override
-    public void addValue(final Integer value) {
+    public final void addValue(final Integer value) {
 	getValueHandler().addValue(value);
     }
 
@@ -51,62 +51,72 @@ public class DefaultPendragonDerivedAttribute implements
     }
 
     @Override
-    public void decreaseValue() {
+    public final void decreaseValue() {
 	getValueHandler().decreaseValue();
     }
 
     @Override
-    public Integer getLowerLimit() {
+    public final Integer getLowerLimit() {
 	return getValueHandler().getLowerLimit();
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
 	return getValueHandler().getName();
     }
 
     @Override
-    public Collection<ValueHandler<Integer>> getParentAttributes() {
-	return attributes;
+    public final Collection<PendragonAttribute> getParentAttributes() {
+	return Collections.unmodifiableCollection(_getParentAttributes());
     }
 
     @Override
-    public Integer getStoredValue() {
+    public final Integer getStoredValue() {
 	return getValueHandler().getStoredValue();
     }
 
     @Override
-    public Integer getUpperLimit() {
+    public final Integer getUpperLimit() {
 	return getValueHandler().getUpperLimit();
     }
 
     @Override
-    public void increaseValue() {
+    public final void increaseValue() {
 	getValueHandler().increaseValue();
     }
 
     @Override
-    public Boolean isAbleToDecrease() {
+    public final Boolean isAbleToDecrease() {
 	return getValueHandler().isAbleToDecrease();
     }
 
     @Override
-    public Boolean isAbleToIncrease() {
+    public final Boolean isAbleToIncrease() {
 	return getValueHandler().isAbleToIncrease();
     }
 
-    public void setParentAttributes(
-	    final Collection<ValueHandler<Integer>> attributes) {
-	this.attributes.clear();
-	this.attributes.addAll(attributes);
+    public final void setParentAttributes(
+	    final Collection<PendragonAttribute> attributes) {
+	_getParentAttributes().clear();
+	for (final PendragonAttribute attribute : attributes) {
+	    if (attribute == null) {
+		throw new NullPointerException();
+	    }
+
+	    _getParentAttributes().add(attribute);
+	}
     }
 
     @Override
-    public void setValue(final Integer value) {
+    public final void setValue(final Integer value) {
 	getValueHandler().setValue(value);
     }
 
-    protected ValueHandler<Integer> getValueHandler() {
-	return vhComposite;
+    protected final Collection<PendragonAttribute> _getParentAttributes() {
+	return attributes;
+    }
+
+    protected final ValueHandler<Integer> getValueHandler() {
+	return composite;
     }
 }

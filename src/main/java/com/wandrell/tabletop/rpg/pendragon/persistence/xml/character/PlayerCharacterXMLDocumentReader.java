@@ -25,7 +25,8 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 public class PlayerCharacterXMLDocumentReader implements
 	XMLDocumentReader<PendragonPlayerCharacter> {
 
-    private static DefaultGloryEvent readGloryEventXMLNode(final Element node) {
+    private static final DefaultGloryEvent readGloryEventXMLNode(
+	    final Element node) {
 	final int year, gloryGained;
 	final String description;
 
@@ -37,7 +38,8 @@ public class PlayerCharacterXMLDocumentReader implements
 	return new DefaultGloryEvent(year, gloryGained, description);
     }
 
-    private static Iterator<DefaultGloryEvent> readGloryXMLTree(
+    @SuppressWarnings("unused")
+    private static final Iterator<DefaultGloryEvent> readGloryXMLTree(
 	    final Element root) {
 	final List<DefaultGloryEvent> listGlory;
 
@@ -49,9 +51,14 @@ public class PlayerCharacterXMLDocumentReader implements
 	return listGlory.iterator();
     }
 
+    public PlayerCharacterXMLDocumentReader() {
+	super();
+    }
+
     @Override
-    public PendragonPlayerCharacter getValue(final Document doc) {
+    public final PendragonPlayerCharacter getValue(final Document doc) {
 	final DefaultPendragonPlayerCharacter holder;
+	@SuppressWarnings("unused")
 	final Element glory, vhs, flags, texts, features, wives, famchar, invcarried, invhome, money, horses, squires, followers;
 	final Element root;
 
@@ -157,7 +164,9 @@ public class PlayerCharacterXMLDocumentReader implements
 	return holder;
     }
 
-    private Iterator<PendragonAppearanceFeature> loadFeatures(final Element root) {
+    @SuppressWarnings("unused")
+    private final Iterator<PendragonAppearanceFeature> loadFeatures(
+	    final Element root) {
 	List<PendragonAppearanceFeature> listFeatures;
 
 	listFeatures = new ArrayList<PendragonAppearanceFeature>(root
@@ -172,7 +181,8 @@ public class PlayerCharacterXMLDocumentReader implements
 	return listFeatures.iterator();
     }
 
-    private Iterator<Follower> readFollowersXMLTree(final Element root) {
+    @SuppressWarnings("unused")
+    private final Iterator<Follower> readFollowersXMLTree(final Element root) {
 	final List<Follower> listFollowers;
 	DefaultFollower follower;
 
@@ -189,7 +199,8 @@ public class PlayerCharacterXMLDocumentReader implements
 	return listFollowers.iterator();
     }
 
-    private Iterator<HorseCharacter> readHorsesXMLTree(final Element root) {
+    @SuppressWarnings("unused")
+    private final Iterator<HorseCharacter> readHorsesXMLTree(final Element root) {
 	final List<HorseCharacter> listHorse;
 	DefaultHorseCharacter horse;
 
@@ -209,7 +220,8 @@ public class PlayerCharacterXMLDocumentReader implements
 	return listHorse.iterator();
     }
 
-    private Iterator<PendragonItem> readItemsXMLTree(final Element root) {
+    @SuppressWarnings("unused")
+    private final Iterator<PendragonItem> readItemsXMLTree(final Element root) {
 	final List<PendragonItem> listItems;
 
 	listItems = new ArrayList<PendragonItem>(root.getChildren().size());
@@ -222,7 +234,8 @@ public class PlayerCharacterXMLDocumentReader implements
 	return listItems.iterator();
     }
 
-    private Iterator<Wife> readWivesXMLTree(final Element root) {
+    @SuppressWarnings("unused")
+    private final Iterator<Wife> readWivesXMLTree(final Element root) {
 	final List<Wife> listWives;
 	List<Child> listChildren;
 	Element children;
@@ -262,7 +275,7 @@ public class PlayerCharacterXMLDocumentReader implements
 
 		// listChildren.add(child);
 	    }
-	    wife.setChildren(listChildren.iterator());
+	    wife.setChildren(listChildren);
 
 	    listWives.add(wife);
 	}

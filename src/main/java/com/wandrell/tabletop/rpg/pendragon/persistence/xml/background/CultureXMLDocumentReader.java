@@ -15,9 +15,9 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class CultureXMLDocumentReader implements XMLDocumentReader<Culture> {
 
-    public static CultureCharacterTemplate loadAttributesLimitsTemplateXMLNode(
+    public final static CultureCharacterTemplate loadAttributesLimitsTemplateXMLNode(
 	    final Element root) {
-	final Element attributesLimits;
+	// final Element attributesLimits;
 	// TODO
 	//
 	// TODO: Hacer mejor. Que pida para cada parte solo el valuehandler que
@@ -36,7 +36,8 @@ public class CultureXMLDocumentReader implements XMLDocumentReader<Culture> {
 	return null;
     }
 
-    private static Iterator<ContrastInterval<Integer>> readAttributesLimits(
+    @SuppressWarnings("unused")
+    private final static Iterator<ContrastInterval<Integer>> readAttributesLimits(
 	    final Element nodeLimits) {
 	// TODO
 	// final List<NamedContrastInterval<Integer>> listLimits;
@@ -55,15 +56,17 @@ public class CultureXMLDocumentReader implements XMLDocumentReader<Culture> {
 	return null;
     }
 
+    public CultureXMLDocumentReader() {
+	super();
+    }
+
     @Override
-    public Culture getValue(final Document doc) {
+    public final Culture getValue(final Document doc) {
 	final DefaultCulture holder;
 	final Element root;
 	final Element files, templateFemale, templateMale, templateRandomFemale, templateRandomMale;
 
 	root = doc.getRootElement();
-
-	holder = new DefaultCulture();
 
 	// Acquires the different sections
 	files = root.getChild(FileLabels.SELECTORS_FILES);
@@ -73,7 +76,8 @@ public class CultureXMLDocumentReader implements XMLDocumentReader<Culture> {
 	templateRandomMale = root.getChild(FileLabels.TEMPLATE_MALE_RANDOM);
 
 	// Culture's name
-	holder.setName(root.getAttributeValue(FileStreamerTags.NAME));
+	holder = new DefaultCulture(
+		root.getAttributeValue(FileStreamerTags.NAME));
 
 	// Files
 	if (files != null) {

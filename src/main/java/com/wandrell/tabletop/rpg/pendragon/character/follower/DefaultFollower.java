@@ -2,9 +2,8 @@ package com.wandrell.tabletop.rpg.pendragon.character.follower;
 
 import com.wandrell.tabletop.rpg.pendragon.character.DefaultPendragonPlayerCharacter;
 import com.wandrell.tabletop.rpg.pendragon.character.PendragonBaseCharacter;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultFollower implements Follower, NewInstantiable {
+public class DefaultFollower implements Follower {
 
     private PendragonBaseCharacter characterData;
     private String fileCharacter = "";
@@ -74,11 +73,24 @@ public class DefaultFollower implements Follower, NewInstantiable {
     }
 
     public void setFile(final String file) {
+	if (file == null) {
+	    throw new NullPointerException();
+	}
+
 	fileCharacter = file;
     }
 
     public void setJob(final String job) {
+	if (job == null) {
+	    throw new NullPointerException();
+	}
+
 	this.job = job;
+    }
+
+    @Override
+    public String toString() {
+	return getFile();
     }
 
     protected void loadCharacter() {
@@ -89,6 +101,10 @@ public class DefaultFollower implements Follower, NewInstantiable {
 
     protected void setCharacterData(
 	    DefaultPendragonPlayerCharacter characterData) {
+	if (characterData == null) {
+	    throw new NullPointerException();
+	}
+
 	this.characterData = characterData;
     }
 

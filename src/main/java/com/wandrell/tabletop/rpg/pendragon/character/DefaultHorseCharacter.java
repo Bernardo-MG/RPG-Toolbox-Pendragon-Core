@@ -2,23 +2,21 @@ package com.wandrell.tabletop.rpg.pendragon.character;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeSet;
 
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.tag.NewInstantiable;
 
 public class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
-	implements HorseCharacter, NewInstantiable {
+	implements HorseCharacter {
 
-    private String nameType = "";
-    private final Set<String> setFlags = new TreeSet<String>();
-    private final Map<String, ValueHandler<Integer>> storeSecondaryAttributes = new LinkedHashMap<>();
+    private final Set<String> flags = new LinkedHashSet<String>();
+    private final Map<String, ValueHandler<Integer>> secondaryAttributes = new LinkedHashMap<>();
+    private String type = "";
 
     public DefaultHorseCharacter(final Collection<PendragonAttribute> attributes) {
 	super(attributes);
@@ -27,19 +25,23 @@ public class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
     public DefaultHorseCharacter(final DefaultHorseCharacter horse) {
 	super(horse);
 
-	for (final Entry<String, ValueHandler<Integer>> entry : horse.storeSecondaryAttributes
+	for (final Entry<String, ValueHandler<Integer>> entry : horse.secondaryAttributes
 		.entrySet()) {
-	    storeSecondaryAttributes.put(entry.getKey(), entry.getValue()
+	    secondaryAttributes.put(entry.getKey(), entry.getValue()
 		    .createNewInstance());
 	}
 
-	setHorseType(horse.nameType);
-	setFlags.addAll(horse.setFlags);
+	type = horse.type;
+	flags.addAll(horse.flags);
     }
 
     @Override
     public void addSecondaryAttribute(final ValueHandler<Integer> attribute) {
-	getSecondaryAttributesStore().put(attribute.getName(), attribute);
+	if (attribute == null) {
+	    throw new NullPointerException();
+	}
+
+	_getSecondaryAttributes().put(attribute.getName(), attribute);
     }
 
     @Override
@@ -49,73 +51,89 @@ public class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
 
     @Override
     public Boolean getFlag(final String flag) {
-	return getFlagsSet().contains(flag);
+	return _getFlags().contains(flag);
     }
 
     @Override
     public Collection<String> getFlags() {
-	return getFlagsSet();
+	return Collections.unmodifiableCollection(_getFlags());
     }
 
     @Override
     public String getHorseType() {
-	return nameType;
+	return type;
     }
 
     @Override
     public ValueHandler<Integer> getSecondaryAttribute(final String name) {
-	return getSecondaryAttributesStore().get(name);
+	return _getSecondaryAttributes().get(name);
     }
 
     @Override
     public Collection<ValueHandler<Integer>> getSecondaryAttributes() {
-	return Collections.unmodifiableCollection(getSecondaryAttributesStore()
+	return Collections.unmodifiableCollection(_getSecondaryAttributes()
 		.values());
     }
 
     @Override
     public Boolean hasFlag(final String name) {
-	return getFlagsSet().contains(name);
+	return _getFlags().contains(name);
     }
 
     @Override
     public Boolean hasSecondaryAttribute(final String name) {
-	return getSecondaryAttributesStore().containsKey(name);
+	return _getSecondaryAttributes().containsKey(name);
     }
 
     public void setFlag(final String name, final Boolean value) {
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
+	if (value == null) {
+	    throw new NullPointerException();
+	}
+
 	if ((hasFlag(name)) && (!value)) {
-	    getFlagsSet().remove(name);
+	    _getFlags().remove(name);
 	} else if (value) {
-	    getFlagsSet().add(name);
+	    _getFlags().add(name);
 	}
     }
 
-    public void setFlags(final Iterator<String> itrFlags) {
-	getFlagsSet().clear();
-	while (itrFlags.hasNext()) {
-	    getFlagsSet().add(itrFlags.next());
+    public void setFlags(final Collection<String> flags) {
+	_getFlags().clear();
+	for (final String flag : flags) {
+	    if (flag == null) {
+		throw new NullPointerException();
+	    }
+
+	    _getFlags().add(flag);
 	}
     }
 
     public void setHorseType(final String type) {
-	this.nameType = type;
+	if (type == null) {
+	    throw new NullPointerException();
+	}
+
+	this.type = type;
     }
 
     public void setSecondaryAttributes(
 	    final Collection<ValueHandler<Integer>> attributes) {
-	getSecondaryAttributesStore().clear();
+	_getSecondaryAttributes().clear();
 	for (final ValueHandler<Integer> attribute : attributes) {
 	    addSecondaryAttribute(attribute);
 	}
     }
 
-    protected Set<String> getFlagsSet() {
-	return setFlags;
+    protected Set<String> _getFlags() {
+	return flags;
     }
 
-    protected Map<String, ValueHandler<Integer>> getSecondaryAttributesStore() {
-	return storeSecondaryAttributes;
+    protected Map<String, ValueHandler<Integer>> _getSecondaryAttributes() {
+	return secondaryAttributes;
     }
 
 }

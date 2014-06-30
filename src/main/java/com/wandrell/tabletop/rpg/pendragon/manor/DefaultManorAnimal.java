@@ -3,12 +3,12 @@ package com.wandrell.tabletop.rpg.pendragon.manor;
 import com.wandrell.tabletop.rpg.dice.RollTable;
 import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultManorAnimal implements ManorAnimal,
-	Comparable<ManorAnimal>, NewInstantiable {
+public class DefaultManorAnimal implements ManorAnimal {
 
     private String name;
     private final RollTable<AnimalYearResult> rolltable;
 
+    @SuppressWarnings("unchecked")
     public DefaultManorAnimal(final DefaultManorAnimal animal) {
 	super();
 
@@ -29,26 +29,25 @@ public class DefaultManorAnimal implements ManorAnimal,
     }
 
     @Override
-    public int compareTo(final ManorAnimal o) {
-	return getName().compareTo(o.getName());
-    }
-
-    @Override
     public DefaultManorAnimal createNewInstance() {
 	return new DefaultManorAnimal(this);
     }
 
     @Override
-    public RollTable<AnimalYearResult> getAnnualCheckMap() {
+    public final RollTable<AnimalYearResult> getAnnualCheckMap() {
 	return rolltable;
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
 	return name;
     }
 
-    public void setName(final String name) {
+    public final void setName(final String name) {
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
 	this.name = name;
     }
 

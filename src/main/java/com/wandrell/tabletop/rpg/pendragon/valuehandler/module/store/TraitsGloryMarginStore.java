@@ -25,7 +25,7 @@ public class TraitsGloryMarginStore extends StoreModule<Integer> {
     }
 
     @Override
-    public void addValue(Integer value) {
+    public final void addValue(Integer value) {
     }
 
     @Override
@@ -34,12 +34,12 @@ public class TraitsGloryMarginStore extends StoreModule<Integer> {
     }
 
     @Override
-    public Integer getValue() {
+    public final Integer getValue() {
 	return store.getInMarginSum() + store.getAboveMarginSum();
     }
 
     @Override
-    public void setValue(Integer value) {
+    public final void setValue(Integer value) {
     }
 
 }

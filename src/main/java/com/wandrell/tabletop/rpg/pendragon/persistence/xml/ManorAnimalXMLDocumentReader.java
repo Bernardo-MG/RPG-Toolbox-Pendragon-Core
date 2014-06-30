@@ -16,8 +16,12 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 public class ManorAnimalXMLDocumentReader implements
 	XMLDocumentReader<ManorAnimal> {
 
+    public ManorAnimalXMLDocumentReader() {
+	super();
+    }
+
     @Override
-    public ManorAnimal getValue(final Document doc) {
+    public final ManorAnimal getValue(final Document doc) {
 	final DefaultManorAnimal holder;
 	final Element intervals;
 	final Element root;
@@ -38,7 +42,7 @@ public class ManorAnimalXMLDocumentReader implements
 	return holder;
     }
 
-    private void readIntervalsXMLTree(final Element root,
+    private final void readIntervalsXMLTree(final Element root,
 	    final RollTable<AnimalYearResult> holder) {
 	DefaultAnimalYearResult result;
 
@@ -52,7 +56,7 @@ public class ManorAnimalXMLDocumentReader implements
 	}
     }
 
-    private DefaultAnimalYearResult readYearResultNode(final Element root) {
+    private final DefaultAnimalYearResult readYearResultNode(final Element root) {
 	final Element values, flags, files;
 	final DefaultAnimalYearResult result = new DefaultAnimalYearResult();
 

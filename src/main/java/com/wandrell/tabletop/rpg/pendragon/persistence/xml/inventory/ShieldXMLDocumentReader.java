@@ -4,15 +4,15 @@ import org.jdom2.Document;
 
 import com.wandrell.tabletop.rpg.pendragon.inventory.ShieldEquipment;
 
-public class ShieldXMLDocumentReader extends
+public final class ShieldXMLDocumentReader extends
 	AbstractEquipableItemXMLDocumentReader<ShieldEquipment> {
 
     public ShieldXMLDocumentReader() {
-	super(ShieldEquipment.class);
+	super();
     }
 
     @Override
-    public ShieldEquipment getValue(final Document doc) {
+    public final ShieldEquipment getValue(final Document doc) {
 	return super.getValue(doc);
     }
 

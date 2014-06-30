@@ -8,11 +8,11 @@ public class ArmorXMLDocumentReader extends
 	AbstractEquipableItemXMLDocumentReader<ArmorEquipment> {
 
     public ArmorXMLDocumentReader() {
-	super(ArmorEquipment.class);
+	super();
     }
 
     @Override
-    public ArmorEquipment getValue(final Document doc) {
+    public final ArmorEquipment getValue(final Document doc) {
 	return super.getValue(doc);
     }
 

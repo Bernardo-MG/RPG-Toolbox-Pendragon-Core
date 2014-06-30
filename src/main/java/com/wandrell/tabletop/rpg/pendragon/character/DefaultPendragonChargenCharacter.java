@@ -8,7 +8,6 @@ import com.wandrell.tabletop.rpg.pendragon.character.background.Homeland;
 import com.wandrell.tabletop.rpg.pendragon.character.background.culture.Culture;
 import com.wandrell.tabletop.rpg.pendragon.conf.PendragonLabels;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonAttribute;
-import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonSkill;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonTrait;
 
 public class DefaultPendragonChargenCharacter extends
@@ -24,10 +23,10 @@ public class DefaultPendragonChargenCharacter extends
 	}
     }
 
-    private Culture dataCulture = null;
-    private FatherClass dataFatherClass = null;
-    private Homeland dataHomeland = null;
+    private Culture culture;
+    private FatherClass fatherClass;
     private final StatusFlags holderStatusFlags = new StatusFlags();
+    private Homeland homeland;
 
     public DefaultPendragonChargenCharacter(
 	    final Collection<PendragonAttribute> attributes,
@@ -39,13 +38,8 @@ public class DefaultPendragonChargenCharacter extends
 	    final DefaultPendragonChargenCharacter character) {
 	super(character);
 
-	setCultureData(character.dataCulture.createNewInstance());
-	setHomelandData(character.dataHomeland.createNewInstance());
-    }
-
-    @Override
-    public void addSkill(final PendragonSkill vhSkill) {
-	super.addSkill(vhSkill);
+	culture = character.culture.createNewInstance();
+	homeland = character.homeland.createNewInstance();
     }
 
     @Override
@@ -54,39 +48,48 @@ public class DefaultPendragonChargenCharacter extends
     }
 
     @Override
-    public Culture getCultureData() {
-	return dataCulture;
+    public final Culture getCulture() {
+	return culture;
     }
 
     @Override
-    public FatherClass getFatherClassData() {
-	return dataFatherClass;
+    public final FatherClass getFatherClass() {
+	return fatherClass;
     }
 
     @Override
-    public Homeland getHomelandData() {
-	return dataHomeland;
+    public final Homeland getHomeland() {
+	return homeland;
     }
 
     @Override
-    public boolean isKnightChosen() {
+    public final Boolean isKnightChosen() {
 	return getCharFlags().flagKnightChosen;
     }
 
     @Override
-    public void setCultureData(final Culture culture) {
-	dataCulture = culture;
+    public final void setCulture(final Culture culture) {
+	if (culture == null) {
+	    throw new NullPointerException();
+	}
+
+	this.culture = culture;
 
 	addTextValue(PendragonLabels.TEXT_CULTURE_NAME, culture.getName());
     }
 
     @Override
-    public void setFamilyCharacteristic(
+    public final void setFamilyCharacteristic(
 	    final FamilyCharacteristic characteristic) {
 	if (!holderStatusFlags.flagFamilyCharChosen) {
 	    // TODO: Quizás sea mejor hacer esto fuera
 	    // ValueHandlerServicesFactory.getTemplateService().loadBonusTemplate(
 	    // this, characteristic);
+
+	    if (characteristic == null) {
+		throw new NullPointerException();
+	    }
+
 	    addTextValue(PendragonLabels.TEXT_FAMILY_CHARACTERISTIC,
 		    characteristic.getName());
 	    holderStatusFlags.flagFamilyCharChosen = true;
@@ -94,11 +97,16 @@ public class DefaultPendragonChargenCharacter extends
     }
 
     @Override
-    public void setFatherClassData(final FatherClass fatherClass) {
-	if (dataFatherClass == null) {
-	    dataFatherClass = fatherClass;
+    public final void setFatherClassData(final FatherClass fatherClass) {
+	if (this.fatherClass == null) {
+	    this.fatherClass = fatherClass;
+
+	    if (fatherClass == null) {
+		throw new NullPointerException();
+	    }
+
 	    addTextValue(PendragonLabels.TEXT_FATHER_CLASS,
-		    dataFatherClass.getName());
+		    fatherClass.getName());
 	    // ValueHandlerServicesFactory.getTemplateService()
 	    // .loadBaseValuesTemplate(this,
 	    // dataFatherClass.getBaseValuesTemplate());
@@ -108,25 +116,21 @@ public class DefaultPendragonChargenCharacter extends
     }
 
     @Override
-    public void setHomelandData(final Homeland homeland) {
-	if (dataHomeland == null) {
-	    dataHomeland = homeland;
-	    addTextValue(PendragonLabels.TEXT_HOMELAND, dataHomeland.getName());
+    public final void setHomelandData(final Homeland homeland) {
+	if (this.homeland == null) {
+	    this.homeland = homeland;
+	    addTextValue(PendragonLabels.TEXT_HOMELAND, homeland.getName());
 	}
     }
 
     @Override
-    public void setKnight(final Boolean isKnight) {
+    public final void setKnight(final Boolean isKnight) {
 	super.setKnight(isKnight);
-	setKnightChosen(true);
+	getCharFlags().flagKnightChosen = isKnight;
     }
 
-    private StatusFlags getCharFlags() {
+    private final StatusFlags getCharFlags() {
 	return holderStatusFlags;
-    }
-
-    protected void setKnightChosen(boolean knightChosen) {
-	getCharFlags().flagKnightChosen = knightChosen;
     }
 
 }

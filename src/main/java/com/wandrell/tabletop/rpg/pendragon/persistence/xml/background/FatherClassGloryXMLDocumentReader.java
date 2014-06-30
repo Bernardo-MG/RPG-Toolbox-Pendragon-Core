@@ -12,21 +12,25 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 public class FatherClassGloryXMLDocumentReader implements
 	XMLDocumentReader<FatherClassGlory> {
 
+    public FatherClassGloryXMLDocumentReader() {
+	super();
+    }
+
     @Override
-    public FatherClassGlory getValue(final Document doc) {
+    public final FatherClassGlory getValue(final Document doc) {
 	final DefaultFatherClassGlory holder;
-	final Element gloryBase, gloryYear;
+	final Element gloryBase;
+	// final Element gloryYear;
 	final Element root;
 
 	root = doc.getRootElement();
 
-	holder = new DefaultFatherClassGlory();
-
 	gloryBase = root.getChild(FileLabels.FATHER_CLASS_GLORY_BASE);
-	gloryYear = root.getChild(FileLabels.FATHER_CLASS_GLORY_PER_YEAR);
+	// gloryYear = root.getChild(FileLabels.FATHER_CLASS_GLORY_PER_YEAR);
 
 	// Father's class name
-	holder.setName(root.getAttributeValue(FileStreamerTags.NAME));
+	holder = new DefaultFatherClassGlory(
+		root.getAttributeValue(FileStreamerTags.NAME));
 
 	// Base glory
 	if (gloryBase != null) {

@@ -9,6 +9,7 @@ import com.wandrell.tabletop.rpg.valuehandler.module.store.IntegerMarginStore;
 
 public class ReligiousMarginStore extends StoreModule<Integer> {
 
+    @SuppressWarnings("unused")
     private boolean flagOn = false;
     private final AbstractMarginStore<Integer, AbstractValueHandler<Integer>> store;
 
@@ -36,26 +37,26 @@ public class ReligiousMarginStore extends StoreModule<Integer> {
     }
 
     @Override
-    public void addValue(final Integer value) {
+    public final void addValue(final Integer value) {
     }
 
     @Override
-    public ReligiousMarginStore createNewInstance() {
+    public final ReligiousMarginStore createNewInstance() {
 	return new ReligiousMarginStore(this);
     }
 
     @Override
-    public Integer getValue() {
+    public final Integer getValue() {
 	return store.getAboveMarginCount() + store.getInMarginCount();
     }
 
-    public boolean isOn() {
+    public final Boolean isOn() {
 	return ((store.getValueHandlers().size() > 0) && (getValue() == store
 		.getValueHandlers().size()));
     }
 
     @Override
-    public void setValue(final Integer value) {
+    public final void setValue(final Integer value) {
     }
 
 }

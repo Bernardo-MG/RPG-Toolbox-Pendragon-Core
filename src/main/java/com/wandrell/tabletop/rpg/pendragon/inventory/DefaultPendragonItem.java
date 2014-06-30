@@ -1,29 +1,30 @@
 package com.wandrell.tabletop.rpg.pendragon.inventory;
 
 import com.wandrell.tabletop.rpg.inventory.DefaultItemData;
+import com.wandrell.tabletop.rpg.pendragon.conf.factory.PendragonFactory;
 
 public class DefaultPendragonItem extends DefaultItemData implements
 	PendragonItem {
 
-    private final PendragonMoneyData dataMoney;
+    private final PendragonMoney money;
 
     public DefaultPendragonItem() {
 	super();
 
-	dataMoney = new DefaultMoneyData();
+	money = PendragonFactory.getInstance().getMoney();
     }
 
     public DefaultPendragonItem(final DefaultPendragonItem item) {
 	super(item);
 
-	dataMoney = item.dataMoney.createNewInstance();
+	money = item.money.createNewInstance();
     }
 
     public DefaultPendragonItem(final String name, final String description,
-	    final int valueLibra, final int valueDenarii) {
+	    final int libra, final int denarii) {
 	super(name, description);
 
-	dataMoney = new DefaultMoneyData(valueLibra, valueDenarii);
+	money = PendragonFactory.getInstance().getMoney(libra, denarii);
     }
 
     @Override
@@ -40,10 +41,10 @@ public class DefaultPendragonItem extends DefaultItemData implements
 	    equals = false;
 	} else {
 	    received = (DefaultPendragonItem) obj;
-	    if (received.dataMoney == null) {
-		equals = (dataMoney == null);
+	    if (received.money == null) {
+		equals = (money == null);
 	    } else {
-		equals = (received.dataMoney.equals(dataMoney));
+		equals = (received.money.equals(money));
 	    }
 	}
 
@@ -51,8 +52,8 @@ public class DefaultPendragonItem extends DefaultItemData implements
     }
 
     @Override
-    public PendragonMoneyData getMoneyData() {
-	return dataMoney;
+    public final PendragonMoney getMoney() {
+	return money;
     }
 
     @Override
@@ -60,8 +61,7 @@ public class DefaultPendragonItem extends DefaultItemData implements
 	final int prime = 31;
 	int result = super.hashCode();
 
-	result = prime * result
-		+ ((dataMoney == null) ? 0 : dataMoney.hashCode());
+	result = prime * result + ((money == null) ? 0 : money.hashCode());
 
 	return result;
     }

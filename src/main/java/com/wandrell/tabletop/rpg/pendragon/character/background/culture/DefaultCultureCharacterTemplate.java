@@ -3,17 +3,16 @@ package com.wandrell.tabletop.rpg.pendragon.character.background.culture;
 import java.util.Collection;
 
 import com.wandrell.tabletop.rpg.interval.Interval;
-import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonAggregatedSkill;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonDirectedTrait;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonPassion;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonSkill;
+import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonSpecialtySkill;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonTrait;
 import com.wandrell.tabletop.rpg.valuehandler.ValueHandler;
-import com.wandrell.util.tag.NewInstantiable;
 
 public class DefaultCultureCharacterTemplate implements
-	CultureCharacterTemplate, NewInstantiable {
+	CultureCharacterTemplate {
 
     public DefaultCultureCharacterTemplate() {
 	super();
@@ -30,170 +29,175 @@ public class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public PendragonAggregatedSkill getAdvancedSkill(String name) {
+    public final PendragonAttribute getAttribute(final String name) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Collection<PendragonAggregatedSkill> getAdvancedSkills() {
+    public final Interval<Integer> getAttributeInterval(final String name) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public PendragonAttribute getAttribute(String name) {
+    public final Collection<Interval<Integer>> getAttributeIntervals() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Interval<Integer> getAttributeInterval(String name) {
+    public final Collection<PendragonAttribute> getAttributes() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Collection<Interval<Integer>> getAttributeIntervals() {
+    public final ValueHandler<Integer> getDerivedAttribute(final String name) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Collection<PendragonAttribute> getAttributes() {
+    public final Collection<ValueHandler<Integer>> getDerivedAttributes() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public ValueHandler<Integer> getDerivedAttribute(String name) {
+    public final PendragonDirectedTrait getDirectedTrait(final String name,
+	    final String annotation) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Collection<ValueHandler<Integer>> getDerivedAttributes() {
+    public final Collection<PendragonDirectedTrait> getDirectedTraits() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public PendragonDirectedTrait getDirectedTrait(String name,
-	    String annotation) {
+    public final PendragonSkill getExclusiveSkill(final String name,
+	    final String annotation) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Collection<PendragonDirectedTrait> getDirectedTraits() {
+    public final Collection<PendragonSkill> getExclusiveSkills() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public PendragonSkill getExclusiveSkill(String name, String annotation) {
+    public final PendragonPassion getPassion(final String name,
+	    final String annotation) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Collection<PendragonSkill> getExclusiveSkills() {
+    public final Collection<PendragonPassion> getPassions() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public PendragonPassion getPassion(String name, String annotation) {
+    public final PendragonSkill getSkill(final String name,
+	    final String annotation) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Collection<PendragonPassion> getPassions() {
+    public final Collection<PendragonSkill> getSkills() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public PendragonSkill getSkill(String name, String annotation) {
+    public final PendragonSpecialtySkill getSpecialtySkill(final String name) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Collection<PendragonSkill> getSkills() {
+    public final Collection<PendragonSpecialtySkill> getSpecialtySkills() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public PendragonTrait getTrait(String name) {
+    public final PendragonTrait getTrait(final String name) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public Collection<PendragonTrait> getTraits() {
+    public final Collection<PendragonTrait> getTraits() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public String getValuesText() {
+    public final String getValuesText() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public boolean hasAdvancedSkill(String name) {
+    public final Boolean hasAttribute(final String name) {
 	// TODO Auto-generated method stub
 	return false;
     }
 
     @Override
-    public boolean hasAttribute(String name) {
+    public final Boolean hasAttributeInterval(final String name) {
 	// TODO Auto-generated method stub
 	return false;
     }
 
     @Override
-    public boolean hasAttributeInterval(String name) {
+    public final Boolean hasDerivedAttribute(final String name) {
 	// TODO Auto-generated method stub
 	return false;
     }
 
     @Override
-    public boolean hasDerivedAttribute(String name) {
+    public final Boolean hasDirectedTrait(final String name,
+	    final String annotation) {
 	// TODO Auto-generated method stub
 	return false;
     }
 
     @Override
-    public boolean hasDirectedTrait(String name, String annotation) {
+    public final Boolean hasExclusiveSkill(final String name,
+	    final String annotation) {
 	// TODO Auto-generated method stub
 	return false;
     }
 
     @Override
-    public boolean hasExclusiveSkill(String name, String annotation) {
+    public final Boolean hasPassion(final String name, final String annotation) {
 	// TODO Auto-generated method stub
 	return false;
     }
 
     @Override
-    public boolean hasPassion(String name, String annotation) {
+    public final Boolean hasSkill(final String name, final String annotation) {
 	// TODO Auto-generated method stub
 	return false;
     }
 
     @Override
-    public boolean hasSkill(String name, String annotation) {
+    public final Boolean hasSpecialtySkill(final String name) {
 	// TODO Auto-generated method stub
 	return false;
     }
 
     @Override
-    public boolean hasTrait(String name) {
+    public final Boolean hasTrait(final String name) {
 	// TODO Auto-generated method stub
 	return false;
     }

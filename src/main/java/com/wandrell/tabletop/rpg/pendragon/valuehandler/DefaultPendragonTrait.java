@@ -7,19 +7,18 @@ import com.wandrell.tabletop.rpg.valuehandler.module.GeneratorModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.rpg.valuehandler.module.ValidatorModule;
-import com.wandrell.util.tag.NewInstantiable;
 
-public class DefaultPendragonTrait implements PendragonTrait, NewInstantiable {
+public class DefaultPendragonTrait implements PendragonTrait {
 
-    private final boolean flagGoodTrait;
+    private final DelegateValueHandler<Integer> composite;
+    private final boolean goodTrait;
     private PendragonTrait traitMirror;
-    private final DelegateValueHandler<Integer> vhComposite;
 
     public DefaultPendragonTrait(final DefaultPendragonTrait vh) {
 	super();
-	vhComposite = vh.vhComposite.createNewInstance();
+	composite = vh.composite.createNewInstance();
 
-	flagGoodTrait = vh.flagGoodTrait;
+	goodTrait = vh.goodTrait;
     }
 
     public DefaultPendragonTrait(final String name,
@@ -29,19 +28,19 @@ public class DefaultPendragonTrait implements PendragonTrait, NewInstantiable {
 	    final ValidatorModule<Integer> validator, final boolean goodTrait) {
 	super();
 
-	vhComposite = new DefaultValueHandler<Integer>(name, generator,
-		interval, store, validator);
+	composite = new DefaultValueHandler<Integer>(name, generator, interval,
+		store, validator);
 
-	flagGoodTrait = goodTrait;
+	this.goodTrait = goodTrait;
     }
 
     @Override
-    public Boolean acceptsValue(final Integer value) {
+    public final Boolean acceptsValue(final Integer value) {
 	return getValueHandler().acceptsValue(value);
     }
 
     @Override
-    public void addValue(final Integer value) {
+    public final void addValue(final Integer value) {
 	getValueHandler().addValue(value);
     }
 
@@ -51,66 +50,66 @@ public class DefaultPendragonTrait implements PendragonTrait, NewInstantiable {
     }
 
     @Override
-    public void decreaseValue() {
+    public final void decreaseValue() {
 	getValueHandler().decreaseValue();
     }
 
     @Override
-    public Integer getLowerLimit() {
+    public final Integer getLowerLimit() {
 	return getValueHandler().getLowerLimit();
     }
 
     @Override
-    public PendragonTrait getMirrorTrait() {
+    public final PendragonTrait getMirrorTrait() {
 	return traitMirror;
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
 	return getValueHandler().getName();
     }
 
     @Override
-    public Integer getStoredValue() {
+    public final Integer getStoredValue() {
 	return getValueHandler().getStoredValue();
     }
 
     @Override
-    public Integer getUpperLimit() {
+    public final Integer getUpperLimit() {
 	return getValueHandler().getUpperLimit();
     }
 
     @Override
-    public void increaseValue() {
+    public final void increaseValue() {
 	getValueHandler().increaseValue();
     }
 
     @Override
-    public Boolean isAbleToDecrease() {
+    public final Boolean isAbleToDecrease() {
 	return getValueHandler().isAbleToDecrease();
     }
 
     @Override
-    public Boolean isAbleToIncrease() {
+    public final Boolean isAbleToIncrease() {
 	return getValueHandler().isAbleToIncrease();
     }
 
     @Override
-    public boolean isGoodTrait() {
-	return flagGoodTrait;
+    public final Boolean isGoodTrait() {
+	return goodTrait;
     }
 
-    public void setMirrorTrait(final PendragonTrait trait) {
+    public final void setMirrorTrait(final PendragonTrait trait) {
 	traitMirror = trait;
     }
 
     @Override
-    public void setValue(final Integer value) {
+    public final void setValue(final Integer value) {
 	getValueHandler().setValue(value);
     }
 
-    protected ValueHandler<Integer> getValueHandler() {
-	return vhComposite;
+    protected final ValueHandler<Integer> getValueHandler() {
+	return composite;
     }
 
 }

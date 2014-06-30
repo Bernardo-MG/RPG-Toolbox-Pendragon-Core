@@ -11,16 +11,20 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 public class HomelandTemplateXMLDocumentReader implements
 	XMLDocumentReader<Homeland> {
 
+    public HomelandTemplateXMLDocumentReader() {
+	super();
+    }
+
     @Override
-    public Homeland getValue(final Document doc) {
+    public final Homeland getValue(final Document doc) {
 	final DefaultHomeland holder;
 	final Element root;
 
 	root = doc.getRootElement();
-	holder = new DefaultHomeland();
 
 	// Homeland's name
-	holder.setName(root.getAttributeValue(FileStreamerTags.NAME));
+	holder = new DefaultHomeland(
+		root.getAttributeValue(FileStreamerTags.NAME));
 
 	// TODO
 	// PersistenceFactory.getTemplatesContainerService().readXMLTree(root,

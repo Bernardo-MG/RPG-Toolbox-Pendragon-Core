@@ -192,6 +192,7 @@ public class PendragonLabels {
     public static final String VH_BONUS_DAMAGE_DIE_VS_SHIELD = "extra_die_vs_shield";
     public static final String VH_BONUS_DAMAGE_DIE_VS_UNARMORED = "extra_die_vs_unarmored";
     public static final String VH_CHIVALDRY_ARMOR = "chivaldry_armor";
+    public static final String VH_DAMAGE = "damage";
     public static final String VH_DAMAGE_OVERRIDE_BONUS = "damage_override_bonus";
     public static final String VH_DAMAGE_OVERRIDE_DIE = "damage_override_die";
     public static final String VH_DENARII = "denarii";

@@ -4,50 +4,57 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.wandrell.tabletop.rpg.character.Gender;
 import com.wandrell.tabletop.rpg.pendragon.util.PendragonValueHandlerUtils;
-import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonAggregatedSkill;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonDirectedTrait;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonPassion;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonSkill;
+import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonSpecialtySkill;
 import com.wandrell.tabletop.rpg.pendragon.valuehandler.PendragonTrait;
 
 public abstract class AbstractPendragonSimpleCharacter extends
 	AbstractPendragonBaseCharacter implements PendragonSimpleCharacter {
 
+    private final Map<String, PendragonDirectedTrait> directedTraits = new LinkedHashMap<>();
     private Gender gender = null;
-    private final Map<String, PendragonAggregatedSkill> skillsAdvanced = new LinkedHashMap<>();
-    private final Map<String, PendragonDirectedTrait> storeDirectedTraits = new LinkedHashMap<>();
-    private final Map<String, PendragonPassion> storePassions = new LinkedHashMap<>();
-    private final Map<String, PendragonSkill> storeSkills = new LinkedHashMap<>();
+    private final Map<String, PendragonPassion> passions = new LinkedHashMap<>();
+    private final Map<String, PendragonSkill> skills = new LinkedHashMap<>();
+    private final Map<String, PendragonSpecialtySkill> skillsSpecialty = new LinkedHashMap<>();
     private final Map<String, PendragonTrait> traits = new LinkedHashMap<>();
 
     public AbstractPendragonSimpleCharacter(
 	    final AbstractPendragonSimpleCharacter character) {
 	super(character);
 
-	for (final PendragonAggregatedSkill skill : character.skillsAdvanced
-		.values()) {
-	    addAdvancedSkill(skill.createNewInstance());
-	}
-	for (final PendragonDirectedTrait trait : character.storeDirectedTraits
-		.values()) {
-	    addDirectedTrait(trait.createNewInstance());
-	}
-	for (final PendragonPassion passion : character.storePassions.values()) {
-	    addPassion(passion.createNewInstance());
-	}
-	for (final PendragonSkill skill : character.storeSkills.values()) {
-	    addSkill(skill.createNewInstance());
+	for (final Entry<String, PendragonSpecialtySkill> entry : character.skillsSpecialty
+		.entrySet()) {
+	    skillsSpecialty.put(entry.getKey(), entry.getValue());
 	}
 
-	for (final PendragonTrait trait : character.traits.values()) {
-	    getTrait(trait.getName()).setValue(trait.getStoredValue());
+	for (final Entry<String, PendragonDirectedTrait> entry : character.directedTraits
+		.entrySet()) {
+	    directedTraits.put(entry.getKey(), entry.getValue());
 	}
 
-	setGender(character.gender);
+	for (final Entry<String, PendragonPassion> entry : character.passions
+		.entrySet()) {
+	    passions.put(entry.getKey(), entry.getValue());
+	}
+
+	for (final Entry<String, PendragonSkill> entry : character.skills
+		.entrySet()) {
+	    skills.put(entry.getKey(), entry.getValue());
+	}
+
+	for (final Entry<String, PendragonTrait> entry : character.traits
+		.entrySet()) {
+	    traits.put(entry.getKey(), entry.getValue());
+	}
+
+	gender = character.gender;
     }
 
     public AbstractPendragonSimpleCharacter(
@@ -55,60 +62,71 @@ public abstract class AbstractPendragonSimpleCharacter extends
 	    final Collection<PendragonTrait> traits) {
 	super(attributes);
 
-	setTraits(traits);
-    }
+	for (final PendragonTrait trait : traits) {
+	    if (trait == null) {
+		throw new NullPointerException();
+	    }
 
-    @Override
-    public void addAdvancedSkill(final PendragonAggregatedSkill skill) {
-	getAdvancedSkillsMap().put(skill.getName(), skill);
-	assembleAdvancedSkill(skill);
+	    this.traits.put(trait.getName(), trait);
+	}
     }
 
     @Override
     public void addDirectedTrait(final PendragonDirectedTrait trait) {
-	getDirectedTraitsStore().put(
+	if (trait == null) {
+	    throw new NullPointerException();
+	}
+
+	_getDirectedTraits().put(
 		PendragonValueHandlerUtils.getNameAnnotationKey(
 			trait.getName(), trait.getAnnotation()), trait);
     }
 
     @Override
     public void addPassion(final PendragonPassion passion) {
-	getPassionsStore().put(
+	if (passion == null) {
+	    throw new NullPointerException();
+	}
+
+	_getPassions().put(
 		PendragonValueHandlerUtils.getNameAnnotationKey(
 			passion.getName(), passion.getAnnotation()), passion);
     }
 
     @Override
     public void addSkill(final PendragonSkill skill) {
-	getSkillsStore().put(
+	if (skill == null) {
+	    throw new NullPointerException();
+	}
+
+	_getSkills().put(
 		PendragonValueHandlerUtils.getNameAnnotationKey(
 			skill.getName(), skill.getAnnotation()), skill);
 	registerIntoAdvancedSkill(skill);
     }
 
     @Override
-    public PendragonAggregatedSkill getAdvancedSkill(final String name) {
-	return getAdvancedSkillsMap().get(name);
-    }
+    public void addSpecialtySkill(final PendragonSpecialtySkill skill) {
+	if (skill == null) {
+	    throw new NullPointerException();
+	}
 
-    @Override
-    public Collection<PendragonAggregatedSkill> getAdvancedSkills() {
-	return Collections.unmodifiableCollection(getAdvancedSkillsMap()
-		.values());
+	_getSpecialtySkills().put(skill.getName(), skill);
+	assembleAdvancedSkill(skill);
     }
 
     @Override
     public PendragonDirectedTrait getDirectedTrait(final String name,
 	    final String annotation) {
-	return getDirectedTraitsStore().get(
+	return _getDirectedTraits().get(
 		PendragonValueHandlerUtils.getNameAnnotationKey(name,
 			annotation));
     }
 
     @Override
     public Collection<PendragonDirectedTrait> getDirectedTraits() {
-	return Collections.unmodifiableCollection(getDirectedTraitsStore()
-		.values());
+	return Collections
+		.unmodifiableCollection(_getDirectedTraits().values());
     }
 
     @Override
@@ -119,87 +137,90 @@ public abstract class AbstractPendragonSimpleCharacter extends
     @Override
     public PendragonPassion getPassion(final String name,
 	    final String annotation) {
-	return getPassionsStore().get(
+	return _getPassions().get(
 		PendragonValueHandlerUtils.getNameAnnotationKey(name,
 			annotation));
     }
 
     @Override
     public Collection<PendragonPassion> getPassions() {
-	return Collections.unmodifiableCollection(getPassionsStore().values());
+	return Collections.unmodifiableCollection(_getPassions().values());
     }
 
     @Override
     public PendragonSkill getSkill(final String name, final String annotation) {
-	return getSkillsStore().get(
+	return _getSkills().get(
 		PendragonValueHandlerUtils.getNameAnnotationKey(name,
 			annotation));
     }
 
     @Override
     public Collection<PendragonSkill> getSkills() {
-	return Collections.unmodifiableCollection(getSkillsStore().values());
+	return Collections.unmodifiableCollection(_getSkills().values());
+    }
+
+    @Override
+    public PendragonSpecialtySkill getSpecialtySkill(final String name) {
+	return _getSpecialtySkills().get(name);
+    }
+
+    @Override
+    public Collection<PendragonSpecialtySkill> getSpecialtySkills() {
+	return Collections.unmodifiableCollection(_getSpecialtySkills()
+		.values());
     }
 
     @Override
     public PendragonTrait getTrait(final String name) {
-	return getTraitsMap().get(name);
+	return _getTraits().get(name);
     }
 
     @Override
     public Collection<PendragonTrait> getTraits() {
-	return Collections.unmodifiableCollection(getTraitsMap().values());
-    }
-
-    @Override
-    public Boolean hasAdvancedSkill(final String name) {
-	return getAdvancedSkillsMap().containsKey(name);
+	return Collections.unmodifiableCollection(_getTraits().values());
     }
 
     @Override
     public boolean hasDirectedTrait(final String name, final String annotation) {
-	return getDirectedTraitsStore().containsKey(
+	return _getDirectedTraits().containsKey(
 		PendragonValueHandlerUtils.getNameAnnotationKey(name,
 			annotation));
     }
 
     @Override
     public boolean hasPassion(final String name, final String annotation) {
-	return getPassionsStore().containsKey(
+	return _getPassions().containsKey(
 		PendragonValueHandlerUtils.getNameAnnotationKey(name,
 			annotation));
     }
 
     @Override
     public boolean hasSkill(final String name, final String annotation) {
-	return getSkillsStore().containsKey(
+	return _getSkills().containsKey(
 		PendragonValueHandlerUtils.getNameAnnotationKey(name,
 			annotation));
+    }
+
+    @Override
+    public Boolean hasSpecialtySkill(final String name) {
+	return _getSpecialtySkills().containsKey(name);
     }
 
     @Override
     public boolean hasTrait(final String name) {
-	return getTraitsMap().containsKey(name);
+	return _getTraits().containsKey(name);
     }
 
-    @Override
     public void removePassion(final String name, final String annotation) {
-	getPassionsStore().containsKey(
+	// TODO: Is this required?
+	_getPassions().containsKey(
 		PendragonValueHandlerUtils.getNameAnnotationKey(name,
 			annotation));
     }
 
-    public void setAdvancedSkills(
-	    final Collection<PendragonAggregatedSkill> skills) {
-	getAdvancedSkillsMap().clear();
-	for (final PendragonAggregatedSkill skill : skills) {
-	    addAdvancedSkill(skill);
-	}
-    }
-
     public void setDirectedTraits(
 	    final Collection<PendragonDirectedTrait> traits) {
-	getDirectedTraitsStore().clear();
+	_getDirectedTraits().clear();
 	for (final PendragonDirectedTrait trait : traits) {
 	    addDirectedTrait(trait);
 	}
@@ -210,66 +231,60 @@ public abstract class AbstractPendragonSimpleCharacter extends
     }
 
     public void setPassions(final Collection<PendragonPassion> passions) {
-	getPassionsStore().clear();
+	_getPassions().clear();
 	for (final PendragonPassion passion : passions) {
 	    addPassion(passion);
 	}
     }
 
-    private void assembleAdvancedSkill(final PendragonAggregatedSkill vhAdvSkill) {
-	for (final String skill : vhAdvSkill.getSkillsNames()) {
+    public void setSpecialtySkills(
+	    final Collection<PendragonSpecialtySkill> skills) {
+	_getSpecialtySkills().clear();
+	for (final PendragonSpecialtySkill skill : skills) {
+	    addSpecialtySkill(skill);
+	}
+    }
+
+    private void assembleAdvancedSkill(final PendragonSpecialtySkill vhAdvSkill) {
+	for (final String skill : vhAdvSkill.getSurrogatedSkills()) {
 	    if (hasSkill(skill, "")) {
-		vhAdvSkill.register(getSkill(skill, ""));
+		vhAdvSkill.registerSkill(getSkill(skill, ""));
 	    }
 	}
     }
 
     private void registerIntoAdvancedSkill(final PendragonSkill vhSkill) {
-	for (final PendragonAggregatedSkill skill : getAdvancedSkills()) {
+	for (final PendragonSpecialtySkill skill : getSpecialtySkills()) {
 	    if (skill.isSkillContained(vhSkill.getName())) {
-		skill.register(vhSkill);
+		skill.registerSkill(vhSkill);
 	    }
 	}
     }
 
-    protected void addTrait(final PendragonTrait vhTrait) {
-	getTraitsMap().put(vhTrait.getName(), vhTrait);
-	getTraitsMap().put(vhTrait.getMirrorTrait().getName(),
-		vhTrait.getMirrorTrait());
+    protected Map<String, PendragonDirectedTrait> _getDirectedTraits() {
+	return directedTraits;
     }
 
-    protected Map<String, PendragonAggregatedSkill> getAdvancedSkillsMap() {
-	return skillsAdvanced;
+    protected Map<String, PendragonPassion> _getPassions() {
+	return passions;
     }
 
-    protected Map<String, PendragonDirectedTrait> getDirectedTraitsStore() {
-	return storeDirectedTraits;
+    protected Map<String, PendragonSkill> _getSkills() {
+	return skills;
     }
 
-    protected Map<String, PendragonPassion> getPassionsStore() {
-	return storePassions;
+    protected Map<String, PendragonSpecialtySkill> _getSpecialtySkills() {
+	return skillsSpecialty;
     }
 
-    protected Map<String, PendragonSkill> getSkillsStore() {
-	return storeSkills;
-    }
-
-    protected Map<String, PendragonTrait> getTraitsMap() {
+    protected Map<String, PendragonTrait> _getTraits() {
 	return traits;
     }
 
-    protected void setSkills(final Collection<PendragonSkill> skills) {
-	getSkillsStore().clear();
-	for (final PendragonSkill skill : skills) {
-	    addSkill(skill);
-	}
-    }
-
-    protected void setTraits(final Collection<PendragonTrait> traits) {
-	getTraitsMap().clear();
-	for (final PendragonTrait trait : traits) {
-	    addTrait(trait);
-	}
+    protected void addTrait(final PendragonTrait vhTrait) {
+	_getTraits().put(vhTrait.getName(), vhTrait);
+	_getTraits().put(vhTrait.getMirrorTrait().getName(),
+		vhTrait.getMirrorTrait());
     }
 
 }

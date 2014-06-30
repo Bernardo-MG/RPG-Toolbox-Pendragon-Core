@@ -15,8 +15,13 @@ import com.wandrell.util.file.api.xml.XMLDocumentReader;
 public class HorseXMLDocumentReader implements
 	XMLDocumentReader<HorseCharacter> {
 
+    public HorseXMLDocumentReader() {
+	super();
+    }
+
+    @SuppressWarnings("unused")
     @Override
-    public HorseCharacter getValue(final Document doc) {
+    public final HorseCharacter getValue(final Document doc) {
 	final DefaultHorseCharacter holder;
 	final Element secAttributes, flags;
 	final Element root;
