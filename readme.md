@@ -1,5 +1,5 @@
-## RPG Toolbox Pendragon's Core library
-Default implementation of the Pendragon's API extension for the library for the RPG Toolbox libraries.
+## Tabletop's Pendragon Core library
+Default implementation of the Pendragon's API extension for the library for the Tabletop project.
 
 ### Version
 The project is still under development, so expect a certain degree of instability. Class paths and names may change, and classes keep receiving enhancements which make them change with frequency.
@@ -18,19 +18,19 @@ But currently my projects lack a Maven repository, and so can't be handled autom
 The list of projects which need to be manually downloaded and installed are:
 * [Wandrell's Core library][]
 * [Wandrell's Framework library][]
-* [RPG Toolbox API library][]
-* [RPG Toolbox Core library][]
-* [RPG Toolbox Pendragon's API library][]
+* [Tabletop API library][]
+* [Tabletop Core library][]
+* [Tabletop's Pendragon API library][]
 
 ### Getting the code
-The GitHub project is found at https://github.com/Bernardo-MG/RPG-Toolbox-Pendragon-Swing, and it includes the git clone uri.
+The GitHub project is found at http://github.com/Bernardo-MG/Tabletop-Pendragon-Core, and it includes the git clone uri.
 
 ## License
 The project is released under version 2.0 of the [Apache License][].
 
 [Apache License]: http://www.apache.org/licenses/LICENSE-2.0
-[RPG Toolbox API library]: https://github.com/Bernardo-MG/RPG-Toolbox-API
-[RPG Toolbox Core library]: https://github.com/Bernardo-MG/RPG-Toolbox-Core
-[RPG Toolbox Pendragon's API library]: https://github.com/Bernardo-MG/RPG-Toolbox-Pendragon-API
-[Wandrell's Core library]: https://github.com/Bernardo-MG/Wandrell-Core
-[Wandrell's Framework library]: https://github.com/Bernardo-MG/Wandrell-Framework
+[RPG Toolbox API library]: http://github.com/Bernardo-MG/Tabletop-API
+[RPG Toolbox Core library]: http://github.com/Bernardo-MG/Tabletop-Core
+[RPG Toolbox Pendragon's API library]: http://github.com/Bernardo-MG/Tabletop-Pendragon-API
+[Wandrell's Core library]: http://github.com/Bernardo-MG/Wandrell-Core
+[Wandrell's Framework library]: http://github.com/Bernardo-MG/Wandrell-Framework
