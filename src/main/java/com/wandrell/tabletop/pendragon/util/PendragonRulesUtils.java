@@ -1,30 +1,22 @@
 package com.wandrell.tabletop.pendragon.util;
 
-import com.wandrell.tabletop.dice.DefaultRollTable;
+import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.dice.RollTable;
+import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.factory.PendragonRulesFactory;
+import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
 
 public final class PendragonRulesUtils {
 
-    private static PendragonRulesUtils instance;
-    private static final RollTable<Integer> mapFeaturesCount;
-
-    static {
-	// TODO: Load the configuration from a file
-	// TODO: Do this in some other way
-	mapFeaturesCount = new DefaultRollTable<>(Integer.MIN_VALUE, 6, 3);
-	mapFeaturesCount.addInterval(9, 2);
-	mapFeaturesCount.addInterval(12, 1);
-	mapFeaturesCount.addInterval(16, 2);
-	mapFeaturesCount.addInterval(Integer.MAX_VALUE, 3);
-    }
+    private static RollTable<Integer> featuresCount;
 
     public static final Integer getFeaturesCount(final Integer appearance) {
-	final Integer result;
+	if (featuresCount == null) {
+	    featuresCount = PendragonRulesFactory.getInstance()
+		    .getFeaturesCountTable();
+	}
 
-	getInstance();
-
-	result = mapFeaturesCount.getValue(appearance);
-	return result;
+	return featuresCount.getValue(appearance);
     }
 
     public static final Boolean isRepeatableSkill(final String name) {
@@ -32,18 +24,61 @@ public final class PendragonRulesUtils {
 	return false;
     }
 
-    public static final Integer weightCalculator(final Integer size) {
-	getInstance();
+    public static final Boolean isSkillAbleToBeCharGenExcellentSkill(
+	    final PendragonSkill skill, final Gender gender) {
+	final Boolean result;
+	final Boolean combat;
 
-	return recursiveWeightCalculator(size);
-    }
+	switch (gender) {
+	case MALE:
+	    result = true;
+	    break;
+	case FEMALE:
+	    combat = (skill.getName()
+		    .equals(PendragonLabels.COMBAT_SKILL_DAGGER))
+		    || (skill.getName()
+			    .equals(PendragonLabels.COMBAT_SKILL_SIEGE));
 
-    private static synchronized PendragonRulesUtils getInstance() {
-	if (instance == null) {
-	    instance = new PendragonRulesUtils();
+	    result = ((combat) || (!(skill.isCombatSkill())));
+	    break;
+	default:
+	    result = false;
 	}
 
-	return instance;
+	return result;
+    }
+
+    public static final Boolean isSkillAbleToBeCharGenExtraSkill(
+	    final PendragonSkill skill, final Gender gender) {
+	final Boolean result;
+	final Boolean combat;
+
+	switch (gender) {
+	case MALE:
+	    result = (!skill.isCombatSkill());
+	    break;
+	case FEMALE:
+	    combat = (skill.getName()
+		    .equals(PendragonLabels.COMBAT_SKILL_DAGGER))
+		    || (skill.getName()
+			    .equals(PendragonLabels.COMBAT_SKILL_SIEGE));
+
+	    result = ((combat) || (!(skill.isCombatSkill())));
+	    break;
+	default:
+	    result = false;
+	}
+
+	return result;
+    }
+
+    public static final Boolean isSkillAbleToBeCharGenIndividualDifferenceSkill(
+	    final PendragonSkill skill) {
+	return ((skill.isCombatSkill()) || (skill.getStoredValue() > 0));
+    }
+
+    public static final Integer weightCalculator(final Integer size) {
+	return recursiveWeightCalculator(size);
     }
 
     private final static Integer recursiveWeightCalculator(final Integer size) {
