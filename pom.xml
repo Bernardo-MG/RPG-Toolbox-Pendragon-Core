@@ -20,10 +20,10 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:https://github.com/Bernardo-MG/RPG-Pendragon-Core.git</connection>
-		<developerConnection>scm:git:https://github.com/Bernardo-MG/RPG-Pendragon-Core.git</developerConnection>
+		<connection>scm:git:https://github.com/Bernardo-MG/Tabletop-Pendragon-Core.git</connection>
+		<developerConnection>scm:git:https://github.com/Bernardo-MG/Tabletop-Pendragon-Core.git</developerConnection>
 		<tag>head</tag>
-		<url>https://github.com/Bernardo-MG/RPG-Pendragon-Core</url>
+		<url>https://github.com/Bernardo-MG/Tabletop-Pendragon-Core</url>
 	</scm>
 
 	<organization>
