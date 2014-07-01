@@ -29,8 +29,8 @@ The GitHub project is found at http://github.com/Bernardo-MG/Tabletop-Pendragon-
 The project is released under version 2.0 of the [Apache License][].
 
 [Apache License]: http://www.apache.org/licenses/LICENSE-2.0
-[RPG Toolbox API library]: http://github.com/Bernardo-MG/Tabletop-API
-[RPG Toolbox Core library]: http://github.com/Bernardo-MG/Tabletop-Core
-[RPG Toolbox Pendragon's API library]: http://github.com/Bernardo-MG/Tabletop-Pendragon-API
+[Tabletop API library]: http://github.com/Bernardo-MG/Tabletop-API
+[Tabletop Core library]: http://github.com/Bernardo-MG/Tabletop-Core
+[Tabletop's Pendragon API library]: http://github.com/Bernardo-MG/Tabletop-Pendragon-API
 [Wandrell's Core library]: http://github.com/Bernardo-MG/Wandrell-Core
 [Wandrell's Framework library]: http://github.com/Bernardo-MG/Wandrell-Framework
