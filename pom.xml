@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -8,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>Tabletop's Pendragon Core</name>
-	<url></url>
+	<url />
 	<description>Core library for the RPG Pendragon, part of the Tabletop project.</description>
 
 	<licenses>
@@ -115,13 +116,13 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
-			<!-- Tabletop core -->
+			<!-- Tabletop Core -->
 			<groupId>com.wandrell</groupId>
 			<artifactId>tabletop-core</artifactId>
 			<version>${rpg.version}</version>
 		</dependency>
 		<dependency>
-			<!-- RPG Pendragon's API -->
+			<!-- Tabeltop's Pendragon API -->
 			<groupId>com.wandrell</groupId>
 			<artifactId>tabletop-pendragon-api</artifactId>
 			<version>${rpg.version}</version>
