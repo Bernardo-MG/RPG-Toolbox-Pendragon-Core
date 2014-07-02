@@ -7,12 +7,12 @@ import org.jdom2.Element;
 
 import com.wandrell.tabletop.conf.FileStreamerTags;
 import com.wandrell.tabletop.pendragon.conf.FileLabels;
-import com.wandrell.tabletop.pendragon.valuehandler.DefaultPendragonAggregatedSkill;
+import com.wandrell.tabletop.pendragon.valuehandler.DefaultPendragonSpecialtySkill;
 import com.wandrell.tabletop.util.XMLUtils;
 import com.wandrell.util.file.api.xml.XMLDocumentReader;
 
 public class AdvancedSkillXMLDocumentReader implements
-	XMLDocumentReader<DefaultPendragonAggregatedSkill> {
+	XMLDocumentReader<DefaultPendragonSpecialtySkill> {
 
     public AdvancedSkillXMLDocumentReader() {
 	super();
@@ -20,7 +20,7 @@ public class AdvancedSkillXMLDocumentReader implements
 
     @SuppressWarnings("unused")
     @Override
-    public final DefaultPendragonAggregatedSkill getValue(final Document doc) {
+    public final DefaultPendragonSpecialtySkill getValue(final Document doc) {
 	final Element skills;
 	final Iterator<String> itrSkills;
 	final String name;

@@ -13,18 +13,18 @@ import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 import com.wandrell.tabletop.valuehandler.module.store.ProxyStore;
 
-public class DefaultPendragonAggregatedSkill extends
+public class DefaultPendragonSpecialtySkill extends
 	DefaultValueHandler<Integer> implements PendragonSpecialtySkill {
 
     private final Set<String> skills = new HashSet<String>();
 
-    public DefaultPendragonAggregatedSkill(
-	    final DefaultPendragonAggregatedSkill skill) {
+    public DefaultPendragonSpecialtySkill(
+	    final DefaultPendragonSpecialtySkill skill) {
 	super(skill);
 	skills.addAll(skill.skills);
     }
 
-    public DefaultPendragonAggregatedSkill(final String name,
+    public DefaultPendragonSpecialtySkill(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
@@ -35,8 +35,8 @@ public class DefaultPendragonAggregatedSkill extends
     }
 
     @Override
-    public DefaultPendragonAggregatedSkill createNewInstance() {
-	return new DefaultPendragonAggregatedSkill(this);
+    public DefaultPendragonSpecialtySkill createNewInstance() {
+	return new DefaultPendragonSpecialtySkill(this);
     }
 
     @Override

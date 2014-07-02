@@ -5,11 +5,11 @@ import org.jdom2.Element;
 
 import com.wandrell.tabletop.conf.FileStreamerTags;
 import com.wandrell.tabletop.pendragon.conf.FileLabels;
-import com.wandrell.tabletop.pendragon.valuehandler.DefaultPendragonAggregatedSkill;
+import com.wandrell.tabletop.pendragon.valuehandler.DefaultPendragonSpecialtySkill;
 import com.wandrell.util.file.api.xml.XMLDocumentWriter;
 
 public class AdvancedSkillXMLDocumentWriter implements
-	XMLDocumentWriter<DefaultPendragonAggregatedSkill> {
+	XMLDocumentWriter<DefaultPendragonSpecialtySkill> {
 
     public AdvancedSkillXMLDocumentWriter() {
 	super();
@@ -17,7 +17,7 @@ public class AdvancedSkillXMLDocumentWriter implements
 
     @Override
     public final Document getDocument(
-	    final DefaultPendragonAggregatedSkill holder) {
+	    final DefaultPendragonSpecialtySkill holder) {
 	final Document doc;
 	Element element;
 
