@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonDerivedAttribute;
 
@@ -45,7 +46,8 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public void addDerivedAttribute(final PendragonDerivedAttribute attribute) {
+    public final void addDerivedAttribute(
+	    final PendragonDerivedAttribute attribute) {
 	if (attribute == null) {
 	    throw new NullPointerException();
 	}
@@ -77,38 +79,82 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public PendragonAttribute getAttribute(final String name) {
-	return _getAttributes().get(name);
+    public final PendragonAttribute getAppearance() {
+	return _getAttributes().get(PendragonLabels.ATTRIBUTE_APPEARANCE);
     }
 
     @Override
-    public Collection<PendragonAttribute> getAttributes() {
+    public final Collection<PendragonAttribute> getAttributes() {
 	return Collections.unmodifiableCollection(_getAttributes().values());
     }
 
     @Override
-    public PendragonDerivedAttribute getDerivedAttribute(final String name) {
-	return _getDerivedAttributes().get(name);
+    public final PendragonAttribute getConstitution() {
+	return _getAttributes().get(PendragonLabels.ATTRIBUTE_CONSTITUTION);
     }
 
     @Override
-    public Collection<PendragonDerivedAttribute> getDerivedAttributes() {
+    public final PendragonAttribute getDamage() {
+	return _getAttributes().get(PendragonLabels.DERIVED_ATTRIBUTE_DAMAGE);
+    }
+
+    @Override
+    public final Collection<PendragonDerivedAttribute> getDerivedAttributes() {
 	return Collections.unmodifiableCollection(_getDerivedAttributes()
 		.values());
     }
 
     @Override
-    public String getName() {
+    public final PendragonAttribute getDexterity() {
+	return _getAttributes().get(PendragonLabels.ATTRIBUTE_DEXTERITY);
+    }
+
+    @Override
+    public final PendragonAttribute getHealingRate() {
+	return _getAttributes()
+		.get(PendragonLabels.DERIVED_ATTRIBUTE_HEAL_RATE);
+    }
+
+    @Override
+    public final PendragonAttribute getHitPoints() {
+	return _getAttributes().get(
+		PendragonLabels.DERIVED_ATTRIBUTE_HIT_POINTS);
+    }
+
+    @Override
+    public final PendragonAttribute getMoveRate() {
+	return _getAttributes().get(
+		PendragonLabels.DERIVED_ATTRIBUTE_MOVEMENT_RATE);
+    }
+
+    @Override
+    public final String getName() {
 	return name;
     }
 
     @Override
-    public Boolean hasAttribute(final String name) {
+    public final PendragonAttribute getSize() {
+	return _getAttributes().get(PendragonLabels.ATTRIBUTE_SIZE);
+    }
+
+    @Override
+    public final PendragonAttribute getStrength() {
+	return _getAttributes().get(PendragonLabels.ATTRIBUTE_STRENGTH);
+    }
+
+    @Override
+    public final PendragonAttribute getUnconsciousTreshold() {
+	return _getAttributes().get(
+		PendragonLabels.DERIVED_ATTRIBUTE_UNCONSCIOUS);
+    }
+
+    @Override
+    public final Boolean hasAttribute(final String name) {
 	return _getAttributes().containsKey(name);
     }
 
     @Override
-    public Boolean hasDerivedAttribute(final String name) {
+    public final Boolean hasDerivedAttribute(final String name) {
 	return _getDerivedAttributes().containsKey(name);
     }
 
@@ -122,7 +168,7 @@ public abstract class AbstractPendragonBaseCharacter implements
 	return result;
     }
 
-    public void setDerivedAttributes(
+    public final void setDerivedAttributes(
 	    final Collection<PendragonDerivedAttribute> attributes) {
 	if (attributes == null) {
 	    throw new NullPointerException();
@@ -138,7 +184,7 @@ public abstract class AbstractPendragonBaseCharacter implements
 	}
     }
 
-    public void setName(final String name) {
+    public final void setName(final String name) {
 	if (name == null) {
 	    throw new NullPointerException();
 	}
@@ -151,15 +197,15 @@ public abstract class AbstractPendragonBaseCharacter implements
 	return getName();
     }
 
-    protected Map<String, PendragonAttribute> _getAttributes() {
+    protected final Map<String, PendragonAttribute> _getAttributes() {
 	return attributes;
     }
 
-    protected Map<String, PendragonDerivedAttribute> _getDerivedAttributes() {
+    protected final Map<String, PendragonDerivedAttribute> _getDerivedAttributes() {
 	return attributesDerived;
     }
 
-    protected void addAttribute(final PendragonAttribute attribute) {
+    protected final void addAttribute(final PendragonAttribute attribute) {
 	_getAttributes().put(attribute.getName(), attribute);
     }
 

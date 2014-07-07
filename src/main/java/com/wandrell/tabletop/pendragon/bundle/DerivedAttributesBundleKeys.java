@@ -9,7 +9,7 @@ public class DerivedAttributesBundleKeys {
     public final static String DEXTERITY_ROLL = PendragonLabels.DERIVED_ATTRIBUTE_DEXTERITY_ROLL;
     public final static String DISTINCTIVE_FEATURES = PendragonLabels.DERIVED_ATTRIBUTE_FEATURES;
     public final static String HEAL_RATE = PendragonLabels.DERIVED_ATTRIBUTE_HEAL_RATE;
-    public final static String HIT_POINTS = PendragonLabels.DERIVED_ATTRIBUTE_HITPOINTS;
+    public final static String HIT_POINTS = PendragonLabels.DERIVED_ATTRIBUTE_HIT_POINTS;
     public final static String KNOCKDOWN = PendragonLabels.DERIVED_ATTRIBUTE_KNOCKDOWN;
     public final static String MAJOR_WOUND = PendragonLabels.DERIVED_ATTRIBUTE_MAJOR_WOUND;
     public final static String MOVEMENT_RATE = PendragonLabels.DERIVED_ATTRIBUTE_MOVEMENT_RATE;

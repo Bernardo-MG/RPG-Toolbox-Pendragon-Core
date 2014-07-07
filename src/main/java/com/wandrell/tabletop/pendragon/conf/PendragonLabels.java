@@ -58,12 +58,13 @@ public class PendragonLabels {
     public static final String CULTURE_NAMES_FILE_FEMALE = "culture_names_female";
     public static final String CULTURE_NAMES_FILE_MALE = "culture_names_male";
     public static final String CULTURE_TITLES_FILE = "culture_titles";
+    public static final String DERIVED_ATTRIBUTE_DAMAGE = "damage";
     public static final String DERIVED_ATTRIBUTE_DAMAGE_BONUS = "damage_bonus";
-    public static final String DERIVED_ATTRIBUTE_DAMAGE_D6 = "damage";
+    public static final String DERIVED_ATTRIBUTE_DAMAGE_D6 = "damage_d6";
     public static final String DERIVED_ATTRIBUTE_DEXTERITY_ROLL = "dex_roll";
     public static final String DERIVED_ATTRIBUTE_FEATURES = "features";
     public static final String DERIVED_ATTRIBUTE_HEAL_RATE = "heal_rate";
-    public static final String DERIVED_ATTRIBUTE_HITPOINTS = "hitpoints";
+    public static final String DERIVED_ATTRIBUTE_HIT_POINTS = "hitpoints";
     public static final String DERIVED_ATTRIBUTE_KNOCKDOWN = "knockdown";
     public static final String DERIVED_ATTRIBUTE_MAJOR_WOUND = "major_wound";
     public static final String DERIVED_ATTRIBUTE_MOVEMENT_RATE = "movement_rate";

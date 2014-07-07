@@ -369,7 +369,7 @@ public class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public Religion getReligion() {
+    public final Religion getReligion() {
 	return religion;
     }
 

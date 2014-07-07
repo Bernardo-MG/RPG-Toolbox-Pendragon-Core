@@ -14,9 +14,9 @@ public class DefaultPendragonChargenCharacter extends
 	DefaultPendragonPlayerCharacter implements PendragonChargenCharacter {
 
     private class StatusFlags {
-	public boolean flagFamilyCharChosen = false;
+	public Boolean flagFamilyCharChosen = false;
 	// TODO: Quitar esto de aquí
-	public boolean flagKnightChosen = false;
+	public Boolean flagKnightChosen = false;
 
 	public StatusFlags() {
 	    super();
