@@ -94,8 +94,9 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public final PendragonAttribute getDamage() {
-	return _getAttributes().get(PendragonLabels.DERIVED_ATTRIBUTE_DAMAGE);
+    public final PendragonDerivedAttribute getDamage() {
+	return _getDerivedAttributes().get(
+		PendragonLabels.DERIVED_ATTRIBUTE_DAMAGE);
     }
 
     @Override
@@ -110,20 +111,32 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public final PendragonAttribute getHealingRate() {
-	return _getAttributes()
-		.get(PendragonLabels.DERIVED_ATTRIBUTE_HEAL_RATE);
+    public final PendragonDerivedAttribute getDexterityRoll() {
+	return _getDerivedAttributes().get(
+		PendragonLabels.DERIVED_ATTRIBUTE_DEXTERITY_ROLL);
     }
 
     @Override
-    public final PendragonAttribute getHitPoints() {
-	return _getAttributes().get(
+    public final PendragonDerivedAttribute getHealingRate() {
+	return _getDerivedAttributes().get(
+		PendragonLabels.DERIVED_ATTRIBUTE_HEAL_RATE);
+    }
+
+    @Override
+    public final PendragonDerivedAttribute getHitPoints() {
+	return _getDerivedAttributes().get(
 		PendragonLabels.DERIVED_ATTRIBUTE_HIT_POINTS);
     }
 
     @Override
-    public final PendragonAttribute getMoveRate() {
-	return _getAttributes().get(
+    public final PendragonDerivedAttribute getMajorWoundTreshold() {
+	return _getDerivedAttributes().get(
+		PendragonLabels.DERIVED_ATTRIBUTE_MAJOR_WOUND);
+    }
+
+    @Override
+    public final PendragonDerivedAttribute getMovementRate() {
+	return _getDerivedAttributes().get(
 		PendragonLabels.DERIVED_ATTRIBUTE_MOVEMENT_RATE);
     }
 
@@ -133,8 +146,8 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public final PendragonAttribute getSize() {
-	return _getAttributes().get(PendragonLabels.ATTRIBUTE_SIZE);
+    public final PendragonDerivedAttribute getSize() {
+	return _getDerivedAttributes().get(PendragonLabels.ATTRIBUTE_SIZE);
     }
 
     @Override
@@ -143,9 +156,15 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public final PendragonAttribute getUnconsciousTreshold() {
-	return _getAttributes().get(
+    public final PendragonDerivedAttribute getUnconsciousTreshold() {
+	return _getDerivedAttributes().get(
 		PendragonLabels.DERIVED_ATTRIBUTE_UNCONSCIOUS);
+    }
+
+    @Override
+    public final PendragonDerivedAttribute getWeight() {
+	return _getDerivedAttributes().get(
+		PendragonLabels.DERIVED_ATTRIBUTE_WEIGHT);
     }
 
     @Override

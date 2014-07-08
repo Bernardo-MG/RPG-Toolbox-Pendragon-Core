@@ -26,6 +26,7 @@ import com.wandrell.tabletop.pendragon.util.PendragonValueHandlerUtils;
 import com.wandrell.tabletop.pendragon.util.TextValue;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonAppearanceFeature;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
+import com.wandrell.tabletop.pendragon.valuehandler.PendragonDerivedAttribute;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonTrait;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
@@ -295,6 +296,17 @@ public class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
+    public final Collection<PendragonAppearanceFeature> getDistinctiveFeatures() {
+	return Collections.unmodifiableCollection(_getFeatures().values());
+    }
+
+    @Override
+    public final PendragonDerivedAttribute getDistinctiveFeaturesCount() {
+	return _getDerivedAttributes().get(
+		PendragonLabels.DERIVED_ATTRIBUTE_FEATURES);
+    }
+
+    @Override
     public final PendragonSkill getExclusiveSkill(final String name,
 	    final String annotation) {
 	return _getExclusiveSkills().get(
@@ -306,11 +318,6 @@ public class DefaultPendragonPlayerCharacter extends
     public final Collection<PendragonSkill> getExclusiveSkills() {
 	return Collections.unmodifiableCollection(_getExclusiveSkills()
 		.values());
-    }
-
-    @Override
-    public final Collection<PendragonAppearanceFeature> getFeatures() {
-	return Collections.unmodifiableCollection(_getFeatures().values());
     }
 
     @Override

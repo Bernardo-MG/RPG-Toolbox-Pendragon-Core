@@ -2,7 +2,6 @@ package com.wandrell.tabletop.pendragon.util;
 
 import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.dice.RollTable;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
 import com.wandrell.tabletop.pendragon.conf.factory.PendragonRulesFactory;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
 
@@ -34,10 +33,9 @@ public final class PendragonRulesUtils {
 	    result = true;
 	    break;
 	case FEMALE:
-	    combat = (skill.getName()
-		    .equals(PendragonLabels.COMBAT_SKILL_DAGGER))
-		    || (skill.getName()
-			    .equals(PendragonLabels.COMBAT_SKILL_SIEGE));
+	    // TODO: Read from a file or something
+	    combat = (skill.getName().equals("dagger"))
+		    || (skill.getName().equals("siege"));
 
 	    result = ((combat) || (!(skill.isCombatSkill())));
 	    break;
@@ -58,10 +56,9 @@ public final class PendragonRulesUtils {
 	    result = (!skill.isCombatSkill());
 	    break;
 	case FEMALE:
-	    combat = (skill.getName()
-		    .equals(PendragonLabels.COMBAT_SKILL_DAGGER))
-		    || (skill.getName()
-			    .equals(PendragonLabels.COMBAT_SKILL_SIEGE));
+	    // TODO: Read from a file or something
+	    combat = (skill.getName().equals("dagger"))
+		    || (skill.getName().equals("siege"));
 
 	    result = ((combat) || (!(skill.isCombatSkill())));
 	    break;
