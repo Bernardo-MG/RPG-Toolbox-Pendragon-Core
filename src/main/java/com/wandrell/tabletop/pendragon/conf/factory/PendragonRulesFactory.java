@@ -5,7 +5,7 @@ import com.wandrell.tabletop.dice.RollTable;
 
 public final class PendragonRulesFactory {
 
-    private static RollTable<Integer> featuresCount;
+    private static DefaultRollTable<Integer> featuresCount;
     private static PendragonRulesFactory instance;
 
     public static final synchronized PendragonRulesFactory getInstance() {
@@ -23,7 +23,8 @@ public final class PendragonRulesFactory {
     public final synchronized RollTable<Integer> getFeaturesCountTable() {
 	if (featuresCount == null) {
 	    // TODO: Load the configuration from a file
-	    featuresCount = new DefaultRollTable<>(Integer.MIN_VALUE, 6, 3);
+	    featuresCount = new DefaultRollTable<>("features_table");
+	    featuresCount.setInterval(Integer.MIN_VALUE, 6, 3);
 	    featuresCount.addInterval(9, 2);
 	    featuresCount.addInterval(12, 1);
 	    featuresCount.addInterval(16, 2);
