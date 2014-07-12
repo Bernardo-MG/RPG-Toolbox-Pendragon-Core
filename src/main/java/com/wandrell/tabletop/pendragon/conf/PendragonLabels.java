@@ -16,10 +16,10 @@ public class PendragonLabels {
     public static final String CULTURE_EXTRA_EQUIPMENT_MALE_FILE = "extra_equipment_male";
     public static final String CULTURE_FAMILY_CHAR_FEMALE_FILE = "family_characteristic_female";
     public static final String CULTURE_FAMILY_CHAR_MALE_FILE = "family_characteristic_male";
-    public static final String CULTURE_HOME_FILE = "home";
-    public static final String CULTURE_NAMES_FILE_FEMALE = "culture_names_female";
-    public static final String CULTURE_NAMES_FILE_MALE = "culture_names_male";
-    public static final String CULTURE_TITLES_FILE = "culture_titles";
+    public static final String CULTURE_HOME_FILE = "culture_home";
+    public static final String CULTURE_NAME_FILE_FEMALE = "culture_name_female";
+    public static final String CULTURE_NAME_FILE_MALE = "culture_name_male";
+    public static final String CULTURE_TITLE_FILE = "culture_title";
     public static final String DERIVED_ATTRIBUTE_DAMAGE = "damage";
     public static final String DERIVED_ATTRIBUTE_DAMAGE_BONUS = "damage_bonus";
     public static final String DERIVED_ATTRIBUTE_DAMAGE_D6 = "damage_d6";
