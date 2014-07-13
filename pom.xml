@@ -122,7 +122,7 @@
 			<version>${rpg.version}</version>
 		</dependency>
 		<dependency>
-			<!-- Tabeltop's Pendragon API -->
+			<!-- Tabletop's Pendragon API -->
 			<groupId>com.wandrell</groupId>
 			<artifactId>tabletop-pendragon-api</artifactId>
 			<version>${rpg.version}</version>
