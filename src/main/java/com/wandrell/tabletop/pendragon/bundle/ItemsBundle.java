@@ -208,6 +208,8 @@ public class ItemsBundle extends ListResourceBundle {
 	    { "marvelous_underjerkin", "Marvelous underjerkin" },
 	    { "marvelous_whetstone", "Marvelous Whetstone" },
 	    { "medium_crossbow", "Medium crossbow" },
+	    { "metamorphosis_a_book_of_poetry",
+		    "Metamorphosis, a book of poetry" },
 	    { "miachs_ointment", "Miach's Ointment" },
 	    { "military_hammer", "Military hammer" },
 	    { "modrons_ointment", "Modron's Ointment" },
