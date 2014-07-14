@@ -6,9 +6,10 @@
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-	
-	<context:property-placeholder location="classpath:context/pendragon-armor.properties" />
-	
-	<bean id="armor"  scope="prototype" class="${armor.class}" />
+
+	<context:property-placeholder
+		location="classpath:context/pendragon-armor.properties" />
+
+	<bean id="armor" scope="prototype" class="${armor.class}" />
 
 </beans>
