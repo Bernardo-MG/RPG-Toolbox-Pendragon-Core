@@ -57,7 +57,7 @@ public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
 
 	_getSkills().put(
 		PendragonValueHandlerUtils.getNameAnnotationKey(
-			skill.getName(), skill.getAnnotation()), skill);
+			skill.getName(), skill.getDescriptor()), skill);
     }
 
     @Override

@@ -10,8 +10,8 @@ import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
 public class DefaultPendragonPassion implements PendragonPassion {
 
-    private String annotation;
     private final DelegateValueHandler<Integer> composite;
+    private String descriptor;
 
     public DefaultPendragonPassion(final DefaultPendragonPassion passion) {
 	super();
@@ -27,7 +27,7 @@ public class DefaultPendragonPassion implements PendragonPassion {
 	super();
 	composite = new DefaultValueHandler<Integer>(name, generator, interval,
 		store, validator);
-	this.annotation = annotation;
+	this.descriptor = annotation;
     }
 
     @Override
@@ -51,8 +51,8 @@ public class DefaultPendragonPassion implements PendragonPassion {
     }
 
     @Override
-    public final String getAnnotation() {
-	return annotation;
+    public final String getDescriptor() {
+	return descriptor;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class DefaultPendragonPassion implements PendragonPassion {
 	    throw new NullPointerException();
 	}
 
-	this.annotation = annotation;
+	this.descriptor = annotation;
     }
 
     @Override

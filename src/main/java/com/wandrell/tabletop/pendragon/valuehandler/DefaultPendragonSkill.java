@@ -10,10 +10,10 @@ import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
 public class DefaultPendragonSkill implements PendragonSkill {
 
-    private String annotation;
     private final boolean combatSkill;
     private final DelegateValueHandler<Integer> composite;
     private final boolean courtlySkill;
+    private String descriptor;
     private final boolean knightlySkill;
     private final boolean knowledgeSkill;
     private final boolean repeteable;
@@ -42,7 +42,7 @@ public class DefaultPendragonSkill implements PendragonSkill {
 	super();
 	composite = new DefaultValueHandler<Integer>(name, generator, interval,
 		store, validator);
-	this.annotation = annotation;
+	this.descriptor = annotation;
 
 	this.combatSkill = combatSkill;
 	this.knightlySkill = knightlySkill;
@@ -73,8 +73,8 @@ public class DefaultPendragonSkill implements PendragonSkill {
     }
 
     @Override
-    public final String getAnnotation() {
-	return annotation;
+    public final String getDescriptor() {
+	return descriptor;
     }
 
     @Override
@@ -142,7 +142,7 @@ public class DefaultPendragonSkill implements PendragonSkill {
 	    throw new NullPointerException();
 	}
 
-	this.annotation = annotation;
+	this.descriptor = annotation;
     }
 
     @Override

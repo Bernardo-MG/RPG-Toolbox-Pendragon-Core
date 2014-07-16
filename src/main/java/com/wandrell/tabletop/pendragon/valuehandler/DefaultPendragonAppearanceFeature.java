@@ -11,8 +11,8 @@ import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 public class DefaultPendragonAppearanceFeature implements
 	PendragonAppearanceFeature {
 
-    private String annotation;
     private final DelegateValueHandler<Integer> composite;
+    private String descriptor;
 
     public DefaultPendragonAppearanceFeature(
 	    final DefaultPendragonAppearanceFeature vh) {
@@ -21,14 +21,14 @@ public class DefaultPendragonAppearanceFeature implements
     }
 
     public DefaultPendragonAppearanceFeature(final String name,
-	    final String annotation, final GeneratorModule<Integer> generator,
+	    final String descriptor, final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
 	    final ValidatorModule<Integer> validator) {
 	super();
 	composite = new DefaultValueHandler<Integer>(name, generator, interval,
 		store, validator);
-	this.annotation = annotation;
+	this.descriptor = descriptor;
     }
 
     @Override
@@ -52,8 +52,8 @@ public class DefaultPendragonAppearanceFeature implements
     }
 
     @Override
-    public final String getAnnotation() {
-	return annotation;
+    public final String getDescriptor() {
+	return descriptor;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class DefaultPendragonAppearanceFeature implements
 	    throw new NullPointerException();
 	}
 
-	this.annotation = annotation;
+	this.descriptor = annotation;
     }
 
     @Override

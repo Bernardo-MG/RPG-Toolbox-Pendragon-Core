@@ -79,7 +79,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
 
 	_getDirectedTraits().put(
 		PendragonValueHandlerUtils.getNameAnnotationKey(
-			trait.getName(), trait.getAnnotation()), trait);
+			trait.getName(), trait.getDescriptor()), trait);
     }
 
     @Override
@@ -90,7 +90,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
 
 	_getPassions().put(
 		PendragonValueHandlerUtils.getNameAnnotationKey(
-			passion.getName(), passion.getAnnotation()), passion);
+			passion.getName(), passion.getDescriptor()), passion);
     }
 
     @Override
@@ -101,7 +101,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
 
 	_getSkills().put(
 		PendragonValueHandlerUtils.getNameAnnotationKey(
-			skill.getName(), skill.getAnnotation()), skill);
+			skill.getName(), skill.getDescriptor()), skill);
 	registerIntoAdvancedSkill(skill);
     }
 

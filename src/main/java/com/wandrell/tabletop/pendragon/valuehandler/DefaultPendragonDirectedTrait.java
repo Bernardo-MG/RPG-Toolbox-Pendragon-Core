@@ -10,8 +10,8 @@ import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
 public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
 
-    private String annotation;
     private final DelegateValueHandler<Integer> composite;
+    private String descriptor;
     private ValueHandler<Integer> trait;
 
     public DefaultPendragonDirectedTrait(
@@ -29,7 +29,7 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
 	super();
 	composite = new DefaultValueHandler<Integer>(name, generator, interval,
 		store, validator);
-	this.annotation = annotation;
+	this.descriptor = annotation;
     }
 
     @Override
@@ -53,8 +53,8 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
     }
 
     @Override
-    public final String getAnnotation() {
-	return annotation;
+    public final String getDescriptor() {
+	return descriptor;
     }
 
     @Override
@@ -102,7 +102,7 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
 	    throw new NullPointerException();
 	}
 
-	this.annotation = annotation;
+	this.descriptor = annotation;
     }
 
     public final void setTrait(final ValueHandler<Integer> trait) {

@@ -128,7 +128,7 @@ public class DefaultPendragonPlayerCharacter extends
 
 	_getExclusiveSkills().put(
 		PendragonValueHandlerUtils.getNameAnnotationKey(
-			skill.getName(), skill.getAnnotation()), skill);
+			skill.getName(), skill.getDescriptor()), skill);
     }
 
     public final void addFeature(final PendragonAppearanceFeature feature) {
