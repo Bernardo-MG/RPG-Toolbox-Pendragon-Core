@@ -2,7 +2,7 @@ package com.wandrell.tabletop.pendragon.character.follower;
 
 import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultChild implements Child {
@@ -16,9 +16,9 @@ public class DefaultChild implements Child {
 	super();
 
 	yearBorn = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_YEAR_BORN);
+		PendragonToken.VH_YEAR_BORN);
 	yearDeath = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_YEAR_DEATH);
+		PendragonToken.VH_YEAR_DEATH);
     }
 
     public DefaultChild(final DefaultChild data) {

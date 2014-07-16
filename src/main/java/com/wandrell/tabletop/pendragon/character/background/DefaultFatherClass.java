@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
@@ -52,7 +52,7 @@ public class DefaultFatherClass implements FatherClass {
 	money = PendragonFactory.getInstance().getMoney();
 
 	skillsGroupPoints = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_SKILLS_POINTS);
+		PendragonToken.VH_SKILLS_POINTS);
     }
 
     @Override

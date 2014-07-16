@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.dice.RollTable;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.inventory.AdditionalBelongings;
 import com.wandrell.tabletop.pendragon.util.DefaultFileNameWrapper;
 import com.wandrell.tabletop.pendragon.util.FileNameWrapper;
@@ -80,10 +80,10 @@ public class DefaultCulture implements Culture {
 
 	switch (gender) {
 	case MALE:
-	    result = getFile(PendragonLabels.FILE_CULTURE_FAMILY_CHAR_MALE);
+	    result = getFile(PendragonToken.FILE_CULTURE_FAMILY_CHAR_MALE);
 	    break;
 	case FEMALE:
-	    result = getFile(PendragonLabels.FILE_CULTURE_FAMILY_CHAR_FEMALE);
+	    result = getFile(PendragonToken.FILE_CULTURE_FAMILY_CHAR_FEMALE);
 	    break;
 	default:
 	    result = null;

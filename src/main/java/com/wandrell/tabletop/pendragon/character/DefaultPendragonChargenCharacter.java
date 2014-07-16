@@ -6,7 +6,7 @@ import com.wandrell.tabletop.pendragon.character.background.FamilyCharacteristic
 import com.wandrell.tabletop.pendragon.character.background.FatherClass;
 import com.wandrell.tabletop.pendragon.character.background.Homeland;
 import com.wandrell.tabletop.pendragon.character.background.culture.Culture;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonTrait;
 
@@ -75,7 +75,7 @@ public class DefaultPendragonChargenCharacter extends
 
 	this.culture = culture;
 
-	addTextValue(PendragonLabels.TEXT_CULTURE_NAME, culture.getName());
+	addTextValue(PendragonToken.TEXT_CULTURE_NAME, culture.getName());
     }
 
     @Override
@@ -90,7 +90,7 @@ public class DefaultPendragonChargenCharacter extends
 		throw new NullPointerException();
 	    }
 
-	    addTextValue(PendragonLabels.TEXT_FAMILY_CHARACTERISTIC,
+	    addTextValue(PendragonToken.TEXT_FAMILY_CHARACTERISTIC,
 		    characteristic.getName());
 	    holderStatusFlags.flagFamilyCharChosen = true;
 	}
@@ -105,7 +105,7 @@ public class DefaultPendragonChargenCharacter extends
 		throw new NullPointerException();
 	    }
 
-	    addTextValue(PendragonLabels.TEXT_FATHER_CLASS,
+	    addTextValue(PendragonToken.TEXT_FATHER_CLASS,
 		    fatherClass.getName());
 	    // ValueHandlerServicesFactory.getTemplateService()
 	    // .loadBaseValuesTemplate(this,
@@ -119,7 +119,7 @@ public class DefaultPendragonChargenCharacter extends
     public final void setHomelandData(final Homeland homeland) {
 	if (this.homeland == null) {
 	    this.homeland = homeland;
-	    addTextValue(PendragonLabels.TEXT_HOMELAND, homeland.getName());
+	    addTextValue(PendragonToken.TEXT_HOMELAND, homeland.getName());
 	}
     }
 

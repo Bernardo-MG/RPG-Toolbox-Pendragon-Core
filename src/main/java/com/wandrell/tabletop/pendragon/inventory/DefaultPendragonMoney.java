@@ -1,7 +1,7 @@
 package com.wandrell.tabletop.pendragon.inventory;
 
 import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultPendragonMoney implements PendragonMoney {
@@ -12,9 +12,9 @@ public class DefaultPendragonMoney implements PendragonMoney {
     public DefaultPendragonMoney() {
 	super();
 	denarii = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_DENARII);
+		PendragonToken.VH_DENARII);
 	libra = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_LIBRA);
+		PendragonToken.VH_LIBRA);
     }
 
     public DefaultPendragonMoney(final DefaultPendragonMoney data) {
@@ -27,9 +27,9 @@ public class DefaultPendragonMoney implements PendragonMoney {
     public DefaultPendragonMoney(final Integer libra, final Integer denarii) {
 	super();
 	this.denarii = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_DENARII, denarii);
+		PendragonToken.VH_DENARII, denarii);
 	this.libra = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_LIBRA, libra);
+		PendragonToken.VH_LIBRA, libra);
     }
 
     @Override

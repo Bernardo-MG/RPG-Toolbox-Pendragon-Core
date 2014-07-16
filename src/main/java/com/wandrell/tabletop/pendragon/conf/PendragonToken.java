@@ -1,6 +1,6 @@
 package com.wandrell.tabletop.pendragon.conf;
 
-public class PendragonLabels {
+public class PendragonToken {
 
     public static final String ATTRIBUTE_APPEARANCE = "appearance";
     public static final String ATTRIBUTE_CONSTITUTION = "constitution";

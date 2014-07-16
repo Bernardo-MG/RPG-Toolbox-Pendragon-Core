@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultReligion implements Religion {
@@ -48,9 +48,9 @@ public class DefaultReligion implements Religion {
 	this.name = name;
 
 	bonusArmor = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_ARMOR);
+		PendragonToken.VH_ARMOR);
 	bonusDamage = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_DAMAGE);
+		PendragonToken.VH_DAMAGE);
     }
 
     @Override

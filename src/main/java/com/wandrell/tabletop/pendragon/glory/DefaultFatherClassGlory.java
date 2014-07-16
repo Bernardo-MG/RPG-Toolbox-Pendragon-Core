@@ -1,7 +1,7 @@
 package com.wandrell.tabletop.pendragon.glory;
 
 import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultFatherClassGlory implements FatherClassGlory {
@@ -23,9 +23,9 @@ public class DefaultFatherClassGlory implements FatherClassGlory {
 
 	this.name = name;
 	baseGlory = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_FATHER_CLASS_BASE_GLORY);
+		PendragonToken.VH_FATHER_CLASS_BASE_GLORY);
 	gloryPerYear = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_FATHER_CLASS_GLORY_PER_YEAR);
+		PendragonToken.VH_FATHER_CLASS_GLORY_PER_YEAR);
     }
 
     @Override

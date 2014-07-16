@@ -1,6 +1,6 @@
 package com.wandrell.tabletop.pendragon.inventory;
 
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 
 public class DefaultWeaponEquipment extends DefaultPendragonEquipment implements
 	WeaponEquipment {
@@ -36,14 +36,14 @@ public class DefaultWeaponEquipment extends DefaultPendragonEquipment implements
 	final int die, bonus;
 	boolean result = false;
 
-	if (hasValue(PendragonLabels.VH_DAMAGE_OVERRIDE_DIE)) {
-	    die = getMiscelanyValue(PendragonLabels.VH_DAMAGE_OVERRIDE_DIE)
+	if (hasValue(PendragonToken.VH_DAMAGE_OVERRIDE_DIE)) {
+	    die = getMiscelanyValue(PendragonToken.VH_DAMAGE_OVERRIDE_DIE)
 		    .getStoredValue();
 	    result = die > 0;
 	}
 
-	if ((!result) && (hasValue(PendragonLabels.VH_DAMAGE_OVERRIDE_BONUS))) {
-	    bonus = getMiscelanyValue(PendragonLabels.VH_DAMAGE_OVERRIDE_BONUS)
+	if ((!result) && (hasValue(PendragonToken.VH_DAMAGE_OVERRIDE_BONUS))) {
+	    bonus = getMiscelanyValue(PendragonToken.VH_DAMAGE_OVERRIDE_BONUS)
 		    .getStoredValue();
 	    result = bonus > 0;
 	}

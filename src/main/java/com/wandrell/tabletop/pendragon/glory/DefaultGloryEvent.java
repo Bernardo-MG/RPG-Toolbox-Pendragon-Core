@@ -1,7 +1,7 @@
 package com.wandrell.tabletop.pendragon.glory;
 
 import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultGloryEvent implements GloryEvent {
@@ -23,9 +23,9 @@ public class DefaultGloryEvent implements GloryEvent {
 	super();
 
 	this.year = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_GLORY_EVENT_YEAR_NAME, year);
+		PendragonToken.VH_GLORY_EVENT_YEAR_NAME, year);
 	this.gloryGained = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_GLORY_EVENT_GLORY_GAINED, gloryGained);
+		PendragonToken.VH_GLORY_EVENT_GLORY_GAINED, gloryGained);
 	this.description = description;
     }
 

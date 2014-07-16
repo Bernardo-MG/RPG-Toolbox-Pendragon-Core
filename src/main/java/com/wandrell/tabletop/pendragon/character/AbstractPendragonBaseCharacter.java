@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonDerivedAttribute;
 
@@ -80,7 +80,7 @@ public abstract class AbstractPendragonBaseCharacter implements
 
     @Override
     public final PendragonAttribute getAppearance() {
-	return _getAttributes().get(PendragonLabels.ATTRIBUTE_APPEARANCE);
+	return _getAttributes().get(PendragonToken.ATTRIBUTE_APPEARANCE);
     }
 
     @Override
@@ -90,13 +90,13 @@ public abstract class AbstractPendragonBaseCharacter implements
 
     @Override
     public final PendragonAttribute getConstitution() {
-	return _getAttributes().get(PendragonLabels.ATTRIBUTE_CONSTITUTION);
+	return _getAttributes().get(PendragonToken.ATTRIBUTE_CONSTITUTION);
     }
 
     @Override
     public final PendragonDerivedAttribute getDamage() {
 	return _getDerivedAttributes().get(
-		PendragonLabels.DERIVED_ATTRIBUTE_DAMAGE);
+		PendragonToken.DERIVED_ATTRIBUTE_DAMAGE);
     }
 
     @Override
@@ -107,37 +107,37 @@ public abstract class AbstractPendragonBaseCharacter implements
 
     @Override
     public final PendragonAttribute getDexterity() {
-	return _getAttributes().get(PendragonLabels.ATTRIBUTE_DEXTERITY);
+	return _getAttributes().get(PendragonToken.ATTRIBUTE_DEXTERITY);
     }
 
     @Override
     public final PendragonDerivedAttribute getDexterityRoll() {
 	return _getDerivedAttributes().get(
-		PendragonLabels.DERIVED_ATTRIBUTE_DEXTERITY_ROLL);
+		PendragonToken.DERIVED_ATTRIBUTE_DEXTERITY_ROLL);
     }
 
     @Override
     public final PendragonDerivedAttribute getHealingRate() {
 	return _getDerivedAttributes().get(
-		PendragonLabels.DERIVED_ATTRIBUTE_HEAL_RATE);
+		PendragonToken.DERIVED_ATTRIBUTE_HEAL_RATE);
     }
 
     @Override
     public final PendragonDerivedAttribute getHitPoints() {
 	return _getDerivedAttributes().get(
-		PendragonLabels.DERIVED_ATTRIBUTE_HIT_POINTS);
+		PendragonToken.DERIVED_ATTRIBUTE_HIT_POINTS);
     }
 
     @Override
     public final PendragonDerivedAttribute getMajorWoundTreshold() {
 	return _getDerivedAttributes().get(
-		PendragonLabels.DERIVED_ATTRIBUTE_MAJOR_WOUND);
+		PendragonToken.DERIVED_ATTRIBUTE_MAJOR_WOUND);
     }
 
     @Override
     public final PendragonDerivedAttribute getMovementRate() {
 	return _getDerivedAttributes().get(
-		PendragonLabels.DERIVED_ATTRIBUTE_MOVEMENT_RATE);
+		PendragonToken.DERIVED_ATTRIBUTE_MOVEMENT_RATE);
     }
 
     @Override
@@ -147,24 +147,24 @@ public abstract class AbstractPendragonBaseCharacter implements
 
     @Override
     public final PendragonDerivedAttribute getSize() {
-	return _getDerivedAttributes().get(PendragonLabels.ATTRIBUTE_SIZE);
+	return _getDerivedAttributes().get(PendragonToken.ATTRIBUTE_SIZE);
     }
 
     @Override
     public final PendragonAttribute getStrength() {
-	return _getAttributes().get(PendragonLabels.ATTRIBUTE_STRENGTH);
+	return _getAttributes().get(PendragonToken.ATTRIBUTE_STRENGTH);
     }
 
     @Override
     public final PendragonDerivedAttribute getUnconsciousTreshold() {
 	return _getDerivedAttributes().get(
-		PendragonLabels.DERIVED_ATTRIBUTE_UNCONSCIOUS);
+		PendragonToken.DERIVED_ATTRIBUTE_UNCONSCIOUS);
     }
 
     @Override
     public final PendragonDerivedAttribute getWeight() {
 	return _getDerivedAttributes().get(
-		PendragonLabels.DERIVED_ATTRIBUTE_WEIGHT);
+		PendragonToken.DERIVED_ATTRIBUTE_WEIGHT);
     }
 
     @Override

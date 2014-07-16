@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
 import com.wandrell.tabletop.pendragon.character.PendragonBaseCharacter;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultWife implements Wife {
@@ -20,7 +20,7 @@ public class DefaultWife implements Wife {
     public DefaultWife() {
 	super();
 	yearWed = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonLabels.VH_YEAR_WED);
+		PendragonToken.VH_YEAR_WED);
     }
 
     public DefaultWife(final DefaultWife wife) {

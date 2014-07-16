@@ -14,7 +14,7 @@ import com.wandrell.tabletop.pendragon.character.follower.Follower;
 import com.wandrell.tabletop.pendragon.character.follower.Wife;
 import com.wandrell.tabletop.pendragon.character.module.DefaultTraitsBonusSwitchsData;
 import com.wandrell.tabletop.pendragon.character.module.TraitsBonusSwitchsData;
-import com.wandrell.tabletop.pendragon.conf.PendragonLabels;
+import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
 import com.wandrell.tabletop.pendragon.inventory.ArmorData;
@@ -303,7 +303,7 @@ public class DefaultPendragonPlayerCharacter extends
     @Override
     public final PendragonDerivedAttribute getDistinctiveFeaturesCount() {
 	return _getDerivedAttributes().get(
-		PendragonLabels.DERIVED_ATTRIBUTE_FEATURES);
+		PendragonToken.DERIVED_ATTRIBUTE_FEATURES);
     }
 
     @Override
@@ -372,7 +372,7 @@ public class DefaultPendragonPlayerCharacter extends
 
     @Override
     public final String getPlayerName() {
-	return getTextValue(PendragonLabels.TEXT_PLAYER_NAME);
+	return getTextValue(PendragonToken.TEXT_PLAYER_NAME);
     }
 
     @Override
@@ -472,7 +472,7 @@ public class DefaultPendragonPlayerCharacter extends
 
     @Override
     public final Boolean isKnight() {
-	return getFlag(PendragonLabels.FLAGS_KNIGHT);
+	return getFlag(PendragonToken.FLAGS_KNIGHT);
     }
 
     public final void setExclusiveSkills(final Collection<PendragonSkill> skills) {
@@ -545,7 +545,7 @@ public class DefaultPendragonPlayerCharacter extends
 	    throw new NullPointerException();
 	}
 
-	setFlag(PendragonLabels.FLAGS_KNIGHT, isKnight);
+	setFlag(PendragonToken.FLAGS_KNIGHT, isKnight);
     }
 
     public final void setKnightKind(final String knightKind) {
@@ -563,8 +563,7 @@ public class DefaultPendragonPlayerCharacter extends
 
 	this.religion = religion;
 
-	addTextValue(PendragonLabels.TEXT_RELIGION_NAME, getReligion()
-		.getName());
+	addTextValue(PendragonToken.TEXT_RELIGION_NAME, getReligion().getName());
     }
 
     public final void setTextValue(final String name, final String value) {
