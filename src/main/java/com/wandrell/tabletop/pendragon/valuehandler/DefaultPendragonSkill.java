@@ -31,7 +31,7 @@ public class DefaultPendragonSkill implements PendragonSkill {
 	repeteable = skill.repeteable;
     }
 
-    public DefaultPendragonSkill(final String name, final String annotation,
+    public DefaultPendragonSkill(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
@@ -40,9 +40,9 @@ public class DefaultPendragonSkill implements PendragonSkill {
 	    final Boolean knowledgeSkill, final Boolean courtlySkill,
 	    final Boolean repeteable) {
 	super();
+	// TODO: This is dependant of DefaultValueHandler
 	composite = new DefaultValueHandler<Integer>(name, generator, interval,
 		store, validator);
-	this.descriptor = annotation;
 
 	this.combatSkill = combatSkill;
 	this.knightlySkill = knightlySkill;
@@ -137,12 +137,12 @@ public class DefaultPendragonSkill implements PendragonSkill {
 	return repeteable;
     }
 
-    public final void setAnnotation(final String annotation) {
-	if (annotation == null) {
+    public final void setDescriptor(final String descriptor) {
+	if (descriptor == null) {
 	    throw new NullPointerException();
 	}
 
-	this.descriptor = annotation;
+	this.descriptor = descriptor;
     }
 
     @Override

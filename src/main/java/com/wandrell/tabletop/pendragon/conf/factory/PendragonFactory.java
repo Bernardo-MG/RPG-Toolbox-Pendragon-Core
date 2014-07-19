@@ -1,20 +1,24 @@
 package com.wandrell.tabletop.pendragon.conf.factory;
 
 import java.nio.file.Paths;
+import java.util.Properties;
 
 import org.springframework.context.ApplicationContext;
 
 import com.wandrell.framework.util.ContextUtils;
+import com.wandrell.framework.util.FileUtils;
 import com.wandrell.tabletop.pendragon.conf.PendragonFactoryConf;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
 import com.wandrell.tabletop.pendragon.inventory.ArmorData;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
+import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
+import com.wandrell.util.PathUtils;
 
 public final class PendragonFactory {
 
-    private static ApplicationContext contextArmor = null;
-    private static ApplicationContext contextGlory = null;
-    private static ApplicationContext contextMoney = null;
+    private static ApplicationContext contextArmor;
+    private static ApplicationContext contextGlory;
+    private static ApplicationContext contextMoney;
     private static PendragonFactory instance;
 
     public static final synchronized PendragonFactory getInstance() {
@@ -80,6 +84,34 @@ public final class PendragonFactory {
 	money.getDenarii().setValue(denarii);
 
 	return money;
+    }
+
+    public final PendragonSkill getSkill(final String name,
+	    final Boolean combat, final Boolean court, final Boolean knight,
+	    final Boolean knowledge, final Boolean repeat) {
+	final ApplicationContext context;
+	final Properties properties;
+
+	properties = FileUtils.getProperties(PathUtils
+		.getClassPathResource(Paths
+			.get(PendragonFactoryConf.PROPERTIES_SKILL)));
+
+	// TODO: This is hardcoded
+	properties.setProperty("skill.name", name);
+	properties.setProperty("skill.flag.combat", combat.toString());
+	properties.setProperty("skill.flag.court", court.toString());
+	properties.setProperty("skill.flag.knight", knight.toString());
+	properties.setProperty("skill.flag.knowledge", knowledge.toString());
+	properties.setProperty("skill.flag.repeat", repeat.toString());
+
+	// TODO: Try to reload changing only the values
+	context = ContextUtils.getContext(PathUtils.getClassPathResource(Paths
+		.get(PendragonFactoryConf.CONTEXT_SKILL)), properties);
+
+	// Spring framework builds the instance
+
+	return (PendragonSkill) context
+		.getBean(PendragonFactoryConf.BEAN_SKILL);
     }
 
 }
