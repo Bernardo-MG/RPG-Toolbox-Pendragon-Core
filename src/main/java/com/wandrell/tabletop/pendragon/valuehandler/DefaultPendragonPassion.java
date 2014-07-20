@@ -17,9 +17,11 @@ public class DefaultPendragonPassion implements PendragonPassion {
 	super();
 
 	composite = passion.composite.createNewInstance();
+
+	descriptor = passion.descriptor;
     }
 
-    public DefaultPendragonPassion(final String name, final String annotation,
+    public DefaultPendragonPassion(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
@@ -27,7 +29,6 @@ public class DefaultPendragonPassion implements PendragonPassion {
 	super();
 	composite = new DefaultValueHandler<Integer>(name, generator, interval,
 		store, validator);
-	this.descriptor = annotation;
     }
 
     @Override
@@ -90,12 +91,12 @@ public class DefaultPendragonPassion implements PendragonPassion {
 	return getValueHandler().isAbleToIncrease();
     }
 
-    public final void setAnnotation(final String annotation) {
-	if (annotation == null) {
+    public final void setDescriptor(final String descriptor) {
+	if (descriptor == null) {
 	    throw new NullPointerException();
 	}
 
-	this.descriptor = annotation;
+	this.descriptor = descriptor;
     }
 
     @Override

@@ -15,20 +15,21 @@ public class DefaultPendragonAppearanceFeature implements
     private String descriptor;
 
     public DefaultPendragonAppearanceFeature(
-	    final DefaultPendragonAppearanceFeature vh) {
+	    final DefaultPendragonAppearanceFeature feature) {
 	super();
-	composite = vh.composite.createNewInstance();
+	composite = feature.composite.createNewInstance();
+
+	descriptor = feature.descriptor;
     }
 
     public DefaultPendragonAppearanceFeature(final String name,
-	    final String descriptor, final GeneratorModule<Integer> generator,
+	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
 	    final ValidatorModule<Integer> validator) {
 	super();
 	composite = new DefaultValueHandler<Integer>(name, generator, interval,
 		store, validator);
-	this.descriptor = descriptor;
     }
 
     @Override
@@ -91,12 +92,12 @@ public class DefaultPendragonAppearanceFeature implements
 	return getValueHandler().isAbleToIncrease();
     }
 
-    public final void setAnnotation(final String annotation) {
-	if (annotation == null) {
+    public final void setDescriptor(final String descriptor) {
+	if (descriptor == null) {
 	    throw new NullPointerException();
 	}
 
-	this.descriptor = annotation;
+	this.descriptor = descriptor;
     }
 
     @Override

@@ -19,6 +19,8 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
 	super();
 
 	composite = passion.composite.createNewInstance();
+
+	descriptor = passion.descriptor;
     }
 
     public DefaultPendragonDirectedTrait(final String name,
@@ -97,12 +99,12 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
 	return getValueHandler().isAbleToIncrease();
     }
 
-    public final void setAnnotation(final String annotation) {
-	if (annotation == null) {
+    public final void setDescriptor(final String descriptor) {
+	if (descriptor == null) {
 	    throw new NullPointerException();
 	}
 
-	this.descriptor = annotation;
+	this.descriptor = descriptor;
     }
 
     public final void setTrait(final ValueHandler<Integer> trait) {

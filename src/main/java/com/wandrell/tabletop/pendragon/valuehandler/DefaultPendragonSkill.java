@@ -23,6 +23,8 @@ public class DefaultPendragonSkill implements PendragonSkill {
 
 	composite = skill.composite.createNewInstance();
 
+	descriptor = skill.descriptor;
+
 	combatSkill = skill.combatSkill;
 	knightlySkill = skill.knightlySkill;
 	knowledgeSkill = skill.knowledgeSkill;
