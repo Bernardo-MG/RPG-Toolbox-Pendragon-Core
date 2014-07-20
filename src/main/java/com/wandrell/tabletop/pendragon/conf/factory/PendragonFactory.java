@@ -11,6 +11,7 @@ import com.wandrell.tabletop.pendragon.conf.PendragonFactoryConf;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
 import com.wandrell.tabletop.pendragon.inventory.ArmorData;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
+import com.wandrell.tabletop.pendragon.valuehandler.PendragonPassion;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
 import com.wandrell.util.PathUtils;
 
@@ -84,6 +85,29 @@ public final class PendragonFactory {
 	money.getDenarii().setValue(denarii);
 
 	return money;
+    }
+
+    public final PendragonPassion getPassion(final String name,
+	    final String descriptor) {
+	final ApplicationContext context;
+	final Properties properties;
+
+	properties = FileUtils.getProperties(PathUtils
+		.getClassPathResource(Paths
+			.get(PendragonFactoryConf.PROPERTIES_PASSION)));
+
+	// TODO: This is hardcoded
+	properties.setProperty("passion.name", name);
+	properties.setProperty("passion.descriptor", descriptor);
+
+	// TODO: Try to reload changing only the values
+	context = ContextUtils.getContext(PathUtils.getClassPathResource(Paths
+		.get(PendragonFactoryConf.CONTEXT_PASSION)), properties);
+
+	// Spring framework builds the instance
+
+	return (PendragonPassion) context
+		.getBean(PendragonFactoryConf.BEAN_PASSION);
     }
 
     public final PendragonSkill getSkill(final String name,
