@@ -6,9 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.wandrell.tabletop.pendragon.util.PendragonValueHandlerUtils;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
+import com.wandrell.tabletop.util.TokenUtil;
 
 public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
 
@@ -56,8 +56,8 @@ public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
 	}
 
 	_getSkills().put(
-		PendragonValueHandlerUtils.getNameAnnotationKey(
-			skill.getName(), skill.getDescriptor()), skill);
+		TokenUtil.getNameAndDescriptorToken(skill.getName(),
+			skill.getDescriptor()), skill);
     }
 
     @Override
@@ -84,8 +84,7 @@ public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
     public final PendragonSkill getSkill(final String name,
 	    final String annotation) {
 	return _getSkills().get(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
@@ -101,8 +100,7 @@ public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
     @Override
     public final Boolean hasSkill(final String name, final String annotation) {
 	return _getSkills().containsKey(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override

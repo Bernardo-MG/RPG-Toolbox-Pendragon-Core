@@ -22,13 +22,13 @@ import com.wandrell.tabletop.pendragon.inventory.PendragonItem;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
 import com.wandrell.tabletop.pendragon.manor.ManorAnimal;
 import com.wandrell.tabletop.pendragon.util.DefaultTextValue;
-import com.wandrell.tabletop.pendragon.util.PendragonValueHandlerUtils;
 import com.wandrell.tabletop.pendragon.util.TextValue;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonAppearanceFeature;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonDerivedAttribute;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonTrait;
+import com.wandrell.tabletop.util.TokenUtil;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultPendragonPlayerCharacter extends
@@ -127,8 +127,8 @@ public class DefaultPendragonPlayerCharacter extends
 	}
 
 	_getExclusiveSkills().put(
-		PendragonValueHandlerUtils.getNameAnnotationKey(
-			skill.getName(), skill.getDescriptor()), skill);
+		TokenUtil.getNameAndDescriptorToken(skill.getName(),
+			skill.getDescriptor()), skill);
     }
 
     public final void addFeature(final PendragonAppearanceFeature feature) {
@@ -310,8 +310,7 @@ public class DefaultPendragonPlayerCharacter extends
     public final PendragonSkill getExclusiveSkill(final String name,
 	    final String annotation) {
 	return _getExclusiveSkills().get(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
@@ -429,8 +428,7 @@ public class DefaultPendragonPlayerCharacter extends
     public final Boolean hasExclusiveSkill(final String name,
 	    final String annotation) {
 	return _getExclusiveSkills().containsKey(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override

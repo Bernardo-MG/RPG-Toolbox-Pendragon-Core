@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.wandrell.tabletop.character.Gender;
-import com.wandrell.tabletop.pendragon.util.PendragonValueHandlerUtils;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonDirectedTrait;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonPassion;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSpecialtySkill;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonTrait;
+import com.wandrell.tabletop.util.TokenUtil;
 
 public abstract class AbstractPendragonSimpleCharacter extends
 	AbstractPendragonBaseCharacter implements PendragonSimpleCharacter {
@@ -78,8 +78,8 @@ public abstract class AbstractPendragonSimpleCharacter extends
 	}
 
 	_getDirectedTraits().put(
-		PendragonValueHandlerUtils.getNameAnnotationKey(
-			trait.getName(), trait.getDescriptor()), trait);
+		TokenUtil.getNameAndDescriptorToken(trait.getName(),
+			trait.getDescriptor()), trait);
     }
 
     @Override
@@ -89,8 +89,8 @@ public abstract class AbstractPendragonSimpleCharacter extends
 	}
 
 	_getPassions().put(
-		PendragonValueHandlerUtils.getNameAnnotationKey(
-			passion.getName(), passion.getDescriptor()), passion);
+		TokenUtil.getNameAndDescriptorToken(passion.getName(),
+			passion.getDescriptor()), passion);
     }
 
     @Override
@@ -100,8 +100,8 @@ public abstract class AbstractPendragonSimpleCharacter extends
 	}
 
 	_getSkills().put(
-		PendragonValueHandlerUtils.getNameAnnotationKey(
-			skill.getName(), skill.getDescriptor()), skill);
+		TokenUtil.getNameAndDescriptorToken(skill.getName(),
+			skill.getDescriptor()), skill);
 	registerIntoAdvancedSkill(skill);
     }
 
@@ -119,8 +119,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
     public final PendragonDirectedTrait getDirectedTrait(final String name,
 	    final String annotation) {
 	return _getDirectedTraits().get(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
@@ -138,8 +137,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
     public final PendragonPassion getPassion(final String name,
 	    final String annotation) {
 	return _getPassions().get(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
@@ -151,8 +149,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
     public final PendragonSkill getSkill(final String name,
 	    final String annotation) {
 	return _getSkills().get(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
@@ -185,22 +182,19 @@ public abstract class AbstractPendragonSimpleCharacter extends
     public final Boolean hasDirectedTrait(final String name,
 	    final String annotation) {
 	return _getDirectedTraits().containsKey(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
     public final Boolean hasPassion(final String name, final String annotation) {
 	return _getPassions().containsKey(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
     public final Boolean hasSkill(final String name, final String annotation) {
 	return _getSkills().containsKey(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
@@ -216,8 +210,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
     public final void removePassion(final String name, final String annotation) {
 	// TODO: Is this required?
 	_getPassions().containsKey(
-		PendragonValueHandlerUtils.getNameAnnotationKey(name,
-			annotation));
+		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     public final void setDirectedTraits(
