@@ -11,7 +11,7 @@ import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 public class DefaultPendragonPassion implements PendragonPassion {
 
     private final DelegateValueHandler<Integer> composite;
-    private String descriptor;
+    private String descriptor = "";
 
     public DefaultPendragonPassion(final DefaultPendragonPassion passion) {
 	super();

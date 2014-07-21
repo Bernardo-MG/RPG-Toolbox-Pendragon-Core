@@ -13,7 +13,7 @@ public class DefaultPendragonSkill implements PendragonSkill {
     private final boolean combatSkill;
     private final DelegateValueHandler<Integer> composite;
     private final boolean courtlySkill;
-    private String descriptor;
+    private String descriptor = "";
     private final boolean knightlySkill;
     private final boolean knowledgeSkill;
     private final boolean repeteable;

@@ -12,7 +12,7 @@ public class DefaultPendragonAppearanceFeature implements
 	PendragonAppearanceFeature {
 
     private final DelegateValueHandler<Integer> composite;
-    private String descriptor;
+    private String descriptor = "";
 
     public DefaultPendragonAppearanceFeature(
 	    final DefaultPendragonAppearanceFeature feature) {

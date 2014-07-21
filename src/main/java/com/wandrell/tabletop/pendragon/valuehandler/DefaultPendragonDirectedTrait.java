@@ -11,7 +11,7 @@ import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
 
     private final DelegateValueHandler<Integer> composite;
-    private String descriptor;
+    private String descriptor = "";
     private ValueHandler<Integer> trait;
 
     public DefaultPendragonDirectedTrait(
