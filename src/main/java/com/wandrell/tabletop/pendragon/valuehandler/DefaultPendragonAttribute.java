@@ -110,6 +110,11 @@ public class DefaultPendragonAttribute implements PendragonAttribute {
 	getValueHandler().setValue(value);
     }
 
+    @Override
+    public String toString() {
+	return getName();
+    }
+
     protected final Collection<ValueHandler<Integer>> _getDerivedAttributes() {
 	return attributes;
     }

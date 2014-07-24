@@ -135,7 +135,7 @@ public class DefaultPendragonSkill implements PendragonSkill {
     }
 
     @Override
-    public final Boolean isRepeteable() {
+    public final Boolean isRepeatable() {
 	return repeteable;
     }
 
@@ -150,6 +150,21 @@ public class DefaultPendragonSkill implements PendragonSkill {
     @Override
     public final void setValue(final Integer value) {
 	getValueHandler().setValue(value);
+    }
+
+    @Override
+    public String toString() {
+	final String template;
+	final String result;
+
+	if (isRepeatable()) {
+	    template = "%s (%s)";
+	    result = String.format(template, getName(), getDescriptor());
+	} else {
+	    result = getName();
+	}
+
+	return result;
     }
 
     protected final ValueHandler<Integer> getValueHandler() {

@@ -105,6 +105,11 @@ public class DefaultPendragonAppearanceFeature implements
 	getValueHandler().setValue(value);
     }
 
+    @Override
+    public String toString() {
+	return String.format("%s (%s)", getName(), getDescriptor());
+    }
+
     protected final ValueHandler<Integer> getValueHandler() {
 	return composite;
     }

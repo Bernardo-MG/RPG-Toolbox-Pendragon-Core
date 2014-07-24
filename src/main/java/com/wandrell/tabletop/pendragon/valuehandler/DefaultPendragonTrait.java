@@ -108,6 +108,11 @@ public class DefaultPendragonTrait implements PendragonTrait {
 	getValueHandler().setValue(value);
     }
 
+    @Override
+    public String toString() {
+	return getName();
+    }
+
     protected final ValueHandler<Integer> getValueHandler() {
 	return composite;
     }

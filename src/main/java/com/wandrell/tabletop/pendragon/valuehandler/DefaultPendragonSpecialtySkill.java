@@ -65,6 +65,11 @@ public class DefaultPendragonSpecialtySkill extends
 	}
     }
 
+    @Override
+    public String toString() {
+	return getName();
+    }
+
     private final void setSurrogatedSkillsNames(final Collection<String> skills) {
 	_getSurrogatedSkills().clear();
 	for (final String skill : skills) {

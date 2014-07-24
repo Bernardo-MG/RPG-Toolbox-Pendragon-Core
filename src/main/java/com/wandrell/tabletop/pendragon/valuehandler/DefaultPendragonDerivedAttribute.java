@@ -112,6 +112,11 @@ public class DefaultPendragonDerivedAttribute implements
 	getValueHandler().setValue(value);
     }
 
+    @Override
+    public String toString() {
+	return getName();
+    }
+
     protected final Collection<PendragonAttribute> _getParentAttributes() {
 	return attributes;
     }
