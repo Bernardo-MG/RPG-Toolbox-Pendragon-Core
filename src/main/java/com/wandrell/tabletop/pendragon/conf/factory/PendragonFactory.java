@@ -1,6 +1,7 @@
 package com.wandrell.tabletop.pendragon.conf.factory;
 
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Properties;
 
 import org.springframework.context.ApplicationContext;
@@ -13,6 +14,7 @@ import com.wandrell.tabletop.pendragon.inventory.ArmorData;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonPassion;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
+import com.wandrell.tabletop.pendragon.valuehandler.PendragonSpecialtySkill;
 import com.wandrell.util.PathUtils;
 
 public final class PendragonFactory {
@@ -136,6 +138,39 @@ public final class PendragonFactory {
 
 	return (PendragonSkill) context
 		.getBean(PendragonFactoryConf.BEAN_SKILL);
+    }
+
+    public final PendragonSpecialtySkill getSpecialtySkill(final String name,
+	    final Collection<String> skills) {
+	final ApplicationContext context;
+	final Properties properties;
+	StringBuilder skillsToken;
+
+	properties = FileUtils.getProperties(PathUtils
+		.getClassPathResource(Paths
+			.get(PendragonFactoryConf.PROPERTIES_SPECIALTY_SKILL)));
+
+	skillsToken = new StringBuilder("");
+	for (final String skill : skills) {
+	    if (skillsToken.length() > 0) {
+		skillsToken.append(",");
+	    }
+
+	    skillsToken.append(skill);
+	}
+
+	// TODO: This is hardcoded
+	properties.setProperty("skill.name", name);
+	properties.setProperty("skill.skills", skillsToken.toString());
+
+	// TODO: Try to reload changing only the values
+	context = ContextUtils
+		.getContext(PathUtils.getClassPathResource(Paths
+			.get(PendragonFactoryConf.CONTEXT_SPECIALTY_SKILL)),
+			properties);
+
+	return (PendragonSpecialtySkill) context
+		.getBean(PendragonFactoryConf.BEAN_SPECIALTY_SKILL);
     }
 
 }

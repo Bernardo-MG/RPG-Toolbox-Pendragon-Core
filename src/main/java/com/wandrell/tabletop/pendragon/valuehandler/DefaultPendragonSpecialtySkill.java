@@ -31,6 +31,7 @@ public class DefaultPendragonSpecialtySkill extends
 	    final ValidatorModule<Integer> validator,
 	    final Collection<String> skills) {
 	super(name, generator, interval, store, validator);
+
 	setSurrogatedSkillsNames(skills);
     }
 
