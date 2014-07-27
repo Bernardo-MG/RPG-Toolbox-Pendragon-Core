@@ -24,14 +24,13 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
     }
 
     public DefaultPendragonDirectedTrait(final String name,
-	    final String annotation, final GeneratorModule<Integer> generator,
+	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
 	    final ValidatorModule<Integer> validator) {
 	super();
 	composite = new DefaultValueHandler<Integer>(name, generator, interval,
 		store, validator);
-	this.descriptor = annotation;
     }
 
     @Override

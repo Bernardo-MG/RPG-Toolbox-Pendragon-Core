@@ -12,6 +12,7 @@ import com.wandrell.tabletop.pendragon.conf.PendragonFactoryConf;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
 import com.wandrell.tabletop.pendragon.inventory.ArmorData;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
+import com.wandrell.tabletop.pendragon.valuehandler.PendragonDirectedTrait;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonPassion;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
 import com.wandrell.tabletop.pendragon.valuehandler.PendragonSpecialtySkill;
@@ -66,6 +67,25 @@ public final class PendragonFactory {
     public final ArmorData getArmor() {
 	return (ArmorData) getArmorContext().getBean(
 		PendragonFactoryConf.BEAN_ARMOR);
+    }
+
+    public final PendragonDirectedTrait getDirectedTrait(final String name) {
+	final ApplicationContext context;
+	final Properties properties;
+
+	properties = FileUtils.getProperties(PathUtils
+		.getClassPathResource(Paths
+			.get(PendragonFactoryConf.PROPERTIES_DIRECTED_TRAIT)));
+
+	// TODO: This is hardcoded
+	properties.setProperty("trait.name", name);
+
+	// TODO: Try to reload changing only the values
+	context = ContextUtils.getContext(PathUtils.getClassPathResource(Paths
+		.get(PendragonFactoryConf.CONTEXT_DIRECTED_TRAIT)), properties);
+
+	return (PendragonDirectedTrait) context
+		.getBean(PendragonFactoryConf.BEAN_DIRECTED_TRAIT);
     }
 
     public final GloryKeeper getGlory() {
