@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
+public final class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
 	implements HorseCharacter {
 
     private final Collection<String> flags = new LinkedHashSet<String>();

@@ -1,6 +1,6 @@
 package com.wandrell.tabletop.pendragon.util;
 
-public class DefaultTextValue implements TextValue {
+public final class DefaultTextValue implements TextValue {
 
     private final String key;
     private final String value;

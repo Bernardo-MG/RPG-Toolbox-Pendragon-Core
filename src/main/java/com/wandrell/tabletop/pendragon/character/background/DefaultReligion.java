@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class DefaultReligion implements Religion {
+public final class DefaultReligion implements Religion {
 
     private Integer bonusArmor = 0;
     private Integer bonusDamage = 0;
@@ -50,8 +50,25 @@ public class DefaultReligion implements Religion {
     }
 
     @Override
-    public DefaultReligion createNewInstance() {
+    public final DefaultReligion createNewInstance() {
 	return new DefaultReligion(this);
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DefaultReligion other = (DefaultReligion) obj;
+	if (name == null) {
+	    if (other.name != null)
+		return false;
+	} else if (!name.equals(other.name))
+	    return false;
+	return true;
     }
 
     @Override
@@ -85,6 +102,14 @@ public class DefaultReligion implements Religion {
     }
 
     @Override
+    public final int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((name == null) ? 0 : name.hashCode());
+	return result;
+    }
+
+    @Override
     public final Boolean hasTrait(final String trait) {
 	return _getTraits().contains(trait);
     }
@@ -110,7 +135,7 @@ public class DefaultReligion implements Religion {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return getName();
     }
 

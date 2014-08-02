@@ -11,20 +11,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.wandrell.tabletop.pendragon.util.DefaultFileNameWrapper;
-import com.wandrell.tabletop.pendragon.util.FileNameWrapper;
+import com.wandrell.tabletop.pendragon.util.DefaultPathNameWrapper;
+import com.wandrell.tabletop.pendragon.util.PathNameWrapper;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultAnimalYearResult implements AnimalYearResult {
+public final class DefaultAnimalYearResult implements AnimalYearResult {
 
     private final Map<String, Path> files = new LinkedHashMap<>();
     private final Set<String> flags = new LinkedHashSet<String>();
-    private String name = "";
+    private final String name;
     private final Map<String, ValueHandler<Integer>> values = new LinkedHashMap<>();
-
-    public DefaultAnimalYearResult() {
-	super();
-    }
 
     public DefaultAnimalYearResult(final DefaultAnimalYearResult result) {
 	super();
@@ -38,6 +34,12 @@ public class DefaultAnimalYearResult implements AnimalYearResult {
 	setFiles(result.getFiles());
     }
 
+    public DefaultAnimalYearResult(final String name) {
+	super();
+
+	this.name = name;
+    }
+
     public final void addValue(final ValueHandler<Integer> value) {
 	if (value == null) {
 	    throw new NullPointerException();
@@ -47,8 +49,25 @@ public class DefaultAnimalYearResult implements AnimalYearResult {
     }
 
     @Override
-    public DefaultAnimalYearResult createNewInstance() {
+    public final DefaultAnimalYearResult createNewInstance() {
 	return new DefaultAnimalYearResult(this);
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DefaultAnimalYearResult other = (DefaultAnimalYearResult) obj;
+	if (name == null) {
+	    if (other.name != null)
+		return false;
+	} else if (!name.equals(other.name))
+	    return false;
+	return true;
     }
 
     @Override
@@ -57,12 +76,12 @@ public class DefaultAnimalYearResult implements AnimalYearResult {
     }
 
     @Override
-    public final Collection<FileNameWrapper> getFiles() {
-	final List<FileNameWrapper> listFiles;
+    public final Collection<PathNameWrapper> getFiles() {
+	final List<PathNameWrapper> listFiles;
 
-	listFiles = new LinkedList<FileNameWrapper>();
+	listFiles = new LinkedList<PathNameWrapper>();
 	for (final Entry<String, Path> entry : _getFiles().entrySet()) {
-	    listFiles.add(new DefaultFileNameWrapper(entry.getKey(), entry
+	    listFiles.add(new DefaultPathNameWrapper(entry.getKey(), entry
 		    .getValue()));
 	}
 
@@ -104,7 +123,7 @@ public class DefaultAnimalYearResult implements AnimalYearResult {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -116,14 +135,14 @@ public class DefaultAnimalYearResult implements AnimalYearResult {
 	return getValuesMap().containsKey(name);
     }
 
-    public final void setFiles(final Collection<FileNameWrapper> files) {
+    public final void setFiles(final Collection<PathNameWrapper> files) {
 	_getFiles().clear();
-	for (final FileNameWrapper file : files) {
+	for (final PathNameWrapper file : files) {
 	    if (file == null) {
 		throw new NullPointerException();
 	    }
 
-	    _getFiles().put(file.getName(), file.getFile());
+	    _getFiles().put(file.getName(), file.getPath());
 	}
     }
 
@@ -136,14 +155,6 @@ public class DefaultAnimalYearResult implements AnimalYearResult {
 
 	    _getFlags().add(flag);
 	}
-    }
-
-    public final void setName(final String name) {
-	if (name == null) {
-	    throw new NullPointerException();
-	}
-
-	this.name = name;
     }
 
     public final void setValues(final Collection<ValueHandler<Integer>> values) {

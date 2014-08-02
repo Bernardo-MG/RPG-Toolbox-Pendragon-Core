@@ -4,10 +4,10 @@ import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultPendragonMoney implements PendragonMoney {
+public final class DefaultPendragonMoney implements PendragonMoney {
 
-    private ValueHandler<Integer> denarii;
-    private ValueHandler<Integer> libra;
+    private final ValueHandler<Integer> denarii;
+    private final ValueHandler<Integer> libra;
 
     public DefaultPendragonMoney() {
 	super();
@@ -33,12 +33,12 @@ public class DefaultPendragonMoney implements PendragonMoney {
     }
 
     @Override
-    public DefaultPendragonMoney createNewInstance() {
+    public final DefaultPendragonMoney createNewInstance() {
 	return new DefaultPendragonMoney(this);
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
 	final DefaultPendragonMoney received;
 	boolean equals;
 
@@ -76,7 +76,7 @@ public class DefaultPendragonMoney implements PendragonMoney {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
 	final int prime = 31;
 	int result = 1;
 

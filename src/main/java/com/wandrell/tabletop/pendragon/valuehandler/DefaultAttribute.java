@@ -12,7 +12,7 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultAttribute implements Attribute {
+public final class DefaultAttribute implements Attribute {
 
     private final Collection<ValueHandler<Integer>> attributes = new LinkedList<>();
     private final DelegateValueHandler<Integer> composite;
@@ -44,7 +44,7 @@ public class DefaultAttribute implements Attribute {
     }
 
     @Override
-    public DefaultAttribute createNewInstance() {
+    public final DefaultAttribute createNewInstance() {
 	return new DefaultAttribute(this);
     }
 
@@ -111,7 +111,7 @@ public class DefaultAttribute implements Attribute {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return getName();
     }
 

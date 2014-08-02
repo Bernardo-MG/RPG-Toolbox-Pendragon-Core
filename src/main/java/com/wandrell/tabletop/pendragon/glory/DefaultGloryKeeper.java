@@ -13,7 +13,7 @@ import com.wandrell.tabletop.pendragon.valuehandler.DefaultTrait;
 import com.wandrell.tabletop.valuehandler.DelegateValueHandler;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultGloryKeeper implements GloryKeeper {
+public final class DefaultGloryKeeper implements GloryKeeper {
 
     @SuppressWarnings("unused")
     private static void assembleAnnualGlorySwitch(
@@ -94,7 +94,7 @@ public class DefaultGloryKeeper implements GloryKeeper {
     }
 
     @Override
-    public DefaultGloryKeeper createNewInstance() {
+    public final DefaultGloryKeeper createNewInstance() {
 	return new DefaultGloryKeeper(this);
     }
 
@@ -117,16 +117,6 @@ public class DefaultGloryKeeper implements GloryKeeper {
     @Override
     public final Boolean hasAnnualGlorySource(final String name) {
 	return _getAnnualGlorySources().containsKey(name);
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result
-		+ ((annualSources == null) ? 0 : annualSources.hashCode());
-	result = prime * result + ((history == null) ? 0 : history.hashCode());
-	return result;
     }
 
     public final void setChivaldryAnnualGlorySwitch(

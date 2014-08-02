@@ -3,7 +3,7 @@ package com.wandrell.tabletop.pendragon.inventory;
 import com.wandrell.tabletop.inventory.DefaultItemData;
 import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
 
-public class DefaultPendragonItem extends DefaultItemData implements
+public final class DefaultPendragonItem extends DefaultItemData implements
 	PendragonItem {
 
     private final PendragonMoney money;
@@ -28,42 +28,13 @@ public class DefaultPendragonItem extends DefaultItemData implements
     }
 
     @Override
-    public DefaultPendragonItem createNewInstance() {
+    public final DefaultPendragonItem createNewInstance() {
 	return new DefaultPendragonItem(this);
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-	final boolean equals;
-	final DefaultPendragonItem received;
-
-	if (!super.equals(obj)) {
-	    equals = false;
-	} else {
-	    received = (DefaultPendragonItem) obj;
-	    if (received.money == null) {
-		equals = (money == null);
-	    } else {
-		equals = (received.money.equals(money));
-	    }
-	}
-
-	return equals;
     }
 
     @Override
     public final PendragonMoney getMoney() {
 	return money;
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
-
-	result = prime * result + ((money == null) ? 0 : money.hashCode());
-
-	return result;
     }
 
 }

@@ -7,7 +7,8 @@ import java.util.Map.Entry;
 
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
+public final class DefaultTraitsBonusSwitchsData implements
+	TraitsBonusSwitchsData {
 
     private final Map<String, ValueHandler<Integer>> storeTraitsBonusSwitchs = new LinkedHashMap<>();
 
@@ -26,12 +27,12 @@ public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
     }
 
     @Override
-    public DefaultTraitsBonusSwitchsData createNewInstance() {
+    public final DefaultTraitsBonusSwitchsData createNewInstance() {
 	return new DefaultTraitsBonusSwitchsData(this);
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
 	final boolean equals;
 	final DefaultTraitsBonusSwitchsData received;
 
@@ -55,17 +56,17 @@ public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
     }
 
     @Override
-    public ValueHandler<Integer> getBonusSwitch(final String name) {
+    public final ValueHandler<Integer> getBonusSwitch(final String name) {
 	return getBonusSwitchsStore().get(name);
     }
 
     @Override
-    public Boolean hasBonusSwitch(final String name) {
+    public final Boolean hasBonusSwitch(final String name) {
 	return getBonusSwitchsStore().containsKey(name);
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
 	final int prime = 31;
 	int result = 1;
 
@@ -77,7 +78,7 @@ public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
 	return result;
     }
 
-    public void initializeChivaldryTraitsBonusSwitch(
+    public final void initializeChivaldryTraitsBonusSwitch(
 	    final Iterator<ValueHandler<Integer>> itrTraits) {
 	// final ModularValueHandler<Integer> vhSwitch;
 	//
@@ -93,7 +94,7 @@ public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
 	// itrTraits);
     }
 
-    public void initializeGentlewomanTraitsBonusSwitch(
+    public final void initializeGentlewomanTraitsBonusSwitch(
 	    final Iterator<ValueHandler<Integer>> itrTraits) {
 	// final ModularValueHandler<Integer> vhSwitch;
 	//
@@ -109,7 +110,7 @@ public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
 	// itrTraits);
     }
 
-    public void initializeReligiousTraitsBonusSwitch(
+    public final void initializeReligiousTraitsBonusSwitch(
 	    final Iterator<ValueHandler<Integer>> itrTraits) {
 	// final ModularValueHandler<Integer> vhTraitsReligious = new
 	// IntegerSecondaryValuesValueHandler<ValueHandler<Integer>>(
@@ -130,7 +131,7 @@ public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
 	// getBonusSwitchsStore().addInterval(vhTraitsReligious);
     }
 
-    private Map<String, ValueHandler<Integer>> getBonusSwitchsStore() {
+    private final Map<String, ValueHandler<Integer>> getBonusSwitchsStore() {
 	return storeTraitsBonusSwitchs;
     }
 

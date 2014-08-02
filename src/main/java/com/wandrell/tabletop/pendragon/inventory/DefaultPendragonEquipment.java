@@ -11,27 +11,31 @@ import java.util.TreeSet;
 
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultPendragonEquipment extends DefaultPendragonItem implements
-	PendragonEquipment {
+public final class DefaultPendragonEquipment implements PendragonEquipment {
 
     private final Set<String> flags = new TreeSet<String>();
+    private final PendragonItem item;
     private final Map<String, ValueHandler<Integer>> values = new LinkedHashMap<>();
 
-    public DefaultPendragonEquipment() {
+    public DefaultPendragonEquipment(final DefaultPendragonEquipment equipment) {
 	super();
-    }
 
-    public DefaultPendragonEquipment(final DefaultPendragonEquipment item) {
-	super(item);
+	item = equipment.item.createNewInstance();
 
 	for (final Entry<String, ValueHandler<Integer>> entry : values
 		.entrySet()) {
 	    values.put(entry.getKey(), entry.getValue().createNewInstance());
 	}
 
-	for (final String flag : item.flags) {
+	for (final String flag : equipment.flags) {
 	    flags.add(flag);
 	}
+    }
+
+    public DefaultPendragonEquipment(final PendragonItem item) {
+	super();
+
+	this.item = item;
     }
 
     public final void addValue(final ValueHandler<Integer> bonus) {
@@ -39,8 +43,13 @@ public class DefaultPendragonEquipment extends DefaultPendragonItem implements
     }
 
     @Override
-    public DefaultPendragonEquipment createNewInstance() {
+    public final DefaultPendragonEquipment createNewInstance() {
 	return new DefaultPendragonEquipment(this);
+    }
+
+    @Override
+    public final String getDescription() {
+	return getBaseItem().getDescription();
     }
 
     @Override
@@ -65,6 +74,21 @@ public class DefaultPendragonEquipment extends DefaultPendragonItem implements
     }
 
     @Override
+    public final PendragonMoney getMoney() {
+	return getBaseItem().getMoney();
+    }
+
+    @Override
+    public final String getName() {
+	return getBaseItem().getName();
+    }
+
+    @Override
+    public final ValueHandler<Integer> getQuantity() {
+	return getBaseItem().getQuantity();
+    }
+
+    @Override
     public final Boolean hasFlag(final String name) {
 	return _getFlags().contains(name);
     }
@@ -72,6 +96,11 @@ public class DefaultPendragonEquipment extends DefaultPendragonItem implements
     @Override
     public final Boolean hasValue(final String name) {
 	return _getMiscelanyValues().containsKey(name);
+    }
+
+    @Override
+    public final void setDescription(final String description) {
+	getBaseItem().setDescription(description);
     }
 
     public final void setFlag(final String name, final Boolean value) {
@@ -89,10 +118,19 @@ public class DefaultPendragonEquipment extends DefaultPendragonItem implements
 	}
     }
 
+    @Override
+    public final void setName(final String name) {
+	getBaseItem().setName(name);
+    }
+
     public final void setValues(final Collection<ValueHandler<Integer>> values) {
 	for (final ValueHandler<Integer> value : values) {
 	    addValue(value);
 	}
+    }
+
+    private final PendragonItem getBaseItem() {
+	return item;
     }
 
     protected final Collection<String> _getFlags() {

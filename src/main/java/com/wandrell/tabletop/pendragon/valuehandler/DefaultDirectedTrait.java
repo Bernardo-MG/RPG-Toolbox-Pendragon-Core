@@ -8,7 +8,7 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultDirectedTrait implements DirectedTrait {
+public final class DefaultDirectedTrait implements DirectedTrait {
 
     private final DelegateValueHandler<Integer> composite;
     private String descriptor = "";
@@ -43,7 +43,7 @@ public class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
-    public DefaultDirectedTrait createNewInstance() {
+    public final DefaultDirectedTrait createNewInstance() {
 	return new DefaultDirectedTrait(this);
     }
 
@@ -119,7 +119,7 @@ public class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return String.format("%s (%s)", getName(), getDescriptor());
     }
 

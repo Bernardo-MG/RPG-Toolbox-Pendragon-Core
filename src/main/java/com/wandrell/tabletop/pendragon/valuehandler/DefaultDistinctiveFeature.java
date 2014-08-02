@@ -8,19 +8,19 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultAppearanceFeature implements AppearanceFeature {
+public final class DefaultDistinctiveFeature implements DistinctiveFeature {
 
     private final DelegateValueHandler<Integer> composite;
     private String descriptor = "";
 
-    public DefaultAppearanceFeature(final DefaultAppearanceFeature feature) {
+    public DefaultDistinctiveFeature(final DefaultDistinctiveFeature feature) {
 	super();
 	composite = feature.composite.createNewInstance();
 
 	descriptor = feature.descriptor;
     }
 
-    public DefaultAppearanceFeature(final String name,
+    public DefaultDistinctiveFeature(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
@@ -41,8 +41,8 @@ public class DefaultAppearanceFeature implements AppearanceFeature {
     }
 
     @Override
-    public DefaultAppearanceFeature createNewInstance() {
-	return new DefaultAppearanceFeature(this);
+    public final DefaultDistinctiveFeature createNewInstance() {
+	return new DefaultDistinctiveFeature(this);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class DefaultAppearanceFeature implements AppearanceFeature {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return String.format("%s (%s)", getName(), getDescriptor());
     }
 

@@ -8,7 +8,7 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultSkill implements Skill {
+public final class DefaultSkill implements Skill {
 
     private final boolean combatSkill;
     private final DelegateValueHandler<Integer> composite;
@@ -153,7 +153,7 @@ public class DefaultSkill implements Skill {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	final String template;
 	final String result;
 

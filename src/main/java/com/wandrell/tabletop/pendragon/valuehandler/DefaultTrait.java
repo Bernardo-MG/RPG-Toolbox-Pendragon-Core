@@ -8,7 +8,7 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultTrait implements Trait {
+public final class DefaultTrait implements Trait {
 
     private final DelegateValueHandler<Integer> composite;
     private final boolean goodTrait;
@@ -45,7 +45,7 @@ public class DefaultTrait implements Trait {
     }
 
     @Override
-    public DefaultTrait createNewInstance() {
+    public final DefaultTrait createNewInstance() {
 	return new DefaultTrait(this);
     }
 
@@ -109,7 +109,7 @@ public class DefaultTrait implements Trait {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return getName();
     }
 

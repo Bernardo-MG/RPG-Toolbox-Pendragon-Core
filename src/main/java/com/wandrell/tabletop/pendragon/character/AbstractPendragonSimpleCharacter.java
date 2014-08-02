@@ -113,6 +113,9 @@ public abstract class AbstractPendragonSimpleCharacter extends
     }
 
     @Override
+    public abstract AbstractPendragonSimpleCharacter createNewInstance();
+
+    @Override
     public final DirectedTrait getDirectedTrait(final String name,
 	    final String annotation) {
 	return _getDirectedTraits().get(

@@ -2,7 +2,7 @@ package com.wandrell.tabletop.pendragon.character.follower;
 
 import com.wandrell.tabletop.character.Gender;
 
-public class DefaultChild implements Child {
+public final class DefaultChild implements Child {
 
     private Gender gender = Gender.MALE;
     private String name = "";
@@ -23,8 +23,25 @@ public class DefaultChild implements Child {
     }
 
     @Override
-    public DefaultChild createNewInstance() {
+    public final DefaultChild createNewInstance() {
 	return new DefaultChild(this);
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DefaultChild other = (DefaultChild) obj;
+	if (name == null) {
+	    if (other.name != null)
+		return false;
+	} else if (!name.equals(other.name))
+	    return false;
+	return true;
     }
 
     @Override
@@ -48,20 +65,10 @@ public class DefaultChild implements Child {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
 	final int prime = 31;
 	int result = 1;
-
-	result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-
 	result = prime * result + ((name == null) ? 0 : name.hashCode());
-
-	result = prime * result
-		+ ((yearBorn == null) ? 0 : yearBorn.hashCode());
-
-	result = prime * result
-		+ ((yearDeath == null) ? 0 : yearDeath.hashCode());
-
 	return result;
     }
 
@@ -90,7 +97,7 @@ public class DefaultChild implements Child {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return getName();
     }
 }

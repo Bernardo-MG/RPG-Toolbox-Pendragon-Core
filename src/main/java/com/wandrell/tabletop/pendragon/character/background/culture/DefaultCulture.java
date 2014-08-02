@@ -12,10 +12,10 @@ import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.dice.RollTable;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.inventory.AdditionalBelongings;
-import com.wandrell.tabletop.pendragon.util.DefaultFileNameWrapper;
-import com.wandrell.tabletop.pendragon.util.FileNameWrapper;
+import com.wandrell.tabletop.pendragon.util.DefaultPathNameWrapper;
+import com.wandrell.tabletop.pendragon.util.PathNameWrapper;
 
-public class DefaultCulture implements Culture {
+public final class DefaultCulture implements Culture {
 
     private final Map<String, Path> files = new LinkedHashMap<>();
     private RollTable<AdditionalBelongings> initialLuckTableFemale;
@@ -70,8 +70,25 @@ public class DefaultCulture implements Culture {
     }
 
     @Override
-    public DefaultCulture createNewInstance() {
+    public final DefaultCulture createNewInstance() {
 	return new DefaultCulture(this);
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DefaultCulture other = (DefaultCulture) obj;
+	if (name == null) {
+	    if (other.name != null)
+		return false;
+	} else if (!name.equals(other.name))
+	    return false;
+	return true;
     }
 
     @Override
@@ -108,12 +125,12 @@ public class DefaultCulture implements Culture {
     }
 
     @Override
-    public final Collection<FileNameWrapper> getFiles() {
-	final Collection<FileNameWrapper> files;
+    public final Collection<PathNameWrapper> getFiles() {
+	final Collection<PathNameWrapper> files;
 
 	files = new LinkedList<>();
 	for (final Entry<String, Path> entry : getFilesMap().entrySet()) {
-	    files.add(new DefaultFileNameWrapper(entry.getKey(), entry
+	    files.add(new DefaultPathNameWrapper(entry.getKey(), entry
 		    .getValue()));
 	}
 
@@ -159,19 +176,27 @@ public class DefaultCulture implements Culture {
 	return getFilesMap().containsKey(name);
     }
 
-    public final void setFiles(final Collection<FileNameWrapper> files) {
+    @Override
+    public final int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((name == null) ? 0 : name.hashCode());
+	return result;
+    }
+
+    public final void setFiles(final Collection<PathNameWrapper> files) {
 	if (files == null) {
 	    throw new NullPointerException();
 	}
 
 	getFilesMap().clear();
-	for (final FileNameWrapper file : files) {
-	    addFile(file.getName(), file.getFile());
+	for (final PathNameWrapper file : files) {
+	    addFile(file.getName(), file.getPath());
 	}
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return getName();
     }
 

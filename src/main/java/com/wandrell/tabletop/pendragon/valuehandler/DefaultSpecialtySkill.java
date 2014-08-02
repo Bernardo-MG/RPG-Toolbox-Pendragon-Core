@@ -13,7 +13,7 @@ import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 import com.wandrell.tabletop.valuehandler.module.store.ProxyStore;
 
-public class DefaultSpecialtySkill extends DefaultValueHandler<Integer>
+public final class DefaultSpecialtySkill extends DefaultValueHandler<Integer>
 	implements SpecialtySkill {
 
     private final Set<String> skills = new HashSet<String>();
@@ -35,7 +35,7 @@ public class DefaultSpecialtySkill extends DefaultValueHandler<Integer>
     }
 
     @Override
-    public DefaultSpecialtySkill createNewInstance() {
+    public final DefaultSpecialtySkill createNewInstance() {
 	return new DefaultSpecialtySkill(this);
     }
 
@@ -66,7 +66,7 @@ public class DefaultSpecialtySkill extends DefaultValueHandler<Integer>
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return getName();
     }
 

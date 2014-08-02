@@ -1,28 +1,16 @@
-package com.wandrell.tabletop.pendragon.character.background;
+package com.wandrell.tabletop.pendragon.util;
 
-public final class DefaultHomeland implements Homeland {
+import java.nio.file.Path;
+
+public final class DefaultPathNameWrapper implements PathNameWrapper {
 
     private final String name;
+    private final Path path;
 
-    public DefaultHomeland(final DefaultHomeland homeland) {
+    public DefaultPathNameWrapper(final String name, final Path path) {
 	super();
-
-	name = homeland.name;
-    }
-
-    public DefaultHomeland(final String name) {
-	super();
-
-	if (name == null) {
-	    throw new NullPointerException();
-	}
-
 	this.name = name;
-    }
-
-    @Override
-    public final DefaultHomeland createNewInstance() {
-	return new DefaultHomeland(this);
+	this.path = path;
     }
 
     @Override
@@ -33,7 +21,7 @@ public final class DefaultHomeland implements Homeland {
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;
-	DefaultHomeland other = (DefaultHomeland) obj;
+	DefaultPathNameWrapper other = (DefaultPathNameWrapper) obj;
 	if (name == null) {
 	    if (other.name != null)
 		return false;
@@ -48,6 +36,11 @@ public final class DefaultHomeland implements Homeland {
     }
 
     @Override
+    public final Path getPath() {
+	return path;
+    }
+
+    @Override
     public final int hashCode() {
 	final int prime = 31;
 	int result = 1;
@@ -57,7 +50,7 @@ public final class DefaultHomeland implements Homeland {
 
     @Override
     public final String toString() {
-	return getName();
+	return String.format("%s - %s", getName(), getPath());
     }
 
 }

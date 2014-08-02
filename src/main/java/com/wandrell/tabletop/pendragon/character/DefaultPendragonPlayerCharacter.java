@@ -23,28 +23,27 @@ import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
 import com.wandrell.tabletop.pendragon.manor.ManorAnimal;
 import com.wandrell.tabletop.pendragon.util.DefaultTextValue;
 import com.wandrell.tabletop.pendragon.util.TextValue;
-import com.wandrell.tabletop.pendragon.valuehandler.AppearanceFeature;
 import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
 import com.wandrell.tabletop.pendragon.valuehandler.DerivedAttribute;
+import com.wandrell.tabletop.pendragon.valuehandler.DistinctiveFeature;
 import com.wandrell.tabletop.pendragon.valuehandler.Skill;
 import com.wandrell.tabletop.pendragon.valuehandler.Trait;
 import com.wandrell.tabletop.util.TokenUtil;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultPendragonPlayerCharacter extends
+public final class DefaultPendragonPlayerCharacter extends
 	AbstractPendragonSimpleCharacter implements PendragonPlayerCharacter {
 
     private final ArmorData armor;
     private final TraitsBonusSwitchsData dataTraitsBonusSwitchs;
     private final Map<String, Skill> exclusiveSkills = new LinkedHashMap<>();
-    private final Map<String, AppearanceFeature> features = new LinkedHashMap<>();
+    private final Map<String, DistinctiveFeature> features = new LinkedHashMap<>();
     private final Set<String> flags = new LinkedHashSet<>();
     private final Set<Follower> followers = new LinkedHashSet<>();
     private final GloryKeeper glory;
     private final Set<PendragonItem> holdingsAtHome = new LinkedHashSet<>();
     private final Set<PendragonItem> holdingsCarried = new LinkedHashSet<>();
     private final Set<HorseCharacter> horses = new LinkedHashSet<>();
-    private String knightKind = null;
     private final PendragonMoney money;
     private final Set<ManorAnimal> pets = new LinkedHashSet<>();
     private Religion religion;
@@ -75,7 +74,7 @@ public class DefaultPendragonPlayerCharacter extends
 	horses.addAll(character.horses);
 	pets.addAll(character.pets);
 
-	for (final Entry<String, AppearanceFeature> entry : character.features
+	for (final Entry<String, DistinctiveFeature> entry : character.features
 		.entrySet()) {
 	    features.put(entry.getKey(), entry.getValue().createNewInstance());
 	}
@@ -111,9 +110,11 @@ public class DefaultPendragonPlayerCharacter extends
 	dataTraitsBonusSwitchs = character.dataTraitsBonusSwitchs
 		.createNewInstance();
 
-	setKnight(character.isKnight());
-	setKnightKind(character.knightKind);
-	setReligionData(character.religion.createNewInstance());
+	setFlag(PendragonToken.FLAGS_KNIGHT, character.isKnight());
+
+	religion = character.religion.createNewInstance();
+
+	addTextValue(PendragonToken.TEXT_RELIGION_NAME, religion.getName());
 
 	// TODO: Handle this
 	// getGloryData().setReligiousAnnualGlorySwitch(
@@ -121,6 +122,16 @@ public class DefaultPendragonPlayerCharacter extends
 	// PendragonLabels.BONUS_TRAITS_RELIGIOUS_SWITCH));
     }
 
+    @Override
+    public final void addDistinctiveFeature(final DistinctiveFeature feature) {
+	if (feature == null) {
+	    throw new NullPointerException();
+	}
+
+	_getFeatures().put(feature.getName(), feature);
+    }
+
+    @Override
     public final void addExclusiveSkill(final Skill skill) {
 	if (skill == null) {
 	    throw new NullPointerException();
@@ -131,14 +142,7 @@ public class DefaultPendragonPlayerCharacter extends
 			skill.getDescriptor()), skill);
     }
 
-    public final void addFeature(final AppearanceFeature feature) {
-	if (feature == null) {
-	    throw new NullPointerException();
-	}
-
-	_getFeatures().put(feature.getName(), feature);
-    }
-
+    @Override
     public final void addFollower(final Follower follower) {
 	if (follower == null) {
 	    throw new NullPointerException();
@@ -147,6 +151,7 @@ public class DefaultPendragonPlayerCharacter extends
 	_getFollowers().add(follower);
     }
 
+    @Override
     public final void addHoldingAtHome(final PendragonItem item) {
 	if (item == null) {
 	    throw new NullPointerException();
@@ -155,6 +160,7 @@ public class DefaultPendragonPlayerCharacter extends
 	_getHoldingsAtHome().add(item);
     }
 
+    @Override
     public final void addHoldingCarried(final PendragonItem item) {
 	if (item == null) {
 	    throw new NullPointerException();
@@ -163,6 +169,7 @@ public class DefaultPendragonPlayerCharacter extends
 	_getHoldingsCarried().add(item);
     }
 
+    @Override
     public final void addHorse(final HorseCharacter horse) {
 	if (horse == null) {
 	    throw new NullPointerException();
@@ -171,6 +178,7 @@ public class DefaultPendragonPlayerCharacter extends
 	_getHorses().add(horse);
     }
 
+    @Override
     public final void addPet(final ManorAnimal pet) {
 	if (pet == null) {
 	    throw new NullPointerException();
@@ -179,6 +187,7 @@ public class DefaultPendragonPlayerCharacter extends
 	_getPets().add(pet);
     }
 
+    @Override
     public final void addTextValue(final String key, final String value) {
 	if (key == null) {
 	    throw new NullPointerException();
@@ -190,6 +199,7 @@ public class DefaultPendragonPlayerCharacter extends
 	_getTextValues().put(key, value);
     }
 
+    @Override
     public final void addValueHandler(final ValueHandler<Integer> value) {
 	if (value == null) {
 	    throw new NullPointerException();
@@ -198,6 +208,7 @@ public class DefaultPendragonPlayerCharacter extends
 	_getValueHandlers().put(value.getName(), value);
     }
 
+    @Override
     public final void addWife(final Wife wife) {
 	if (wife == null) {
 	    throw new NullPointerException();
@@ -207,87 +218,8 @@ public class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public DefaultPendragonPlayerCharacter createNewInstance() {
+    public final DefaultPendragonPlayerCharacter createNewInstance() {
 	return new DefaultPendragonPlayerCharacter(this);
-    }
-
-    @Override
-    public final boolean equals(final Object obj) {
-	final DefaultPendragonPlayerCharacter received;
-	boolean equals;
-
-	if (super.equals(obj)) {
-	    received = (DefaultPendragonPlayerCharacter) obj;
-	    if (received.armor == null) {
-		equals = (armor == null);
-	    } else {
-		equals = (received.armor.equals(armor));
-	    }
-	    if ((equals) && (received.glory == null)) {
-		equals = (glory == null);
-	    } else if (equals) {
-		equals = (received.glory.equals(glory));
-	    }
-	    if ((equals) && (received.money == null)) {
-		equals = (money == null);
-	    } else if (equals) {
-		equals = (received.money.equals(money));
-	    }
-	    if ((equals) && (received.knightKind == null)) {
-		equals = (knightKind == null);
-	    } else if (equals) {
-		equals = (received.knightKind.equals(knightKind));
-	    }
-	    if ((equals) && (received.features == null)) {
-		equals = (features == null);
-	    } else if (equals) {
-		equals = (received.features.equals(features));
-	    }
-	    if ((equals) && (received.followers == null)) {
-		equals = (followers == null);
-	    } else if (equals) {
-		equals = (received.followers.equals(followers));
-	    }
-	    if ((equals) && (received.holdingsAtHome == null)) {
-		equals = (holdingsAtHome == null);
-	    } else if (equals) {
-		equals = (received.holdingsAtHome.equals(holdingsAtHome));
-	    }
-	    if ((equals) && (received.holdingsCarried == null)) {
-		equals = (holdingsCarried == null);
-	    } else if (equals) {
-		equals = (received.holdingsCarried.equals(holdingsCarried));
-	    }
-	    if ((equals) && (received.horses == null)) {
-		equals = (horses == null);
-	    } else if (equals) {
-		equals = (received.horses.equals(horses));
-	    }
-	    if ((equals) && (received.textValues == null)) {
-		equals = (textValues == null);
-	    } else if (equals) {
-		equals = (received.textValues.equals(textValues));
-	    }
-	    if ((equals) && (received.valueHandlers == null)) {
-		equals = (valueHandlers == null);
-	    } else if (equals) {
-		equals = (received.valueHandlers.equals(valueHandlers));
-	    }
-	    if ((equals) && (received.wives == null)) {
-		equals = (wives == null);
-	    } else if (equals) {
-		equals = (received.wives.equals(wives));
-	    }
-	    if ((equals) && (received.flags == null)) {
-		equals = (flags == null);
-	    } else if (equals) {
-		equals = (received.flags.equals(flags));
-	    }
-	} else {
-	    equals = false;
-	}
-
-	return equals;
     }
 
     @Override
@@ -296,7 +228,7 @@ public class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public final Collection<AppearanceFeature> getDistinctiveFeatures() {
+    public final Collection<DistinctiveFeature> getDistinctiveFeatures() {
 	return Collections.unmodifiableCollection(_getFeatures().values());
     }
 
@@ -352,11 +284,6 @@ public class DefaultPendragonPlayerCharacter extends
     @Override
     public final Collection<HorseCharacter> getHorses() {
 	return Collections.unmodifiableCollection(_getHorses());
-    }
-
-    @Override
-    public final String getKnightKind() {
-	return knightKind;
     }
 
     @Override
@@ -432,33 +359,6 @@ public class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = super.hashCode();
-	result = prime * result + ((armor == null) ? 0 : armor.hashCode());
-	result = prime * result + ((glory == null) ? 0 : glory.hashCode());
-	result = prime * result + ((money == null) ? 0 : money.hashCode());
-	result = prime * result
-		+ ((knightKind == null) ? 0 : knightKind.hashCode());
-	result = prime * result
-		+ ((features == null) ? 0 : features.hashCode());
-	result = prime * result
-		+ ((followers == null) ? 0 : followers.hashCode());
-	result = prime * result
-		+ ((holdingsAtHome == null) ? 0 : holdingsAtHome.hashCode());
-	result = prime * result
-		+ ((holdingsCarried == null) ? 0 : holdingsCarried.hashCode());
-	result = prime * result + ((horses == null) ? 0 : horses.hashCode());
-	result = prime * result
-		+ ((textValues == null) ? 0 : textValues.hashCode());
-	result = prime * result
-		+ ((valueHandlers == null) ? 0 : valueHandlers.hashCode());
-	result = prime * result + ((wives == null) ? 0 : wives.hashCode());
-	result = prime * result + ((flags == null) ? 0 : flags.hashCode());
-	return result;
-    }
-
-    @Override
     public final Boolean hasTextValue(final String name) {
 	return _getTextValues().containsKey(name);
     }
@@ -480,10 +380,10 @@ public class DefaultPendragonPlayerCharacter extends
 	}
     }
 
-    public final void setFeatures(final Collection<AppearanceFeature> features) {
+    public final void setFeatures(final Collection<DistinctiveFeature> features) {
 	_getFeatures().clear();
-	for (final AppearanceFeature feature : features) {
-	    addFeature(feature);
+	for (final DistinctiveFeature feature : features) {
+	    addDistinctiveFeature(feature);
 	}
     }
 
@@ -537,20 +437,13 @@ public class DefaultPendragonPlayerCharacter extends
 	}
     }
 
-    public void setKnight(final Boolean isKnight) {
+    @Override
+    public final void setKnight(final Boolean isKnight) {
 	if (isKnight == null) {
 	    throw new NullPointerException();
 	}
 
 	setFlag(PendragonToken.FLAGS_KNIGHT, isKnight);
-    }
-
-    public final void setKnightKind(final String knightKind) {
-	if (knightKind == null) {
-	    throw new NullPointerException();
-	}
-
-	this.knightKind = knightKind;
     }
 
     public final void setReligionData(final Religion religion) {
@@ -600,7 +493,7 @@ public class DefaultPendragonPlayerCharacter extends
 	return exclusiveSkills;
     }
 
-    protected final Map<String, AppearanceFeature> _getFeatures() {
+    protected final Map<String, DistinctiveFeature> _getFeatures() {
 	return features;
     }
 

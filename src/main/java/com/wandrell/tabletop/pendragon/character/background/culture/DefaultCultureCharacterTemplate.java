@@ -11,7 +11,7 @@ import com.wandrell.tabletop.pendragon.valuehandler.SpecialtySkill;
 import com.wandrell.tabletop.pendragon.valuehandler.Trait;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultCultureCharacterTemplate implements
+public final class DefaultCultureCharacterTemplate implements
 	CultureCharacterTemplate {
 
     public DefaultCultureCharacterTemplate() {
@@ -24,7 +24,7 @@ public class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public DefaultCultureCharacterTemplate createNewInstance() {
+    public final DefaultCultureCharacterTemplate createNewInstance() {
 	return new DefaultCultureCharacterTemplate(this);
     }
 

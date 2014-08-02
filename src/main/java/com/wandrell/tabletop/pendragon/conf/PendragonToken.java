@@ -1,6 +1,6 @@
 package com.wandrell.tabletop.pendragon.conf;
 
-public class PendragonToken {
+public final class PendragonToken {
 
     public static final String ATTRIBUTE_APPEARANCE = "appearance";
     public static final String ATTRIBUTE_CONSTITUTION = "constitution";
@@ -153,5 +153,9 @@ public class PendragonToken {
     public static final String VH_YEAR_TITLED = "year_titled";
     public static final String VH_YEAR_WED = "year_wed";
     public static final String VH_YEARS_AGED = "years_aged";
+
+    private PendragonToken() {
+	super();
+    }
 
 }

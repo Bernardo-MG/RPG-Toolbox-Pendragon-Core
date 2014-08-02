@@ -7,7 +7,7 @@ import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.store.AbstractMarginStore;
 import com.wandrell.tabletop.valuehandler.module.store.IntegerMarginStore;
 
-public class TraitsGloryMarginStore extends StoreModule<Integer> {
+public final class TraitsGloryMarginStore extends StoreModule<Integer> {
 
     private final AbstractMarginStore<Integer, AbstractValueHandler<Integer>> store;
 

@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultArmorData implements ArmorData {
+public final class DefaultArmorData implements ArmorData {
 
     private final Map<String, ValueHandler<Integer>> armorValues = new LinkedHashMap<>();
 
@@ -54,31 +54,8 @@ public class DefaultArmorData implements ArmorData {
     }
 
     @Override
-    public DefaultArmorData createNewInstance() {
+    public final DefaultArmorData createNewInstance() {
 	return new DefaultArmorData(this);
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-	final boolean equals;
-	final DefaultArmorData received;
-
-	if (obj == this) {
-	    equals = true;
-	} else if (obj == null) {
-	    equals = false;
-	} else if (getClass() != obj.getClass()) {
-	    equals = false;
-	} else {
-	    received = (DefaultArmorData) obj;
-	    if (received.armorValues == null) {
-		equals = (armorValues == null);
-	    } else {
-		equals = (received.armorValues.equals(armorValues));
-	    }
-	}
-
-	return equals;
     }
 
     @Override
@@ -94,17 +71,6 @@ public class DefaultArmorData implements ArmorData {
     @Override
     public final Boolean hasArmorValue(final String name) {
 	return _getArmorValues().containsKey(name);
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-
-	result = prime * result
-		+ ((armorValues == null) ? 0 : armorValues.hashCode());
-
-	return result;
     }
 
     public final void initializeReligiousArmor(final Integer armorValue) {

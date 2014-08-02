@@ -7,7 +7,7 @@ import java.util.Collections;
 import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public class DefaultAdditionalBelongings implements AdditionalBelongings {
+public final class DefaultAdditionalBelongings implements AdditionalBelongings {
 
     private final Collection<String> equipableItemsFiles = new ArrayList<String>();
     private String fileTable = null;
@@ -54,73 +54,8 @@ public class DefaultAdditionalBelongings implements AdditionalBelongings {
     }
 
     @Override
-    public DefaultAdditionalBelongings createNewInstance() {
+    public final DefaultAdditionalBelongings createNewInstance() {
 	return new DefaultAdditionalBelongings(this);
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-	final DefaultAdditionalBelongings received;
-	boolean equals;
-
-	if (super.equals(obj)) {
-	    received = (DefaultAdditionalBelongings) obj;
-	    if (received.money == null) {
-		equals = (money == null);
-	    } else {
-		equals = (received.money.equals(money));
-	    }
-	    if ((equals) && (received.fileTable == null)) {
-		equals = (fileTable == null);
-	    } else if (equals) {
-		equals = (received.fileTable.equals(fileTable));
-	    }
-	    if ((equals) && (received.hasToChoose == null)) {
-		equals = (hasToChoose == null);
-	    } else if (equals) {
-		equals = (received.hasToChoose.equals(hasToChoose));
-	    }
-	    if ((equals) && (received.equipableItemsFiles == null)) {
-		equals = (equipableItemsFiles == null);
-	    } else if (equals) {
-		equals = (received.equipableItemsFiles
-			.equals(equipableItemsFiles));
-	    }
-	    if ((equals) && (received.horsesFiles == null)) {
-		equals = (horsesFiles == null);
-	    } else if (equals) {
-		equals = (received.horsesFiles.equals(horsesFiles));
-	    }
-	    if ((equals) && (received.petsFiles == null)) {
-		equals = (petsFiles == null);
-	    } else if (equals) {
-		equals = (received.petsFiles.equals(petsFiles));
-	    }
-	    if ((equals) && (received.rerolls == null)) {
-		equals = (rerolls == null);
-	    } else if (equals) {
-		equals = (received.rerolls.equals(rerolls));
-	    }
-	    if ((equals) && (received.shieldsFiles == null)) {
-		equals = (shieldsFiles == null);
-	    } else if (equals) {
-		equals = (received.shieldsFiles.equals(shieldsFiles));
-	    }
-	    if ((equals) && (received.weaponsFiles == null)) {
-		equals = (weaponsFiles == null);
-	    } else if (equals) {
-		equals = (received.weaponsFiles.equals(weaponsFiles));
-	    }
-	    if ((equals) && (received.nameMoney == null)) {
-		equals = (nameMoney == null);
-	    } else if (equals) {
-		equals = (received.nameMoney.equals(nameMoney));
-	    }
-	} else {
-	    equals = false;
-	}
-
-	return equals;
     }
 
     @Override
@@ -166,33 +101,6 @@ public class DefaultAdditionalBelongings implements AdditionalBelongings {
     @Override
     public final Collection<String> getWeaponsFiles() {
 	return Collections.unmodifiableCollection(_getWeaponsFiles());
-    }
-
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((money == null) ? 0 : money.hashCode());
-	result = prime * result
-		+ ((fileTable == null) ? 0 : fileTable.hashCode());
-	result = prime * result
-		+ ((hasToChoose == null) ? 0 : hasToChoose.hashCode());
-	result = prime
-		* result
-		+ ((equipableItemsFiles == null) ? 0 : equipableItemsFiles
-			.hashCode());
-	result = prime * result
-		+ ((horsesFiles == null) ? 0 : horsesFiles.hashCode());
-	result = prime * result
-		+ ((petsFiles == null) ? 0 : petsFiles.hashCode());
-	result = prime * result + ((rerolls == null) ? 0 : rerolls.hashCode());
-	result = prime * result
-		+ ((shieldsFiles == null) ? 0 : shieldsFiles.hashCode());
-	result = prime * result
-		+ ((weaponsFiles == null) ? 0 : weaponsFiles.hashCode());
-	result = prime * result
-		+ ((nameMoney == null) ? 0 : nameMoney.hashCode());
-	return result;
     }
 
     @Override
@@ -268,7 +176,7 @@ public class DefaultAdditionalBelongings implements AdditionalBelongings {
 	}
     }
 
-    public void setWeaponsFiles(final Collection<String> files) {
+    public final void setWeaponsFiles(final Collection<String> files) {
 	_getWeaponsFiles().clear();
 	for (final String file : files) {
 	    if (file == null) {

@@ -12,7 +12,7 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultDerivedAttribute implements DerivedAttribute {
+public final class DefaultDerivedAttribute implements DerivedAttribute {
 
     private final Collection<Attribute> attributes = new LinkedList<>();
     private final DelegateValueHandler<Integer> composite;
@@ -44,7 +44,7 @@ public class DefaultDerivedAttribute implements DerivedAttribute {
     }
 
     @Override
-    public DefaultDerivedAttribute createNewInstance() {
+    public final DefaultDerivedAttribute createNewInstance() {
 	return new DefaultDerivedAttribute(this);
     }
 
@@ -110,7 +110,7 @@ public class DefaultDerivedAttribute implements DerivedAttribute {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return getName();
     }
 

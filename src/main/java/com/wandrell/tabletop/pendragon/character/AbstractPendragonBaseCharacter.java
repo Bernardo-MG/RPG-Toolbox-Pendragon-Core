@@ -54,26 +54,23 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public boolean equals(final Object obj) {
-	final AbstractPendragonBaseCharacter received;
-	boolean equals;
+    public abstract AbstractPendragonBaseCharacter createNewInstance();
 
-	if (obj == this) {
-	    equals = true;
-	} else if (obj == null) {
-	    equals = false;
-	} else if (getClass() != obj.getClass()) {
-	    equals = false;
-	} else {
-	    received = (AbstractPendragonBaseCharacter) obj;
-	    if (received.name == null) {
-		equals = (name == null);
-	    } else {
-		equals = (received.name.equals(name));
-	    }
-	}
-
-	return equals;
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	AbstractPendragonBaseCharacter other = (AbstractPendragonBaseCharacter) obj;
+	if (name == null) {
+	    if (other.name != null)
+		return false;
+	} else if (!name.equals(other.name))
+	    return false;
+	return true;
     }
 
     @Override
@@ -179,9 +176,7 @@ public abstract class AbstractPendragonBaseCharacter implements
     public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-
 	result = prime * result + ((name == null) ? 0 : name.hashCode());
-
 	return result;
     }
 

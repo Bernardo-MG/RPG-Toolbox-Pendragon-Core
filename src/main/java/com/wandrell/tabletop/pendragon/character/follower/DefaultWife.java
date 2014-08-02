@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.wandrell.tabletop.pendragon.character.PendragonBaseCharacter;
 
-public class DefaultWife implements Wife {
+public final class DefaultWife implements Wife {
 
     private PendragonBaseCharacter characterData;
     private final List<Child> children = new LinkedList<Child>();
@@ -39,12 +39,29 @@ public class DefaultWife implements Wife {
     }
 
     @Override
-    public DefaultWife createNewInstance() {
+    public final DefaultWife createNewInstance() {
 	return new DefaultWife(this);
     }
 
     @Override
-    public PendragonBaseCharacter getCharacter() {
+    public final boolean equals(final Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DefaultWife other = (DefaultWife) obj;
+	if (characterData == null) {
+	    if (other.characterData != null)
+		return false;
+	} else if (!characterData.equals(other.characterData))
+	    return false;
+	return true;
+    }
+
+    @Override
+    public final PendragonBaseCharacter getCharacter() {
 	if ((characterData == null) && (getFile() != null)
 		&& (getFile().length() > 0)) {
 	    loadCharacter();
@@ -53,31 +70,30 @@ public class DefaultWife implements Wife {
     }
 
     @Override
-    public Collection<Child> getChildren() {
+    public final Collection<Child> getChildren() {
 	return Collections.unmodifiableCollection(_getChildren());
     }
 
     @Override
-    public String getFile() {
+    public final String getFile() {
 	return fileCharacter;
     }
 
     @Override
-    public Integer getYearWed() {
+    public final Integer getYearWed() {
 	return yearWed;
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
 	final int prime = 31;
-	int result = super.hashCode();
+	int result = 1;
 	result = prime * result
-		+ ((children == null) ? 0 : children.hashCode());
-	result = prime * result + ((yearWed == null) ? 0 : yearWed.hashCode());
+		+ ((characterData == null) ? 0 : characterData.hashCode());
 	return result;
     }
 
-    public void setChildren(final Collection<Child> children) {
+    public final void setChildren(final Collection<Child> children) {
 	_getChildren().clear();
 	for (final Child child : children) {
 	    if (child == null) {
@@ -87,7 +103,7 @@ public class DefaultWife implements Wife {
 	}
     }
 
-    public void setFile(final String file) {
+    public final void setFile(final String file) {
 	fileCharacter = file;
     }
 
@@ -96,15 +112,15 @@ public class DefaultWife implements Wife {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return getFile();
     }
 
-    protected Collection<Child> _getChildren() {
+    protected final Collection<Child> _getChildren() {
 	return children;
     }
 
-    protected void loadCharacter() {
+    protected final void loadCharacter() {
 
     }
 

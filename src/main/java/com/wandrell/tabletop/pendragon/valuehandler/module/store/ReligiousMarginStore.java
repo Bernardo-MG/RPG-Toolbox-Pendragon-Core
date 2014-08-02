@@ -7,7 +7,7 @@ import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.store.AbstractMarginStore;
 import com.wandrell.tabletop.valuehandler.module.store.IntegerMarginStore;
 
-public class ReligiousMarginStore extends StoreModule<Integer> {
+public final class ReligiousMarginStore extends StoreModule<Integer> {
 
     @SuppressWarnings("unused")
     private boolean flagOn = false;

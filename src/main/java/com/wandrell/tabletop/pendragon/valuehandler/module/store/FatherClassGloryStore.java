@@ -3,7 +3,7 @@ package com.wandrell.tabletop.pendragon.valuehandler.module.store;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 
-public class FatherClassGloryStore extends StoreModule<Integer> {
+public final class FatherClassGloryStore extends StoreModule<Integer> {
 
     private final ValueHandler<Integer> baseGlory;
     private final ValueHandler<Integer> gloryPerYear;

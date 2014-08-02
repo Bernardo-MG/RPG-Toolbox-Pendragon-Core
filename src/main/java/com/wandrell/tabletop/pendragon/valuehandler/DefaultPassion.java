@@ -8,7 +8,7 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultPassion implements Passion {
+public final class DefaultPassion implements Passion {
 
     private final DelegateValueHandler<Integer> composite;
     private String descriptor = "";
@@ -42,7 +42,7 @@ public class DefaultPassion implements Passion {
     }
 
     @Override
-    public DefaultPassion createNewInstance() {
+    public final DefaultPassion createNewInstance() {
 	return new DefaultPassion(this);
     }
 
@@ -109,7 +109,7 @@ public class DefaultPassion implements Passion {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
 	return String.format("%s (%s)", getName(), getDescriptor());
     }
 
