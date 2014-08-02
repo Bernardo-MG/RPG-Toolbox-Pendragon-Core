@@ -24,11 +24,6 @@ public final class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final DefaultCultureCharacterTemplate createNewInstance() {
-	return new DefaultCultureCharacterTemplate(this);
-    }
-
-    @Override
     public final Attribute getAttribute(final String name) {
 	// TODO Auto-generated method stub
 	return null;

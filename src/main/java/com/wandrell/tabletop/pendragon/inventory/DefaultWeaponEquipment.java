@@ -14,7 +14,7 @@ public final class DefaultWeaponEquipment implements WeaponEquipment {
 	super();
 
 	skill = weapon.skill;
-	item = weapon.item.createNewInstance();
+	item = weapon.item;
     }
 
     public DefaultWeaponEquipment(final PendragonEquipment item,
@@ -23,11 +23,6 @@ public final class DefaultWeaponEquipment implements WeaponEquipment {
 
 	this.skill = skill;
 	this.item = item;
-    }
-
-    @Override
-    public DefaultWeaponEquipment createNewInstance() {
-	return new DefaultWeaponEquipment(this);
     }
 
     @Override

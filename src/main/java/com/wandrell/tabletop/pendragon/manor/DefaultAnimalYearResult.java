@@ -49,11 +49,6 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
     }
 
     @Override
-    public final DefaultAnimalYearResult createNewInstance() {
-	return new DefaultAnimalYearResult(this);
-    }
-
-    @Override
     public final boolean equals(final Object obj) {
 	if (this == obj)
 	    return true;

@@ -32,11 +32,6 @@ public final class DefaultManorAnimal implements ManorAnimal {
     }
 
     @Override
-    public DefaultManorAnimal createNewInstance() {
-	return new DefaultManorAnimal(this);
-    }
-
-    @Override
     public final boolean equals(final Object obj) {
 	if (this == obj)
 	    return true;

@@ -11,18 +11,13 @@ public final class DefaultShieldEquipment implements ShieldEquipment {
     public DefaultShieldEquipment(final DefaultShieldEquipment shield) {
 	super();
 
-	item = shield.item.createNewInstance();
+	item = shield.item;
     }
 
     public DefaultShieldEquipment(final PendragonEquipment item) {
 	super();
 
 	this.item = item;
-    }
-
-    @Override
-    public final DefaultShieldEquipment createNewInstance() {
-	return new DefaultShieldEquipment(this);
     }
 
     @Override

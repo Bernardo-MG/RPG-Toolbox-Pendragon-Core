@@ -31,11 +31,10 @@ public final class DefaultCulture implements Culture {
 
 	name = culture.name;
 
-	templateDefaultFemale = culture.templateDefaultFemale
-		.createNewInstance();
-	templateDefaultMale = culture.templateDefaultMale.createNewInstance();
-	templateRandomFemale = culture.templateRandomFemale.createNewInstance();
-	templateRandomMale = culture.templateRandomMale.createNewInstance();
+	templateDefaultFemale = culture.templateDefaultFemale;
+	templateDefaultMale = culture.templateDefaultMale;
+	templateRandomFemale = culture.templateRandomFemale;
+	templateRandomMale = culture.templateRandomMale;
 
 	for (final Entry<String, Path> entry : culture.files.entrySet()) {
 	    files.put(entry.getKey(), entry.getValue());
@@ -67,11 +66,6 @@ public final class DefaultCulture implements Culture {
 	}
 
 	getFilesMap().put(name, file);
-    }
-
-    @Override
-    public final DefaultCulture createNewInstance() {
-	return new DefaultCulture(this);
     }
 
     @Override

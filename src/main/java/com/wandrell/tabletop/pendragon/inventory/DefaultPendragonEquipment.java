@@ -20,7 +20,7 @@ public final class DefaultPendragonEquipment implements PendragonEquipment {
     public DefaultPendragonEquipment(final DefaultPendragonEquipment equipment) {
 	super();
 
-	item = equipment.item.createNewInstance();
+	item = equipment.item;
 
 	for (final Entry<String, ValueHandler<Integer>> entry : values
 		.entrySet()) {
@@ -40,11 +40,6 @@ public final class DefaultPendragonEquipment implements PendragonEquipment {
 
     public final void addValue(final ValueHandler<Integer> bonus) {
 	_getMiscelanyValues().put(bonus.getName(), bonus);
-    }
-
-    @Override
-    public final DefaultPendragonEquipment createNewInstance() {
-	return new DefaultPendragonEquipment(this);
     }
 
     @Override

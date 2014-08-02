@@ -21,11 +21,6 @@ public final class DefaultHomeland implements Homeland {
     }
 
     @Override
-    public final DefaultHomeland createNewInstance() {
-	return new DefaultHomeland(this);
-    }
-
-    @Override
     public final boolean equals(final Object obj) {
 	if (this == obj)
 	    return true;

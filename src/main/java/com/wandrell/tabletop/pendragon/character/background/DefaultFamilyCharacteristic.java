@@ -60,11 +60,6 @@ public final class DefaultFamilyCharacteristic implements FamilyCharacteristic {
     }
 
     @Override
-    public final DefaultFamilyCharacteristic createNewInstance() {
-	return new DefaultFamilyCharacteristic(this);
-    }
-
-    @Override
     public final boolean equals(final Object obj) {
 	if (this == obj)
 	    return true;

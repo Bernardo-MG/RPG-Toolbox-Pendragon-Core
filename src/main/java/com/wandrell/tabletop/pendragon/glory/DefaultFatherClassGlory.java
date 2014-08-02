@@ -21,11 +21,6 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
     }
 
     @Override
-    public final DefaultFatherClassGlory createNewInstance() {
-	return new DefaultFatherClassGlory(this);
-    }
-
-    @Override
     public final boolean equals(final Object obj) {
 	if (this == obj)
 	    return true;

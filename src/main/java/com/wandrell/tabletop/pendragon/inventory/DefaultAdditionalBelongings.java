@@ -54,11 +54,6 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     }
 
     @Override
-    public final DefaultAdditionalBelongings createNewInstance() {
-	return new DefaultAdditionalBelongings(this);
-    }
-
-    @Override
     public final Collection<String> getEquipableItemsFiles() {
 	return Collections.unmodifiableCollection(_getEquipableItemsFiles());
     }

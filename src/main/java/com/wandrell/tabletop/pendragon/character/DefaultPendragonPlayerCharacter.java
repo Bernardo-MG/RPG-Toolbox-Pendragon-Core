@@ -105,14 +105,14 @@ public final class DefaultPendragonPlayerCharacter extends
 
 	// Initializes data holders
 	armor = character.armor.createNewInstance();
-	glory = character.glory.createNewInstance();
+	glory = character.glory;
 	money = character.money.createNewInstance();
 	dataTraitsBonusSwitchs = character.dataTraitsBonusSwitchs
 		.createNewInstance();
 
 	setFlag(PendragonToken.FLAGS_KNIGHT, character.isKnight());
 
-	religion = character.religion.createNewInstance();
+	religion = character.religion;
 
 	addTextValue(PendragonToken.TEXT_RELIGION_NAME, religion.getName());
 

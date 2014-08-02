@@ -22,7 +22,7 @@ public final class DefaultWife implements Wife {
 	super();
 
 	for (final Child child : wife.children) {
-	    children.add(child.createNewInstance());
+	    children.add(child);
 	}
 
 	yearWed = wife.yearWed;
@@ -36,11 +36,6 @@ public final class DefaultWife implements Wife {
     public DefaultWife(final String file, final PendragonBaseCharacter character) {
 	this(file);
 	characterData = character;
-    }
-
-    @Override
-    public final DefaultWife createNewInstance() {
-	return new DefaultWife(this);
     }
 
     @Override

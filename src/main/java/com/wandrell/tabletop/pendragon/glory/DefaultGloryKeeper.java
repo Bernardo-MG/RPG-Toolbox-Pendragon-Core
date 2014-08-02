@@ -81,7 +81,7 @@ public final class DefaultGloryKeeper implements GloryKeeper {
 	}
 
 	for (final GloryEvent data : glory.history) {
-	    history.add(data.createNewInstance());
+	    history.add(data);
 	}
     }
 
@@ -91,11 +91,6 @@ public final class DefaultGloryKeeper implements GloryKeeper {
 	}
 
 	_getHistory().add(event);
-    }
-
-    @Override
-    public final DefaultGloryKeeper createNewInstance() {
-	return new DefaultGloryKeeper(this);
     }
 
     @Override

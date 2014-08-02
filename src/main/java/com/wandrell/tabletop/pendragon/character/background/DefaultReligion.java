@@ -50,11 +50,6 @@ public final class DefaultReligion implements Religion {
     }
 
     @Override
-    public final DefaultReligion createNewInstance() {
-	return new DefaultReligion(this);
-    }
-
-    @Override
     public final boolean equals(final Object obj) {
 	if (this == obj)
 	    return true;

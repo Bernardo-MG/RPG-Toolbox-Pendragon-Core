@@ -52,8 +52,8 @@ public final class DefaultPendragonChargenCharacter implements
 	super();
 
 	this.character = character.character.createNewInstance();
-	culture = character.culture.createNewInstance();
-	homeland = character.homeland.createNewInstance();
+	culture = character.culture;
+	homeland = character.homeland;
     }
 
     public DefaultPendragonChargenCharacter(

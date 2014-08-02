@@ -11,18 +11,13 @@ public final class DefaultArmorEquipment implements ArmorEquipment {
     public DefaultArmorEquipment(final DefaultArmorEquipment armor) {
 	super();
 
-	item = armor.item.createNewInstance();
+	item = armor.item;
     }
 
     public DefaultArmorEquipment(final PendragonEquipment item) {
 	super();
 
 	this.item = item;
-    }
-
-    @Override
-    public final DefaultArmorEquipment createNewInstance() {
-	return new DefaultArmorEquipment(this);
     }
 
     @Override

@@ -60,11 +60,6 @@ public final class DefaultFatherClass implements FatherClass {
     }
 
     @Override
-    public final DefaultFatherClass createNewInstance() {
-	return new DefaultFatherClass(this);
-    }
-
-    @Override
     public final boolean equals(final Object obj) {
 	if (this == obj)
 	    return true;

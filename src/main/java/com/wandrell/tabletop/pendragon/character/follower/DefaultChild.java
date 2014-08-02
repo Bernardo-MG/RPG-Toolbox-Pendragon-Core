@@ -23,11 +23,6 @@ public final class DefaultChild implements Child {
     }
 
     @Override
-    public final DefaultChild createNewInstance() {
-	return new DefaultChild(this);
-    }
-
-    @Override
     public final boolean equals(final Object obj) {
 	if (this == obj)
 	    return true;
