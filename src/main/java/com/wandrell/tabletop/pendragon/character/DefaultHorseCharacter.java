@@ -7,7 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
+import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
@@ -17,7 +17,7 @@ public class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
     private final Map<String, ValueHandler<Integer>> secondaryAttributes = new LinkedHashMap<>();
     private String type = "";
 
-    public DefaultHorseCharacter(final Collection<PendragonAttribute> attributes) {
+    public DefaultHorseCharacter(final Collection<Attribute> attributes) {
 	super(attributes);
     }
 

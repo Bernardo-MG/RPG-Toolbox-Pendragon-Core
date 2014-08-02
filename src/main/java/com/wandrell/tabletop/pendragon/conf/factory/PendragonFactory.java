@@ -12,10 +12,10 @@ import com.wandrell.tabletop.pendragon.conf.PendragonFactoryConf;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
 import com.wandrell.tabletop.pendragon.inventory.ArmorData;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonDirectedTrait;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonPassion;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonSpecialtySkill;
+import com.wandrell.tabletop.pendragon.valuehandler.DirectedTrait;
+import com.wandrell.tabletop.pendragon.valuehandler.Passion;
+import com.wandrell.tabletop.pendragon.valuehandler.Skill;
+import com.wandrell.tabletop.pendragon.valuehandler.SpecialtySkill;
 import com.wandrell.util.PathUtils;
 
 public final class PendragonFactory {
@@ -69,7 +69,7 @@ public final class PendragonFactory {
 		PendragonFactoryConf.BEAN_ARMOR);
     }
 
-    public final PendragonDirectedTrait getDirectedTrait(final String name) {
+    public final DirectedTrait getDirectedTrait(final String name) {
 	final ApplicationContext context;
 	final Properties properties;
 
@@ -84,7 +84,7 @@ public final class PendragonFactory {
 	context = ContextUtils.getContext(PathUtils.getClassPathResource(Paths
 		.get(PendragonFactoryConf.CONTEXT_DIRECTED_TRAIT)), properties);
 
-	return (PendragonDirectedTrait) context
+	return (DirectedTrait) context
 		.getBean(PendragonFactoryConf.BEAN_DIRECTED_TRAIT);
     }
 
@@ -109,8 +109,7 @@ public final class PendragonFactory {
 	return money;
     }
 
-    public final PendragonPassion getPassion(final String name,
-	    final String descriptor) {
+    public final Passion getPassion(final String name, final String descriptor) {
 	final ApplicationContext context;
 	final Properties properties;
 
@@ -128,13 +127,12 @@ public final class PendragonFactory {
 
 	// Spring framework builds the instance
 
-	return (PendragonPassion) context
-		.getBean(PendragonFactoryConf.BEAN_PASSION);
+	return (Passion) context.getBean(PendragonFactoryConf.BEAN_PASSION);
     }
 
-    public final PendragonSkill getSkill(final String name,
-	    final Boolean combat, final Boolean court, final Boolean knight,
-	    final Boolean knowledge, final Boolean repeat) {
+    public final Skill getSkill(final String name, final Boolean combat,
+	    final Boolean court, final Boolean knight, final Boolean knowledge,
+	    final Boolean repeat) {
 	final ApplicationContext context;
 	final Properties properties;
 
@@ -156,11 +154,10 @@ public final class PendragonFactory {
 
 	// Spring framework builds the instance
 
-	return (PendragonSkill) context
-		.getBean(PendragonFactoryConf.BEAN_SKILL);
+	return (Skill) context.getBean(PendragonFactoryConf.BEAN_SKILL);
     }
 
-    public final PendragonSpecialtySkill getSpecialtySkill(final String name,
+    public final SpecialtySkill getSpecialtySkill(final String name,
 	    final Collection<String> skills) {
 	final ApplicationContext context;
 	final Properties properties;
@@ -189,7 +186,7 @@ public final class PendragonFactory {
 			.get(PendragonFactoryConf.CONTEXT_SPECIALTY_SKILL)),
 			properties);
 
-	return (PendragonSpecialtySkill) context
+	return (SpecialtySkill) context
 		.getBean(PendragonFactoryConf.BEAN_SPECIALTY_SKILL);
     }
 

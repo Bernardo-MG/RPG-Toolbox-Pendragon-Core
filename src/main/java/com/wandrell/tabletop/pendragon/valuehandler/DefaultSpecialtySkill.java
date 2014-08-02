@@ -13,18 +13,17 @@ import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 import com.wandrell.tabletop.valuehandler.module.store.ProxyStore;
 
-public class DefaultPendragonSpecialtySkill extends
-	DefaultValueHandler<Integer> implements PendragonSpecialtySkill {
+public class DefaultSpecialtySkill extends DefaultValueHandler<Integer>
+	implements SpecialtySkill {
 
     private final Set<String> skills = new HashSet<String>();
 
-    public DefaultPendragonSpecialtySkill(
-	    final DefaultPendragonSpecialtySkill skill) {
+    public DefaultSpecialtySkill(final DefaultSpecialtySkill skill) {
 	super(skill);
 	skills.addAll(skill.skills);
     }
 
-    public DefaultPendragonSpecialtySkill(final String name,
+    public DefaultSpecialtySkill(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
@@ -36,8 +35,8 @@ public class DefaultPendragonSpecialtySkill extends
     }
 
     @Override
-    public DefaultPendragonSpecialtySkill createNewInstance() {
-	return new DefaultPendragonSpecialtySkill(this);
+    public DefaultSpecialtySkill createNewInstance() {
+	return new DefaultSpecialtySkill(this);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class DefaultPendragonSpecialtySkill extends
 
     @SuppressWarnings("unchecked")
     @Override
-    public final void registerSkill(final PendragonSkill skill) {
+    public final void registerSkill(final Skill skill) {
 	// TODO: This may be better be done somewhere else
 	if (skill == null) {
 	    throw new NullPointerException();

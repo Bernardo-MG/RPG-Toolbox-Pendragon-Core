@@ -7,50 +7,47 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.wandrell.tabletop.character.Gender;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonDirectedTrait;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonPassion;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonSpecialtySkill;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonTrait;
+import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
+import com.wandrell.tabletop.pendragon.valuehandler.DirectedTrait;
+import com.wandrell.tabletop.pendragon.valuehandler.Passion;
+import com.wandrell.tabletop.pendragon.valuehandler.Skill;
+import com.wandrell.tabletop.pendragon.valuehandler.SpecialtySkill;
+import com.wandrell.tabletop.pendragon.valuehandler.Trait;
 import com.wandrell.tabletop.util.TokenUtil;
 
 public abstract class AbstractPendragonSimpleCharacter extends
 	AbstractPendragonBaseCharacter implements PendragonSimpleCharacter {
 
-    private final Map<String, PendragonDirectedTrait> directedTraits = new LinkedHashMap<>();
+    private final Map<String, DirectedTrait> directedTraits = new LinkedHashMap<>();
     private Gender gender = null;
-    private final Map<String, PendragonPassion> passions = new LinkedHashMap<>();
-    private final Map<String, PendragonSkill> skills = new LinkedHashMap<>();
-    private final Map<String, PendragonSpecialtySkill> skillsSpecialty = new LinkedHashMap<>();
-    private final Map<String, PendragonTrait> traits = new LinkedHashMap<>();
+    private final Map<String, Passion> passions = new LinkedHashMap<>();
+    private final Map<String, Skill> skills = new LinkedHashMap<>();
+    private final Map<String, SpecialtySkill> skillsSpecialty = new LinkedHashMap<>();
+    private final Map<String, Trait> traits = new LinkedHashMap<>();
 
     public AbstractPendragonSimpleCharacter(
 	    final AbstractPendragonSimpleCharacter character) {
 	super(character);
 
-	for (final Entry<String, PendragonSpecialtySkill> entry : character.skillsSpecialty
+	for (final Entry<String, SpecialtySkill> entry : character.skillsSpecialty
 		.entrySet()) {
 	    skillsSpecialty.put(entry.getKey(), entry.getValue());
 	}
 
-	for (final Entry<String, PendragonDirectedTrait> entry : character.directedTraits
+	for (final Entry<String, DirectedTrait> entry : character.directedTraits
 		.entrySet()) {
 	    directedTraits.put(entry.getKey(), entry.getValue());
 	}
 
-	for (final Entry<String, PendragonPassion> entry : character.passions
-		.entrySet()) {
+	for (final Entry<String, Passion> entry : character.passions.entrySet()) {
 	    passions.put(entry.getKey(), entry.getValue());
 	}
 
-	for (final Entry<String, PendragonSkill> entry : character.skills
-		.entrySet()) {
+	for (final Entry<String, Skill> entry : character.skills.entrySet()) {
 	    skills.put(entry.getKey(), entry.getValue());
 	}
 
-	for (final Entry<String, PendragonTrait> entry : character.traits
-		.entrySet()) {
+	for (final Entry<String, Trait> entry : character.traits.entrySet()) {
 	    traits.put(entry.getKey(), entry.getValue());
 	}
 
@@ -58,11 +55,11 @@ public abstract class AbstractPendragonSimpleCharacter extends
     }
 
     public AbstractPendragonSimpleCharacter(
-	    final Collection<PendragonAttribute> attributes,
-	    final Collection<PendragonTrait> traits) {
+	    final Collection<Attribute> attributes,
+	    final Collection<Trait> traits) {
 	super(attributes);
 
-	for (final PendragonTrait trait : traits) {
+	for (final Trait trait : traits) {
 	    if (trait == null) {
 		throw new NullPointerException();
 	    }
@@ -72,7 +69,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
     }
 
     @Override
-    public final void addDirectedTrait(final PendragonDirectedTrait trait) {
+    public final void addDirectedTrait(final DirectedTrait trait) {
 	if (trait == null) {
 	    throw new NullPointerException();
 	}
@@ -83,7 +80,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
     }
 
     @Override
-    public final void addPassion(final PendragonPassion passion) {
+    public final void addPassion(final Passion passion) {
 	if (passion == null) {
 	    throw new NullPointerException();
 	}
@@ -94,7 +91,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
     }
 
     @Override
-    public final void addSkill(final PendragonSkill skill) {
+    public final void addSkill(final Skill skill) {
 	if (skill == null) {
 	    throw new NullPointerException();
 	}
@@ -106,7 +103,7 @@ public abstract class AbstractPendragonSimpleCharacter extends
     }
 
     @Override
-    public final void addSpecialtySkill(final PendragonSpecialtySkill skill) {
+    public final void addSpecialtySkill(final SpecialtySkill skill) {
 	if (skill == null) {
 	    throw new NullPointerException();
 	}
@@ -116,14 +113,14 @@ public abstract class AbstractPendragonSimpleCharacter extends
     }
 
     @Override
-    public final PendragonDirectedTrait getDirectedTrait(final String name,
+    public final DirectedTrait getDirectedTrait(final String name,
 	    final String annotation) {
 	return _getDirectedTraits().get(
 		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
-    public final Collection<PendragonDirectedTrait> getDirectedTraits() {
+    public final Collection<DirectedTrait> getDirectedTraits() {
 	return Collections
 		.unmodifiableCollection(_getDirectedTraits().values());
     }
@@ -134,47 +131,45 @@ public abstract class AbstractPendragonSimpleCharacter extends
     }
 
     @Override
-    public final PendragonPassion getPassion(final String name,
-	    final String annotation) {
+    public final Passion getPassion(final String name, final String annotation) {
 	return _getPassions().get(
 		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
-    public final Collection<PendragonPassion> getPassions() {
+    public final Collection<Passion> getPassions() {
 	return Collections.unmodifiableCollection(_getPassions().values());
     }
 
     @Override
-    public final PendragonSkill getSkill(final String name,
-	    final String annotation) {
+    public final Skill getSkill(final String name, final String annotation) {
 	return _getSkills().get(
 		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
-    public final Collection<PendragonSkill> getSkills() {
+    public final Collection<Skill> getSkills() {
 	return Collections.unmodifiableCollection(_getSkills().values());
     }
 
     @Override
-    public final PendragonSpecialtySkill getSpecialtySkill(final String name) {
+    public final SpecialtySkill getSpecialtySkill(final String name) {
 	return _getSpecialtySkills().get(name);
     }
 
     @Override
-    public final Collection<PendragonSpecialtySkill> getSpecialtySkills() {
+    public final Collection<SpecialtySkill> getSpecialtySkills() {
 	return Collections.unmodifiableCollection(_getSpecialtySkills()
 		.values());
     }
 
     @Override
-    public final PendragonTrait getTrait(final String name) {
+    public final Trait getTrait(final String name) {
 	return _getTraits().get(name);
     }
 
     @Override
-    public final Collection<PendragonTrait> getTraits() {
+    public final Collection<Trait> getTraits() {
 	return Collections.unmodifiableCollection(_getTraits().values());
     }
 
@@ -213,10 +208,9 @@ public abstract class AbstractPendragonSimpleCharacter extends
 		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
-    public final void setDirectedTraits(
-	    final Collection<PendragonDirectedTrait> traits) {
+    public final void setDirectedTraits(final Collection<DirectedTrait> traits) {
 	_getDirectedTraits().clear();
-	for (final PendragonDirectedTrait trait : traits) {
+	for (final DirectedTrait trait : traits) {
 	    addDirectedTrait(trait);
 	}
     }
@@ -225,23 +219,21 @@ public abstract class AbstractPendragonSimpleCharacter extends
 	this.gender = gender;
     }
 
-    public final void setPassions(final Collection<PendragonPassion> passions) {
+    public final void setPassions(final Collection<Passion> passions) {
 	_getPassions().clear();
-	for (final PendragonPassion passion : passions) {
+	for (final Passion passion : passions) {
 	    addPassion(passion);
 	}
     }
 
-    public final void setSpecialtySkills(
-	    final Collection<PendragonSpecialtySkill> skills) {
+    public final void setSpecialtySkills(final Collection<SpecialtySkill> skills) {
 	_getSpecialtySkills().clear();
-	for (final PendragonSpecialtySkill skill : skills) {
+	for (final SpecialtySkill skill : skills) {
 	    addSpecialtySkill(skill);
 	}
     }
 
-    private final void assembleAdvancedSkill(
-	    final PendragonSpecialtySkill vhAdvSkill) {
+    private final void assembleAdvancedSkill(final SpecialtySkill vhAdvSkill) {
 	for (final String skill : vhAdvSkill.getSurrogatedSkills()) {
 	    if (hasSkill(skill, "")) {
 		vhAdvSkill.registerSkill(getSkill(skill, ""));
@@ -249,35 +241,35 @@ public abstract class AbstractPendragonSimpleCharacter extends
 	}
     }
 
-    private final void registerIntoAdvancedSkill(final PendragonSkill vhSkill) {
-	for (final PendragonSpecialtySkill skill : getSpecialtySkills()) {
+    private final void registerIntoAdvancedSkill(final Skill vhSkill) {
+	for (final SpecialtySkill skill : getSpecialtySkills()) {
 	    if (skill.isSkillContained(vhSkill.getName())) {
 		skill.registerSkill(vhSkill);
 	    }
 	}
     }
 
-    protected final Map<String, PendragonDirectedTrait> _getDirectedTraits() {
+    protected final Map<String, DirectedTrait> _getDirectedTraits() {
 	return directedTraits;
     }
 
-    protected final Map<String, PendragonPassion> _getPassions() {
+    protected final Map<String, Passion> _getPassions() {
 	return passions;
     }
 
-    protected final Map<String, PendragonSkill> _getSkills() {
+    protected final Map<String, Skill> _getSkills() {
 	return skills;
     }
 
-    protected final Map<String, PendragonSpecialtySkill> _getSpecialtySkills() {
+    protected final Map<String, SpecialtySkill> _getSpecialtySkills() {
 	return skillsSpecialty;
     }
 
-    protected final Map<String, PendragonTrait> _getTraits() {
+    protected final Map<String, Trait> _getTraits() {
 	return traits;
     }
 
-    protected final void addTrait(final PendragonTrait vhTrait) {
+    protected final void addTrait(final Trait vhTrait) {
 	_getTraits().put(vhTrait.getName(), vhTrait);
 	_getTraits().put(vhTrait.getMirrorTrait().getName(),
 		vhTrait.getMirrorTrait());

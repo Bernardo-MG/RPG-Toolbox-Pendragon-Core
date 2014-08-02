@@ -7,14 +7,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonDerivedAttribute;
+import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
+import com.wandrell.tabletop.pendragon.valuehandler.DerivedAttribute;
 
 public abstract class AbstractPendragonBaseCharacter implements
 	PendragonBaseCharacter {
 
-    private final Map<String, PendragonAttribute> attributes = new LinkedHashMap<>();
-    private final Map<String, PendragonDerivedAttribute> attributesDerived = new LinkedHashMap<>();
+    private final Map<String, Attribute> attributes = new LinkedHashMap<>();
+    private final Map<String, DerivedAttribute> attributesDerived = new LinkedHashMap<>();
     private String name = "";
 
     public AbstractPendragonBaseCharacter(
@@ -22,7 +22,7 @@ public abstract class AbstractPendragonBaseCharacter implements
 	super();
 	name = character.name;
 
-	for (final Entry<String, PendragonAttribute> entry : character.attributes
+	for (final Entry<String, Attribute> entry : character.attributes
 		.entrySet()) {
 	    attributes.put(entry.getKey(), entry.getValue());
 	}
@@ -30,11 +30,10 @@ public abstract class AbstractPendragonBaseCharacter implements
 	// initializeDerivedAttributes();
     }
 
-    public AbstractPendragonBaseCharacter(
-	    final Collection<PendragonAttribute> attributes) {
+    public AbstractPendragonBaseCharacter(final Collection<Attribute> attributes) {
 	super();
 
-	for (final PendragonAttribute attribute : attributes) {
+	for (final Attribute attribute : attributes) {
 	    if (attribute == null) {
 		throw new NullPointerException();
 	    }
@@ -46,8 +45,7 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public final void addDerivedAttribute(
-	    final PendragonDerivedAttribute attribute) {
+    public final void addDerivedAttribute(final DerivedAttribute attribute) {
 	if (attribute == null) {
 	    throw new NullPointerException();
 	}
@@ -79,63 +77,63 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public final PendragonAttribute getAppearance() {
+    public final Attribute getAppearance() {
 	return _getAttributes().get(PendragonToken.ATTRIBUTE_APPEARANCE);
     }
 
     @Override
-    public final Collection<PendragonAttribute> getAttributes() {
+    public final Collection<Attribute> getAttributes() {
 	return Collections.unmodifiableCollection(_getAttributes().values());
     }
 
     @Override
-    public final PendragonAttribute getConstitution() {
+    public final Attribute getConstitution() {
 	return _getAttributes().get(PendragonToken.ATTRIBUTE_CONSTITUTION);
     }
 
     @Override
-    public final PendragonDerivedAttribute getDamage() {
+    public final DerivedAttribute getDamage() {
 	return _getDerivedAttributes().get(
 		PendragonToken.DERIVED_ATTRIBUTE_DAMAGE);
     }
 
     @Override
-    public final Collection<PendragonDerivedAttribute> getDerivedAttributes() {
+    public final Collection<DerivedAttribute> getDerivedAttributes() {
 	return Collections.unmodifiableCollection(_getDerivedAttributes()
 		.values());
     }
 
     @Override
-    public final PendragonAttribute getDexterity() {
+    public final Attribute getDexterity() {
 	return _getAttributes().get(PendragonToken.ATTRIBUTE_DEXTERITY);
     }
 
     @Override
-    public final PendragonDerivedAttribute getDexterityRoll() {
+    public final DerivedAttribute getDexterityRoll() {
 	return _getDerivedAttributes().get(
 		PendragonToken.DERIVED_ATTRIBUTE_DEXTERITY_ROLL);
     }
 
     @Override
-    public final PendragonDerivedAttribute getHealingRate() {
+    public final DerivedAttribute getHealingRate() {
 	return _getDerivedAttributes().get(
 		PendragonToken.DERIVED_ATTRIBUTE_HEAL_RATE);
     }
 
     @Override
-    public final PendragonDerivedAttribute getHitPoints() {
+    public final DerivedAttribute getHitPoints() {
 	return _getDerivedAttributes().get(
 		PendragonToken.DERIVED_ATTRIBUTE_HIT_POINTS);
     }
 
     @Override
-    public final PendragonDerivedAttribute getMajorWoundTreshold() {
+    public final DerivedAttribute getMajorWoundTreshold() {
 	return _getDerivedAttributes().get(
 		PendragonToken.DERIVED_ATTRIBUTE_MAJOR_WOUND);
     }
 
     @Override
-    public final PendragonDerivedAttribute getMovementRate() {
+    public final DerivedAttribute getMovementRate() {
 	return _getDerivedAttributes().get(
 		PendragonToken.DERIVED_ATTRIBUTE_MOVEMENT_RATE);
     }
@@ -146,23 +144,23 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     @Override
-    public final PendragonDerivedAttribute getSize() {
+    public final DerivedAttribute getSize() {
 	return _getDerivedAttributes().get(PendragonToken.ATTRIBUTE_SIZE);
     }
 
     @Override
-    public final PendragonAttribute getStrength() {
+    public final Attribute getStrength() {
 	return _getAttributes().get(PendragonToken.ATTRIBUTE_STRENGTH);
     }
 
     @Override
-    public final PendragonDerivedAttribute getUnconsciousTreshold() {
+    public final DerivedAttribute getUnconsciousTreshold() {
 	return _getDerivedAttributes().get(
 		PendragonToken.DERIVED_ATTRIBUTE_UNCONSCIOUS);
     }
 
     @Override
-    public final PendragonDerivedAttribute getWeight() {
+    public final DerivedAttribute getWeight() {
 	return _getDerivedAttributes().get(
 		PendragonToken.DERIVED_ATTRIBUTE_WEIGHT);
     }
@@ -188,13 +186,13 @@ public abstract class AbstractPendragonBaseCharacter implements
     }
 
     public final void setDerivedAttributes(
-	    final Collection<PendragonDerivedAttribute> attributes) {
+	    final Collection<DerivedAttribute> attributes) {
 	if (attributes == null) {
 	    throw new NullPointerException();
 	}
 
 	_getDerivedAttributes().clear();
-	for (final PendragonDerivedAttribute attribute : attributes) {
+	for (final DerivedAttribute attribute : attributes) {
 	    if (attribute == null) {
 		throw new NullPointerException();
 	    }
@@ -216,15 +214,15 @@ public abstract class AbstractPendragonBaseCharacter implements
 	return getName();
     }
 
-    protected final Map<String, PendragonAttribute> _getAttributes() {
+    protected final Map<String, Attribute> _getAttributes() {
 	return attributes;
     }
 
-    protected final Map<String, PendragonDerivedAttribute> _getDerivedAttributes() {
+    protected final Map<String, DerivedAttribute> _getDerivedAttributes() {
 	return attributesDerived;
     }
 
-    protected final void addAttribute(final PendragonAttribute attribute) {
+    protected final void addAttribute(final Attribute attribute) {
 	_getAttributes().put(attribute.getName(), attribute);
     }
 

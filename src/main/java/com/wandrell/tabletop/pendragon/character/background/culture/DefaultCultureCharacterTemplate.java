@@ -3,12 +3,12 @@ package com.wandrell.tabletop.pendragon.character.background.culture;
 import java.util.Collection;
 
 import com.wandrell.tabletop.interval.Interval;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonDirectedTrait;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonPassion;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonSpecialtySkill;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonTrait;
+import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
+import com.wandrell.tabletop.pendragon.valuehandler.DirectedTrait;
+import com.wandrell.tabletop.pendragon.valuehandler.Passion;
+import com.wandrell.tabletop.pendragon.valuehandler.Skill;
+import com.wandrell.tabletop.pendragon.valuehandler.SpecialtySkill;
+import com.wandrell.tabletop.pendragon.valuehandler.Trait;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultCultureCharacterTemplate implements
@@ -29,7 +29,7 @@ public class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final PendragonAttribute getAttribute(final String name) {
+    public final Attribute getAttribute(final String name) {
 	// TODO Auto-generated method stub
 	return null;
     }
@@ -47,7 +47,7 @@ public class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final Collection<PendragonAttribute> getAttributes() {
+    public final Collection<Attribute> getAttributes() {
 	// TODO Auto-generated method stub
 	return null;
     }
@@ -65,77 +65,75 @@ public class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final PendragonDirectedTrait getDirectedTrait(final String name,
+    public final DirectedTrait getDirectedTrait(final String name,
 	    final String annotation) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final Collection<PendragonDirectedTrait> getDirectedTraits() {
+    public final Collection<DirectedTrait> getDirectedTraits() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final PendragonSkill getExclusiveSkill(final String name,
+    public final Skill getExclusiveSkill(final String name,
 	    final String annotation) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final Collection<PendragonSkill> getExclusiveSkills() {
+    public final Collection<Skill> getExclusiveSkills() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final PendragonPassion getPassion(final String name,
-	    final String annotation) {
+    public final Passion getPassion(final String name, final String annotation) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final Collection<PendragonPassion> getPassions() {
+    public final Collection<Passion> getPassions() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final PendragonSkill getSkill(final String name,
-	    final String annotation) {
+    public final Skill getSkill(final String name, final String annotation) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final Collection<PendragonSkill> getSkills() {
+    public final Collection<Skill> getSkills() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final PendragonSpecialtySkill getSpecialtySkill(final String name) {
+    public final SpecialtySkill getSpecialtySkill(final String name) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final Collection<PendragonSpecialtySkill> getSpecialtySkills() {
+    public final Collection<SpecialtySkill> getSpecialtySkills() {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final PendragonTrait getTrait(final String name) {
+    public final Trait getTrait(final String name) {
 	// TODO Auto-generated method stub
 	return null;
     }
 
     @Override
-    public final Collection<PendragonTrait> getTraits() {
+    public final Collection<Trait> getTraits() {
 	// TODO Auto-generated method stub
 	return null;
     }

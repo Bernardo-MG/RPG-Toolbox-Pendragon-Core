@@ -6,28 +6,27 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
+import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
+import com.wandrell.tabletop.pendragon.valuehandler.Skill;
 import com.wandrell.tabletop.util.TokenUtil;
 
 public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
 
-    private final Map<String, PendragonAttribute> attributes = new LinkedHashMap<>();
+    private final Map<String, Attribute> attributes = new LinkedHashMap<>();
     private final String name;
-    private final Map<String, PendragonSkill> skills = new LinkedHashMap<>();
+    private final Map<String, Skill> skills = new LinkedHashMap<>();
 
     public DefaultFamilyCharacteristic(
 	    final DefaultFamilyCharacteristic familyChar) {
 	super();
 	name = familyChar.name;
 
-	for (final Entry<String, PendragonAttribute> entry : familyChar.attributes
+	for (final Entry<String, Attribute> entry : familyChar.attributes
 		.entrySet()) {
 	    attributes.put(entry.getKey(), entry.getValue());
 	}
 
-	for (final Entry<String, PendragonSkill> entry : familyChar.skills
-		.entrySet()) {
+	for (final Entry<String, Skill> entry : familyChar.skills.entrySet()) {
 	    skills.put(entry.getKey(), entry.getValue());
 	}
     }
@@ -42,7 +41,7 @@ public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
 	this.name = name;
     }
 
-    public final void addAttribute(final PendragonAttribute attribute) {
+    public final void addAttribute(final Attribute attribute) {
 	if (attribute == null) {
 	    throw new NullPointerException();
 	}
@@ -50,7 +49,7 @@ public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
 	_getAttributes().put(attribute.getName(), attribute);
     }
 
-    public final void addSkill(final PendragonSkill skill) {
+    public final void addSkill(final Skill skill) {
 	if (skill == null) {
 	    throw new NullPointerException();
 	}
@@ -66,12 +65,12 @@ public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
     }
 
     @Override
-    public final PendragonAttribute getAttribute(final String name) {
+    public final Attribute getAttribute(final String name) {
 	return _getAttributes().get(name);
     }
 
     @Override
-    public final Collection<PendragonAttribute> getAttributes() {
+    public final Collection<Attribute> getAttributes() {
 	return Collections.unmodifiableCollection(_getAttributes().values());
     }
 
@@ -81,14 +80,13 @@ public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
     }
 
     @Override
-    public final PendragonSkill getSkill(final String name,
-	    final String annotation) {
+    public final Skill getSkill(final String name, final String annotation) {
 	return _getSkills().get(
 		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
-    public final Collection<PendragonSkill> getSkills() {
+    public final Collection<Skill> getSkills() {
 	return Collections.unmodifiableCollection(_getSkills().values());
     }
 
@@ -108,11 +106,11 @@ public class DefaultFamilyCharacteristic implements FamilyCharacteristic {
 	return getName();
     }
 
-    protected final Map<String, PendragonAttribute> _getAttributes() {
+    protected final Map<String, Attribute> _getAttributes() {
 	return attributes;
     }
 
-    protected final Map<String, PendragonSkill> _getSkills() {
+    protected final Map<String, Skill> _getSkills() {
 	return skills;
     }
 

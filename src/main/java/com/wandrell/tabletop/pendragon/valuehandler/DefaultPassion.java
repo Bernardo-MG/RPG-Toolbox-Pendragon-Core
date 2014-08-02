@@ -1,9 +1,5 @@
 package com.wandrell.tabletop.pendragon.valuehandler;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-
 import com.wandrell.tabletop.valuehandler.DefaultValueHandler;
 import com.wandrell.tabletop.valuehandler.DelegateValueHandler;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
@@ -12,20 +8,20 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultPendragonDerivedAttribute implements
-	PendragonDerivedAttribute {
+public class DefaultPassion implements Passion {
 
-    private final Collection<PendragonAttribute> attributes = new LinkedList<>();
     private final DelegateValueHandler<Integer> composite;
+    private String descriptor = "";
 
-    public DefaultPendragonDerivedAttribute(
-	    final DefaultPendragonDerivedAttribute attribute) {
+    public DefaultPassion(final DefaultPassion passion) {
 	super();
 
-	composite = attribute.composite.createNewInstance();
+	composite = passion.composite.createNewInstance();
+
+	descriptor = passion.descriptor;
     }
 
-    public DefaultPendragonDerivedAttribute(final String name,
+    public DefaultPassion(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
@@ -46,13 +42,18 @@ public class DefaultPendragonDerivedAttribute implements
     }
 
     @Override
-    public DefaultPendragonDerivedAttribute createNewInstance() {
-	return new DefaultPendragonDerivedAttribute(this);
+    public DefaultPassion createNewInstance() {
+	return new DefaultPassion(this);
     }
 
     @Override
     public final void decreaseValue() {
 	getValueHandler().decreaseValue();
+    }
+
+    @Override
+    public final String getDescriptor() {
+	return descriptor;
     }
 
     @Override
@@ -63,11 +64,6 @@ public class DefaultPendragonDerivedAttribute implements
     @Override
     public final String getName() {
 	return getValueHandler().getName();
-    }
-
-    @Override
-    public final Collection<PendragonAttribute> getParentAttributes() {
-	return Collections.unmodifiableCollection(_getParentAttributes());
     }
 
     @Override
@@ -95,33 +91,30 @@ public class DefaultPendragonDerivedAttribute implements
 	return getValueHandler().isAbleToIncrease();
     }
 
-    public final void setParentAttributes(
-	    final Collection<PendragonAttribute> attributes) {
-	_getParentAttributes().clear();
-	for (final PendragonAttribute attribute : attributes) {
-	    if (attribute == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getParentAttributes().add(attribute);
+    public final void setDescriptor(final String descriptor) {
+	if (descriptor == null) {
+	    throw new NullPointerException();
 	}
+
+	this.descriptor = descriptor;
     }
 
     @Override
     public final void setValue(final Integer value) {
+	if (value == null) {
+	    throw new NullPointerException();
+	}
+
 	getValueHandler().setValue(value);
     }
 
     @Override
     public String toString() {
-	return getName();
-    }
-
-    protected final Collection<PendragonAttribute> _getParentAttributes() {
-	return attributes;
+	return String.format("%s (%s)", getName(), getDescriptor());
     }
 
     protected final ValueHandler<Integer> getValueHandler() {
 	return composite;
     }
+
 }

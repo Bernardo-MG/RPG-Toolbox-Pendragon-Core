@@ -8,21 +8,21 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultPendragonAppearanceFeature implements
-	PendragonAppearanceFeature {
+public class DefaultDirectedTrait implements DirectedTrait {
 
     private final DelegateValueHandler<Integer> composite;
     private String descriptor = "";
+    private ValueHandler<Integer> trait;
 
-    public DefaultPendragonAppearanceFeature(
-	    final DefaultPendragonAppearanceFeature feature) {
+    public DefaultDirectedTrait(final DefaultDirectedTrait passion) {
 	super();
-	composite = feature.composite.createNewInstance();
 
-	descriptor = feature.descriptor;
+	composite = passion.composite.createNewInstance();
+
+	descriptor = passion.descriptor;
     }
 
-    public DefaultPendragonAppearanceFeature(final String name,
+    public DefaultDirectedTrait(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
@@ -43,8 +43,8 @@ public class DefaultPendragonAppearanceFeature implements
     }
 
     @Override
-    public DefaultPendragonAppearanceFeature createNewInstance() {
-	return new DefaultPendragonAppearanceFeature(this);
+    public DefaultDirectedTrait createNewInstance() {
+	return new DefaultDirectedTrait(this);
     }
 
     @Override
@@ -73,6 +73,11 @@ public class DefaultPendragonAppearanceFeature implements
     }
 
     @Override
+    public final ValueHandler<Integer> getTrait() {
+	return trait;
+    }
+
+    @Override
     public final Integer getUpperLimit() {
 	return getValueHandler().getUpperLimit();
     }
@@ -98,6 +103,14 @@ public class DefaultPendragonAppearanceFeature implements
 	}
 
 	this.descriptor = descriptor;
+    }
+
+    public final void setTrait(final ValueHandler<Integer> trait) {
+	if (trait == null) {
+	    throw new NullPointerException();
+	}
+
+	this.trait = trait;
     }
 
     @Override

@@ -7,8 +7,8 @@ import com.wandrell.tabletop.pendragon.character.background.FatherClass;
 import com.wandrell.tabletop.pendragon.character.background.Homeland;
 import com.wandrell.tabletop.pendragon.character.background.culture.Culture;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonTrait;
+import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
+import com.wandrell.tabletop.pendragon.valuehandler.Trait;
 
 public class DefaultPendragonChargenCharacter extends
 	DefaultPendragonPlayerCharacter implements PendragonChargenCharacter {
@@ -29,8 +29,8 @@ public class DefaultPendragonChargenCharacter extends
     private Homeland homeland;
 
     public DefaultPendragonChargenCharacter(
-	    final Collection<PendragonAttribute> attributes,
-	    final Collection<PendragonTrait> traits) {
+	    final Collection<Attribute> attributes,
+	    final Collection<Trait> traits) {
 	super(attributes, traits);
     }
 

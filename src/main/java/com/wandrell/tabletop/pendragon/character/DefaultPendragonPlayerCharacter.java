@@ -23,11 +23,11 @@ import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
 import com.wandrell.tabletop.pendragon.manor.ManorAnimal;
 import com.wandrell.tabletop.pendragon.util.DefaultTextValue;
 import com.wandrell.tabletop.pendragon.util.TextValue;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonAppearanceFeature;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonAttribute;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonDerivedAttribute;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonTrait;
+import com.wandrell.tabletop.pendragon.valuehandler.AppearanceFeature;
+import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
+import com.wandrell.tabletop.pendragon.valuehandler.DerivedAttribute;
+import com.wandrell.tabletop.pendragon.valuehandler.Skill;
+import com.wandrell.tabletop.pendragon.valuehandler.Trait;
 import com.wandrell.tabletop.util.TokenUtil;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
@@ -36,8 +36,8 @@ public class DefaultPendragonPlayerCharacter extends
 
     private final ArmorData armor;
     private final TraitsBonusSwitchsData dataTraitsBonusSwitchs;
-    private final Map<String, PendragonSkill> exclusiveSkills = new LinkedHashMap<>();
-    private final Map<String, PendragonAppearanceFeature> features = new LinkedHashMap<>();
+    private final Map<String, Skill> exclusiveSkills = new LinkedHashMap<>();
+    private final Map<String, AppearanceFeature> features = new LinkedHashMap<>();
     private final Set<String> flags = new LinkedHashSet<>();
     private final Set<Follower> followers = new LinkedHashSet<>();
     private final GloryKeeper glory;
@@ -53,8 +53,8 @@ public class DefaultPendragonPlayerCharacter extends
     private final Set<Wife> wives = new LinkedHashSet<>();
 
     public DefaultPendragonPlayerCharacter(
-	    final Collection<PendragonAttribute> attributes,
-	    final Collection<PendragonTrait> traits) {
+	    final Collection<Attribute> attributes,
+	    final Collection<Trait> traits) {
 	super(attributes, traits);
 
 	// Initializes data holders
@@ -75,12 +75,12 @@ public class DefaultPendragonPlayerCharacter extends
 	horses.addAll(character.horses);
 	pets.addAll(character.pets);
 
-	for (final Entry<String, PendragonAppearanceFeature> entry : character.features
+	for (final Entry<String, AppearanceFeature> entry : character.features
 		.entrySet()) {
 	    features.put(entry.getKey(), entry.getValue().createNewInstance());
 	}
 
-	for (final Entry<String, PendragonSkill> entry : character.exclusiveSkills
+	for (final Entry<String, Skill> entry : character.exclusiveSkills
 		.entrySet()) {
 	    exclusiveSkills.put(entry.getKey(), entry.getValue()
 		    .createNewInstance());
@@ -121,7 +121,7 @@ public class DefaultPendragonPlayerCharacter extends
 	// PendragonLabels.BONUS_TRAITS_RELIGIOUS_SWITCH));
     }
 
-    public final void addExclusiveSkill(final PendragonSkill skill) {
+    public final void addExclusiveSkill(final Skill skill) {
 	if (skill == null) {
 	    throw new NullPointerException();
 	}
@@ -131,7 +131,7 @@ public class DefaultPendragonPlayerCharacter extends
 			skill.getDescriptor()), skill);
     }
 
-    public final void addFeature(final PendragonAppearanceFeature feature) {
+    public final void addFeature(final AppearanceFeature feature) {
 	if (feature == null) {
 	    throw new NullPointerException();
 	}
@@ -296,25 +296,25 @@ public class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public final Collection<PendragonAppearanceFeature> getDistinctiveFeatures() {
+    public final Collection<AppearanceFeature> getDistinctiveFeatures() {
 	return Collections.unmodifiableCollection(_getFeatures().values());
     }
 
     @Override
-    public final PendragonDerivedAttribute getDistinctiveFeaturesCount() {
+    public final DerivedAttribute getDistinctiveFeaturesCount() {
 	return _getDerivedAttributes().get(
 		PendragonToken.DERIVED_ATTRIBUTE_FEATURES);
     }
 
     @Override
-    public final PendragonSkill getExclusiveSkill(final String name,
+    public final Skill getExclusiveSkill(final String name,
 	    final String annotation) {
 	return _getExclusiveSkills().get(
 		TokenUtil.getNameAndDescriptorToken(name, annotation));
     }
 
     @Override
-    public final Collection<PendragonSkill> getExclusiveSkills() {
+    public final Collection<Skill> getExclusiveSkills() {
 	return Collections.unmodifiableCollection(_getExclusiveSkills()
 		.values());
     }
@@ -473,17 +473,16 @@ public class DefaultPendragonPlayerCharacter extends
 	return getFlag(PendragonToken.FLAGS_KNIGHT);
     }
 
-    public final void setExclusiveSkills(final Collection<PendragonSkill> skills) {
+    public final void setExclusiveSkills(final Collection<Skill> skills) {
 	_getExclusiveSkills().clear();
-	for (final PendragonSkill skill : skills) {
+	for (final Skill skill : skills) {
 	    addExclusiveSkill(skill);
 	}
     }
 
-    public final void setFeatures(
-	    final Collection<PendragonAppearanceFeature> features) {
+    public final void setFeatures(final Collection<AppearanceFeature> features) {
 	_getFeatures().clear();
-	for (final PendragonAppearanceFeature feature : features) {
+	for (final AppearanceFeature feature : features) {
 	    addFeature(feature);
 	}
     }
@@ -597,11 +596,11 @@ public class DefaultPendragonPlayerCharacter extends
 	}
     }
 
-    protected final Map<String, PendragonSkill> _getExclusiveSkills() {
+    protected final Map<String, Skill> _getExclusiveSkills() {
 	return exclusiveSkills;
     }
 
-    protected final Map<String, PendragonAppearanceFeature> _getFeatures() {
+    protected final Map<String, AppearanceFeature> _getFeatures() {
 	return features;
     }
 

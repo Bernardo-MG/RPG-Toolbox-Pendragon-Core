@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import com.wandrell.tabletop.pendragon.valuehandler.DefaultPendragonTrait;
+import com.wandrell.tabletop.pendragon.valuehandler.DefaultTrait;
 import com.wandrell.tabletop.valuehandler.DelegateValueHandler;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
@@ -160,7 +160,7 @@ public class DefaultGloryKeeper implements GloryKeeper {
     }
 
     public final void setTraitsAnnualGlorySwitch(
-	    final Iterator<DefaultPendragonTrait> itrTraits) {
+	    final Iterator<DefaultTrait> itrTraits) {
 	// final List<ValueHandler<Integer>> traitsList = new
 	// ArrayList<ValueHandler<Integer>>();
 	// final ValueHandler<Integer> vh;

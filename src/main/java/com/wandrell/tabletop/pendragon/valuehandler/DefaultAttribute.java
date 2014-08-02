@@ -12,18 +12,18 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultPendragonAttribute implements PendragonAttribute {
+public class DefaultAttribute implements Attribute {
 
     private final Collection<ValueHandler<Integer>> attributes = new LinkedList<>();
     private final DelegateValueHandler<Integer> composite;
 
-    public DefaultPendragonAttribute(final DefaultPendragonAttribute attribute) {
+    public DefaultAttribute(final DefaultAttribute attribute) {
 	super();
 
 	composite = attribute.composite.createNewInstance();
     }
 
-    public DefaultPendragonAttribute(final String name,
+    public DefaultAttribute(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
@@ -44,8 +44,8 @@ public class DefaultPendragonAttribute implements PendragonAttribute {
     }
 
     @Override
-    public DefaultPendragonAttribute createNewInstance() {
-	return new DefaultPendragonAttribute(this);
+    public DefaultAttribute createNewInstance() {
+	return new DefaultAttribute(this);
     }
 
     @Override

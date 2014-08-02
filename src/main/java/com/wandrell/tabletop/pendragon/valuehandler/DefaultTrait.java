@@ -8,29 +8,30 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
+public class DefaultTrait implements Trait {
 
     private final DelegateValueHandler<Integer> composite;
-    private String descriptor = "";
-    private ValueHandler<Integer> trait;
+    private final boolean goodTrait;
+    private Trait traitMirror;
 
-    public DefaultPendragonDirectedTrait(
-	    final DefaultPendragonDirectedTrait passion) {
+    public DefaultTrait(final DefaultTrait vh) {
 	super();
+	composite = vh.composite.createNewInstance();
 
-	composite = passion.composite.createNewInstance();
-
-	descriptor = passion.descriptor;
+	goodTrait = vh.goodTrait;
     }
 
-    public DefaultPendragonDirectedTrait(final String name,
+    public DefaultTrait(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
-	    final ValidatorModule<Integer> validator) {
+	    final ValidatorModule<Integer> validator, final boolean goodTrait) {
 	super();
+
 	composite = new DefaultValueHandler<Integer>(name, generator, interval,
 		store, validator);
+
+	this.goodTrait = goodTrait;
     }
 
     @Override
@@ -44,8 +45,8 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
     }
 
     @Override
-    public DefaultPendragonDirectedTrait createNewInstance() {
-	return new DefaultPendragonDirectedTrait(this);
+    public DefaultTrait createNewInstance() {
+	return new DefaultTrait(this);
     }
 
     @Override
@@ -54,13 +55,13 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
     }
 
     @Override
-    public final String getDescriptor() {
-	return descriptor;
+    public final Integer getLowerLimit() {
+	return getValueHandler().getLowerLimit();
     }
 
     @Override
-    public final Integer getLowerLimit() {
-	return getValueHandler().getLowerLimit();
+    public final Trait getMirrorTrait() {
+	return traitMirror;
     }
 
     @Override
@@ -71,11 +72,6 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
     @Override
     public final Integer getStoredValue() {
 	return getValueHandler().getStoredValue();
-    }
-
-    @Override
-    public final ValueHandler<Integer> getTrait() {
-	return trait;
     }
 
     @Override
@@ -98,20 +94,13 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
 	return getValueHandler().isAbleToIncrease();
     }
 
-    public final void setDescriptor(final String descriptor) {
-	if (descriptor == null) {
-	    throw new NullPointerException();
-	}
-
-	this.descriptor = descriptor;
+    @Override
+    public final Boolean isGoodTrait() {
+	return goodTrait;
     }
 
-    public final void setTrait(final ValueHandler<Integer> trait) {
-	if (trait == null) {
-	    throw new NullPointerException();
-	}
-
-	this.trait = trait;
+    public final void setMirrorTrait(final Trait trait) {
+	traitMirror = trait;
     }
 
     @Override
@@ -121,7 +110,7 @@ public class DefaultPendragonDirectedTrait implements PendragonDirectedTrait {
 
     @Override
     public String toString() {
-	return String.format("%s (%s)", getName(), getDescriptor());
+	return getName();
     }
 
     protected final ValueHandler<Integer> getValueHandler() {

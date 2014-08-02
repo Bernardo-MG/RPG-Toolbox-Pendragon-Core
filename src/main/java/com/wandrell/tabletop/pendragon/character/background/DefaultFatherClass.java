@@ -10,14 +10,14 @@ import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
-import com.wandrell.tabletop.pendragon.valuehandler.PendragonSkill;
+import com.wandrell.tabletop.pendragon.valuehandler.Skill;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultFatherClass implements FatherClass {
 
     private final PendragonMoney money;
     private final String name;
-    private final Map<String, PendragonSkill> skillsGroup = new LinkedHashMap<>();
+    private final Map<String, Skill> skillsGroup = new LinkedHashMap<>();
     private ValueHandler<Integer> skillsGroupPoints;
     private final Map<String, ValueHandler<Integer>> skillsPoints = new LinkedHashMap<>();
 
@@ -26,8 +26,7 @@ public class DefaultFatherClass implements FatherClass {
 
 	name = data.name;
 
-	for (final Entry<String, PendragonSkill> entry : data.skillsGroup
-		.entrySet()) {
+	for (final Entry<String, Skill> entry : data.skillsGroup.entrySet()) {
 	    skillsGroup.put(entry.getKey(), entry.getValue());
 	}
 	for (final Entry<String, ValueHandler<Integer>> entry : data.skillsPoints
@@ -76,7 +75,7 @@ public class DefaultFatherClass implements FatherClass {
     }
 
     @Override
-    public final Collection<PendragonSkill> getSkillsGroup() {
+    public final Collection<Skill> getSkillsGroup() {
 	return Collections.unmodifiableCollection(_getSkillsGroup().values());
     }
 
@@ -108,10 +107,10 @@ public class DefaultFatherClass implements FatherClass {
 	}
     }
 
-    public final void setSkillsGroup(final Collection<PendragonSkill> skills,
+    public final void setSkillsGroup(final Collection<Skill> skills,
 	    final ValueHandler<Integer> points) {
 	_getSkillsGroup().clear();
-	for (final PendragonSkill skill : skills) {
+	for (final Skill skill : skills) {
 	    _getSkillsGroup().put(skill.getName(), skill);
 	}
 
@@ -123,7 +122,7 @@ public class DefaultFatherClass implements FatherClass {
 	return getName();
     }
 
-    protected final Map<String, PendragonSkill> _getSkillsGroup() {
+    protected final Map<String, Skill> _getSkillsGroup() {
 	return skillsGroup;
     }
 

@@ -8,7 +8,7 @@ import com.wandrell.tabletop.valuehandler.module.IntervalModule;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
 import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
-public class DefaultPendragonSkill implements PendragonSkill {
+public class DefaultSkill implements Skill {
 
     private final boolean combatSkill;
     private final DelegateValueHandler<Integer> composite;
@@ -18,7 +18,7 @@ public class DefaultPendragonSkill implements PendragonSkill {
     private final boolean knowledgeSkill;
     private final boolean repeteable;
 
-    public DefaultPendragonSkill(final DefaultPendragonSkill skill) {
+    public DefaultSkill(final DefaultSkill skill) {
 	super();
 
 	composite = skill.composite.createNewInstance();
@@ -33,7 +33,7 @@ public class DefaultPendragonSkill implements PendragonSkill {
 	repeteable = skill.repeteable;
     }
 
-    public DefaultPendragonSkill(final String name,
+    public DefaultSkill(final String name,
 	    final GeneratorModule<Integer> generator,
 	    final IntervalModule<Integer> interval,
 	    final StoreModule<Integer> store,
@@ -65,8 +65,8 @@ public class DefaultPendragonSkill implements PendragonSkill {
     }
 
     @Override
-    public final DefaultPendragonSkill createNewInstance() {
-	return new DefaultPendragonSkill(this);
+    public final DefaultSkill createNewInstance() {
+	return new DefaultSkill(this);
     }
 
     @Override
