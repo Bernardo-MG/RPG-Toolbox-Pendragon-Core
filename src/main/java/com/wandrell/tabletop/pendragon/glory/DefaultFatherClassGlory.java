@@ -1,31 +1,23 @@
 package com.wandrell.tabletop.pendragon.glory;
 
-import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonToken;
-import com.wandrell.tabletop.valuehandler.ValueHandler;
-
 public class DefaultFatherClassGlory implements FatherClassGlory {
 
-    private final ValueHandler<Integer> baseGlory;
-    private final ValueHandler<Integer> gloryPerYear;
+    private Integer baseGlory = 0;
+    private Integer gloryPerYear = 0;
     private final String name;
 
     public DefaultFatherClassGlory(
 	    final DefaultFatherClassGlory fatherClassGlory) {
 	super();
 	name = fatherClassGlory.name;
-	baseGlory = fatherClassGlory.baseGlory.createNewInstance();
-	gloryPerYear = fatherClassGlory.gloryPerYear.createNewInstance();
+	baseGlory = fatherClassGlory.baseGlory;
+	gloryPerYear = fatherClassGlory.gloryPerYear;
     }
 
     public DefaultFatherClassGlory(final String name) {
 	super();
 
 	this.name = name;
-	baseGlory = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonToken.VH_FATHER_CLASS_BASE_GLORY);
-	gloryPerYear = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonToken.VH_FATHER_CLASS_GLORY_PER_YEAR);
     }
 
     @Override
@@ -34,18 +26,26 @@ public class DefaultFatherClassGlory implements FatherClassGlory {
     }
 
     @Override
-    public final ValueHandler<Integer> getBaseGlory() {
+    public final Integer getBaseGlory() {
 	return baseGlory;
     }
 
     @Override
-    public final ValueHandler<Integer> getGloryPerYear() {
+    public final Integer getGloryPerYear() {
 	return gloryPerYear;
     }
 
     @Override
     public final String getName() {
 	return name;
+    }
+
+    public final void setBaseGlory(final Integer glory) {
+	baseGlory = glory;
+    }
+
+    public final void setGloryPerYear(final Integer glory) {
+	gloryPerYear = glory;
     }
 
     @Override

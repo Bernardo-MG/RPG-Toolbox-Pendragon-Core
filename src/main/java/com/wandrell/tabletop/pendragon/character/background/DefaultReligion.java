@@ -8,15 +8,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonToken;
-import com.wandrell.tabletop.valuehandler.ValueHandler;
-
 public class DefaultReligion implements Religion {
 
-    private final ValueHandler<Integer> bonusArmor;
-    private final ValueHandler<Integer> bonusDamage;
-    private final Map<String, ValueHandler<Integer>> bonusDerived = new LinkedHashMap<>();
+    private Integer bonusArmor = 0;
+    private Integer bonusDamage = 0;
+    private final Map<String, Integer> bonusDerived = new LinkedHashMap<>();
     private final String name;
     private final Set<String> traits = new LinkedHashSet<String>();
 
@@ -29,13 +25,13 @@ public class DefaultReligion implements Religion {
 	    traits.add(trait);
 	}
 
-	bonusArmor = religion.bonusArmor.createNewInstance();
-	bonusDamage = religion.bonusDamage.createNewInstance();
-
-	for (final Entry<String, ValueHandler<Integer>> entry : religion.bonusDerived
+	for (final Entry<String, Integer> entry : religion.bonusDerived
 		.entrySet()) {
 	    bonusDerived.put(entry.getKey(), entry.getValue());
 	}
+
+	bonusArmor = religion.bonusArmor;
+	bonusDamage = religion.bonusDamage;
     }
 
     public DefaultReligion(final String name) {
@@ -46,11 +42,11 @@ public class DefaultReligion implements Religion {
 	}
 
 	this.name = name;
+    }
 
-	bonusArmor = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonToken.VH_ARMOR);
-	bonusDamage = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonToken.VH_DAMAGE);
+    public final void addDerivedAttributeBonus(final String name,
+	    final Integer bonus) {
+	getDerivedAttributesBonus().put(name, bonus);
     }
 
     @Override
@@ -59,25 +55,18 @@ public class DefaultReligion implements Religion {
     }
 
     @Override
-    public final ValueHandler<Integer> getArmorBonus() {
+    public final Integer getArmorBonus() {
 	return bonusArmor;
     }
 
     @Override
-    public final ValueHandler<Integer> getDamageBonus() {
+    public final Integer getDamageBonus() {
 	return bonusDamage;
     }
 
     @Override
-    public final ValueHandler<Integer> getDerivedAttributeBonus(
-	    final String name) {
-	return _getDerivedAttributesBonus().get(name);
-    }
-
-    @Override
-    public final Collection<ValueHandler<Integer>> getDerivedAttributesBonus() {
-	return Collections.unmodifiableCollection(_getDerivedAttributesBonus()
-		.values());
+    public final Integer getDerivedAttributeBonus(final String name) {
+	return getDerivedAttributesBonus().get(name);
     }
 
     @Override
@@ -92,12 +81,20 @@ public class DefaultReligion implements Religion {
 
     @Override
     public final Boolean hasDerivedAttributeBonus(final String name) {
-	return _getDerivedAttributesBonus().containsKey(name);
+	return getDerivedAttributesBonus().containsKey(name);
     }
 
     @Override
     public final Boolean hasTrait(final String trait) {
 	return _getTraits().contains(trait);
+    }
+
+    public final void setArmorBonus(final Integer bonus) {
+	bonusArmor = bonus;
+    }
+
+    public final void setDamageBonus(final Integer bonus) {
+	bonusDamage = bonus;
     }
 
     public final void setReligiousTraits(final Collection<String> traits) {
@@ -117,12 +114,12 @@ public class DefaultReligion implements Religion {
 	return getName();
     }
 
-    protected final Map<String, ValueHandler<Integer>> _getDerivedAttributesBonus() {
-	return bonusDerived;
-    }
-
     protected final Set<String> _getTraits() {
 	return traits;
+    }
+
+    protected final Map<String, Integer> getDerivedAttributesBonus() {
+	return bonusDerived;
     }
 
 }

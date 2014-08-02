@@ -1,24 +1,16 @@
 package com.wandrell.tabletop.pendragon.character.follower;
 
 import com.wandrell.tabletop.character.Gender;
-import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonToken;
-import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultChild implements Child {
 
     private Gender gender = Gender.MALE;
     private String name = "";
-    private final ValueHandler<Integer> yearBorn;
-    private final ValueHandler<Integer> yearDeath;
+    private Integer yearBorn = 0;
+    private Integer yearDeath = 0;
 
     public DefaultChild() {
 	super();
-
-	yearBorn = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonToken.VH_YEAR_BORN);
-	yearDeath = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonToken.VH_YEAR_DEATH);
     }
 
     public DefaultChild(final DefaultChild data) {
@@ -26,8 +18,8 @@ public class DefaultChild implements Child {
 
 	gender = data.gender;
 	name = data.name;
-	yearBorn = data.yearBorn.createNewInstance();
-	yearDeath = data.yearDeath.createNewInstance();
+	yearBorn = data.yearBorn;
+	yearDeath = data.yearDeath;
     }
 
     @Override
@@ -46,12 +38,12 @@ public class DefaultChild implements Child {
     }
 
     @Override
-    public final ValueHandler<Integer> getYearBorn() {
+    public final Integer getYearBorn() {
 	return yearBorn;
     }
 
     @Override
-    public final ValueHandler<Integer> getYearDeath() {
+    public final Integer getYearDeath() {
 	return yearDeath;
     }
 
@@ -71,6 +63,14 @@ public class DefaultChild implements Child {
 		+ ((yearDeath == null) ? 0 : yearDeath.hashCode());
 
 	return result;
+    }
+
+    public final void setBirthYear(final Integer year) {
+	yearBorn = year;
+    }
+
+    public final void setDeathYear(final Integer year) {
+	yearDeath = year;
     }
 
     public final void setGender(final Gender gender) {

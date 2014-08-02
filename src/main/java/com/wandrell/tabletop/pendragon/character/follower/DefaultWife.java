@@ -5,22 +5,17 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
 import com.wandrell.tabletop.pendragon.character.PendragonBaseCharacter;
-import com.wandrell.tabletop.pendragon.conf.PendragonToken;
-import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public class DefaultWife implements Wife {
 
     private PendragonBaseCharacter characterData;
     private final List<Child> children = new LinkedList<Child>();
     private String fileCharacter = "";
-    private final ValueHandler<Integer> yearWed;
+    private Integer yearWed = 0;
 
     public DefaultWife() {
 	super();
-	yearWed = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonToken.VH_YEAR_WED);
     }
 
     public DefaultWife(final DefaultWife wife) {
@@ -30,7 +25,7 @@ public class DefaultWife implements Wife {
 	    children.add(child.createNewInstance());
 	}
 
-	yearWed = wife.yearWed.createNewInstance();
+	yearWed = wife.yearWed;
     }
 
     public DefaultWife(final String file) {
@@ -68,7 +63,7 @@ public class DefaultWife implements Wife {
     }
 
     @Override
-    public ValueHandler<Integer> getYearWed() {
+    public Integer getYearWed() {
 	return yearWed;
     }
 
@@ -94,6 +89,10 @@ public class DefaultWife implements Wife {
 
     public void setFile(final String file) {
 	fileCharacter = file;
+    }
+
+    public final void setWeddingYear(final Integer year) {
+	yearWed = year;
     }
 
     @Override

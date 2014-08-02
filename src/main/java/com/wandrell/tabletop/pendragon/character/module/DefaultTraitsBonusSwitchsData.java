@@ -1,7 +1,5 @@
 package com.wandrell.tabletop.pendragon.character.module;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -59,12 +57,6 @@ public class DefaultTraitsBonusSwitchsData implements TraitsBonusSwitchsData {
     @Override
     public ValueHandler<Integer> getBonusSwitch(final String name) {
 	return getBonusSwitchsStore().get(name);
-    }
-
-    @Override
-    public Collection<ValueHandler<Integer>> getBonusSwitchs() {
-	return Collections.unmodifiableCollection(getBonusSwitchsStore()
-		.values());
     }
 
     @Override
