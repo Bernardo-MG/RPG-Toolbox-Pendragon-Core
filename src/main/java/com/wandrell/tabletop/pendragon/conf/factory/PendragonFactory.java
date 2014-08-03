@@ -64,6 +64,7 @@ public final class PendragonFactory {
 	super();
     }
 
+    @SuppressWarnings("unchecked")
     public final ValueHandler<Integer> getArmor() {
 	return (ValueHandler<Integer>) getArmorContext().getBean(
 		PendragonFactoryConf.BEAN_ARMOR);
