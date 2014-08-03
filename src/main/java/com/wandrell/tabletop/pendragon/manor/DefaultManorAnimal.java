@@ -1,25 +1,17 @@
 package com.wandrell.tabletop.pendragon.manor;
 
 import com.wandrell.tabletop.dice.RollTable;
-import com.wandrell.util.tag.NewInstantiable;
 
 public final class DefaultManorAnimal implements ManorAnimal {
 
     private final String name;
     private final RollTable<AnimalYearResult> rolltable;
 
-    @SuppressWarnings("unchecked")
     public DefaultManorAnimal(final DefaultManorAnimal animal) {
 	super();
 
 	name = animal.name;
-
-	if (animal.rolltable instanceof NewInstantiable) {
-	    rolltable = (RollTable<AnimalYearResult>) ((NewInstantiable) animal.rolltable)
-		    .createNewInstance();
-	} else {
-	    rolltable = animal.rolltable;
-	}
+	rolltable = animal.rolltable;
     }
 
     public DefaultManorAnimal(final String name,

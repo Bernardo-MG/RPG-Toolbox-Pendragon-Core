@@ -4,14 +4,10 @@ import com.wandrell.tabletop.character.Gender;
 
 public final class DefaultChild implements Child {
 
-    private Gender gender = Gender.MALE;
-    private String name = "";
-    private Integer yearBorn = 0;
-    private Integer yearDeath = 0;
-
-    public DefaultChild() {
-	super();
-    }
+    private final Gender gender;
+    private final String name;
+    private final Integer yearBorn;
+    private final Integer yearDeath;
 
     public DefaultChild(final DefaultChild data) {
 	super();
@@ -20,6 +16,35 @@ public final class DefaultChild implements Child {
 	name = data.name;
 	yearBorn = data.yearBorn;
 	yearDeath = data.yearDeath;
+    }
+
+    public DefaultChild(final String name, final Gender gender,
+	    final Integer yearBorn, final Integer yearDeath) {
+	super();
+
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
+	if (gender == null) {
+	    throw new NullPointerException();
+	}
+
+	if (yearBorn == null) {
+	    throw new NullPointerException();
+	}
+
+	if (yearDeath == null) {
+	    throw new NullPointerException();
+	}
+
+	this.name = name;
+
+	this.gender = gender;
+
+	this.yearBorn = yearBorn;
+
+	this.yearDeath = yearDeath;
     }
 
     @Override
@@ -65,30 +90,6 @@ public final class DefaultChild implements Child {
 	int result = 1;
 	result = prime * result + ((name == null) ? 0 : name.hashCode());
 	return result;
-    }
-
-    public final void setBirthYear(final Integer year) {
-	yearBorn = year;
-    }
-
-    public final void setDeathYear(final Integer year) {
-	yearDeath = year;
-    }
-
-    public final void setGender(final Gender gender) {
-	if (gender == null) {
-	    throw new NullPointerException();
-	}
-
-	this.gender = gender;
-    }
-
-    public final void setName(final String name) {
-	if (name == null) {
-	    throw new NullPointerException();
-	}
-
-	this.name = name;
     }
 
     @Override

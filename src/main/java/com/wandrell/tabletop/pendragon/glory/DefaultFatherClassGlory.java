@@ -2,8 +2,8 @@ package com.wandrell.tabletop.pendragon.glory;
 
 public final class DefaultFatherClassGlory implements FatherClassGlory {
 
-    private Integer baseGlory = 0;
-    private Integer gloryPerYear = 0;
+    private final Integer baseGlory;
+    private final Integer gloryPerYear;
     private final String name;
 
     public DefaultFatherClassGlory(
@@ -14,10 +14,25 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
 	gloryPerYear = fatherClassGlory.gloryPerYear;
     }
 
-    public DefaultFatherClassGlory(final String name) {
+    public DefaultFatherClassGlory(final String name, final Integer baseGlory,
+	    final Integer gloryPerYear) {
 	super();
 
+	if (name == null) {
+	    throw new NullPointerException();
+	}
+
+	if (baseGlory == null) {
+	    throw new NullPointerException();
+	}
+
+	if (gloryPerYear == null) {
+	    throw new NullPointerException();
+	}
+
 	this.name = name;
+	this.baseGlory = baseGlory;
+	this.gloryPerYear = gloryPerYear;
     }
 
     @Override
@@ -58,14 +73,6 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
 	int result = 1;
 	result = prime * result + ((name == null) ? 0 : name.hashCode());
 	return result;
-    }
-
-    public final void setBaseGlory(final Integer glory) {
-	baseGlory = glory;
-    }
-
-    public final void setGloryPerYear(final Integer glory) {
-	gloryPerYear = glory;
     }
 
     @Override

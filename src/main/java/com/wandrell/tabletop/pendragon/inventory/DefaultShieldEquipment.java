@@ -1,8 +1,7 @@
 package com.wandrell.tabletop.pendragon.inventory;
 
 import java.util.Collection;
-
-import com.wandrell.tabletop.valuehandler.ValueHandler;
+import java.util.Map;
 
 public final class DefaultShieldEquipment implements ShieldEquipment {
 
@@ -36,12 +35,7 @@ public final class DefaultShieldEquipment implements ShieldEquipment {
     }
 
     @Override
-    public final ValueHandler<Integer> getMiscelanyValue(final String name) {
-	return getBaseItem().getMiscelanyValue(name);
-    }
-
-    @Override
-    public final Collection<ValueHandler<Integer>> getMiscelanyValues() {
+    public final Map<String, Integer> getMiscelanyValues() {
 	return getBaseItem().getMiscelanyValues();
     }
 
@@ -56,28 +50,8 @@ public final class DefaultShieldEquipment implements ShieldEquipment {
     }
 
     @Override
-    public final ValueHandler<Integer> getQuantity() {
-	return getBaseItem().getQuantity();
-    }
-
-    @Override
     public final Boolean hasFlag(final String name) {
 	return getBaseItem().hasFlag(name);
-    }
-
-    @Override
-    public final Boolean hasValue(final String name) {
-	return getBaseItem().hasValue(name);
-    }
-
-    @Override
-    public final void setDescription(final String description) {
-	getBaseItem().setDescription(description);
-    }
-
-    @Override
-    public final void setName(final String name) {
-	getBaseItem().setName(name);
     }
 
     private final PendragonEquipment getBaseItem() {

@@ -17,7 +17,6 @@ import com.wandrell.tabletop.pendragon.character.module.TraitsBonusSwitchsData;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
-import com.wandrell.tabletop.pendragon.inventory.ArmorData;
 import com.wandrell.tabletop.pendragon.inventory.PendragonItem;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
 import com.wandrell.tabletop.pendragon.manor.ManorAnimal;
@@ -34,7 +33,7 @@ import com.wandrell.tabletop.valuehandler.ValueHandler;
 public final class DefaultPendragonPlayerCharacter extends
 	AbstractPendragonSimpleCharacter implements PendragonPlayerCharacter {
 
-    private final ArmorData armor;
+    private final ValueHandler<Integer> armor;
     private final TraitsBonusSwitchsData dataTraitsBonusSwitchs;
     private final Map<String, Skill> exclusiveSkills = new LinkedHashMap<>();
     private final Map<String, DistinctiveFeature> features = new LinkedHashMap<>();
@@ -223,7 +222,7 @@ public final class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public final ArmorData getArmor() {
+    public final ValueHandler<Integer> getArmor() {
 	return armor;
     }
 

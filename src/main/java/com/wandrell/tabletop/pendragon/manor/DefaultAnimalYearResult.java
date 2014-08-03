@@ -3,49 +3,41 @@ package com.wandrell.tabletop.pendragon.manor;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import com.wandrell.tabletop.pendragon.util.DefaultPathNameWrapper;
 import com.wandrell.tabletop.pendragon.util.PathNameWrapper;
-import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public final class DefaultAnimalYearResult implements AnimalYearResult {
 
-    private final Map<String, Path> files = new LinkedHashMap<>();
-    private final Set<String> flags = new LinkedHashSet<String>();
+    private final Map<String, Path> files;
+    private final Collection<String> flags;
     private final String name;
-    private final Map<String, ValueHandler<Integer>> values = new LinkedHashMap<>();
+    private final Map<String, Integer> values;
 
     public DefaultAnimalYearResult(final DefaultAnimalYearResult result) {
 	super();
 
-	this.name = result.name;
+	name = result.name;
 
-	// TODO: Maybe it should create new instances
-	getValuesMap().putAll(result.getValuesMap());
-
-	setFlags(result.getFlags());
-	setFiles(result.getFiles());
+	files = result.files;
+	flags = result.flags;
+	values = result.values;
     }
 
-    public DefaultAnimalYearResult(final String name) {
+    public DefaultAnimalYearResult(final String name,
+	    final Map<String, Path> files, final Collection<String> flags,
+	    final Map<String, Integer> values) {
 	super();
 
 	this.name = name;
-    }
 
-    public final void addValue(final ValueHandler<Integer> value) {
-	if (value == null) {
-	    throw new NullPointerException();
-	}
-
-	getValuesMap().put(value.getName(), value);
+	this.files = files;
+	this.flags = flags;
+	this.values = values;
     }
 
     @Override
@@ -99,16 +91,7 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
     }
 
     @Override
-    public final ValueHandler<Integer> getValue(final String name) {
-	return getValuesMap().get(name);
-    }
-
-    @Override
-    public final Collection<ValueHandler<Integer>> getValues() {
-	return Collections.unmodifiableCollection(getValuesMap().values());
-    }
-
-    public final Map<String, ValueHandler<Integer>> getValuesMap() {
+    public final Map<String, Integer> getValues() {
 	return Collections.unmodifiableMap(_getValues());
     }
 
@@ -126,44 +109,7 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
     }
 
     @Override
-    public final Boolean hasValue(final String name) {
-	return getValuesMap().containsKey(name);
-    }
-
-    public final void setFiles(final Collection<PathNameWrapper> files) {
-	_getFiles().clear();
-	for (final PathNameWrapper file : files) {
-	    if (file == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getFiles().put(file.getName(), file.getPath());
-	}
-    }
-
-    public final void setFlags(final Collection<String> flags) {
-	_getFlags().clear();
-	for (final String flag : flags) {
-	    if (flag == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getFlags().add(flag);
-	}
-    }
-
-    public final void setValues(final Collection<ValueHandler<Integer>> values) {
-	for (final ValueHandler<Integer> value : values) {
-	    if (value == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getValues().put(value.getName(), value);
-	}
-    }
-
-    @Override
-    public String toString() {
+    public final String toString() {
 	return getName();
     }
 
@@ -175,7 +121,7 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
 	return flags;
     }
 
-    protected final Map<String, ValueHandler<Integer>> _getValues() {
+    protected final Map<String, Integer> _getValues() {
 	return values;
     }
 

@@ -1,9 +1,9 @@
 package com.wandrell.tabletop.pendragon.inventory;
 
 import java.util.Collection;
+import java.util.Map;
 
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
-import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public final class DefaultWeaponEquipment implements WeaponEquipment {
 
@@ -41,12 +41,7 @@ public final class DefaultWeaponEquipment implements WeaponEquipment {
     }
 
     @Override
-    public final ValueHandler<Integer> getMiscelanyValue(final String name) {
-	return getBaseItem().getMiscelanyValue(name);
-    }
-
-    @Override
-    public final Collection<ValueHandler<Integer>> getMiscelanyValues() {
+    public final Map<String, Integer> getMiscelanyValues() {
 	return getBaseItem().getMiscelanyValues();
     }
 
@@ -61,11 +56,6 @@ public final class DefaultWeaponEquipment implements WeaponEquipment {
     }
 
     @Override
-    public final ValueHandler<Integer> getQuantity() {
-	return getBaseItem().getQuantity();
-    }
-
-    @Override
     public final String getSkill() {
 	return skill;
     }
@@ -76,38 +66,26 @@ public final class DefaultWeaponEquipment implements WeaponEquipment {
     }
 
     @Override
-    public final Boolean hasValue(final String name) {
-	return getBaseItem().hasValue(name);
-    }
-
-    @Override
     public final Boolean isDamageOverriden() {
 	final int die, bonus;
 	boolean result = false;
 
-	if (hasValue(PendragonToken.VH_DAMAGE_OVERRIDE_DIE)) {
-	    die = getMiscelanyValue(PendragonToken.VH_DAMAGE_OVERRIDE_DIE)
-		    .getStoredValue();
+	if (getMiscelanyValues().containsKey(
+		PendragonToken.VH_DAMAGE_OVERRIDE_DIE)) {
+	    die = getMiscelanyValues().get(
+		    PendragonToken.VH_DAMAGE_OVERRIDE_DIE);
 	    result = die > 0;
 	}
 
-	if ((!result) && (hasValue(PendragonToken.VH_DAMAGE_OVERRIDE_BONUS))) {
-	    bonus = getMiscelanyValue(PendragonToken.VH_DAMAGE_OVERRIDE_BONUS)
-		    .getStoredValue();
+	if ((!result)
+		&& (getMiscelanyValues()
+			.containsKey(PendragonToken.VH_DAMAGE_OVERRIDE_BONUS))) {
+	    bonus = getMiscelanyValues().get(
+		    PendragonToken.VH_DAMAGE_OVERRIDE_BONUS);
 	    result = bonus > 0;
 	}
 
 	return result;
-    }
-
-    @Override
-    public final void setDescription(final String description) {
-	getBaseItem().setDescription(description);
-    }
-
-    @Override
-    public final void setName(final String name) {
-	getBaseItem().setName(name);
     }
 
     private final PendragonEquipment getBaseItem() {

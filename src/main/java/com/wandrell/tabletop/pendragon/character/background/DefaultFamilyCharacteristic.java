@@ -2,9 +2,7 @@ package com.wandrell.tabletop.pendragon.character.background;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
 import com.wandrell.tabletop.pendragon.valuehandler.Skill;
@@ -12,51 +10,40 @@ import com.wandrell.tabletop.util.TokenUtil;
 
 public final class DefaultFamilyCharacteristic implements FamilyCharacteristic {
 
-    private final Map<String, Attribute> attributes = new LinkedHashMap<>();
+    private final Map<String, Attribute> attributes;
     private final String name;
-    private final Map<String, Skill> skills = new LinkedHashMap<>();
+    private final Map<String, Skill> skills;
 
     public DefaultFamilyCharacteristic(
 	    final DefaultFamilyCharacteristic familyChar) {
 	super();
 	name = familyChar.name;
 
-	for (final Entry<String, Attribute> entry : familyChar.attributes
-		.entrySet()) {
-	    attributes.put(entry.getKey(), entry.getValue());
-	}
-
-	for (final Entry<String, Skill> entry : familyChar.skills.entrySet()) {
-	    skills.put(entry.getKey(), entry.getValue());
-	}
+	attributes = familyChar.attributes;
+	skills = familyChar.skills;
     }
 
-    public DefaultFamilyCharacteristic(final String name) {
+    public DefaultFamilyCharacteristic(final String name,
+	    final Map<String, Attribute> attributes,
+	    final Map<String, Skill> skills) {
 	super();
 
 	if (name == null) {
 	    throw new NullPointerException();
 	}
 
+	if (attributes == null) {
+	    throw new NullPointerException();
+	}
+
+	if (skills == null) {
+	    throw new NullPointerException();
+	}
+
 	this.name = name;
-    }
 
-    public final void addAttribute(final Attribute attribute) {
-	if (attribute == null) {
-	    throw new NullPointerException();
-	}
-
-	_getAttributes().put(attribute.getName(), attribute);
-    }
-
-    public final void addSkill(final Skill skill) {
-	if (skill == null) {
-	    throw new NullPointerException();
-	}
-
-	_getSkills().put(
-		TokenUtil.getNameAndDescriptorToken(skill.getName(),
-			skill.getDescriptor()), skill);
+	this.attributes = attributes;
+	this.skills = skills;
     }
 
     @Override

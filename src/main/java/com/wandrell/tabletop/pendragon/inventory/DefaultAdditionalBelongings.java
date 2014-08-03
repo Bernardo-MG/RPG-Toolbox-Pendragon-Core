@@ -1,29 +1,45 @@
 package com.wandrell.tabletop.pendragon.inventory;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
-import com.wandrell.tabletop.valuehandler.ValueHandler;
+import com.wandrell.tabletop.dice.Dice;
 
 public final class DefaultAdditionalBelongings implements AdditionalBelongings {
 
-    private final Collection<String> equipableItemsFiles = new ArrayList<String>();
-    private String fileTable = null;
-    private Boolean hasToChoose = false;
-    private final Collection<String> horsesFiles = new ArrayList<String>();
+    private final Collection<String> equipableItemsFiles;
+    private final String fileTable;
+    private final Boolean hasToChoose;
+    private final Collection<String> horsesFiles;
     private final PendragonMoney money;
-    private String nameMoney = "";
-    private final Collection<String> petsFiles = new ArrayList<String>();
-    private final Collection<ValueHandler<Integer>> rerolls = new ArrayList<ValueHandler<Integer>>();
-    private final Collection<String> shieldsFiles = new ArrayList<String>();
-    private final Collection<String> weaponsFiles = new ArrayList<String>();
+    private final String nameMoney;
+    private final Collection<String> petsFiles;
+    private final Collection<Dice> rerolls;
+    private final Collection<String> shieldsFiles;
+    private final Collection<String> weaponsFiles;
 
-    public DefaultAdditionalBelongings() {
+    public DefaultAdditionalBelongings(
+	    final Collection<String> equipableItemsFiles,
+	    final String fileTable, final Boolean hasToChoose,
+	    final Collection<String> horsesFiles, final PendragonMoney money,
+	    final String nameMoney, final Collection<String> petsFiles,
+	    final Collection<Dice> rerolls,
+	    final Collection<String> shieldsFiles,
+	    final Collection<String> weaponsFiles) {
 	super();
 
-	money = PendragonFactory.getInstance().getMoney();
+	// TODO: Check nulls
+
+	this.equipableItemsFiles = equipableItemsFiles;
+	this.fileTable = fileTable;
+	this.hasToChoose = hasToChoose;
+	this.horsesFiles = horsesFiles;
+	this.money = money;
+	this.nameMoney = nameMoney;
+	this.petsFiles = petsFiles;
+	this.rerolls = rerolls;
+	this.shieldsFiles = shieldsFiles;
+	this.weaponsFiles = weaponsFiles;
     }
 
     public DefaultAdditionalBelongings(final DefaultAdditionalBelongings itemSet) {
@@ -37,20 +53,12 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
 
 	money = itemSet.money.createNewInstance();
 
-	rerolls.addAll(itemSet.rerolls);
-
-	for (final String item : itemSet.equipableItemsFiles) {
-	    equipableItemsFiles.add(item);
-	}
-
-	for (final String item : itemSet.weaponsFiles) {
-	    weaponsFiles.add(item);
-	}
-
-	for (final String horse : itemSet.horsesFiles) {
-	    horsesFiles.add(horse);
-	}
-
+	rerolls = itemSet.rerolls;
+	equipableItemsFiles = itemSet.equipableItemsFiles;
+	weaponsFiles = itemSet.weaponsFiles;
+	horsesFiles = itemSet.horsesFiles;
+	shieldsFiles = itemSet.shieldsFiles;
+	petsFiles = itemSet.petsFiles;
     }
 
     @Override
@@ -79,7 +87,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     }
 
     @Override
-    public final Collection<ValueHandler<Integer>> getRerolls() {
+    public final Collection<Dice> getRerolls() {
 	return Collections.unmodifiableCollection(_getRerolls());
     }
 
@@ -103,85 +111,6 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
 	return hasToChoose;
     }
 
-    public final void setEquippableItemsFiles(final Collection<String> files) {
-	_getEquipableItemsFiles().clear();
-	for (final String file : files) {
-	    if (file == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getEquipableItemsFiles().add(file);
-	}
-    }
-
-    public final void setHasToChoose(final Boolean hasToChoose) {
-	if (hasToChoose == null) {
-	    throw new NullPointerException();
-	}
-
-	this.hasToChoose = hasToChoose;
-    }
-
-    public final void setHorsesFiles(final Collection<String> files) {
-	_getHorsesFiles().clear();
-	for (final String file : files) {
-	    if (file == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getHorsesFiles().add(file);
-	}
-    }
-
-    public final void setMoneyName(final String nameMoney) {
-	this.nameMoney = nameMoney;
-    }
-
-    public final void setPetsFiles(final Collection<String> files) {
-	_getPetsFiles().clear();
-	for (final String file : files) {
-	    if (file == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getPetsFiles().add(file);
-	}
-    }
-
-    public final void setReroll(final String table,
-	    final Collection<ValueHandler<Integer>> rerolls) {
-	fileTable = table;
-	for (final ValueHandler<Integer> reroll : rerolls) {
-	    if (reroll == null) {
-		throw new NullPointerException();
-	    }
-
-	    rerolls.add(reroll);
-	}
-    }
-
-    public final void setShieldsFiles(final Collection<String> files) {
-	_getShieldsFiles().clear();
-	for (final String file : files) {
-	    if (file == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getShieldsFiles().add(file);
-	}
-    }
-
-    public final void setWeaponsFiles(final Collection<String> files) {
-	_getWeaponsFiles().clear();
-	for (final String file : files) {
-	    if (file == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getWeaponsFiles().add(file);
-	}
-    }
-
     protected final Collection<String> _getEquipableItemsFiles() {
 	return equipableItemsFiles;
     }
@@ -194,7 +123,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
 	return petsFiles;
     }
 
-    protected final Collection<ValueHandler<Integer>> _getRerolls() {
+    protected final Collection<Dice> _getRerolls() {
 	return rerolls;
     }
 

@@ -2,40 +2,43 @@ package com.wandrell.tabletop.pendragon.character.follower;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-
-import com.wandrell.tabletop.pendragon.character.PendragonBaseCharacter;
 
 public final class DefaultWife implements Wife {
 
-    private PendragonBaseCharacter characterData;
-    private final List<Child> children = new LinkedList<Child>();
-    private String fileCharacter = "";
-    private Integer yearWed = 0;
-
-    public DefaultWife() {
-	super();
-    }
+    private final List<Child> children;
+    private final String fileCharacter;
+    private final Integer yearWed;
 
     public DefaultWife(final DefaultWife wife) {
 	super();
 
-	for (final Child child : wife.children) {
-	    children.add(child);
-	}
+	children = wife.children;
 
 	yearWed = wife.yearWed;
+
+	fileCharacter = wife.fileCharacter;
     }
 
-    public DefaultWife(final String file) {
-	this();
-	fileCharacter = file;
-    }
+    public DefaultWife(final String fileCharacter, final Integer yearWed,
+	    final List<Child> children) {
+	super();
 
-    public DefaultWife(final String file, final PendragonBaseCharacter character) {
-	this(file);
-	characterData = character;
+	if (fileCharacter == null) {
+	    throw new NullPointerException();
+	}
+
+	if (yearWed == null) {
+	    throw new NullPointerException();
+	}
+
+	if (children == null) {
+	    throw new NullPointerException();
+	}
+
+	this.fileCharacter = fileCharacter;
+	this.yearWed = yearWed;
+	this.children = children;
     }
 
     @Override
@@ -47,21 +50,12 @@ public final class DefaultWife implements Wife {
 	if (getClass() != obj.getClass())
 	    return false;
 	DefaultWife other = (DefaultWife) obj;
-	if (characterData == null) {
-	    if (other.characterData != null)
+	if (fileCharacter == null) {
+	    if (other.fileCharacter != null)
 		return false;
-	} else if (!characterData.equals(other.characterData))
+	} else if (!fileCharacter.equals(other.fileCharacter))
 	    return false;
 	return true;
-    }
-
-    @Override
-    public final PendragonBaseCharacter getCharacter() {
-	if ((characterData == null) && (getFile() != null)
-		&& (getFile().length() > 0)) {
-	    loadCharacter();
-	}
-	return characterData;
     }
 
     @Override
@@ -84,26 +78,8 @@ public final class DefaultWife implements Wife {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result
-		+ ((characterData == null) ? 0 : characterData.hashCode());
+		+ ((fileCharacter == null) ? 0 : fileCharacter.hashCode());
 	return result;
-    }
-
-    public final void setChildren(final Collection<Child> children) {
-	_getChildren().clear();
-	for (final Child child : children) {
-	    if (child == null) {
-		throw new NullPointerException();
-	    }
-	    _getChildren().add(child);
-	}
-    }
-
-    public final void setFile(final String file) {
-	fileCharacter = file;
-    }
-
-    public final void setWeddingYear(final Integer year) {
-	yearWed = year;
     }
 
     @Override

@@ -1,40 +1,41 @@
 package com.wandrell.tabletop.pendragon.inventory;
 
-import com.wandrell.tabletop.inventory.DefaultItemData;
-import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
+public final class DefaultPendragonItem implements PendragonItem {
 
-public final class DefaultPendragonItem extends DefaultItemData implements
-	PendragonItem {
-
+    private final String description;
     private final PendragonMoney money;
-
-    public DefaultPendragonItem() {
-	super();
-
-	money = PendragonFactory.getInstance().getMoney();
-    }
+    private final String name;
 
     public DefaultPendragonItem(final DefaultPendragonItem item) {
-	super(item);
+	super();
 
+	name = item.name;
+	description = item.description;
 	money = item.money.createNewInstance();
     }
 
     public DefaultPendragonItem(final String name, final String description,
-	    final int libra, final int denarii) {
-	super(name, description);
+	    final PendragonMoney money) {
+	super();
 
-	money = PendragonFactory.getInstance().getMoney(libra, denarii);
+	this.name = name;
+	this.description = description;
+	this.money = money;
     }
 
     @Override
-    public final DefaultPendragonItem createNewInstance() {
-	return new DefaultPendragonItem(this);
+    public final String getDescription() {
+	return description;
     }
 
     @Override
     public final PendragonMoney getMoney() {
 	return money;
+    }
+
+    @Override
+    public final String getName() {
+	return name;
     }
 
 }

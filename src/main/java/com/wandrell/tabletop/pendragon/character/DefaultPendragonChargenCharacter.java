@@ -13,7 +13,6 @@ import com.wandrell.tabletop.pendragon.character.follower.Wife;
 import com.wandrell.tabletop.pendragon.character.module.TraitsBonusSwitchsData;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
-import com.wandrell.tabletop.pendragon.inventory.ArmorData;
 import com.wandrell.tabletop.pendragon.inventory.PendragonItem;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
 import com.wandrell.tabletop.pendragon.manor.ManorAnimal;
@@ -166,7 +165,7 @@ public final class DefaultPendragonChargenCharacter implements
     }
 
     @Override
-    public final ArmorData getArmor() {
+    public final ValueHandler<Integer> getArmor() {
 	return getBaseCharacter().getArmor();
     }
 

@@ -2,61 +2,67 @@ package com.wandrell.tabletop.pendragon.character.background;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
-import com.wandrell.tabletop.pendragon.conf.PendragonToken;
-import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
 import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
-import com.wandrell.tabletop.pendragon.valuehandler.Skill;
-import com.wandrell.tabletop.valuehandler.ValueHandler;
 
 public final class DefaultFatherClass implements FatherClass {
 
     private final PendragonMoney money;
     private final String name;
-    private final Map<String, Skill> skillsGroup = new LinkedHashMap<>();
-    private ValueHandler<Integer> skillsGroupPoints;
-    private final Map<String, ValueHandler<Integer>> skillsPoints = new LinkedHashMap<>();
+    private final Collection<String> skillsGroup;
+    private final Integer skillsGroupPoints;
+    private final Map<String, Integer> skillsPoints;
 
     public DefaultFatherClass(final DefaultFatherClass data) {
 	super();
 
 	name = data.name;
 
-	for (final Entry<String, Skill> entry : data.skillsGroup.entrySet()) {
-	    skillsGroup.put(entry.getKey(), entry.getValue());
-	}
-	for (final Entry<String, ValueHandler<Integer>> entry : data.skillsPoints
-		.entrySet()) {
-	    skillsPoints.put(entry.getKey(), entry.getValue());
-	}
+	skillsGroup = data.skillsGroup;
+
+	skillsPoints = data.skillsPoints;
 
 	money = data.money.createNewInstance();
 
-	skillsGroupPoints = data.skillsGroupPoints.createNewInstance();
+	skillsGroupPoints = data.skillsGroupPoints;
     }
 
-    public DefaultFatherClass(final String name) {
+    public DefaultFatherClass(final String name,
+	    final Integer skillsGroupPoints,
+	    final Collection<String> skillsGroup,
+	    final Map<String, Integer> skillsPoints, final PendragonMoney money) {
 	super();
 
 	if (name == null) {
 	    throw new NullPointerException();
 	}
 
+	if (money == null) {
+	    throw new NullPointerException();
+	}
+
+	if (skillsGroupPoints == null) {
+	    throw new NullPointerException();
+	}
+
+	if (skillsGroup == null) {
+	    throw new NullPointerException();
+	}
+
+	if (skillsPoints == null) {
+	    throw new NullPointerException();
+	}
+
 	this.name = name;
 
-	money = PendragonFactory.getInstance().getMoney();
+	this.money = money;
 
-	skillsGroupPoints = ValueHandlerFactory.getInstance().getValueHandler(
-		PendragonToken.VH_SKILLS_POINTS);
-    }
+	this.skillsGroupPoints = skillsGroupPoints;
 
-    @Override
-    public final void addSkillsPoints(final ValueHandler<Integer> vhValue) {
-	_getSkillsPoints().put(vhValue.getName(), vhValue);
+	this.skillsGroup = skillsGroup;
+
+	this.skillsPoints = skillsPoints;
     }
 
     @Override
@@ -87,22 +93,22 @@ public final class DefaultFatherClass implements FatherClass {
     }
 
     @Override
-    public final Collection<Skill> getSkillsGroup() {
-	return Collections.unmodifiableCollection(_getSkillsGroup().values());
+    public final Collection<String> getSkillsGroup() {
+	return Collections.unmodifiableCollection(_getSkillsGroup());
     }
 
     @Override
-    public final ValueHandler<Integer> getSkillsGroupPoints() {
+    public final Integer getSkillsGroupPoints() {
 	return skillsGroupPoints;
     }
 
     @Override
-    public final Collection<ValueHandler<Integer>> getSkillsPoints() {
-	return Collections.unmodifiableCollection(_getSkillsPoints().values());
+    public final Map<String, Integer> getSkillsPoints() {
+	return Collections.unmodifiableMap(_getSkillsPoints());
     }
 
     @Override
-    public final ValueHandler<Integer> getSkillsPoints(final String name) {
+    public final Integer getSkillsPoints(final String name) {
 	return _getSkillsPoints().get(name);
     }
 
@@ -119,34 +125,16 @@ public final class DefaultFatherClass implements FatherClass {
 	return _getSkillsPoints().containsKey(name);
     }
 
-    public final void setSkillPoints(
-	    final Collection<ValueHandler<Integer>> points) {
-	_getSkillsPoints().clear();
-	for (final ValueHandler<Integer> p : points) {
-	    addSkillsPoints(p);
-	}
-    }
-
-    public final void setSkillsGroup(final Collection<Skill> skills,
-	    final ValueHandler<Integer> points) {
-	_getSkillsGroup().clear();
-	for (final Skill skill : skills) {
-	    _getSkillsGroup().put(skill.getName(), skill);
-	}
-
-	skillsGroupPoints.setValue(points.getStoredValue());
-    }
-
     @Override
     public final String toString() {
 	return getName();
     }
 
-    protected final Map<String, Skill> _getSkillsGroup() {
+    protected final Collection<String> _getSkillsGroup() {
 	return skillsGroup;
     }
 
-    protected final Map<String, ValueHandler<Integer>> _getSkillsPoints() {
+    protected final Map<String, Integer> _getSkillsPoints() {
 	return skillsPoints;
     }
 

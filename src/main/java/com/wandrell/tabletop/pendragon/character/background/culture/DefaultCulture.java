@@ -3,7 +3,6 @@ package com.wandrell.tabletop.pendragon.character.background.culture;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,14 +16,14 @@ import com.wandrell.tabletop.pendragon.util.PathNameWrapper;
 
 public final class DefaultCulture implements Culture {
 
-    private final Map<String, Path> files = new LinkedHashMap<>();
-    private RollTable<AdditionalBelongings> initialLuckTableFemale;
-    private RollTable<AdditionalBelongings> initialLuckTableMale;
+    private final Map<String, Path> files;
+    private final RollTable<AdditionalBelongings> initialLuckFemale;
+    private final RollTable<AdditionalBelongings> initialLuckMale;
     private final String name;
-    private final DefaultCultureCharacterTemplate templateDefaultFemale;
-    private final DefaultCultureCharacterTemplate templateDefaultMale;
-    private final DefaultCultureCharacterTemplate templateRandomFemale;
-    private final DefaultCultureCharacterTemplate templateRandomMale;
+    private final CultureCharacterTemplate templateDefaultFemale;
+    private final CultureCharacterTemplate templateDefaultMale;
+    private final CultureCharacterTemplate templateRandomFemale;
+    private final CultureCharacterTemplate templateRandomMale;
 
     public DefaultCulture(final DefaultCulture culture) {
 	super();
@@ -36,36 +35,50 @@ public final class DefaultCulture implements Culture {
 	templateRandomFemale = culture.templateRandomFemale;
 	templateRandomMale = culture.templateRandomMale;
 
-	for (final Entry<String, Path> entry : culture.files.entrySet()) {
-	    files.put(entry.getKey(), entry.getValue());
-	}
+	initialLuckFemale = culture.initialLuckFemale;
+	initialLuckMale = culture.initialLuckMale;
+
+	files = culture.files;
     }
 
-    public DefaultCulture(final String name) {
+    public DefaultCulture(final String name, final Map<String, Path> files,
+	    final CultureCharacterTemplate templateDefaultFemale,
+	    final CultureCharacterTemplate templateRandomFemale,
+	    final CultureCharacterTemplate templateDefaultMale,
+	    final CultureCharacterTemplate templateRandomMale,
+	    final RollTable<AdditionalBelongings> initialLuckFemale,
+	    final RollTable<AdditionalBelongings> initialLuckMale) {
 	super();
 
 	if (name == null) {
 	    throw new NullPointerException();
 	}
 
+	if (files == null) {
+	    throw new NullPointerException();
+	}
+
+	if ((templateDefaultFemale == null) || (templateDefaultMale == null)
+		|| (templateRandomFemale == null)
+		|| (templateRandomMale == null)) {
+	    throw new NullPointerException();
+	}
+
+	if ((initialLuckFemale == null) || (initialLuckMale == null)) {
+	    throw new NullPointerException();
+	}
+
 	this.name = name;
 
-	templateDefaultFemale = new DefaultCultureCharacterTemplate();
-	templateDefaultMale = new DefaultCultureCharacterTemplate();
-	templateRandomFemale = new DefaultCultureCharacterTemplate();
-	templateRandomMale = new DefaultCultureCharacterTemplate();
-    }
+	this.files = files;
 
-    public final void addFile(final String name, final Path file) {
-	if (name == null) {
-	    throw new NullPointerException();
-	}
+	this.templateDefaultFemale = templateDefaultFemale;
+	this.templateDefaultMale = templateDefaultMale;
+	this.templateRandomFemale = templateRandomFemale;
+	this.templateRandomMale = templateRandomMale;
 
-	if (file == null) {
-	    throw new NullPointerException();
-	}
-
-	getFilesMap().put(name, file);
+	this.initialLuckFemale = initialLuckFemale;
+	this.initialLuckMale = initialLuckMale;
     }
 
     @Override
@@ -138,10 +151,10 @@ public final class DefaultCulture implements Culture {
 
 	switch (gender) {
 	case MALE:
-	    result = initialLuckTableMale;
+	    result = initialLuckMale;
 	    break;
 	case FEMALE:
-	    result = initialLuckTableFemale;
+	    result = initialLuckFemale;
 	    break;
 	default:
 	    result = null;
@@ -176,17 +189,6 @@ public final class DefaultCulture implements Culture {
 	int result = 1;
 	result = prime * result + ((name == null) ? 0 : name.hashCode());
 	return result;
-    }
-
-    public final void setFiles(final Collection<PathNameWrapper> files) {
-	if (files == null) {
-	    throw new NullPointerException();
-	}
-
-	getFilesMap().clear();
-	for (final PathNameWrapper file : files) {
-	    addFile(file.getName(), file.getPath());
-	}
     }
 
     @Override

@@ -1,38 +1,37 @@
 package com.wandrell.tabletop.pendragon.character.follower;
 
-import com.wandrell.tabletop.pendragon.character.DefaultPendragonPlayerCharacter;
 import com.wandrell.tabletop.pendragon.character.PendragonBaseCharacter;
 
 public final class DefaultFollower implements Follower {
 
-    private PendragonBaseCharacter characterData;
-    private String fileCharacter = "";
-    private String job = "";
-
-    public DefaultFollower() {
-	super();
-    }
+    private final String fileCharacter;
+    private final String job;
 
     public DefaultFollower(final DefaultFollower data) {
 	super();
 
-	characterData = data.characterData;
 	fileCharacter = data.fileCharacter;
 	job = data.job;
     }
 
-    public DefaultFollower(final String file, final String job) {
-	super();
-	this.fileCharacter = file;
-	this.job = job;
-    }
-
     public DefaultFollower(final String file, final String job,
-	    final PendragonBaseCharacter character) {
+	    final PendragonBaseCharacter characterData) {
 	super();
+
+	if (file == null) {
+	    throw new NullPointerException();
+	}
+
+	if (job == null) {
+	    throw new NullPointerException();
+	}
+
+	if (characterData == null) {
+	    throw new NullPointerException();
+	}
+
 	this.fileCharacter = file;
 	this.job = job;
-	characterData = character;
     }
 
     @Override
@@ -44,21 +43,12 @@ public final class DefaultFollower implements Follower {
 	if (getClass() != obj.getClass())
 	    return false;
 	DefaultFollower other = (DefaultFollower) obj;
-	if (job == null) {
-	    if (other.job != null)
+	if (fileCharacter == null) {
+	    if (other.fileCharacter != null)
 		return false;
-	} else if (!job.equals(other.job))
+	} else if (!fileCharacter.equals(other.fileCharacter))
 	    return false;
 	return true;
-    }
-
-    @Override
-    public final PendragonBaseCharacter getCharacter() {
-	if ((characterData == null) && (getFile() != null)
-		&& (getFile().length() > 0)) {
-	    loadCharacter();
-	}
-	return characterData;
     }
 
     @Override
@@ -75,24 +65,9 @@ public final class DefaultFollower implements Follower {
     public final int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + ((job == null) ? 0 : job.hashCode());
+	result = prime * result
+		+ ((fileCharacter == null) ? 0 : fileCharacter.hashCode());
 	return result;
-    }
-
-    public final void setFile(final String file) {
-	if (file == null) {
-	    throw new NullPointerException();
-	}
-
-	fileCharacter = file;
-    }
-
-    public final void setJob(final String job) {
-	if (job == null) {
-	    throw new NullPointerException();
-	}
-
-	this.job = job;
     }
 
     @Override
@@ -104,15 +79,6 @@ public final class DefaultFollower implements Follower {
 	// setCharacterData(new
 	// PlayerCharacterFileStreamer<DefaultPendragonPlayerCharacter>(
 	// getFile()).read());
-    }
-
-    protected final void setCharacterData(
-	    DefaultPendragonPlayerCharacter characterData) {
-	if (characterData == null) {
-	    throw new NullPointerException();
-	}
-
-	this.characterData = characterData;
     }
 
 }

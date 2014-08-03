@@ -2,51 +2,63 @@ package com.wandrell.tabletop.pendragon.character.background;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 public final class DefaultReligion implements Religion {
 
-    private Integer bonusArmor = 0;
-    private Integer bonusDamage = 0;
-    private final Map<String, Integer> bonusDerived = new LinkedHashMap<>();
+    private final Integer bonusArmor;
+    private final Integer bonusDamage;
+    private final Map<String, Integer> bonusDerived;
     private final String name;
-    private final Set<String> traits = new LinkedHashSet<String>();
+    private final Collection<String> traits;
 
     public DefaultReligion(final DefaultReligion religion) {
 	super();
 
 	name = religion.name;
 
-	for (final String trait : traits) {
-	    traits.add(trait);
-	}
+	traits = religion.traits;
 
-	for (final Entry<String, Integer> entry : religion.bonusDerived
-		.entrySet()) {
-	    bonusDerived.put(entry.getKey(), entry.getValue());
-	}
+	bonusDerived = religion.bonusDerived;
 
 	bonusArmor = religion.bonusArmor;
 	bonusDamage = religion.bonusDamage;
     }
 
-    public DefaultReligion(final String name) {
+    public DefaultReligion(final String name,
+	    final Map<String, Integer> bonusDerived, final Integer bonusArmor,
+	    final Integer bonusDamage, final Collection<String> traits) {
 	super();
 
 	if (name == null) {
 	    throw new NullPointerException();
 	}
 
-	this.name = name;
-    }
+	if (bonusDerived == null) {
+	    throw new NullPointerException();
+	}
 
-    public final void addDerivedAttributeBonus(final String name,
-	    final Integer bonus) {
-	getDerivedAttributesBonus().put(name, bonus);
+	if (bonusArmor == null) {
+	    throw new NullPointerException();
+	}
+
+	if (bonusDamage == null) {
+	    throw new NullPointerException();
+	}
+
+	if (traits == null) {
+	    throw new NullPointerException();
+	}
+
+	this.name = name;
+
+	this.bonusDerived = bonusDerived;
+
+	this.bonusArmor = bonusArmor;
+
+	this.bonusDamage = bonusDamage;
+
+	this.traits = traits;
     }
 
     @Override
@@ -88,7 +100,7 @@ public final class DefaultReligion implements Religion {
 
     @Override
     public final Collection<String> getReligiousTraits() {
-	return Collections.unmodifiableCollection(_getTraits());
+	return Collections.unmodifiableCollection(_getReligiousTraits());
     }
 
     @Override
@@ -106,27 +118,7 @@ public final class DefaultReligion implements Religion {
 
     @Override
     public final Boolean hasTrait(final String trait) {
-	return _getTraits().contains(trait);
-    }
-
-    public final void setArmorBonus(final Integer bonus) {
-	bonusArmor = bonus;
-    }
-
-    public final void setDamageBonus(final Integer bonus) {
-	bonusDamage = bonus;
-    }
-
-    public final void setReligiousTraits(final Collection<String> traits) {
-	_getTraits().clear();
-
-	for (final String trait : traits) {
-	    if (trait == null) {
-		throw new NullPointerException();
-	    }
-
-	    _getTraits().add(trait);
-	}
+	return _getReligiousTraits().contains(trait);
     }
 
     @Override
@@ -134,7 +126,7 @@ public final class DefaultReligion implements Religion {
 	return getName();
     }
 
-    protected final Set<String> _getTraits() {
+    protected final Collection<String> _getReligiousTraits() {
 	return traits;
     }
 

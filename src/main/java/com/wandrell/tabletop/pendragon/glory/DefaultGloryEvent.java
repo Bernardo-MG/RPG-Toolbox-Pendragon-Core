@@ -18,6 +18,18 @@ public final class DefaultGloryEvent implements GloryEvent {
 	    final String description) {
 	super();
 
+	if (year == null) {
+	    throw new NullPointerException();
+	}
+
+	if (glory == null) {
+	    throw new NullPointerException();
+	}
+
+	if (description == null) {
+	    throw new NullPointerException();
+	}
+
 	this.year = year;
 	this.glory = glory;
 	this.description = description;
