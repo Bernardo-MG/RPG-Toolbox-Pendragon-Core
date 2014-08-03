@@ -4,12 +4,12 @@ import com.wandrell.tabletop.conf.factory.ValueHandlerFactory;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.valuehandler.ValueHandler;
 
-public final class DefaultPendragonMoney implements PendragonMoney {
+public final class DefaultMoney implements Money {
 
     private final ValueHandler<Integer> denarii;
     private final ValueHandler<Integer> libra;
 
-    public DefaultPendragonMoney() {
+    public DefaultMoney() {
 	super();
 	denarii = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonToken.VH_DENARII);
@@ -17,14 +17,14 @@ public final class DefaultPendragonMoney implements PendragonMoney {
 		PendragonToken.VH_LIBRA);
     }
 
-    public DefaultPendragonMoney(final DefaultPendragonMoney data) {
+    public DefaultMoney(final DefaultMoney data) {
 	super();
 
 	denarii = data.denarii.createNewInstance();
 	libra = data.libra.createNewInstance();
     }
 
-    public DefaultPendragonMoney(final Integer libra, final Integer denarii) {
+    public DefaultMoney(final Integer libra, final Integer denarii) {
 	super();
 	this.denarii = ValueHandlerFactory.getInstance().getValueHandler(
 		PendragonToken.VH_DENARII, denarii);
@@ -33,13 +33,13 @@ public final class DefaultPendragonMoney implements PendragonMoney {
     }
 
     @Override
-    public final DefaultPendragonMoney createNewInstance() {
-	return new DefaultPendragonMoney(this);
+    public final DefaultMoney createNewInstance() {
+	return new DefaultMoney(this);
     }
 
     @Override
     public final boolean equals(final Object obj) {
-	final DefaultPendragonMoney received;
+	final DefaultMoney received;
 	boolean equals;
 
 	if (obj == this) {
@@ -49,7 +49,7 @@ public final class DefaultPendragonMoney implements PendragonMoney {
 	} else if (getClass() != obj.getClass()) {
 	    equals = false;
 	} else {
-	    received = (DefaultPendragonMoney) obj;
+	    received = (DefaultMoney) obj;
 	    if (received.denarii == null) {
 		equals = (denarii == null);
 	    } else {

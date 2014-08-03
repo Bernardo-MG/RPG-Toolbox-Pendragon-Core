@@ -5,20 +5,19 @@ import java.util.Map;
 
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 
-public final class DefaultWeaponEquipment implements WeaponEquipment {
+public final class DefaultWeapon implements Weapon {
 
-    private final PendragonEquipment item;
+    private final Equipment item;
     private final String skill;
 
-    public DefaultWeaponEquipment(final DefaultWeaponEquipment weapon) {
+    public DefaultWeapon(final DefaultWeapon weapon) {
 	super();
 
 	skill = weapon.skill;
 	item = weapon.item;
     }
 
-    public DefaultWeaponEquipment(final PendragonEquipment item,
-	    final String skill) {
+    public DefaultWeapon(final Equipment item, final String skill) {
 	super();
 
 	this.skill = skill;
@@ -46,7 +45,7 @@ public final class DefaultWeaponEquipment implements WeaponEquipment {
     }
 
     @Override
-    public final PendragonMoney getMoney() {
+    public final Money getMoney() {
 	return getBaseItem().getMoney();
     }
 
@@ -88,7 +87,7 @@ public final class DefaultWeaponEquipment implements WeaponEquipment {
 	return result;
     }
 
-    private final PendragonEquipment getBaseItem() {
+    private final Equipment getBaseItem() {
 	return item;
     }
 

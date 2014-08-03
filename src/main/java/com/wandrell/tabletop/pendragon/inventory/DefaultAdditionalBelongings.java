@@ -11,7 +11,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     private final String fileTable;
     private final Boolean hasToChoose;
     private final Collection<String> horsesFiles;
-    private final PendragonMoney money;
+    private final Money money;
     private final String nameMoney;
     private final Collection<String> petsFiles;
     private final Collection<Dice> rerolls;
@@ -21,7 +21,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     public DefaultAdditionalBelongings(
 	    final Collection<String> equipableItemsFiles,
 	    final String fileTable, final Boolean hasToChoose,
-	    final Collection<String> horsesFiles, final PendragonMoney money,
+	    final Collection<String> horsesFiles, final Money money,
 	    final String nameMoney, final Collection<String> petsFiles,
 	    final Collection<Dice> rerolls,
 	    final Collection<String> shieldsFiles,
@@ -72,7 +72,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     }
 
     @Override
-    public final PendragonMoney getMoney() {
+    public final Money getMoney() {
 	return money;
     }
 

@@ -3,17 +3,17 @@ package com.wandrell.tabletop.pendragon.inventory;
 import java.util.Collection;
 import java.util.Map;
 
-public final class DefaultShieldEquipment implements ShieldEquipment {
+public final class DefaultArmor implements Armor {
 
-    private final PendragonEquipment item;
+    private final Equipment item;
 
-    public DefaultShieldEquipment(final DefaultShieldEquipment shield) {
+    public DefaultArmor(final DefaultArmor armor) {
 	super();
 
-	item = shield.item;
+	item = armor.item;
     }
 
-    public DefaultShieldEquipment(final PendragonEquipment item) {
+    public DefaultArmor(final Equipment item) {
 	super();
 
 	this.item = item;
@@ -40,7 +40,7 @@ public final class DefaultShieldEquipment implements ShieldEquipment {
     }
 
     @Override
-    public final PendragonMoney getMoney() {
+    public final Money getMoney() {
 	return getBaseItem().getMoney();
     }
 
@@ -54,7 +54,7 @@ public final class DefaultShieldEquipment implements ShieldEquipment {
 	return getBaseItem().hasFlag(name);
     }
 
-    private final PendragonEquipment getBaseItem() {
+    private final Equipment getBaseItem() {
 	return item;
     }
 

@@ -10,7 +10,7 @@ import com.wandrell.framework.util.ContextUtils;
 import com.wandrell.framework.util.FileUtils;
 import com.wandrell.tabletop.pendragon.conf.PendragonFactoryConf;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
-import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
+import com.wandrell.tabletop.pendragon.inventory.Money;
 import com.wandrell.tabletop.pendragon.valuehandler.DirectedTrait;
 import com.wandrell.tabletop.pendragon.valuehandler.Passion;
 import com.wandrell.tabletop.pendragon.valuehandler.Skill;
@@ -94,13 +94,13 @@ public final class PendragonFactory {
 		PendragonFactoryConf.BEAN_GLORY);
     }
 
-    public final PendragonMoney getMoney() {
-	return (PendragonMoney) getMoneyContext().getBean(
+    public final Money getMoney() {
+	return (Money) getMoneyContext().getBean(
 		PendragonFactoryConf.BEAN_MONEY);
     }
 
-    public final PendragonMoney getMoney(final int libra, final int denarii) {
-	final PendragonMoney money;
+    public final Money getMoney(final int libra, final int denarii) {
+	final Money money;
 
 	money = getMoney();
 

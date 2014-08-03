@@ -1,12 +1,12 @@
 package com.wandrell.tabletop.pendragon.inventory;
 
-public final class DefaultPendragonItem implements PendragonItem {
+public final class DefaultItem implements Item {
 
     private final String description;
-    private final PendragonMoney money;
+    private final Money money;
     private final String name;
 
-    public DefaultPendragonItem(final DefaultPendragonItem item) {
+    public DefaultItem(final DefaultItem item) {
 	super();
 
 	name = item.name;
@@ -14,8 +14,8 @@ public final class DefaultPendragonItem implements PendragonItem {
 	money = item.money.createNewInstance();
     }
 
-    public DefaultPendragonItem(final String name, final String description,
-	    final PendragonMoney money) {
+    public DefaultItem(final String name, final String description,
+	    final Money money) {
 	super();
 
 	this.name = name;
@@ -29,7 +29,7 @@ public final class DefaultPendragonItem implements PendragonItem {
     }
 
     @Override
-    public final PendragonMoney getMoney() {
+    public final Money getMoney() {
 	return money;
     }
 

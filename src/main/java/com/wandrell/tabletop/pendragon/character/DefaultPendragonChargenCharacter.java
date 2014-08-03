@@ -13,8 +13,8 @@ import com.wandrell.tabletop.pendragon.character.follower.Wife;
 import com.wandrell.tabletop.pendragon.character.module.TraitsBonusSwitchsData;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
-import com.wandrell.tabletop.pendragon.inventory.PendragonItem;
-import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
+import com.wandrell.tabletop.pendragon.inventory.Item;
+import com.wandrell.tabletop.pendragon.inventory.Money;
 import com.wandrell.tabletop.pendragon.manor.ManorAnimal;
 import com.wandrell.tabletop.pendragon.util.TextValue;
 import com.wandrell.tabletop.pendragon.valuehandler.Attribute;
@@ -88,12 +88,12 @@ public final class DefaultPendragonChargenCharacter implements
     }
 
     @Override
-    public final void addHoldingAtHome(final PendragonItem item) {
+    public final void addHoldingAtHome(final Item item) {
 	getBaseCharacter().addHoldingAtHome(item);
     }
 
     @Override
-    public final void addHoldingCarried(final PendragonItem item) {
+    public final void addHoldingCarried(final Item item) {
 	getBaseCharacter().addHoldingAtHome(item);
     }
 
@@ -277,12 +277,12 @@ public final class DefaultPendragonChargenCharacter implements
     }
 
     @Override
-    public final Collection<PendragonItem> getHoldingsAtHome() {
+    public final Collection<Item> getHoldingsAtHome() {
 	return getBaseCharacter().getHoldingsAtHome();
     }
 
     @Override
-    public final Collection<PendragonItem> getHoldingsCarried() {
+    public final Collection<Item> getHoldingsCarried() {
 	return getBaseCharacter().getHoldingsCarried();
     }
 
@@ -302,7 +302,7 @@ public final class DefaultPendragonChargenCharacter implements
     }
 
     @Override
-    public final PendragonMoney getMoney() {
+    public final Money getMoney() {
 	return getBaseCharacter().getMoney();
     }
 

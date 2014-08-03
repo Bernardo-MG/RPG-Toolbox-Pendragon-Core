@@ -17,8 +17,8 @@ import com.wandrell.tabletop.pendragon.character.module.TraitsBonusSwitchsData;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
-import com.wandrell.tabletop.pendragon.inventory.PendragonItem;
-import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
+import com.wandrell.tabletop.pendragon.inventory.Item;
+import com.wandrell.tabletop.pendragon.inventory.Money;
 import com.wandrell.tabletop.pendragon.manor.ManorAnimal;
 import com.wandrell.tabletop.pendragon.util.DefaultTextValue;
 import com.wandrell.tabletop.pendragon.util.TextValue;
@@ -40,10 +40,10 @@ public final class DefaultPendragonPlayerCharacter extends
     private final Set<String> flags = new LinkedHashSet<>();
     private final Set<Follower> followers = new LinkedHashSet<>();
     private final GloryKeeper glory;
-    private final Set<PendragonItem> holdingsAtHome = new LinkedHashSet<>();
-    private final Set<PendragonItem> holdingsCarried = new LinkedHashSet<>();
+    private final Set<Item> holdingsAtHome = new LinkedHashSet<>();
+    private final Set<Item> holdingsCarried = new LinkedHashSet<>();
     private final Set<HorseCharacter> horses = new LinkedHashSet<>();
-    private final PendragonMoney money;
+    private final Money money;
     private final Set<ManorAnimal> pets = new LinkedHashSet<>();
     private Religion religion;
     private final Map<String, String> textValues = new LinkedHashMap<>();
@@ -151,7 +151,7 @@ public final class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public final void addHoldingAtHome(final PendragonItem item) {
+    public final void addHoldingAtHome(final Item item) {
 	if (item == null) {
 	    throw new NullPointerException();
 	}
@@ -160,7 +160,7 @@ public final class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public final void addHoldingCarried(final PendragonItem item) {
+    public final void addHoldingCarried(final Item item) {
 	if (item == null) {
 	    throw new NullPointerException();
 	}
@@ -271,12 +271,12 @@ public final class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public final Collection<PendragonItem> getHoldingsAtHome() {
+    public final Collection<Item> getHoldingsAtHome() {
 	return Collections.unmodifiableCollection(_getHoldingsAtHome());
     }
 
     @Override
-    public final Collection<PendragonItem> getHoldingsCarried() {
+    public final Collection<Item> getHoldingsCarried() {
 	return Collections.unmodifiableCollection(_getHoldingsCarried());
     }
 
@@ -286,7 +286,7 @@ public final class DefaultPendragonPlayerCharacter extends
     }
 
     @Override
-    public final PendragonMoney getMoney() {
+    public final Money getMoney() {
 	return money;
     }
 
@@ -415,16 +415,16 @@ public final class DefaultPendragonPlayerCharacter extends
 	}
     }
 
-    public final void setHoldingsAtHome(final Collection<PendragonItem> items) {
+    public final void setHoldingsAtHome(final Collection<Item> items) {
 	_getHoldingsAtHome().clear();
-	for (final PendragonItem item : items) {
+	for (final Item item : items) {
 	    addHoldingAtHome(item);
 	}
     }
 
-    public final void setHoldingsCarried(final Collection<PendragonItem> items) {
+    public final void setHoldingsCarried(final Collection<Item> items) {
 	_getHoldingsCarried().clear();
-	for (final PendragonItem item : items) {
+	for (final Item item : items) {
 	    addHoldingCarried(item);
 	}
     }
@@ -504,11 +504,11 @@ public final class DefaultPendragonPlayerCharacter extends
 	return followers;
     }
 
-    protected final Set<PendragonItem> _getHoldingsAtHome() {
+    protected final Set<Item> _getHoldingsAtHome() {
 	return holdingsAtHome;
     }
 
-    protected final Set<PendragonItem> _getHoldingsCarried() {
+    protected final Set<Item> _getHoldingsCarried() {
 	return holdingsCarried;
     }
 

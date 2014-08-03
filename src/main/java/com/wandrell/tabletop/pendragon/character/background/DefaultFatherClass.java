@@ -4,11 +4,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-import com.wandrell.tabletop.pendragon.inventory.PendragonMoney;
+import com.wandrell.tabletop.pendragon.inventory.Money;
 
 public final class DefaultFatherClass implements FatherClass {
 
-    private final PendragonMoney money;
+    private final Money money;
     private final String name;
     private final Collection<String> skillsGroup;
     private final Integer skillsGroupPoints;
@@ -31,7 +31,7 @@ public final class DefaultFatherClass implements FatherClass {
     public DefaultFatherClass(final String name,
 	    final Integer skillsGroupPoints,
 	    final Collection<String> skillsGroup,
-	    final Map<String, Integer> skillsPoints, final PendragonMoney money) {
+	    final Map<String, Integer> skillsPoints, final Money money) {
 	super();
 
 	if (name == null) {
@@ -83,7 +83,7 @@ public final class DefaultFatherClass implements FatherClass {
     }
 
     @Override
-    public final PendragonMoney getMoney() {
+    public final Money getMoney() {
 	return money;
     }
 

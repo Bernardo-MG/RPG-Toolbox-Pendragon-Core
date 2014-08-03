@@ -5,13 +5,13 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-public final class DefaultPendragonEquipment implements PendragonEquipment {
+public final class DefaultEquipment implements Equipment {
 
     private final Set<String> flags;
-    private final PendragonItem item;
+    private final Item item;
     private final Map<String, Integer> values;
 
-    public DefaultPendragonEquipment(final DefaultPendragonEquipment equipment) {
+    public DefaultEquipment(final DefaultEquipment equipment) {
 	super();
 
 	item = equipment.item;
@@ -20,8 +20,8 @@ public final class DefaultPendragonEquipment implements PendragonEquipment {
 	flags = equipment.flags;
     }
 
-    public DefaultPendragonEquipment(final PendragonItem item,
-	    final Set<String> flags, final Map<String, Integer> values) {
+    public DefaultEquipment(final Item item, final Set<String> flags,
+	    final Map<String, Integer> values) {
 	super();
 
 	this.item = item;
@@ -50,7 +50,7 @@ public final class DefaultPendragonEquipment implements PendragonEquipment {
     }
 
     @Override
-    public final PendragonMoney getMoney() {
+    public final Money getMoney() {
 	return getBaseItem().getMoney();
     }
 
@@ -64,7 +64,7 @@ public final class DefaultPendragonEquipment implements PendragonEquipment {
 	return _getFlags().contains(name);
     }
 
-    private final PendragonItem getBaseItem() {
+    private final Item getBaseItem() {
 	return item;
     }
 
