@@ -15,7 +15,6 @@ import com.wandrell.tabletop.pendragon.character.follower.Wife;
 import com.wandrell.tabletop.pendragon.character.module.DefaultTraitsBonusSwitchsData;
 import com.wandrell.tabletop.pendragon.character.module.TraitsBonusSwitchsData;
 import com.wandrell.tabletop.pendragon.conf.PendragonToken;
-import com.wandrell.tabletop.pendragon.conf.factory.PendragonFactory;
 import com.wandrell.tabletop.pendragon.glory.GloryKeeper;
 import com.wandrell.tabletop.pendragon.inventory.Item;
 import com.wandrell.tabletop.pendragon.inventory.Money;
@@ -52,15 +51,16 @@ public final class DefaultPendragonPlayerCharacter extends
 
     public DefaultPendragonPlayerCharacter(
 	    final Collection<Attribute> attributes,
-	    final Collection<Trait> traits) {
+	    final Collection<Trait> traits, final ValueHandler<Integer> armor,
+	    final GloryKeeper glory, final Money money) {
 	super(attributes, traits);
 
 	// Initializes data holders
 	// TODO: Don't initialize directly
 	dataTraitsBonusSwitchs = new DefaultTraitsBonusSwitchsData();
-	glory = PendragonFactory.getInstance().getGlory();
-	money = PendragonFactory.getInstance().getMoney();
-	armor = PendragonFactory.getInstance().getArmor();
+	this.glory = glory;
+	this.money = money;
+	this.armor = armor;
     }
 
     public DefaultPendragonPlayerCharacter(
