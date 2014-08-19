@@ -3,15 +3,14 @@ package com.wandrell.tabletop.pendragon.valuehandler.module.store;
 import java.util.Collection;
 
 import com.wandrell.tabletop.valuehandler.AbstractValueHandler;
+import com.wandrell.tabletop.valuehandler.controller.ValueMarginController;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
-import com.wandrell.tabletop.valuehandler.module.store.AbstractMarginStore;
-import com.wandrell.tabletop.valuehandler.module.store.IntegerMarginStore;
 
-public final class ReligiousMarginStore extends StoreModule<Integer> {
+public final class ReligiousMarginStore extends StoreModule {
 
+    private final ValueMarginController controller;
     @SuppressWarnings("unused")
-    private boolean flagOn = false;
-    private final AbstractMarginStore<Integer, AbstractValueHandler<Integer>> store;
+    private boolean                     flagOn = false;
 
     /**
      * Basic constructor.
@@ -23,40 +22,42 @@ public final class ReligiousMarginStore extends StoreModule<Integer> {
      * @param valueMargin
      *            the value level for the checks
      */
-    public ReligiousMarginStore(
-	    final Collection<AbstractValueHandler<Integer>> values,
-	    final Integer valueMargin) {
-	super();
-	store = new IntegerMarginStore<AbstractValueHandler<Integer>>(values,
-		valueMargin);
+    public ReligiousMarginStore(final Collection<AbstractValueHandler> values,
+            final Integer valueMargin) {
+        super();
+        controller = new ValueMarginController(values, valueMargin);
     }
 
     public ReligiousMarginStore(final ReligiousMarginStore vc) {
-	super(vc);
-	store = vc.store.createNewInstance();
+        super(vc);
+
+        controller = vc.controller.createNewInstance();
     }
 
     @Override
-    public final void addValue(final Integer value) {
-    }
+    public final void addValue(final Integer value) {}
 
     @Override
     public final ReligiousMarginStore createNewInstance() {
-	return new ReligiousMarginStore(this);
+        return new ReligiousMarginStore(this);
     }
 
     @Override
     public final Integer getValue() {
-	return store.getAboveMarginCount() + store.getInMarginCount();
+        return getController().getAboveMarginCount()
+                + getController().getInMarginCount();
     }
 
     public final Boolean isOn() {
-	return ((store.getValueHandlers().size() > 0) && (getValue() == store
-		.getValueHandlers().size()));
+        return ((getController().getValueHandlers().size() > 0) && (getValue() == getController()
+                .getValueHandlers().size()));
     }
 
     @Override
-    public final void setValue(final Integer value) {
+    public final void setValue(final Integer value) {}
+
+    protected final ValueMarginController getController() {
+        return controller;
     }
 
 }

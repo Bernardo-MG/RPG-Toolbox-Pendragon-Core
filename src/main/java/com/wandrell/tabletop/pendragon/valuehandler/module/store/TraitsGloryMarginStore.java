@@ -3,43 +3,44 @@ package com.wandrell.tabletop.pendragon.valuehandler.module.store;
 import java.util.Collection;
 
 import com.wandrell.tabletop.valuehandler.AbstractValueHandler;
+import com.wandrell.tabletop.valuehandler.controller.ValueMarginController;
 import com.wandrell.tabletop.valuehandler.module.StoreModule;
-import com.wandrell.tabletop.valuehandler.module.store.AbstractMarginStore;
-import com.wandrell.tabletop.valuehandler.module.store.IntegerMarginStore;
 
-public final class TraitsGloryMarginStore extends StoreModule<Integer> {
+public final class TraitsGloryMarginStore extends StoreModule {
 
-    private final AbstractMarginStore<Integer, AbstractValueHandler<Integer>> store;
+    private final ValueMarginController controller;
 
     public TraitsGloryMarginStore(
-	    final Collection<AbstractValueHandler<Integer>> values,
-	    final Integer valueMargin) {
-	super();
-	store = new IntegerMarginStore<AbstractValueHandler<Integer>>(values,
-		valueMargin);
+            final Collection<AbstractValueHandler> values,
+            final Integer valueMargin) {
+        super();
+        controller = new ValueMarginController(values, valueMargin);
     }
 
     public TraitsGloryMarginStore(final TraitsGloryMarginStore vc) {
-	super(vc);
-	store = vc.store.createNewInstance();
+        super(vc);
+        controller = vc.controller.createNewInstance();
     }
 
     @Override
-    public final void addValue(Integer value) {
-    }
+    public final void addValue(Integer value) {}
 
     @Override
     public TraitsGloryMarginStore createNewInstance() {
-	return new TraitsGloryMarginStore(this);
+        return new TraitsGloryMarginStore(this);
     }
 
     @Override
     public final Integer getValue() {
-	return store.getInMarginSum() + store.getAboveMarginSum();
+        return getController().getInMarginSum()
+                + getController().getAboveMarginSum();
     }
 
     @Override
-    public final void setValue(Integer value) {
+    public final void setValue(Integer value) {}
+
+    protected final ValueMarginController getController() {
+        return controller;
     }
 
 }

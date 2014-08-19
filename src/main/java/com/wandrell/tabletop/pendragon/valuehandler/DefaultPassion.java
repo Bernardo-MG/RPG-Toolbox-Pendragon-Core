@@ -10,111 +10,109 @@ import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
 public final class DefaultPassion implements Passion {
 
-    private final DelegateValueHandler<Integer> composite;
-    private String descriptor = "";
+    private final DelegateValueHandler composite;
+    private String                     descriptor = "";
 
     public DefaultPassion(final DefaultPassion passion) {
-	super();
+        super();
 
-	composite = passion.composite.createNewInstance();
+        composite = passion.composite.createNewInstance();
 
-	descriptor = passion.descriptor;
+        descriptor = passion.descriptor;
     }
 
-    public DefaultPassion(final String name,
-	    final GeneratorModule<Integer> generator,
-	    final IntervalModule<Integer> interval,
-	    final StoreModule<Integer> store,
-	    final ValidatorModule<Integer> validator) {
-	super();
-	composite = new DefaultValueHandler<Integer>(name, generator, interval,
-		store, validator);
+    public DefaultPassion(final String name, final GeneratorModule generator,
+            final IntervalModule interval, final StoreModule store,
+            final ValidatorModule validator) {
+        super();
+        composite = new DefaultValueHandler(name, generator, interval, store,
+                validator);
     }
 
     @Override
     public final Boolean acceptsValue(final Integer value) {
-	return getValueHandler().acceptsValue(value);
+        return getValueHandler().acceptsValue(value);
     }
 
     @Override
     public final void addValue(final Integer value) {
-	getValueHandler().addValue(value);
+        getValueHandler().addValue(value);
     }
 
     @Override
     public final DefaultPassion createNewInstance() {
-	return new DefaultPassion(this);
+        return new DefaultPassion(this);
     }
 
     @Override
     public final void decreaseValue() {
-	getValueHandler().decreaseValue();
+        getValueHandler().decreaseValue();
     }
 
     @Override
     public final String getDescriptor() {
-	return descriptor;
+        return descriptor;
     }
 
     @Override
     public final Integer getLowerLimit() {
-	return getValueHandler().getLowerLimit();
+        return getValueHandler().getLowerLimit();
     }
 
     @Override
     public final String getName() {
-	return getValueHandler().getName();
+        return getValueHandler().getName();
     }
 
     @Override
     public final Integer getStoredValue() {
-	return getValueHandler().getStoredValue();
+        return getValueHandler().getStoredValue();
     }
 
     @Override
     public final Integer getUpperLimit() {
-	return getValueHandler().getUpperLimit();
+        return getValueHandler().getUpperLimit();
     }
 
     @Override
     public final void increaseValue() {
-	getValueHandler().increaseValue();
+        getValueHandler().increaseValue();
     }
 
     @Override
     public final Boolean isAbleToDecrease() {
-	return getValueHandler().isAbleToDecrease();
+        return getValueHandler().isAbleToDecrease();
     }
 
     @Override
     public final Boolean isAbleToIncrease() {
-	return getValueHandler().isAbleToIncrease();
+        return getValueHandler().isAbleToIncrease();
     }
 
     public final void setDescriptor(final String descriptor) {
-	if (descriptor == null) {
-	    throw new NullPointerException();
-	}
+        if (descriptor == null) {
+            throw new NullPointerException();
+        }
 
-	this.descriptor = descriptor;
+        this.descriptor = descriptor;
     }
 
     @Override
     public final void setValue(final Integer value) {
-	if (value == null) {
-	    throw new NullPointerException();
-	}
+        if (value == null) {
+            throw new NullPointerException();
+        }
 
-	getValueHandler().setValue(value);
+        getValueHandler().setValue(value);
     }
 
     @Override
     public final String toString() {
-	return String.format("%s (%s)", getName(), getDescriptor());
+        return String.format("%s (%s)", getName(), getDescriptor());
     }
 
-    protected final ValueHandler<Integer> getValueHandler() {
-	return composite;
+    protected final ValueHandler getValueHandler() {
+        return composite;
     }
 
 }

@@ -3,39 +3,39 @@ package com.wandrell.tabletop.pendragon.inventory;
 public final class DefaultItem implements Item {
 
     private final String description;
-    private final Money money;
+    private final Money  money;
     private final String name;
 
     public DefaultItem(final DefaultItem item) {
-	super();
+        super();
 
-	name = item.name;
-	description = item.description;
-	money = item.money.createNewInstance();
+        name = item.name;
+        description = item.description;
+        money = item.money.createNewInstance();
     }
 
     public DefaultItem(final String name, final String description,
-	    final Money money) {
-	super();
+            final Money money) {
+        super();
 
-	this.name = name;
-	this.description = description;
-	this.money = money;
+        this.name = name;
+        this.description = description;
+        this.money = money;
     }
 
     @Override
     public final String getDescription() {
-	return description;
+        return description;
     }
 
     @Override
     public final Money getMoney() {
-	return money;
+        return money;
     }
 
     @Override
     public final String getName() {
-	return name;
+        return name;
     }
 
 }

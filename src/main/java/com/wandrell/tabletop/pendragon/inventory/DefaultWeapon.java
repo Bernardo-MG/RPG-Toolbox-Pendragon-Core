@@ -8,87 +8,87 @@ import com.wandrell.tabletop.pendragon.conf.PendragonToken;
 public final class DefaultWeapon implements Weapon {
 
     private final Equipment item;
-    private final String skill;
+    private final String    skill;
 
     public DefaultWeapon(final DefaultWeapon weapon) {
-	super();
+        super();
 
-	skill = weapon.skill;
-	item = weapon.item;
+        skill = weapon.skill;
+        item = weapon.item;
     }
 
     public DefaultWeapon(final Equipment item, final String skill) {
-	super();
+        super();
 
-	this.skill = skill;
-	this.item = item;
+        this.skill = skill;
+        this.item = item;
     }
 
     @Override
     public final String getDescription() {
-	return getBaseItem().getDescription();
+        return getBaseItem().getDescription();
     }
 
     @Override
     public final Boolean getFlag(final String name) {
-	return getBaseItem().getFlag(name);
+        return getBaseItem().getFlag(name);
     }
 
     @Override
     public final Collection<String> getFlags() {
-	return getBaseItem().getFlags();
+        return getBaseItem().getFlags();
     }
 
     @Override
     public final Map<String, Integer> getMiscelanyValues() {
-	return getBaseItem().getMiscelanyValues();
+        return getBaseItem().getMiscelanyValues();
     }
 
     @Override
     public final Money getMoney() {
-	return getBaseItem().getMoney();
+        return getBaseItem().getMoney();
     }
 
     @Override
     public final String getName() {
-	return getBaseItem().getName();
+        return getBaseItem().getName();
     }
 
     @Override
     public final String getSkill() {
-	return skill;
+        return skill;
     }
 
     @Override
     public final Boolean hasFlag(final String name) {
-	return getBaseItem().hasFlag(name);
+        return getBaseItem().hasFlag(name);
     }
 
     @Override
     public final Boolean isDamageOverriden() {
-	final int die, bonus;
-	boolean result = false;
+        final int die, bonus;
+        boolean result = false;
 
-	if (getMiscelanyValues().containsKey(
-		PendragonToken.VH_DAMAGE_OVERRIDE_DIE)) {
-	    die = getMiscelanyValues().get(
-		    PendragonToken.VH_DAMAGE_OVERRIDE_DIE);
-	    result = die > 0;
-	}
+        if (getMiscelanyValues().containsKey(
+                PendragonToken.VH_DAMAGE_OVERRIDE_DIE)) {
+            die = getMiscelanyValues().get(
+                    PendragonToken.VH_DAMAGE_OVERRIDE_DIE);
+            result = die > 0;
+        }
 
-	if ((!result)
-		&& (getMiscelanyValues()
-			.containsKey(PendragonToken.VH_DAMAGE_OVERRIDE_BONUS))) {
-	    bonus = getMiscelanyValues().get(
-		    PendragonToken.VH_DAMAGE_OVERRIDE_BONUS);
-	    result = bonus > 0;
-	}
+        if ((!result)
+                && (getMiscelanyValues()
+                        .containsKey(PendragonToken.VH_DAMAGE_OVERRIDE_BONUS))) {
+            bonus = getMiscelanyValues().get(
+                    PendragonToken.VH_DAMAGE_OVERRIDE_BONUS);
+            result = bonus > 0;
+        }
 
-	return result;
+        return result;
     }
 
     private final Equipment getBaseItem() {
-	return item;
+        return item;
     }
 
 }

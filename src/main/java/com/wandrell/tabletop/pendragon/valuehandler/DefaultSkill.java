@@ -10,165 +10,162 @@ import com.wandrell.tabletop.valuehandler.module.ValidatorModule;
 
 public final class DefaultSkill implements Skill {
 
-    private final boolean combatSkill;
-    private final DelegateValueHandler<Integer> composite;
-    private final boolean courtlySkill;
-    private String descriptor = "";
-    private final boolean knightlySkill;
-    private final boolean knowledgeSkill;
-    private final boolean repeteable;
+    private final boolean              combatSkill;
+    private final DelegateValueHandler composite;
+    private final boolean              courtlySkill;
+    private String                     descriptor = "";
+    private final boolean              knightlySkill;
+    private final boolean              knowledgeSkill;
+    private final boolean              repeteable;
 
     public DefaultSkill(final DefaultSkill skill) {
-	super();
+        super();
 
-	composite = skill.composite.createNewInstance();
+        composite = skill.composite.createNewInstance();
 
-	descriptor = skill.descriptor;
+        descriptor = skill.descriptor;
 
-	combatSkill = skill.combatSkill;
-	knightlySkill = skill.knightlySkill;
-	knowledgeSkill = skill.knowledgeSkill;
-	courtlySkill = skill.courtlySkill;
+        combatSkill = skill.combatSkill;
+        knightlySkill = skill.knightlySkill;
+        knowledgeSkill = skill.knowledgeSkill;
+        courtlySkill = skill.courtlySkill;
 
-	repeteable = skill.repeteable;
+        repeteable = skill.repeteable;
     }
 
-    public DefaultSkill(final String name,
-	    final GeneratorModule<Integer> generator,
-	    final IntervalModule<Integer> interval,
-	    final StoreModule<Integer> store,
-	    final ValidatorModule<Integer> validator,
-	    final Boolean combatSkill, final Boolean knightlySkill,
-	    final Boolean knowledgeSkill, final Boolean courtlySkill,
-	    final Boolean repeteable) {
-	super();
-	// TODO: This is dependant of DefaultValueHandler
-	composite = new DefaultValueHandler<Integer>(name, generator, interval,
-		store, validator);
+    public DefaultSkill(final String name, final GeneratorModule generator,
+            final IntervalModule interval, final StoreModule store,
+            final ValidatorModule validator, final Boolean combatSkill,
+            final Boolean knightlySkill, final Boolean knowledgeSkill,
+            final Boolean courtlySkill, final Boolean repeteable) {
+        super();
+        // TODO: This is dependant of DefaultValueHandler
+        composite = new DefaultValueHandler(name, generator, interval, store,
+                validator);
 
-	this.combatSkill = combatSkill;
-	this.knightlySkill = knightlySkill;
-	this.knowledgeSkill = knowledgeSkill;
-	this.courtlySkill = courtlySkill;
+        this.combatSkill = combatSkill;
+        this.knightlySkill = knightlySkill;
+        this.knowledgeSkill = knowledgeSkill;
+        this.courtlySkill = courtlySkill;
 
-	this.repeteable = repeteable;
+        this.repeteable = repeteable;
     }
 
     @Override
     public final Boolean acceptsValue(final Integer value) {
-	return getValueHandler().acceptsValue(value);
+        return getValueHandler().acceptsValue(value);
     }
 
     @Override
     public final void addValue(final Integer value) {
-	getValueHandler().acceptsValue(value);
+        getValueHandler().acceptsValue(value);
     }
 
     @Override
     public final DefaultSkill createNewInstance() {
-	return new DefaultSkill(this);
+        return new DefaultSkill(this);
     }
 
     @Override
     public final void decreaseValue() {
-	getValueHandler().decreaseValue();
+        getValueHandler().decreaseValue();
     }
 
     @Override
     public final String getDescriptor() {
-	return descriptor;
+        return descriptor;
     }
 
     @Override
     public final Integer getLowerLimit() {
-	return getValueHandler().getLowerLimit();
+        return getValueHandler().getLowerLimit();
     }
 
     @Override
     public final String getName() {
-	return getValueHandler().getName();
+        return getValueHandler().getName();
     }
 
     @Override
     public final Integer getStoredValue() {
-	return getValueHandler().getStoredValue();
+        return getValueHandler().getStoredValue();
     }
 
     @Override
     public final Integer getUpperLimit() {
-	return getValueHandler().getUpperLimit();
+        return getValueHandler().getUpperLimit();
     }
 
     @Override
     public final void increaseValue() {
-	getValueHandler().increaseValue();
+        getValueHandler().increaseValue();
     }
 
     @Override
     public final Boolean isAbleToDecrease() {
-	return getValueHandler().isAbleToDecrease();
+        return getValueHandler().isAbleToDecrease();
     }
 
     @Override
     public final Boolean isAbleToIncrease() {
-	return getValueHandler().isAbleToIncrease();
+        return getValueHandler().isAbleToIncrease();
     }
 
     @Override
     public final Boolean isCombatSkill() {
-	return combatSkill;
+        return combatSkill;
     }
 
     @Override
     public final Boolean isCourtlySkill() {
-	return courtlySkill;
+        return courtlySkill;
     }
 
     @Override
     public final Boolean isKnightlySkill() {
-	return knightlySkill;
+        return knightlySkill;
     }
 
     @Override
     public final Boolean isKnowledgeSkill() {
-	return knowledgeSkill;
+        return knowledgeSkill;
     }
 
     @Override
     public final Boolean isRepeatable() {
-	return repeteable;
+        return repeteable;
     }
 
     public final void setDescriptor(final String descriptor) {
-	if (descriptor == null) {
-	    throw new NullPointerException();
-	}
+        if (descriptor == null) {
+            throw new NullPointerException();
+        }
 
-	this.descriptor = descriptor;
+        this.descriptor = descriptor;
     }
 
     @Override
     public final void setValue(final Integer value) {
-	getValueHandler().setValue(value);
+        getValueHandler().setValue(value);
     }
 
     @Override
     public final String toString() {
-	final String template;
-	final String result;
+        final String template;
+        final String result;
 
-	if (isRepeatable()) {
-	    template = "%s (%s)";
-	    result = String.format(template, getName(), getDescriptor());
-	} else {
-	    result = getName();
-	}
+        if (isRepeatable()) {
+            template = "%s (%s)";
+            result = String.format(template, getName(), getDescriptor());
+        } else {
+            result = getName();
+        }
 
-	return result;
+        return result;
     }
 
-    protected final ValueHandler<Integer> getValueHandler() {
-	return composite;
+    protected final ValueHandler getValueHandler() {
+        return composite;
     }
 
 }
