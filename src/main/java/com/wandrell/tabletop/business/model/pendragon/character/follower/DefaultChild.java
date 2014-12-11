@@ -1,5 +1,10 @@
 package com.wandrell.tabletop.business.model.pendragon.character.follower;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.character.Gender;
 
 public final class DefaultChild implements Child {
@@ -9,41 +14,29 @@ public final class DefaultChild implements Child {
     private final Integer yearBorn;
     private final Integer yearDeath;
 
-    public DefaultChild(final DefaultChild data) {
+    public DefaultChild(final DefaultChild child) {
         super();
 
-        gender = data.gender;
-        name = data.name;
-        yearBorn = data.yearBorn;
-        yearDeath = data.yearDeath;
+        checkNotNull(child, "Received a null pointer as child");
+
+        gender = child.gender;
+        name = child.name;
+        yearBorn = child.yearBorn;
+        yearDeath = child.yearDeath;
     }
 
     public DefaultChild(final String name, final Gender gender,
             final Integer yearBorn, final Integer yearDeath) {
         super();
 
-        if (name == null) {
-            throw new NullPointerException();
-        }
-
-        if (gender == null) {
-            throw new NullPointerException();
-        }
-
-        if (yearBorn == null) {
-            throw new NullPointerException();
-        }
-
-        if (yearDeath == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(gender, "Received a null pointer as gender");
+        checkNotNull(yearBorn, "Received a null pointer as yearBorn");
+        checkNotNull(yearDeath, "Received a null pointer as yearDeath");
 
         this.name = name;
-
         this.gender = gender;
-
         this.yearBorn = yearBorn;
-
         this.yearDeath = yearDeath;
     }
 
@@ -56,12 +49,7 @@ public final class DefaultChild implements Child {
         if (getClass() != obj.getClass())
             return false;
         DefaultChild other = (DefaultChild) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+        return Objects.equals(name, other.name);
     }
 
     @Override
@@ -86,14 +74,11 @@ public final class DefaultChild implements Child {
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+        return Objects.hashCode(name);
     }
 
     @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 }

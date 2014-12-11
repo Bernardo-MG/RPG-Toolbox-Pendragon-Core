@@ -1,8 +1,13 @@
 package com.wandrell.tabletop.business.model.pendragon.character.background;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 
 public final class DefaultReligion implements Religion {
 
@@ -12,43 +17,17 @@ public final class DefaultReligion implements Religion {
     private final String               name;
     private final Collection<String>   traits;
 
-    public DefaultReligion(final DefaultReligion religion) {
-        super();
-
-        name = religion.name;
-
-        traits = religion.traits;
-
-        bonusDerived = religion.bonusDerived;
-
-        bonusArmor = religion.bonusArmor;
-        bonusDamage = religion.bonusDamage;
-    }
-
     public DefaultReligion(final String name,
             final Map<String, Integer> bonusDerived, final Integer bonusArmor,
             final Integer bonusDamage, final Collection<String> traits) {
         super();
 
-        if (name == null) {
-            throw new NullPointerException();
-        }
-
-        if (bonusDerived == null) {
-            throw new NullPointerException();
-        }
-
-        if (bonusArmor == null) {
-            throw new NullPointerException();
-        }
-
-        if (bonusDamage == null) {
-            throw new NullPointerException();
-        }
-
-        if (traits == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(bonusDerived,
+                "Received a null pointer as derived attributes bonus");
+        checkNotNull(bonusArmor, "Received a null pointer as armor bonus");
+        checkNotNull(bonusDamage, "Received a null pointer as damage bonus");
+        checkNotNull(traits, "Received a null pointer as traits");
 
         this.name = name;
 
@@ -70,12 +49,7 @@ public final class DefaultReligion implements Religion {
         if (getClass() != obj.getClass())
             return false;
         DefaultReligion other = (DefaultReligion) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+        return Objects.equals(name, other.name);
     }
 
     @Override
@@ -89,8 +63,9 @@ public final class DefaultReligion implements Religion {
     }
 
     @Override
-    public final Integer getDerivedAttributeBonus(final String name) {
-        return getDerivedAttributesBonus().get(name);
+    public final Map<String, Integer> getDerivedAttributeBonus() {
+        return Collections
+                .unmodifiableMap(getDerivedAttributesBonusModifiable());
     }
 
     @Override
@@ -100,38 +75,26 @@ public final class DefaultReligion implements Religion {
 
     @Override
     public final Collection<String> getReligiousTraits() {
-        return Collections.unmodifiableCollection(_getReligiousTraits());
-    }
-
-    @Override
-    public final Boolean hasDerivedAttributeBonus(final String name) {
-        return getDerivedAttributesBonus().containsKey(name);
+        return Collections
+                .unmodifiableCollection(getReligiousTraitsModifiable());
     }
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
-    }
-
-    @Override
-    public final Boolean hasTrait(final String trait) {
-        return _getReligiousTraits().contains(trait);
+        return Objects.hashCode(name);
     }
 
     @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    protected final Collection<String> _getReligiousTraits() {
-        return traits;
-    }
-
-    protected final Map<String, Integer> getDerivedAttributesBonus() {
+    private final Map<String, Integer> getDerivedAttributesBonusModifiable() {
         return bonusDerived;
+    }
+
+    private final Collection<String> getReligiousTraitsModifiable() {
+        return traits;
     }
 
 }

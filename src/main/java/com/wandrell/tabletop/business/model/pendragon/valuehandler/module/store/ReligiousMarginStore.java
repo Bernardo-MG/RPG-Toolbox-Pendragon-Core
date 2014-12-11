@@ -9,19 +9,7 @@ import com.wandrell.tabletop.business.util.valuehandler.ValueMarginController;
 public final class ReligiousMarginStore extends AbstractStoreModule {
 
     private final ValueMarginController controller;
-    @SuppressWarnings("unused")
-    private boolean                     flagOn = false;
 
-    /**
-     * Basic constructor.
-     * 
-     * @param parent
-     *            the parent
-     * @param values
-     *            the values to be stored
-     * @param valueMargin
-     *            the value level for the checks
-     */
     public ReligiousMarginStore(final Collection<AbstractValueHandler> values,
             final Integer valueMargin) {
         super();

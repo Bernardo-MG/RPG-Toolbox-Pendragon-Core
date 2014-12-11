@@ -1,5 +1,11 @@
 package com.wandrell.tabletop.business.model.pendragon.glory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
+
 public final class DefaultFatherClassGlory implements FatherClassGlory {
 
     private final Integer baseGlory;
@@ -9,6 +15,10 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
     public DefaultFatherClassGlory(
             final DefaultFatherClassGlory fatherClassGlory) {
         super();
+
+        checkNotNull(fatherClassGlory,
+                "Received a null pointer as father class glory");
+
         name = fatherClassGlory.name;
         baseGlory = fatherClassGlory.baseGlory;
         gloryPerYear = fatherClassGlory.gloryPerYear;
@@ -18,17 +28,9 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
             final Integer gloryPerYear) {
         super();
 
-        if (name == null) {
-            throw new NullPointerException();
-        }
-
-        if (baseGlory == null) {
-            throw new NullPointerException();
-        }
-
-        if (gloryPerYear == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(baseGlory, "Received a null pointer as base glory");
+        checkNotNull(gloryPerYear, "Received a null pointer as glory per year");
 
         this.name = name;
         this.baseGlory = baseGlory;
@@ -44,12 +46,7 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
         if (getClass() != obj.getClass())
             return false;
         DefaultFatherClassGlory other = (DefaultFatherClassGlory) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+        return Objects.equals(name, other.name);
     }
 
     @Override
@@ -69,15 +66,12 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+        return Objects.hashCode(name);
     }
 
     @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

@@ -1,28 +1,24 @@
 package com.wandrell.tabletop.business.model.pendragon.inventory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
 public final class DefaultEquipment implements Equipment {
 
-    private final Set<String>          flags;
+    private final Collection<String>   flags;
     private final Item                 item;
     private final Map<String, Integer> values;
-
-    public DefaultEquipment(final DefaultEquipment equipment) {
-        super();
-
-        item = equipment.item;
-
-        values = equipment.values;
-        flags = equipment.flags;
-    }
 
     public DefaultEquipment(final Item item, final Set<String> flags,
             final Map<String, Integer> values) {
         super();
+
+        checkNotNull(item, "Received a null pointer as item");
+        checkNotNull(flags, "Received a null pointer as flags");
+        checkNotNull(values, "Received a null pointer as values");
 
         this.item = item;
         this.flags = flags;
@@ -35,21 +31,6 @@ public final class DefaultEquipment implements Equipment {
     }
 
     @Override
-    public final Boolean getFlag(final String name) {
-        return _getFlags().contains(name);
-    }
-
-    @Override
-    public final Collection<String> getFlags() {
-        return Collections.unmodifiableCollection(_getFlags());
-    }
-
-    @Override
-    public final Map<String, Integer> getMiscelanyValues() {
-        return Collections.unmodifiableMap(_getMiscelanyValues());
-    }
-
-    @Override
     public final Money getMoney() {
         return getBaseItem().getMoney();
     }
@@ -59,20 +40,15 @@ public final class DefaultEquipment implements Equipment {
         return getBaseItem().getName();
     }
 
-    @Override
-    public final Boolean hasFlag(final String name) {
-        return _getFlags().contains(name);
-    }
-
     private final Item getBaseItem() {
         return item;
     }
 
-    protected final Collection<String> _getFlags() {
+    private final Collection<String> getFlagsModifiable() {
         return flags;
     }
 
-    protected final Map<String, Integer> _getMiscelanyValues() {
+    private final Map<String, Integer> getMiscelanyValuesModifiable() {
         return values;
     }
 

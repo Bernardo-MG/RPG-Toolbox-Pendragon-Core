@@ -11,16 +11,6 @@ public final class TraitsBonusMarginStore extends AbstractStoreModule {
 
     private final ValueMarginController controller;
 
-    /**
-     * Basic constructor.
-     * 
-     * @param parent
-     *            the parent
-     * @param values
-     *            the values to be stored
-     * @param valueMargin
-     *            the value level for the checks
-     */
     public TraitsBonusMarginStore(
             final Collection<AbstractValueHandler> values,
             final Integer valueMargin) {

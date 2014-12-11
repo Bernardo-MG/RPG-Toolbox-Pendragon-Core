@@ -1,5 +1,10 @@
 package com.wandrell.tabletop.business.model.pendragon.inventory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
 
 public final class DefaultMoney implements Money {
@@ -7,16 +12,22 @@ public final class DefaultMoney implements Money {
     private final EditableValueHandler denarii;
     private final EditableValueHandler libra;
 
-    public DefaultMoney(final DefaultMoney data) {
+    public DefaultMoney(final DefaultMoney money) {
         super();
 
-        denarii = data.denarii.createNewInstance();
-        libra = data.libra.createNewInstance();
+        checkNotNull(money, "Received a null pointer as money");
+
+        denarii = money.denarii.createNewInstance();
+        libra = money.libra.createNewInstance();
     }
 
     public DefaultMoney(final EditableValueHandler denarii,
             final EditableValueHandler libra) {
         super();
+
+        checkNotNull(denarii, "Received a null pointer as denarii");
+        checkNotNull(libra, "Received a null pointer as libra");
+
         this.denarii = denarii;
         this.libra = libra;
     }
@@ -27,31 +38,16 @@ public final class DefaultMoney implements Money {
     }
 
     @Override
-    public final boolean equals(final Object obj) {
-        final DefaultMoney received;
-        boolean equals;
-
-        if (obj == this) {
-            equals = true;
-        } else if (obj == null) {
-            equals = false;
-        } else if (getClass() != obj.getClass()) {
-            equals = false;
-        } else {
-            received = (DefaultMoney) obj;
-            if (received.denarii == null) {
-                equals = (denarii == null);
-            } else {
-                equals = (received.denarii.equals(denarii));
-            }
-            if ((equals) && (received.libra == null)) {
-                equals = (libra == null);
-            } else if (equals) {
-                equals = (received.libra.equals(libra));
-            }
-        }
-
-        return equals;
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultMoney other = (DefaultMoney) obj;
+        return Objects.equals(denarii, other.denarii)
+                && Objects.equals(libra, other.libra);
     }
 
     @Override
@@ -66,14 +62,14 @@ public final class DefaultMoney implements Money {
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        return Objects.hash(denarii, libra);
+    }
 
-        result = prime * result + ((denarii == null) ? 0 : denarii.hashCode());
-
-        result = prime * result + ((libra == null) ? 0 : libra.hashCode());
-
-        return result;
+    @Override
+    public final String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("denarii", denarii.getValue())
+                .add("libra", libra.getValue()).toString();
     }
 
 }

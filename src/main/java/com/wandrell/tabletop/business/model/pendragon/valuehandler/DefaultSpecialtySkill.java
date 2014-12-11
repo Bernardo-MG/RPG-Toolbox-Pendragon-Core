@@ -1,10 +1,14 @@
 package com.wandrell.tabletop.business.model.pendragon.valuehandler;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
 import com.wandrell.tabletop.business.model.valuehandler.module.generator.GeneratorModule;
@@ -21,6 +25,8 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
     public DefaultSpecialtySkill(final DefaultSpecialtySkill skill) {
         super();
 
+        checkNotNull(skill, "Received a null pointer as skill");
+
         composite = skill.composite.createNewInstance();
 
         skills.addAll(skill.skills);
@@ -31,7 +37,14 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
             final AbstractEditableStoreModule store,
             final ValidatorModule validator, final Collection<String> skills) {
         super();
-        // TODO: This is dependant of DefaultValueHandler
+
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(generator, "Received a null pointer as generator");
+        checkNotNull(interval, "Received a null pointer as interval");
+        checkNotNull(store, "Received a null pointer as store");
+        checkNotNull(validator, "Received a null pointer as validator");
+        checkNotNull(skills, "Received a null pointer as skills");
+
         composite = new ModularEditableValueHandler(name, generator, interval,
                 store, validator);
 
@@ -65,6 +78,18 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
     }
 
     @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultSpecialtySkill other = (DefaultSpecialtySkill) obj;
+        return Objects.equals(composite, other.composite);
+    }
+
+    @Override
     public final Integer getLowerLimit() {
         return getValueHandler().getLowerLimit();
     }
@@ -76,7 +101,8 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
 
     @Override
     public final Collection<String> getSurrogatedSkills() {
-        return Collections.unmodifiableCollection(_getSurrogatedSkills());
+        return Collections
+                .unmodifiableCollection(getSurrogatedSkillsModifiable());
     }
 
     @Override
@@ -87,6 +113,11 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
     @Override
     public final Integer getValue() {
         return getValueHandler().getValue();
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(composite);
     }
 
     @Override
@@ -104,19 +135,10 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
         return getValueHandler().isAbleToIncrease();
     }
 
-    @Override
-    public final Boolean isSkillContained(final String name) {
-        return _getSurrogatedSkills().contains(name);
-    }
-
-    @Override
     public final void registerSkill(final Skill skill) {
-        // TODO: This may be better be done somewhere else
-        if (skill == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(skill, "Received a null pointer as skill");
 
-        if (isSkillContained(skill.getName())) {
+        if (getSurrogatedSkillsModifiable().contains(skill.getName())) {
             getValueHandler().setStore(new ProxyStore(getValueHandler()));
         }
     }
@@ -134,27 +156,26 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
 
     @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", getName())
+                .add("value", getValue()).toString();
+    }
+
+    private final Collection<String> getSurrogatedSkillsModifiable() {
+        return skills;
+    }
+
+    private final ModularEditableValueHandler getValueHandler() {
+        return composite;
     }
 
     private final void
             setSurrogatedSkillsNames(final Collection<String> skills) {
-        _getSurrogatedSkills().clear();
+        getSurrogatedSkillsModifiable().clear();
         for (final String skill : skills) {
-            if (skill == null) {
-                throw new NullPointerException();
-            }
+            checkNotNull(skill, "Received a null pointer as skill");
 
-            _getSurrogatedSkills().add(skill);
+            getSurrogatedSkillsModifiable().add(skill);
         }
-    }
-
-    protected final Collection<String> _getSurrogatedSkills() {
-        return skills;
-    }
-
-    protected final ModularEditableValueHandler getValueHandler() {
-        return composite;
     }
 
 }

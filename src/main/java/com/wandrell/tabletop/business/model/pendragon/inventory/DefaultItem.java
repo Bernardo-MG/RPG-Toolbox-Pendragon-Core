@@ -1,22 +1,20 @@
 package com.wandrell.tabletop.business.model.pendragon.inventory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public final class DefaultItem implements Item {
 
     private final String description;
     private final Money  money;
     private final String name;
 
-    public DefaultItem(final DefaultItem item) {
-        super();
-
-        name = item.name;
-        description = item.description;
-        money = item.money.createNewInstance();
-    }
-
     public DefaultItem(final String name, final String description,
             final Money money) {
         super();
+
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(description, "Received a null pointer as description");
+        checkNotNull(money, "Received a null pointer as money");
 
         this.name = name;
         this.description = description;

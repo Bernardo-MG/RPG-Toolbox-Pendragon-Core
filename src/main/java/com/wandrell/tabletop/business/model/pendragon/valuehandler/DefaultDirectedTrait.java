@@ -1,5 +1,10 @@
 package com.wandrell.tabletop.business.model.pendragon.valuehandler;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
@@ -12,14 +17,16 @@ public final class DefaultDirectedTrait implements DirectedTrait {
 
     private final ModularEditableValueHandler composite;
     private String                            descriptor = "";
-    private EditableValueHandler              trait;
+    private Trait                             trait;
 
-    public DefaultDirectedTrait(final DefaultDirectedTrait passion) {
+    public DefaultDirectedTrait(final DefaultDirectedTrait trait) {
         super();
 
-        composite = passion.composite.createNewInstance();
+        checkNotNull(trait, "Received a null pointer as trait");
 
-        descriptor = passion.descriptor;
+        composite = trait.composite.createNewInstance();
+
+        descriptor = trait.descriptor;
     }
 
     public DefaultDirectedTrait(final String name,
@@ -27,6 +34,13 @@ public final class DefaultDirectedTrait implements DirectedTrait {
             final AbstractEditableStoreModule store,
             final ValidatorModule validator) {
         super();
+
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(generator, "Received a null pointer as generator");
+        checkNotNull(interval, "Received a null pointer as interval");
+        checkNotNull(store, "Received a null pointer as store");
+        checkNotNull(validator, "Received a null pointer as validator");
+
         composite = new ModularEditableValueHandler(name, generator, interval,
                 store, validator);
     }
@@ -58,6 +72,20 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultDirectedTrait other = (DefaultDirectedTrait) obj;
+        return Objects.equals(composite, other.composite)
+                && Objects.equals(descriptor, other.descriptor)
+                && Objects.equals(trait, other.trait);
+    }
+
+    @Override
     public final String getDescriptor() {
         return descriptor;
     }
@@ -73,7 +101,7 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
-    public final EditableValueHandler getTrait() {
+    public final Trait getTrait() {
         return trait;
     }
 
@@ -85,6 +113,11 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     @Override
     public final Integer getValue() {
         return getValueHandler().getValue();
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(composite, descriptor, trait);
     }
 
     @Override
@@ -116,10 +149,8 @@ public final class DefaultDirectedTrait implements DirectedTrait {
         this.descriptor = descriptor;
     }
 
-    public final void setTrait(final EditableValueHandler trait) {
-        if (trait == null) {
-            throw new NullPointerException();
-        }
+    public final void setTrait(final Trait trait) {
+        checkNotNull(trait, "Received a null pointer as trait");
 
         this.trait = trait;
     }
@@ -131,10 +162,12 @@ public final class DefaultDirectedTrait implements DirectedTrait {
 
     @Override
     public final String toString() {
-        return String.format("%s (%s)", getName(), getDescriptor());
+        return MoreObjects.toStringHelper(this).add("name", getName())
+                .add("descriptor", getDescriptor()).add("value", getValue())
+                .toString();
     }
 
-    protected final EditableValueHandler getValueHandler() {
+    private final EditableValueHandler getValueHandler() {
         return composite;
     }
 

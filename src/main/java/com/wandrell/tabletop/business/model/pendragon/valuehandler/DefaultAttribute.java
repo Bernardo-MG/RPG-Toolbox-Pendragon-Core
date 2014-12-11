@@ -1,9 +1,13 @@
 package com.wandrell.tabletop.business.model.pendragon.valuehandler;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Objects;
 
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
@@ -14,11 +18,13 @@ import com.wandrell.tabletop.business.model.valuehandler.module.validator.Valida
 
 public final class DefaultAttribute implements Attribute {
 
-    private final Collection<EditableValueHandler> attributes = new LinkedList<>();
-    private final ModularEditableValueHandler      composite;
+    private final Collection<DerivedAttribute> attributes = new LinkedList<>();
+    private final ModularEditableValueHandler  composite;
 
     public DefaultAttribute(final DefaultAttribute attribute) {
         super();
+
+        checkNotNull(attribute, "Received a null pointer as attribute");
 
         composite = attribute.composite.createNewInstance();
     }
@@ -28,6 +34,13 @@ public final class DefaultAttribute implements Attribute {
             final AbstractEditableStoreModule store,
             final ValidatorModule validator) {
         super();
+
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(generator, "Received a null pointer as generator");
+        checkNotNull(interval, "Received a null pointer as interval");
+        checkNotNull(store, "Received a null pointer as store");
+        checkNotNull(validator, "Received a null pointer as validator");
+
         composite = new ModularEditableValueHandler(name, generator, interval,
                 store, validator);
     }
@@ -59,8 +72,21 @@ public final class DefaultAttribute implements Attribute {
     }
 
     @Override
-    public final Collection<EditableValueHandler> getDerivedAttributes() {
-        return Collections.unmodifiableCollection(_getDerivedAttributes());
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultAttribute other = (DefaultAttribute) obj;
+        return Objects.equals(composite, other.composite);
+    }
+
+    @Override
+    public final Collection<DerivedAttribute> getDerivedAttributes() {
+        return Collections
+                .unmodifiableCollection(getDerivedAttributesModifiable());
     }
 
     @Override
@@ -81,6 +107,11 @@ public final class DefaultAttribute implements Attribute {
     @Override
     public final Integer getValue() {
         return getValueHandler().getValue();
+    }
+
+    @Override
+    public final int hashCode() {
+        return getValueHandler().hashCode();
     }
 
     @Override
@@ -105,14 +136,12 @@ public final class DefaultAttribute implements Attribute {
     }
 
     public final void setDerivedAttributes(
-            final Collection<EditableValueHandler> attributes) {
-        _getDerivedAttributes().clear();
-        for (final EditableValueHandler attribute : attributes) {
-            if (attribute == null) {
-                throw new NullPointerException();
-            }
+            final Collection<DerivedAttribute> attributes) {
+        getDerivedAttributesModifiable().clear();
+        for (final DerivedAttribute attribute : attributes) {
+            checkNotNull(attribute, "Received a null pointer as attribute");
 
-            _getDerivedAttributes().add(attribute);
+            getDerivedAttributesModifiable().add(attribute);
         }
     }
 
@@ -123,14 +152,15 @@ public final class DefaultAttribute implements Attribute {
 
     @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", getName())
+                .add("value", getValue()).toString();
     }
 
-    protected final Collection<EditableValueHandler> _getDerivedAttributes() {
+    private final Collection<DerivedAttribute> getDerivedAttributesModifiable() {
         return attributes;
     }
 
-    protected final EditableValueHandler getValueHandler() {
+    private final EditableValueHandler getValueHandler() {
         return composite;
     }
 

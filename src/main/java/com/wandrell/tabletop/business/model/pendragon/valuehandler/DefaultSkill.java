@@ -1,5 +1,10 @@
 package com.wandrell.tabletop.business.model.pendragon.valuehandler;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
@@ -21,6 +26,8 @@ public final class DefaultSkill implements Skill {
     public DefaultSkill(final DefaultSkill skill) {
         super();
 
+        checkNotNull(skill, "Received a null pointer as skill");
+
         composite = skill.composite.createNewInstance();
 
         descriptor = skill.descriptor;
@@ -40,7 +47,19 @@ public final class DefaultSkill implements Skill {
             final Boolean knightlySkill, final Boolean knowledgeSkill,
             final Boolean courtlySkill, final Boolean repeteable) {
         super();
-        // TODO: This is dependant of DefaultValueHandler
+
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(generator, "Received a null pointer as generator");
+        checkNotNull(interval, "Received a null pointer as interval");
+        checkNotNull(store, "Received a null pointer as store");
+        checkNotNull(validator, "Received a null pointer as validator");
+        checkNotNull(combatSkill, "Received a null pointer as combat flag");
+        checkNotNull(knightlySkill, "Received a null pointer as knightly flag");
+        checkNotNull(knowledgeSkill,
+                "Received a null pointer as knowledge flag");
+        checkNotNull(courtlySkill, "Received a null pointer as courtly flag");
+        checkNotNull(repeteable, "Received a null pointer as repeteable flag");
+
         composite = new ModularEditableValueHandler(name, generator, interval,
                 store, validator);
 
@@ -79,6 +98,19 @@ public final class DefaultSkill implements Skill {
     }
 
     @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultSkill other = (DefaultSkill) obj;
+        return Objects.equals(composite, other.composite)
+                && Objects.equals(descriptor, other.descriptor);
+    }
+
+    @Override
     public final String getDescriptor() {
         return descriptor;
     }
@@ -101,6 +133,11 @@ public final class DefaultSkill implements Skill {
     @Override
     public final Integer getValue() {
         return getValueHandler().getValue();
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(composite, descriptor);
     }
 
     @Override
@@ -150,9 +187,7 @@ public final class DefaultSkill implements Skill {
     }
 
     public final void setDescriptor(final String descriptor) {
-        if (descriptor == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(descriptor, "Received a null pointer as descriptor");
 
         this.descriptor = descriptor;
     }
@@ -164,20 +199,12 @@ public final class DefaultSkill implements Skill {
 
     @Override
     public final String toString() {
-        final String template;
-        final String result;
-
-        if (isRepeatable()) {
-            template = "%s (%s)";
-            result = String.format(template, getName(), getDescriptor());
-        } else {
-            result = getName();
-        }
-
-        return result;
+        return MoreObjects.toStringHelper(this).add("name", getName())
+                .add("descriptor", getDescriptor()).add("value", getValue())
+                .toString();
     }
 
-    protected final EditableValueHandler getValueHandler() {
+    private final EditableValueHandler getValueHandler() {
         return composite;
     }
 

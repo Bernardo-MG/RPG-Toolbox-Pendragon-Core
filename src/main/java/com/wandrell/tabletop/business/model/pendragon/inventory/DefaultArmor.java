@@ -1,42 +1,34 @@
 package com.wandrell.tabletop.business.model.pendragon.inventory;
 
-import java.util.Collection;
-import java.util.Map;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public final class DefaultArmor implements Armor {
 
+    private final Boolean   heavyLoad;
     private final Equipment item;
+    private final ArmorType type;
 
-    public DefaultArmor(final DefaultArmor armor) {
+    public DefaultArmor(final Equipment item, final ArmorType type,
+            final Boolean heavyLoad) {
         super();
 
-        item = armor.item;
-    }
-
-    public DefaultArmor(final Equipment item) {
-        super();
+        checkNotNull(item, "Received a null pointer as item");
+        checkNotNull(type, "Received a null pointer as armor type");
+        checkNotNull(heavyLoad, "Received a null pointer as heavy load flag");
 
         this.item = item;
+        this.type = type;
+        this.heavyLoad = heavyLoad;
+    }
+
+    @Override
+    public final ArmorType getArmorType() {
+        return type;
     }
 
     @Override
     public final String getDescription() {
         return getBaseItem().getDescription();
-    }
-
-    @Override
-    public final Boolean getFlag(final String name) {
-        return getBaseItem().getFlag(name);
-    }
-
-    @Override
-    public final Collection<String> getFlags() {
-        return getBaseItem().getFlags();
-    }
-
-    @Override
-    public final Map<String, Integer> getMiscelanyValues() {
-        return getBaseItem().getMiscelanyValues();
     }
 
     @Override
@@ -50,8 +42,8 @@ public final class DefaultArmor implements Armor {
     }
 
     @Override
-    public final Boolean hasFlag(final String name) {
-        return getBaseItem().hasFlag(name);
+    public final Boolean isHeavyLoad() {
+        return heavyLoad;
     }
 
     private final Equipment getBaseItem() {

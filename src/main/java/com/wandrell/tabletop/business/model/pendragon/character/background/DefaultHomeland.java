@@ -1,21 +1,18 @@
 package com.wandrell.tabletop.business.model.pendragon.character.background;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 public final class DefaultHomeland implements Homeland {
 
     private final String name;
 
-    public DefaultHomeland(final DefaultHomeland homeland) {
-        super();
-
-        name = homeland.name;
-    }
-
     public DefaultHomeland(final String name) {
         super();
 
-        if (name == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(name, "Received a null pointer as name");
 
         this.name = name;
     }
@@ -29,12 +26,7 @@ public final class DefaultHomeland implements Homeland {
         if (getClass() != obj.getClass())
             return false;
         DefaultHomeland other = (DefaultHomeland) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+        return Objects.equal(name, other.name);
     }
 
     @Override
@@ -44,15 +36,12 @@ public final class DefaultHomeland implements Homeland {
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+        return Objects.hashCode(name);
     }
 
     @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

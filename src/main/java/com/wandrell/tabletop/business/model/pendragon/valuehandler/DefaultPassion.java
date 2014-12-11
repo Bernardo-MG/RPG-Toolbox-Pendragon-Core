@@ -1,5 +1,10 @@
 package com.wandrell.tabletop.business.model.pendragon.valuehandler;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
@@ -16,6 +21,8 @@ public final class DefaultPassion implements Passion {
     public DefaultPassion(final DefaultPassion passion) {
         super();
 
+        checkNotNull(passion, "Received a null pointer as passion");
+
         composite = passion.composite.createNewInstance();
 
         descriptor = passion.descriptor;
@@ -26,6 +33,13 @@ public final class DefaultPassion implements Passion {
             final AbstractEditableStoreModule store,
             final ValidatorModule validator) {
         super();
+
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(generator, "Received a null pointer as generator");
+        checkNotNull(interval, "Received a null pointer as interval");
+        checkNotNull(store, "Received a null pointer as store");
+        checkNotNull(validator, "Received a null pointer as validator");
+
         composite = new ModularEditableValueHandler(name, generator, interval,
                 store, validator);
     }
@@ -57,6 +71,19 @@ public final class DefaultPassion implements Passion {
     }
 
     @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultPassion other = (DefaultPassion) obj;
+        return Objects.equals(composite, other.composite)
+                && Objects.equals(descriptor, other.descriptor);
+    }
+
+    @Override
     public final String getDescriptor() {
         return descriptor;
     }
@@ -82,6 +109,11 @@ public final class DefaultPassion implements Passion {
     }
 
     @Override
+    public final int hashCode() {
+        return Objects.hash(composite, descriptor);
+    }
+
+    @Override
     public final void increaseValue() {
         getValueHandler().increaseValue();
     }
@@ -103,28 +135,24 @@ public final class DefaultPassion implements Passion {
     }
 
     public final void setDescriptor(final String descriptor) {
-        if (descriptor == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(descriptor, "Received a null pointer as descriptor");
 
         this.descriptor = descriptor;
     }
 
     @Override
     public final void setValue(final Integer value) {
-        if (value == null) {
-            throw new NullPointerException();
-        }
-
         getValueHandler().setValue(value);
     }
 
     @Override
     public final String toString() {
-        return String.format("%s (%s)", getName(), getDescriptor());
+        return MoreObjects.toStringHelper(this).add("name", getName())
+                .add("descriptor", getDescriptor()).add("value", getValue())
+                .toString();
     }
 
-    protected final EditableValueHandler getValueHandler() {
+    private final EditableValueHandler getValueHandler() {
         return composite;
     }
 

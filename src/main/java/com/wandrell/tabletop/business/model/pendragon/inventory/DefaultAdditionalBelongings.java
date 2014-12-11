@@ -1,74 +1,70 @@
 package com.wandrell.tabletop.business.model.pendragon.inventory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Collections;
 
 import com.wandrell.tabletop.business.model.dice.Dice;
+import com.wandrell.tabletop.business.model.dice.RollTable;
+import com.wandrell.tabletop.business.model.pendragon.character.HorseCharacter;
+import com.wandrell.tabletop.business.model.pendragon.manor.Pet;
 
 public final class DefaultAdditionalBelongings implements AdditionalBelongings {
 
-    private final Collection<String> equipableItemsFiles;
-    private final String             fileTable;
-    private final Boolean            hasToChoose;
-    private final Collection<String> horsesFiles;
-    private final Money              money;
-    private final String             nameMoney;
-    private final Collection<String> petsFiles;
-    private final Collection<Dice>   rerolls;
-    private final Collection<String> shieldsFiles;
-    private final Collection<String> weaponsFiles;
+    private final Collection<Equipment>      equipment;
+    private final Boolean                    hasToChoose;
+    private final Collection<HorseCharacter> horses;
+    private final Money                      money;
+    private final String                     nameMoney;
+    private final Collection<Pet>            pets;
+    private final Collection<Dice>           rerolls;
+    private final Collection<Shield>         shields;
+    private final RollTable<?>               table;
+    private final Collection<Weapon>         weapons;
 
-    public DefaultAdditionalBelongings(
-            final Collection<String> equipableItemsFiles,
-            final String fileTable, final Boolean hasToChoose,
-            final Collection<String> horsesFiles, final Money money,
-            final String nameMoney, final Collection<String> petsFiles,
-            final Collection<Dice> rerolls,
-            final Collection<String> shieldsFiles,
-            final Collection<String> weaponsFiles) {
+    public DefaultAdditionalBelongings(final Boolean hasToChoose,
+            final Money money, final String nameMoney,
+            final RollTable<?> table, final Collection<Dice> rerolls,
+            final Collection<Equipment> equipment,
+            final Collection<HorseCharacter> horses,
+            final Collection<Pet> pets, final Collection<Shield> shields,
+            final Collection<Weapon> weapons) {
         super();
 
-        // TODO: Check nulls
+        checkNotNull(hasToChoose, "Received a null pointer as choose flag");
+        checkNotNull(money, "Received a null pointer as money");
+        checkNotNull(nameMoney, "Received a null pointer as money name");
+        checkNotNull(table, "Received a null pointer as table");
+        checkNotNull(rerolls, "Received a null pointer as re-rolls");
+        checkNotNull(equipment, "Received a null pointer as equipment");
+        checkNotNull(horses, "Received a null pointer as horses");
+        checkNotNull(pets, "Received a null pointer as pets");
+        checkNotNull(shields, "Received a null pointer as shields");
+        checkNotNull(weapons, "Received a null pointer as weapons");
 
-        this.equipableItemsFiles = equipableItemsFiles;
-        this.fileTable = fileTable;
         this.hasToChoose = hasToChoose;
-        this.horsesFiles = horsesFiles;
         this.money = money;
         this.nameMoney = nameMoney;
-        this.petsFiles = petsFiles;
         this.rerolls = rerolls;
-        this.shieldsFiles = shieldsFiles;
-        this.weaponsFiles = weaponsFiles;
-    }
 
-    public DefaultAdditionalBelongings(final DefaultAdditionalBelongings itemSet) {
-        super();
+        this.table = table;
 
-        fileTable = itemSet.fileTable;
-
-        hasToChoose = itemSet.hasToChoose;
-
-        nameMoney = itemSet.nameMoney;
-
-        money = itemSet.money.createNewInstance();
-
-        rerolls = itemSet.rerolls;
-        equipableItemsFiles = itemSet.equipableItemsFiles;
-        weaponsFiles = itemSet.weaponsFiles;
-        horsesFiles = itemSet.horsesFiles;
-        shieldsFiles = itemSet.shieldsFiles;
-        petsFiles = itemSet.petsFiles;
+        this.equipment = equipment;
+        this.horses = horses;
+        this.pets = pets;
+        this.shields = shields;
+        this.weapons = weapons;
     }
 
     @Override
-    public final Collection<String> getEquipableItemsFiles() {
-        return Collections.unmodifiableCollection(_getEquipableItemsFiles());
+    public final Collection<Equipment> getEquipment() {
+        return Collections.unmodifiableCollection(getEquipmentModifiable());
     }
 
     @Override
-    public final Collection<String> getHorsesFiles() {
-        return Collections.unmodifiableCollection(_getHorsesFiles());
+    public final Collection<HorseCharacter> getHorses() {
+        return Collections.unmodifiableCollection(getHorsesModifiable());
     }
 
     @Override
@@ -82,28 +78,28 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     }
 
     @Override
-    public final Collection<String> getPetsFiles() {
-        return Collections.unmodifiableCollection(_getPetsFiles());
+    public final Collection<Pet> getPets() {
+        return Collections.unmodifiableCollection(getPetsModifiable());
     }
 
     @Override
     public final Collection<Dice> getRerolls() {
-        return Collections.unmodifiableCollection(_getRerolls());
+        return Collections.unmodifiableCollection(getRerollsModifiable());
     }
 
     @Override
-    public final Collection<String> getShieldsFiles() {
-        return Collections.unmodifiableCollection(_getShieldsFiles());
+    public final Collection<Shield> getShields() {
+        return Collections.unmodifiableCollection(getShieldsModifiable());
     }
 
     @Override
-    public final String getTableFile() {
-        return fileTable;
+    public final RollTable<?> getTable() {
+        return table;
     }
 
     @Override
-    public final Collection<String> getWeaponsFiles() {
-        return Collections.unmodifiableCollection(_getWeaponsFiles());
+    public final Collection<Weapon> getWeapons() {
+        return Collections.unmodifiableCollection(getWeaponsModifiable());
     }
 
     @Override
@@ -111,28 +107,28 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
         return hasToChoose;
     }
 
-    protected final Collection<String> _getEquipableItemsFiles() {
-        return equipableItemsFiles;
+    private final Collection<Equipment> getEquipmentModifiable() {
+        return equipment;
     }
 
-    protected final Collection<String> _getHorsesFiles() {
-        return horsesFiles;
+    private final Collection<HorseCharacter> getHorsesModifiable() {
+        return horses;
     }
 
-    protected final Collection<String> _getPetsFiles() {
-        return petsFiles;
+    private final Collection<Pet> getPetsModifiable() {
+        return pets;
     }
 
-    protected final Collection<Dice> _getRerolls() {
+    private final Collection<Dice> getRerollsModifiable() {
         return rerolls;
     }
 
-    protected final Collection<String> _getShieldsFiles() {
-        return shieldsFiles;
+    private final Collection<Shield> getShieldsModifiable() {
+        return shields;
     }
 
-    protected final Collection<String> _getWeaponsFiles() {
-        return weaponsFiles;
+    private final Collection<Weapon> getWeaponsModifiable() {
+        return weapons;
     }
 
 }

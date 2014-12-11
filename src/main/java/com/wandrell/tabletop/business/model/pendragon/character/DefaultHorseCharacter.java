@@ -1,47 +1,58 @@
 package com.wandrell.tabletop.business.model.pendragon.character;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Map.Entry;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.wandrell.tabletop.business.model.pendragon.valuehandler.Attribute;
-import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
+import com.wandrell.tabletop.business.model.pendragon.valuehandler.DerivedAttribute;
+import com.wandrell.tabletop.business.model.valuehandler.ValueHandler;
 
-public final class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
-        implements HorseCharacter {
+public final class DefaultHorseCharacter implements HorseCharacter {
 
-    private final Collection<String>                flags               = new LinkedHashSet<String>();
-    private final Map<String, EditableValueHandler> secondaryAttributes = new LinkedHashMap<>();
-    private String                                  type                = "";
-
-    public DefaultHorseCharacter(final Collection<Attribute> attributes) {
-        super(attributes);
-    }
+    private final Boolean                armored;
+    private final PendragonBaseCharacter baseCharacter;
+    private final Boolean                combat;
+    private final Boolean                hunting;
+    private final ValueHandler           naturalArmor;
+    private Boolean                      ruined;
+    private final String                 type;
 
     public DefaultHorseCharacter(final DefaultHorseCharacter horse) {
-        super(horse);
+        super();
 
-        for (final Entry<String, EditableValueHandler> entry : horse.secondaryAttributes
-                .entrySet()) {
-            secondaryAttributes.put(entry.getKey(), entry.getValue()
-                    .createNewInstance());
-        }
+        checkNotNull(horse, "Received a null pointer as horse");
+
+        baseCharacter = horse.baseCharacter.createNewInstance();
 
         type = horse.type;
-        flags.addAll(horse.flags);
+
+        naturalArmor = horse.naturalArmor.createNewInstance();
+
+        combat = horse.combat;
+        hunting = horse.hunting;
+        armored = horse.armored;
     }
 
-    @Override
-    public final void
-            addSecondaryAttribute(final EditableValueHandler attribute) {
-        if (attribute == null) {
-            throw new NullPointerException();
-        }
+    public DefaultHorseCharacter(final PendragonBaseCharacter character,
+            final String type, final ValueHandler naturalArmor,
+            final Boolean combat, final Boolean hunting, final Boolean armored) {
+        super();
 
-        _getSecondaryAttributes().put(attribute.getName(), attribute);
+        checkNotNull(character, "Received a null pointer as base character");
+        checkNotNull(type, "Received a null pointer as type");
+        checkNotNull(naturalArmor, "Received a null pointer as natural armor");
+        checkNotNull(combat, "Received a null pointer as combat flag");
+        checkNotNull(hunting, "Received a null pointer as hunting flag");
+        checkNotNull(armored, "Received a null pointer as armored flag");
+
+        baseCharacter = character;
+
+        this.type = type;
+
+        this.naturalArmor = naturalArmor;
+
+        this.combat = combat;
+        this.hunting = hunting;
+        this.armored = armored;
     }
 
     @Override
@@ -50,13 +61,33 @@ public final class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
     }
 
     @Override
-    public final Boolean getFlag(final String flag) {
-        return _getFlags().contains(flag);
+    public final Attribute getConstitution() {
+        return getBaseCharacter().getConstitution();
     }
 
     @Override
-    public final Collection<String> getFlags() {
-        return Collections.unmodifiableCollection(_getFlags());
+    public final DerivedAttribute getDamage() {
+        return getBaseCharacter().getDamage();
+    }
+
+    @Override
+    public final Attribute getDexterity() {
+        return getBaseCharacter().getConstitution();
+    }
+
+    @Override
+    public final DerivedAttribute getDexterityRoll() {
+        return getBaseCharacter().getDexterityRoll();
+    }
+
+    @Override
+    public final DerivedAttribute getHealingRate() {
+        return getBaseCharacter().getHealingRate();
+    }
+
+    @Override
+    public final DerivedAttribute getHitPoints() {
+        return getBaseCharacter().getHitPoints();
     }
 
     @Override
@@ -65,75 +96,72 @@ public final class DefaultHorseCharacter extends AbstractPendragonBaseCharacter
     }
 
     @Override
-    public final EditableValueHandler getSecondaryAttribute(final String name) {
-        return _getSecondaryAttributes().get(name);
+    public final DerivedAttribute getMajorWoundTreshold() {
+        return getBaseCharacter().getMajorWoundTreshold();
     }
 
     @Override
-    public final Collection<EditableValueHandler> getSecondaryAttributes() {
-        return Collections.unmodifiableCollection(_getSecondaryAttributes()
-                .values());
+    public final DerivedAttribute getMovementRate() {
+        return getBaseCharacter().getMovementRate();
     }
 
     @Override
-    public final Boolean hasFlag(final String name) {
-        return _getFlags().contains(name);
+    public final String getName() {
+        return getBaseCharacter().getName();
     }
 
     @Override
-    public final Boolean hasSecondaryAttribute(final String name) {
-        return _getSecondaryAttributes().containsKey(name);
+    public final ValueHandler getNaturalArmor() {
+        return naturalArmor;
     }
 
-    public final void setFlag(final String name, final Boolean value) {
-        if (name == null) {
-            throw new NullPointerException();
-        }
-
-        if (value == null) {
-            throw new NullPointerException();
-        }
-
-        if ((hasFlag(name)) && (!value)) {
-            _getFlags().remove(name);
-        } else if (value) {
-            _getFlags().add(name);
-        }
+    @Override
+    public final Attribute getSize() {
+        return getBaseCharacter().getSize();
     }
 
-    public final void setFlags(final Collection<String> flags) {
-        _getFlags().clear();
-        for (final String flag : flags) {
-            if (flag == null) {
-                throw new NullPointerException();
-            }
-
-            _getFlags().add(flag);
-        }
+    @Override
+    public final Attribute getStrength() {
+        return getBaseCharacter().getStrength();
     }
 
-    public final void setHorseType(final String type) {
-        if (type == null) {
-            throw new NullPointerException();
-        }
-
-        this.type = type;
+    @Override
+    public final DerivedAttribute getUnconsciousTreshold() {
+        return getBaseCharacter().getUnconsciousTreshold();
     }
 
-    public final void setSecondaryAttributes(
-            final Collection<EditableValueHandler> attributes) {
-        _getSecondaryAttributes().clear();
-        for (final EditableValueHandler attribute : attributes) {
-            addSecondaryAttribute(attribute);
-        }
+    @Override
+    public final DerivedAttribute getWeight() {
+        return getBaseCharacter().getWeight();
     }
 
-    protected final Collection<String> _getFlags() {
-        return flags;
+    @Override
+    public final Boolean isArmored() {
+        return armored;
     }
 
-    protected final Map<String, EditableValueHandler> _getSecondaryAttributes() {
-        return secondaryAttributes;
+    @Override
+    public final Boolean isCombatHorse() {
+        return combat;
+    }
+
+    @Override
+    public final Boolean isHuntingHorse() {
+        return hunting;
+    }
+
+    @Override
+    public final Boolean isRuined() {
+        return ruined;
+    }
+
+    @Override
+    public final void setRuined(final Boolean ruined) {
+        this.ruined = ruined;
+    }
+
+    private final PendragonBaseCharacter getBaseCharacter() {
+        return baseCharacter;
     }
 
 }

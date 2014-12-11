@@ -1,5 +1,10 @@
 package com.wandrell.tabletop.business.model.pendragon.valuehandler;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
@@ -11,14 +16,17 @@ import com.wandrell.tabletop.business.model.valuehandler.module.validator.Valida
 public final class DefaultTrait implements Trait {
 
     private final ModularEditableValueHandler composite;
-    private final boolean                     goodTrait;
+    private final Boolean                     goodTrait;
     private Trait                             traitMirror;
 
-    public DefaultTrait(final DefaultTrait vh) {
+    public DefaultTrait(final DefaultTrait trait) {
         super();
-        composite = vh.composite.createNewInstance();
 
-        goodTrait = vh.goodTrait;
+        checkNotNull(trait, "Received a null pointer as trait");
+
+        composite = trait.composite.createNewInstance();
+
+        goodTrait = trait.goodTrait;
     }
 
     public DefaultTrait(final String name, final GeneratorModule generator,
@@ -26,6 +34,13 @@ public final class DefaultTrait implements Trait {
             final AbstractEditableStoreModule store,
             final ValidatorModule validator, final boolean goodTrait) {
         super();
+
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(generator, "Received a null pointer as generator");
+        checkNotNull(interval, "Received a null pointer as interval");
+        checkNotNull(store, "Received a null pointer as store");
+        checkNotNull(validator, "Received a null pointer as validator");
+        checkNotNull(goodTrait, "Received a null pointer as good trait flag");
 
         composite = new ModularEditableValueHandler(name, generator, interval,
                 store, validator);
@@ -60,6 +75,18 @@ public final class DefaultTrait implements Trait {
     }
 
     @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultTrait other = (DefaultTrait) obj;
+        return Objects.equals(composite, other.composite);
+    }
+
+    @Override
     public final Integer getLowerLimit() {
         return getValueHandler().getLowerLimit();
     }
@@ -82,6 +109,11 @@ public final class DefaultTrait implements Trait {
     @Override
     public final Integer getValue() {
         return getValueHandler().getValue();
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(composite);
     }
 
     @Override
@@ -121,7 +153,8 @@ public final class DefaultTrait implements Trait {
 
     @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", getName())
+                .add("value", getValue()).add("good", goodTrait).toString();
     }
 
     protected final EditableValueHandler getValueHandler() {

@@ -1,36 +1,32 @@
 package com.wandrell.tabletop.business.model.pendragon.character.follower;
 
-import com.wandrell.tabletop.business.model.pendragon.character.PendragonBaseCharacter;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 
 public final class DefaultFollower implements Follower {
 
-    private final String fileCharacter;
     private final String job;
+    private final String name;
 
-    public DefaultFollower(final DefaultFollower data) {
+    public DefaultFollower(final DefaultFollower follower) {
         super();
 
-        fileCharacter = data.fileCharacter;
-        job = data.job;
+        checkNotNull(follower, "Received a null pointer as follower");
+
+        name = follower.name;
+        job = follower.job;
     }
 
-    public DefaultFollower(final String file, final String job,
-            final PendragonBaseCharacter characterData) {
+    public DefaultFollower(final String name, final String job) {
         super();
 
-        if (file == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(job, "Received a null pointer as job");
 
-        if (job == null) {
-            throw new NullPointerException();
-        }
-
-        if (characterData == null) {
-            throw new NullPointerException();
-        }
-
-        this.fileCharacter = file;
+        this.name = name;
         this.job = job;
     }
 
@@ -43,17 +39,7 @@ public final class DefaultFollower implements Follower {
         if (getClass() != obj.getClass())
             return false;
         DefaultFollower other = (DefaultFollower) obj;
-        if (fileCharacter == null) {
-            if (other.fileCharacter != null)
-                return false;
-        } else if (!fileCharacter.equals(other.fileCharacter))
-            return false;
-        return true;
-    }
-
-    @Override
-    public final String getFile() {
-        return fileCharacter;
+        return Objects.equals(name, other.name);
     }
 
     @Override
@@ -62,23 +48,18 @@ public final class DefaultFollower implements Follower {
     }
 
     @Override
+    public final String getName() {
+        return name;
+    }
+
+    @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result
-                + ((fileCharacter == null) ? 0 : fileCharacter.hashCode());
-        return result;
+        return Objects.hashCode(name);
     }
 
     @Override
     public final String toString() {
-        return getFile();
-    }
-
-    protected final void loadCharacter() {
-        // setCharacterData(new
-        // PlayerCharacterFileStreamer<DefaultPendragonPlayerCharacter>(
-        // getFile()).read());
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

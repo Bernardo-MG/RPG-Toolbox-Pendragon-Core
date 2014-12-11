@@ -7,8 +7,7 @@ import java.util.Map.Entry;
 
 import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
 
-public final class DefaultTraitsBonusSwitchsData implements
-        TraitsBonusSwitchsData {
+public final class DefaultTraitsBonusSwitchsData {
 
     private final Map<String, EditableValueHandler> storeTraitsBonusSwitchs = new LinkedHashMap<>();
 
@@ -26,7 +25,6 @@ public final class DefaultTraitsBonusSwitchsData implements
         }
     }
 
-    @Override
     public final DefaultTraitsBonusSwitchsData createNewInstance() {
         return new DefaultTraitsBonusSwitchsData(this);
     }
@@ -55,12 +53,10 @@ public final class DefaultTraitsBonusSwitchsData implements
         return equals;
     }
 
-    @Override
     public final EditableValueHandler getBonusSwitch(final String name) {
         return getBonusSwitchsStore().get(name);
     }
 
-    @Override
     public final Boolean hasBonusSwitch(final String name) {
         return getBonusSwitchsStore().containsKey(name);
     }

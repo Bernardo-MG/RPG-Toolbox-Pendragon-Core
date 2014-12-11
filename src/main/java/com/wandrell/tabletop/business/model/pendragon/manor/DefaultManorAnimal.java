@@ -1,22 +1,23 @@
 package com.wandrell.tabletop.business.model.pendragon.manor;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.dice.RollTable;
 
-public final class DefaultManorAnimal implements ManorAnimal {
+public final class DefaultManorAnimal implements Pet {
 
     private final String                      name;
     private final RollTable<AnimalYearResult> rolltable;
 
-    public DefaultManorAnimal(final DefaultManorAnimal animal) {
-        super();
-
-        name = animal.name;
-        rolltable = animal.rolltable;
-    }
-
     public DefaultManorAnimal(final String name,
             final RollTable<AnimalYearResult> rolltable) {
         super();
+
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(rolltable, "Received a null pointer as roll table");
 
         this.name = name;
 
@@ -32,12 +33,7 @@ public final class DefaultManorAnimal implements ManorAnimal {
         if (getClass() != obj.getClass())
             return false;
         DefaultManorAnimal other = (DefaultManorAnimal) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+        return Objects.equals(name, other.name);
     }
 
     @Override
@@ -52,15 +48,12 @@ public final class DefaultManorAnimal implements ManorAnimal {
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+        return Objects.hashCode(name);
     }
 
     @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

@@ -1,58 +1,37 @@
 package com.wandrell.tabletop.business.model.pendragon.character.background;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
+import java.util.Objects;
 
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
 
 public final class DefaultFatherClass implements FatherClass {
 
-    private final Money                money;
-    private final String               name;
-    private final Collection<String>   skillsGroup;
-    private final Integer              skillsGroupPoints;
-    private final Map<String, Integer> skillsPoints;
-
-    public DefaultFatherClass(final DefaultFatherClass data) {
-        super();
-
-        name = data.name;
-
-        skillsGroup = data.skillsGroup;
-
-        skillsPoints = data.skillsPoints;
-
-        money = data.money.createNewInstance();
-
-        skillsGroupPoints = data.skillsGroupPoints;
-    }
+    private final Money              money;
+    private final String             name;
+    private final Collection<String> skillsGroup;
+    private final Integer            skillsGroupPoints;
+    private final Integer            skillsNonCombatPoints;
+    private final Integer            skillsPoints;
 
     public DefaultFatherClass(final String name,
             final Integer skillsGroupPoints,
-            final Collection<String> skillsGroup,
-            final Map<String, Integer> skillsPoints, final Money money) {
+            final Collection<String> skillsGroup, final Integer skillsPoints,
+            final Integer skillsNonCombatPoints, final Money money) {
         super();
 
-        if (name == null) {
-            throw new NullPointerException();
-        }
-
-        if (money == null) {
-            throw new NullPointerException();
-        }
-
-        if (skillsGroupPoints == null) {
-            throw new NullPointerException();
-        }
-
-        if (skillsGroup == null) {
-            throw new NullPointerException();
-        }
-
-        if (skillsPoints == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(skillsGroupPoints,
+                "Received a null pointer as skills group points");
+        checkNotNull(skillsGroup, "Received a null pointer as skills group");
+        checkNotNull(skillsPoints, "Received a null pointer as skills points");
+        checkNotNull(skillsNonCombatPoints,
+                "Received a null pointer as non combat skills points");
+        checkNotNull(money, "Received a null pointer as money");
 
         this.name = name;
 
@@ -63,6 +42,8 @@ public final class DefaultFatherClass implements FatherClass {
         this.skillsGroup = skillsGroup;
 
         this.skillsPoints = skillsPoints;
+
+        this.skillsNonCombatPoints = skillsNonCombatPoints;
     }
 
     @Override
@@ -74,12 +55,7 @@ public final class DefaultFatherClass implements FatherClass {
         if (getClass() != obj.getClass())
             return false;
         DefaultFatherClass other = (DefaultFatherClass) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+        return Objects.equals(name, other.name);
     }
 
     @Override
@@ -93,8 +69,13 @@ public final class DefaultFatherClass implements FatherClass {
     }
 
     @Override
+    public final Integer getNonCombatSkillsPoints() {
+        return skillsNonCombatPoints;
+    }
+
+    @Override
     public final Collection<String> getSkillsGroup() {
-        return Collections.unmodifiableCollection(_getSkillsGroup());
+        return Collections.unmodifiableCollection(getSkillsGroupModifiable());
     }
 
     @Override
@@ -103,39 +84,22 @@ public final class DefaultFatherClass implements FatherClass {
     }
 
     @Override
-    public final Map<String, Integer> getSkillsPoints() {
-        return Collections.unmodifiableMap(_getSkillsPoints());
-    }
-
-    @Override
-    public final Integer getSkillsPoints(final String name) {
-        return _getSkillsPoints().get(name);
+    public final Integer getSkillsPoints() {
+        return skillsPoints;
     }
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
-    }
-
-    @Override
-    public final Boolean hasSkillsPoints(final String name) {
-        return _getSkillsPoints().containsKey(name);
+        return Objects.hashCode(name);
     }
 
     @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    protected final Collection<String> _getSkillsGroup() {
+    private final Collection<String> getSkillsGroupModifiable() {
         return skillsGroup;
-    }
-
-    protected final Map<String, Integer> _getSkillsPoints() {
-        return skillsPoints;
     }
 
 }

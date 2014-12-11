@@ -1,42 +1,40 @@
 package com.wandrell.tabletop.business.model.pendragon.character.follower;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 
 public final class DefaultWife implements Wife {
 
-    private final List<Child> children;
-    private final String      fileCharacter;
-    private final Integer     yearWed;
+    private final Collection<Child> children;
+    private final String            name;
+    private final Integer           yearWed;
 
     public DefaultWife(final DefaultWife wife) {
         super();
+
+        checkNotNull(wife, "Received a null pointer as wife");
 
         children = wife.children;
 
         yearWed = wife.yearWed;
 
-        fileCharacter = wife.fileCharacter;
+        name = wife.name;
     }
 
-    public DefaultWife(final String fileCharacter, final Integer yearWed,
-            final List<Child> children) {
+    public DefaultWife(final String name, final Integer yearWed,
+            final Collection<Child> children) {
         super();
 
-        if (fileCharacter == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(yearWed, "Received a null pointer as wedding year");
+        checkNotNull(children, "Received a null pointer as children");
 
-        if (yearWed == null) {
-            throw new NullPointerException();
-        }
-
-        if (children == null) {
-            throw new NullPointerException();
-        }
-
-        this.fileCharacter = fileCharacter;
+        this.name = name;
         this.yearWed = yearWed;
         this.children = children;
     }
@@ -50,22 +48,17 @@ public final class DefaultWife implements Wife {
         if (getClass() != obj.getClass())
             return false;
         DefaultWife other = (DefaultWife) obj;
-        if (fileCharacter == null) {
-            if (other.fileCharacter != null)
-                return false;
-        } else if (!fileCharacter.equals(other.fileCharacter))
-            return false;
-        return true;
+        return Objects.equals(name, other.name);
     }
 
     @Override
     public final Collection<Child> getChildren() {
-        return Collections.unmodifiableCollection(_getChildren());
+        return Collections.unmodifiableCollection(getChildrenModifiable());
     }
 
     @Override
-    public final String getFile() {
-        return fileCharacter;
+    public final String getName() {
+        return name;
     }
 
     @Override
@@ -75,24 +68,16 @@ public final class DefaultWife implements Wife {
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result
-                + ((fileCharacter == null) ? 0 : fileCharacter.hashCode());
-        return result;
+        return Objects.hashCode(name);
     }
 
     @Override
     public final String toString() {
-        return getFile();
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    protected final Collection<Child> _getChildren() {
+    private final Collection<Child> getChildrenModifiable() {
         return children;
-    }
-
-    protected final void loadCharacter() {
-
     }
 
 }

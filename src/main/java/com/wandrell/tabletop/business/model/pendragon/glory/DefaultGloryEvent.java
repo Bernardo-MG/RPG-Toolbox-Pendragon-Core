@@ -1,34 +1,34 @@
 package com.wandrell.tabletop.business.model.pendragon.glory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
+
 public final class DefaultGloryEvent implements GloryEvent {
 
     private final String  description;
     private final Integer glory;
     private final Integer year;
 
-    public DefaultGloryEvent(final DefaultGloryEvent data) {
+    public DefaultGloryEvent(final DefaultGloryEvent event) {
         super();
 
-        glory = data.glory;
-        year = data.year;
-        description = data.description;
+        checkNotNull(event, "Received a null pointer as glory event");
+
+        glory = event.glory;
+        year = event.year;
+        description = event.description;
     }
 
     public DefaultGloryEvent(final Integer year, final Integer glory,
             final String description) {
         super();
 
-        if (year == null) {
-            throw new NullPointerException();
-        }
-
-        if (glory == null) {
-            throw new NullPointerException();
-        }
-
-        if (description == null) {
-            throw new NullPointerException();
-        }
+        checkNotNull(year, "Received a null pointer as year");
+        checkNotNull(glory, "Received a null pointer as glory");
+        checkNotNull(description, "Received a null pointer as description");
 
         this.year = year;
         this.glory = glory;
@@ -44,22 +44,9 @@ public final class DefaultGloryEvent implements GloryEvent {
         if (getClass() != obj.getClass())
             return false;
         DefaultGloryEvent other = (DefaultGloryEvent) obj;
-        if (description == null) {
-            if (other.description != null)
-                return false;
-        } else if (!description.equals(other.description))
-            return false;
-        if (glory == null) {
-            if (other.glory != null)
-                return false;
-        } else if (!glory.equals(other.glory))
-            return false;
-        if (year == null) {
-            if (other.year != null)
-                return false;
-        } else if (!year.equals(other.year))
-            return false;
-        return true;
+        return Objects.equals(description, other.description)
+                && Objects.equals(glory, other.glory)
+                && Objects.equals(year, other.year);
     }
 
     @Override
@@ -79,18 +66,12 @@ public final class DefaultGloryEvent implements GloryEvent {
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result
-                + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((glory == null) ? 0 : glory.hashCode());
-        result = prime * result + ((year == null) ? 0 : year.hashCode());
-        return result;
+        return Objects.hash(description, glory, year);
     }
 
     @Override
     public String toString() {
-        return String.format("[Year %d] [Gained %d] [%s]", getYear(),
-                getGloryGained(), getDescription());
+        return MoreObjects.toStringHelper(this).add("description", description)
+                .add("glory", glory).add("year", year).toString();
     }
 }

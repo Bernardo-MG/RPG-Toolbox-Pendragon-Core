@@ -1,28 +1,34 @@
 package com.wandrell.tabletop.business.model.pendragon.valuehandler.module.store;
 
-import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import com.wandrell.tabletop.business.model.pendragon.glory.FatherClassGlory;
+import com.wandrell.tabletop.business.model.valuehandler.ValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractStoreModule;
 
 public final class FatherClassGloryStore extends AbstractStoreModule {
 
-    private final EditableValueHandler baseGlory;
-    private final EditableValueHandler gloryPerYear;
-    private final EditableValueHandler years;
+    private final FatherClassGlory fatherClass;
+    private final ValueHandler     years;
 
-    public FatherClassGloryStore(final EditableValueHandler vhBaseGlory,
-            final EditableValueHandler vhYears,
-            final EditableValueHandler vhGloryPerYear) {
+    public FatherClassGloryStore(final FatherClassGlory fatherClass,
+            final ValueHandler years) {
         super();
-        this.baseGlory = vhBaseGlory;
-        this.years = vhYears;
-        this.gloryPerYear = vhGloryPerYear;
+
+        checkNotNull(fatherClass, "Received a null pointer as father class");
+        checkNotNull(years, "Received a null pointer as years");
+
+        this.fatherClass = fatherClass;
+        this.years = years;
     }
 
     public FatherClassGloryStore(final FatherClassGloryStore store) {
         super();
-        baseGlory = store.baseGlory.createNewInstance();
-        gloryPerYear = store.gloryPerYear.createNewInstance();
-        years = store.years.createNewInstance();
+
+        checkNotNull(store, "Received a null pointer as store");
+
+        fatherClass = store.fatherClass;
+        years = store.years;
     }
 
     @Override
@@ -34,21 +40,18 @@ public final class FatherClassGloryStore extends AbstractStoreModule {
     public final Integer getValue() {
         final Integer value;
 
-        value = getBaseGlory().getValue()
-                + (getGloryPerYear().getValue() * getYears().getValue());
+        value = getFatherClassGlory().getBaseGlory()
+                + (getFatherClassGlory().getGloryPerYear() * getYears()
+                        .getValue());
 
         return value;
     }
 
-    private final EditableValueHandler getBaseGlory() {
-        return baseGlory;
+    private final FatherClassGlory getFatherClassGlory() {
+        return fatherClass;
     }
 
-    private final EditableValueHandler getGloryPerYear() {
-        return gloryPerYear;
-    }
-
-    private final EditableValueHandler getYears() {
+    private final ValueHandler getYears() {
         return years;
     }
 

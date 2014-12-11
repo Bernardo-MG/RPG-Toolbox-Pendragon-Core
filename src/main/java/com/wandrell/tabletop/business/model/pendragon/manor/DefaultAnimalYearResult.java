@@ -1,43 +1,41 @@
 package com.wandrell.tabletop.business.model.pendragon.manor;
 
-import java.nio.file.Path;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.wandrell.tabletop.business.model.pendragon.util.PathNameWrapper;
-import com.wandrell.tabletop.business.util.pendragon.DefaultPathNameWrapper;
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
+import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
 
 public final class DefaultAnimalYearResult implements AnimalYearResult {
 
-    private final Map<String, Path>    files;
-    private final Collection<String>   flags;
-    private final String               name;
-    private final Map<String, Integer> values;
+    private final Boolean dying;
+    private final Money   money;
+    private final String  name;
+    private final Boolean producesMoney;
+    private final Boolean puppies;
+    private final Pet     puppy;
 
-    public DefaultAnimalYearResult(final DefaultAnimalYearResult result) {
+    public DefaultAnimalYearResult(final String name, final Money money,
+            final Pet puppy, final Boolean dying, final Boolean producesMoney,
+            final Boolean puppies) {
         super();
 
-        name = result.name;
-
-        files = result.files;
-        flags = result.flags;
-        values = result.values;
-    }
-
-    public DefaultAnimalYearResult(final String name,
-            final Map<String, Path> files, final Collection<String> flags,
-            final Map<String, Integer> values) {
-        super();
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(money, "Received a null pointer as money");
+        checkNotNull(puppy, "Received a null pointer as puppy");
+        checkNotNull(dying, "Received a null pointer as dying flag");
+        checkNotNull(producesMoney,
+                "Received a null pointer as produces money flag");
+        checkNotNull(puppies, "Received a null pointer as puppies flag");
 
         this.name = name;
 
-        this.files = files;
-        this.flags = flags;
-        this.values = values;
+        this.money = money;
+        this.puppy = puppy;
+        this.dying = dying;
+        this.producesMoney = producesMoney;
+        this.puppies = puppies;
     }
 
     @Override
@@ -49,40 +47,12 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
         if (getClass() != obj.getClass())
             return false;
         DefaultAnimalYearResult other = (DefaultAnimalYearResult) obj;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+        return Objects.equals(name, other.name);
     }
 
     @Override
-    public final Path getFile(final String name) {
-        return _getFiles().get(name);
-    }
-
-    @Override
-    public final Collection<PathNameWrapper> getFiles() {
-        final List<PathNameWrapper> listFiles;
-
-        listFiles = new LinkedList<PathNameWrapper>();
-        for (final Entry<String, Path> entry : _getFiles().entrySet()) {
-            listFiles.add(new DefaultPathNameWrapper(entry.getKey(), entry
-                    .getValue()));
-        }
-
-        return listFiles;
-    }
-
-    @Override
-    public final Boolean getFlag(final String name) {
-        return _getFlags().contains(name);
-    }
-
-    @Override
-    public final Collection<String> getFlags() {
-        return Collections.unmodifiableCollection(_getFlags());
+    public final Money getMoney() {
+        return money;
     }
 
     @Override
@@ -91,38 +61,33 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
     }
 
     @Override
-    public final Map<String, Integer> getValues() {
-        return Collections.unmodifiableMap(_getValues());
-    }
-
-    @Override
-    public final Boolean hasFile(final String name) {
-        return _getFiles().containsKey(name);
+    public final Pet getPuppy() {
+        return puppy;
     }
 
     @Override
     public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+        return Objects.hashCode(name);
+    }
+
+    @Override
+    public final Boolean isDying() {
+        return dying;
+    }
+
+    @Override
+    public final Boolean isHavingPuppies() {
+        return puppies;
+    }
+
+    @Override
+    public final Boolean isProducingMoney() {
+        return producesMoney;
     }
 
     @Override
     public final String toString() {
-        return getName();
-    }
-
-    protected final Map<String, Path> _getFiles() {
-        return files;
-    }
-
-    protected final Collection<String> _getFlags() {
-        return flags;
-    }
-
-    protected final Map<String, Integer> _getValues() {
-        return values;
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

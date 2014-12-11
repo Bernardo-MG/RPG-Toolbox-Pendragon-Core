@@ -1,45 +1,38 @@
 package com.wandrell.tabletop.business.model.pendragon.valuehandler;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Objects;
 
-import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
+import com.google.common.base.MoreObjects;
+import com.wandrell.tabletop.business.model.valuehandler.ModularDerivedValueHandler;
+import com.wandrell.tabletop.business.model.valuehandler.ValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
-import com.wandrell.tabletop.business.model.valuehandler.module.generator.GeneratorModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.interval.IntervalModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractEditableStoreModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.validator.ValidatorModule;
+import com.wandrell.tabletop.business.model.valuehandler.module.store.StoreModule;
 
 public final class DefaultDerivedAttribute implements DerivedAttribute {
 
-    private final Collection<Attribute>       attributes = new LinkedList<>();
-    private final ModularEditableValueHandler composite;
+    private final Collection<Attribute>      attributes = new LinkedList<>();
+    private final ModularDerivedValueHandler composite;
 
     public DefaultDerivedAttribute(final DefaultDerivedAttribute attribute) {
         super();
 
+        checkNotNull(attribute, "Received a null pointer as attribute");
+
         composite = attribute.composite.createNewInstance();
     }
 
-    public DefaultDerivedAttribute(final String name,
-            final GeneratorModule generator, final IntervalModule interval,
-            final AbstractEditableStoreModule store,
-            final ValidatorModule validator) {
+    public DefaultDerivedAttribute(final String name, final StoreModule store) {
         super();
-        composite = new ModularEditableValueHandler(name, generator, interval,
-                store, validator);
-    }
 
-    @Override
-    public final Boolean acceptsValue(final Integer value) {
-        return getValueHandler().acceptsValue(value);
-    }
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(store, "Received a null pointer as store");
 
-    @Override
-    public final void addValue(final Integer value) {
-        getValueHandler().addValue(value);
+        composite = new ModularDerivedValueHandler(name, store);
     }
 
     @Override
@@ -54,13 +47,15 @@ public final class DefaultDerivedAttribute implements DerivedAttribute {
     }
 
     @Override
-    public final void decreaseValue() {
-        getValueHandler().decreaseValue();
-    }
-
-    @Override
-    public final Integer getLowerLimit() {
-        return getValueHandler().getLowerLimit();
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultDerivedAttribute other = (DefaultDerivedAttribute) obj;
+        return Objects.equals(composite, other.composite);
     }
 
     @Override
@@ -70,12 +65,8 @@ public final class DefaultDerivedAttribute implements DerivedAttribute {
 
     @Override
     public final Collection<Attribute> getParentAttributes() {
-        return Collections.unmodifiableCollection(_getParentAttributes());
-    }
-
-    @Override
-    public final Integer getUpperLimit() {
-        return getValueHandler().getUpperLimit();
+        return Collections
+                .unmodifiableCollection(getParentAttributesModifiable());
     }
 
     @Override
@@ -84,18 +75,8 @@ public final class DefaultDerivedAttribute implements DerivedAttribute {
     }
 
     @Override
-    public final void increaseValue() {
-        getValueHandler().increaseValue();
-    }
-
-    @Override
-    public final Boolean isAbleToDecrease() {
-        return getValueHandler().isAbleToDecrease();
-    }
-
-    @Override
-    public final Boolean isAbleToIncrease() {
-        return getValueHandler().isAbleToIncrease();
+    public final int hashCode() {
+        return getValueHandler().hashCode();
     }
 
     @Override
@@ -106,31 +87,26 @@ public final class DefaultDerivedAttribute implements DerivedAttribute {
 
     public final void
             setParentAttributes(final Collection<Attribute> attributes) {
-        _getParentAttributes().clear();
+        getParentAttributesModifiable().clear();
         for (final Attribute attribute : attributes) {
-            if (attribute == null) {
-                throw new NullPointerException();
-            }
+            checkNotNull(attribute, "Received a null pointer as attribute");
 
-            _getParentAttributes().add(attribute);
+            getParentAttributesModifiable().add(attribute);
         }
     }
 
     @Override
-    public final void setValue(final Integer value) {
-        getValueHandler().setValue(value);
-    }
-
-    @Override
     public final String toString() {
-        return getName();
+        return MoreObjects.toStringHelper(this).add("name", getName())
+                .add("value", getValue()).toString();
     }
 
-    protected final Collection<Attribute> _getParentAttributes() {
+    private final Collection<Attribute> getParentAttributesModifiable() {
         return attributes;
     }
 
-    protected final EditableValueHandler getValueHandler() {
+    private final ValueHandler getValueHandler() {
         return composite;
     }
+
 }
