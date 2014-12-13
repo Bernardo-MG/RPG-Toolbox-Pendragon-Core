@@ -8,28 +8,28 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.character.Gender;
-import com.wandrell.tabletop.business.model.dice.RollTable;
+import com.wandrell.tabletop.business.model.interval.IntervalTable;
 import com.wandrell.tabletop.business.model.pendragon.inventory.AdditionalBelongings;
 
 public final class DefaultCulture implements Culture {
 
-    private final FamilyCharacteristic            femaleFamilyCharacteristic;
-    private final RollTable<AdditionalBelongings> initialLuckFemale;
-    private final RollTable<AdditionalBelongings> initialLuckMale;
-    private final FamilyCharacteristic            maleFamilyCharacteristic;
-    private final String                          name;
-    private final CultureCharacterTemplate        templateDefaultFemale;
-    private final CultureCharacterTemplate        templateDefaultMale;
-    private final CultureCharacterTemplate        templateRandomFemale;
-    private final CultureCharacterTemplate        templateRandomMale;
+    private final FamilyCharacteristic                femaleFamilyCharacteristic;
+    private final IntervalTable<AdditionalBelongings> initialLuckFemale;
+    private final IntervalTable<AdditionalBelongings> initialLuckMale;
+    private final FamilyCharacteristic                maleFamilyCharacteristic;
+    private final String                              name;
+    private final CultureCharacterTemplate            templateDefaultFemale;
+    private final CultureCharacterTemplate            templateDefaultMale;
+    private final CultureCharacterTemplate            templateRandomFemale;
+    private final CultureCharacterTemplate            templateRandomMale;
 
     public DefaultCulture(final String name, final Map<String, Path> files,
             final CultureCharacterTemplate templateDefaultFemale,
             final CultureCharacterTemplate templateRandomFemale,
             final CultureCharacterTemplate templateDefaultMale,
             final CultureCharacterTemplate templateRandomMale,
-            final RollTable<AdditionalBelongings> initialLuckFemale,
-            final RollTable<AdditionalBelongings> initialLuckMale,
+            final IntervalTable<AdditionalBelongings> initialLuckFemale,
+            final IntervalTable<AdditionalBelongings> initialLuckMale,
             final FamilyCharacteristic femaleFamilyCharacteristic,
             final FamilyCharacteristic maleFamilyCharacteristic) {
         super();
@@ -101,9 +101,9 @@ public final class DefaultCulture implements Culture {
     }
 
     @Override
-    public final RollTable<AdditionalBelongings> getInitialLuckTable(
+    public final IntervalTable<AdditionalBelongings> getInitialLuckTable(
             final Gender gender) {
-        final RollTable<AdditionalBelongings> result;
+        final IntervalTable<AdditionalBelongings> result;
 
         checkNotNull(gender, "Received a null pointer as gender");
 
@@ -181,7 +181,7 @@ public final class DefaultCulture implements Culture {
         return femaleFamilyCharacteristic;
     }
 
-    private final RollTable<AdditionalBelongings> getFemaleInitialLuck() {
+    private final IntervalTable<AdditionalBelongings> getFemaleInitialLuck() {
         return initialLuckFemale;
     }
 
@@ -197,7 +197,7 @@ public final class DefaultCulture implements Culture {
         return maleFamilyCharacteristic;
     }
 
-    private final RollTable<AdditionalBelongings> getMaleInitialLuck() {
+    private final IntervalTable<AdditionalBelongings> getMaleInitialLuck() {
         return initialLuckMale;
     }
 

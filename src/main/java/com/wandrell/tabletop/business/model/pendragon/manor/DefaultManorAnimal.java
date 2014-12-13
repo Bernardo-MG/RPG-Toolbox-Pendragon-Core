@@ -5,15 +5,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.dice.RollTable;
+import com.wandrell.tabletop.business.model.interval.IntervalTable;
 
 public final class DefaultManorAnimal implements Pet {
 
-    private final String                      name;
-    private final RollTable<AnimalYearResult> rolltable;
+    private final String                          name;
+    private final IntervalTable<AnimalYearResult> rolltable;
 
     public DefaultManorAnimal(final String name,
-            final RollTable<AnimalYearResult> rolltable) {
+            final IntervalTable<AnimalYearResult> rolltable) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -37,7 +37,7 @@ public final class DefaultManorAnimal implements Pet {
     }
 
     @Override
-    public final RollTable<AnimalYearResult> getAnnualCheckMap() {
+    public final IntervalTable<AnimalYearResult> getAnnualCheckMap() {
         return rolltable;
     }
 

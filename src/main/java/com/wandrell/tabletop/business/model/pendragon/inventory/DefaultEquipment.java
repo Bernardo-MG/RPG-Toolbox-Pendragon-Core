@@ -2,27 +2,16 @@ package com.wandrell.tabletop.business.model.pendragon.inventory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
-
 public final class DefaultEquipment implements Equipment {
 
-    private final Collection<String>   flags;
-    private final Item                 item;
-    private final Map<String, Integer> values;
+    private final Item item;
 
-    public DefaultEquipment(final Item item, final Set<String> flags,
-            final Map<String, Integer> values) {
+    public DefaultEquipment(final Item item) {
         super();
 
         checkNotNull(item, "Received a null pointer as item");
-        checkNotNull(flags, "Received a null pointer as flags");
-        checkNotNull(values, "Received a null pointer as values");
 
         this.item = item;
-        this.flags = flags;
-        this.values = values;
     }
 
     @Override
@@ -42,14 +31,6 @@ public final class DefaultEquipment implements Equipment {
 
     private final Item getBaseItem() {
         return item;
-    }
-
-    private final Collection<String> getFlagsModifiable() {
-        return flags;
-    }
-
-    private final Map<String, Integer> getMiscelanyValuesModifiable() {
-        return values;
     }
 
 }

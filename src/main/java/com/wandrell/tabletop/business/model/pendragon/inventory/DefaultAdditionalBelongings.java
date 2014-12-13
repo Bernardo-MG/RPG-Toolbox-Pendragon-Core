@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import com.wandrell.tabletop.business.model.dice.Dice;
-import com.wandrell.tabletop.business.model.dice.RollTable;
+import com.wandrell.tabletop.business.model.interval.IntervalTable;
 import com.wandrell.tabletop.business.model.pendragon.character.HorseCharacter;
 import com.wandrell.tabletop.business.model.pendragon.manor.Pet;
 
@@ -20,12 +20,12 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     private final Collection<Pet>            pets;
     private final Collection<Dice>           rerolls;
     private final Collection<Shield>         shields;
-    private final RollTable<?>               table;
+    private final IntervalTable<?>           table;
     private final Collection<Weapon>         weapons;
 
     public DefaultAdditionalBelongings(final Boolean hasToChoose,
             final Money money, final String nameMoney,
-            final RollTable<?> table, final Collection<Dice> rerolls,
+            final IntervalTable<?> table, final Collection<Dice> rerolls,
             final Collection<Equipment> equipment,
             final Collection<HorseCharacter> horses,
             final Collection<Pet> pets, final Collection<Shield> shields,
@@ -93,7 +93,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     }
 
     @Override
-    public final RollTable<?> getTable() {
+    public final IntervalTable<?> getTable() {
         return table;
     }
 
