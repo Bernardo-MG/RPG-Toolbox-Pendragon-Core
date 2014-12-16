@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.business.model.pendragon.valuehandler.module.store;
+package com.wandrell.tabletop.business.model.pendragon.stats.module.store;
 
 import java.util.Collection;
 

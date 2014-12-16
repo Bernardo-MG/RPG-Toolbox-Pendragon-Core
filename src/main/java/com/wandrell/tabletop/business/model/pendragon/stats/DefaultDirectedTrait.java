@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.business.model.pendragon.valuehandler;
+package com.wandrell.tabletop.business.model.pendragon.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -13,39 +13,26 @@ import com.wandrell.tabletop.business.model.valuehandler.module.interval.Interva
 import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractEditableStoreModule;
 import com.wandrell.tabletop.business.model.valuehandler.module.validator.ValidatorModule;
 
-public final class DefaultSkill implements Skill {
+public final class DefaultDirectedTrait implements DirectedTrait {
 
-    private final boolean                     combatSkill;
     private final ModularEditableValueHandler composite;
-    private final boolean                     courtlySkill;
     private String                            descriptor = "";
-    private final boolean                     knightlySkill;
-    private final boolean                     knowledgeSkill;
-    private final boolean                     repeteable;
+    private Trait                             trait;
 
-    public DefaultSkill(final DefaultSkill skill) {
+    public DefaultDirectedTrait(final DefaultDirectedTrait trait) {
         super();
 
-        checkNotNull(skill, "Received a null pointer as skill");
+        checkNotNull(trait, "Received a null pointer as trait");
 
-        composite = skill.composite.createNewInstance();
+        composite = trait.composite.createNewInstance();
 
-        descriptor = skill.descriptor;
-
-        combatSkill = skill.combatSkill;
-        knightlySkill = skill.knightlySkill;
-        knowledgeSkill = skill.knowledgeSkill;
-        courtlySkill = skill.courtlySkill;
-
-        repeteable = skill.repeteable;
+        descriptor = trait.descriptor;
     }
 
-    public DefaultSkill(final String name, final GeneratorModule generator,
-            final IntervalModule interval,
+    public DefaultDirectedTrait(final String name,
+            final GeneratorModule generator, final IntervalModule interval,
             final AbstractEditableStoreModule store,
-            final ValidatorModule validator, final Boolean combatSkill,
-            final Boolean knightlySkill, final Boolean knowledgeSkill,
-            final Boolean courtlySkill, final Boolean repeteable) {
+            final ValidatorModule validator) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -53,22 +40,9 @@ public final class DefaultSkill implements Skill {
         checkNotNull(interval, "Received a null pointer as interval");
         checkNotNull(store, "Received a null pointer as store");
         checkNotNull(validator, "Received a null pointer as validator");
-        checkNotNull(combatSkill, "Received a null pointer as combat flag");
-        checkNotNull(knightlySkill, "Received a null pointer as knightly flag");
-        checkNotNull(knowledgeSkill,
-                "Received a null pointer as knowledge flag");
-        checkNotNull(courtlySkill, "Received a null pointer as courtly flag");
-        checkNotNull(repeteable, "Received a null pointer as repeteable flag");
 
         composite = new ModularEditableValueHandler(name, generator, interval,
                 store, validator);
-
-        this.combatSkill = combatSkill;
-        this.knightlySkill = knightlySkill;
-        this.knowledgeSkill = knowledgeSkill;
-        this.courtlySkill = courtlySkill;
-
-        this.repeteable = repeteable;
     }
 
     @Override
@@ -83,8 +57,8 @@ public final class DefaultSkill implements Skill {
     }
 
     @Override
-    public final DefaultSkill createNewInstance() {
-        return new DefaultSkill(this);
+    public final DefaultDirectedTrait createNewInstance() {
+        return new DefaultDirectedTrait(this);
     }
 
     @Override
@@ -93,16 +67,17 @@ public final class DefaultSkill implements Skill {
     }
 
     @Override
-    public final boolean equals(final Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultSkill other = (DefaultSkill) obj;
+        DefaultDirectedTrait other = (DefaultDirectedTrait) obj;
         return Objects.equals(composite, other.composite)
-                && Objects.equals(descriptor, other.descriptor);
+                && Objects.equals(descriptor, other.descriptor)
+                && Objects.equals(trait, other.trait);
     }
 
     @Override
@@ -121,6 +96,11 @@ public final class DefaultSkill implements Skill {
     }
 
     @Override
+    public final Trait getTrait() {
+        return trait;
+    }
+
+    @Override
     public final Integer getUpperLimit() {
         return getValueHandler().getUpperLimit();
     }
@@ -132,7 +112,7 @@ public final class DefaultSkill implements Skill {
 
     @Override
     public final int hashCode() {
-        return Objects.hash(composite, descriptor);
+        return Objects.hash(composite, descriptor, trait);
     }
 
     @Override
@@ -151,40 +131,23 @@ public final class DefaultSkill implements Skill {
     }
 
     @Override
-    public final Boolean isCombatSkill() {
-        return combatSkill;
-    }
-
-    @Override
-    public final Boolean isCourtlySkill() {
-        return courtlySkill;
-    }
-
-    @Override
-    public final Boolean isKnightlySkill() {
-        return knightlySkill;
-    }
-
-    @Override
-    public final Boolean isKnowledgeSkill() {
-        return knowledgeSkill;
-    }
-
-    @Override
-    public final Boolean isRepeatable() {
-        return repeteable;
-    }
-
-    @Override
     public final void removeValueEventListener(
             final ValueHandlerListener listener) {
         getValueHandler().removeValueEventListener(listener);
     }
 
     public final void setDescriptor(final String descriptor) {
-        checkNotNull(descriptor, "Received a null pointer as descriptor");
+        if (descriptor == null) {
+            throw new NullPointerException();
+        }
 
         this.descriptor = descriptor;
+    }
+
+    public final void setTrait(final Trait trait) {
+        checkNotNull(trait, "Received a null pointer as trait");
+
+        this.trait = trait;
     }
 
     @Override

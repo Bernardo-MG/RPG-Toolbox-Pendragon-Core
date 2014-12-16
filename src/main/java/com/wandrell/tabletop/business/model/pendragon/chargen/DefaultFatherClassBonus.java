@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.business.model.pendragon.character.background;
+package com.wandrell.tabletop.business.model.pendragon.chargen;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -9,7 +9,7 @@ import java.util.Objects;
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
 
-public final class DefaultFatherClass implements FatherClass {
+public final class DefaultFatherClassBonus implements FatherClassBonus {
 
     private final Money              money;
     private final String             name;
@@ -18,7 +18,7 @@ public final class DefaultFatherClass implements FatherClass {
     private final Integer            skillsNonCombatPoints;
     private final Integer            skillsPoints;
 
-    public DefaultFatherClass(final String name,
+    public DefaultFatherClassBonus(final String name,
             final Integer skillsGroupPoints,
             final Collection<String> skillsGroup, final Integer skillsPoints,
             final Integer skillsNonCombatPoints, final Money money) {
@@ -54,18 +54,18 @@ public final class DefaultFatherClass implements FatherClass {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultFatherClass other = (DefaultFatherClass) obj;
+        DefaultFatherClassBonus other = (DefaultFatherClassBonus) obj;
         return Objects.equals(name, other.name);
+    }
+
+    @Override
+    public final String getFatherClass() {
+        return name;
     }
 
     @Override
     public final Money getMoney() {
         return money;
-    }
-
-    @Override
-    public final String getName() {
-        return name;
     }
 
     @Override

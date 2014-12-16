@@ -7,20 +7,19 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.business.model.character.Gender;
-import com.wandrell.tabletop.business.model.pendragon.character.background.DistinctiveFeature;
 import com.wandrell.tabletop.business.model.pendragon.character.follower.Follower;
 import com.wandrell.tabletop.business.model.pendragon.character.follower.Wife;
 import com.wandrell.tabletop.business.model.pendragon.glory.GloryManager;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Item;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
 import com.wandrell.tabletop.business.model.pendragon.manor.Pet;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Attribute;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.DerivedAttribute;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.DirectedTrait;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Passion;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Skill;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.SpecialtySkill;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Trait;
+import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
+import com.wandrell.tabletop.business.model.pendragon.stats.DerivedAttribute;
+import com.wandrell.tabletop.business.model.pendragon.stats.DirectedTrait;
+import com.wandrell.tabletop.business.model.pendragon.stats.Passion;
+import com.wandrell.tabletop.business.model.pendragon.stats.Skill;
+import com.wandrell.tabletop.business.model.pendragon.stats.SpecialtySkill;
+import com.wandrell.tabletop.business.model.pendragon.stats.Trait;
 import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
 
 public final class DefaultPendragonPlayerCharacter implements

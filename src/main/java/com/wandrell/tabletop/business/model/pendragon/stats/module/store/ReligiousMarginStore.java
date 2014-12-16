@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.business.model.pendragon.valuehandler.module.store;
+package com.wandrell.tabletop.business.model.pendragon.stats.module.store;
 
 import java.util.Collection;
 
@@ -6,32 +6,36 @@ import com.wandrell.tabletop.business.model.valuehandler.AbstractValueHandler;
 import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractStoreModule;
 import com.wandrell.tabletop.business.util.valuehandler.ValueMarginController;
 
-public final class TraitsGloryMarginStore extends AbstractStoreModule {
+public final class ReligiousMarginStore extends AbstractStoreModule {
 
     private final ValueMarginController controller;
 
-    public TraitsGloryMarginStore(
-            final Collection<AbstractValueHandler> values,
+    public ReligiousMarginStore(final Collection<AbstractValueHandler> values,
             final Integer valueMargin) {
         super();
         controller = new ValueMarginController(values, valueMargin);
     }
 
-    public TraitsGloryMarginStore(final TraitsGloryMarginStore store) {
+    public ReligiousMarginStore(final ReligiousMarginStore store) {
         super();
 
         controller = store.controller.createNewInstance();
     }
 
     @Override
-    public TraitsGloryMarginStore createNewInstance() {
-        return new TraitsGloryMarginStore(this);
+    public final ReligiousMarginStore createNewInstance() {
+        return new ReligiousMarginStore(this);
     }
 
     @Override
     public final Integer getValue() {
-        return getController().getInMarginSum()
-                + getController().getAboveMarginSum();
+        return getController().getAboveMarginCount()
+                + getController().getInMarginCount();
+    }
+
+    public final Boolean isOn() {
+        return ((getController().getValueHandlers().size() > 0) && (getValue() == getController()
+                .getValueHandlers().size()));
     }
 
     protected final ValueMarginController getController() {

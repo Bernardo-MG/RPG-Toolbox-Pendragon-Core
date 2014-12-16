@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.business.model.pendragon.character.background;
+package com.wandrell.tabletop.business.model.pendragon.character;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

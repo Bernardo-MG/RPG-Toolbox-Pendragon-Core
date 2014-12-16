@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.business.model.pendragon.valuehandler;
+package com.wandrell.tabletop.business.model.pendragon.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

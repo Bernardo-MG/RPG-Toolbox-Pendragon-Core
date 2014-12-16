@@ -2,8 +2,8 @@ package com.wandrell.tabletop.business.model.pendragon.character;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Attribute;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.DerivedAttribute;
+import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
+import com.wandrell.tabletop.business.model.pendragon.stats.DerivedAttribute;
 import com.wandrell.tabletop.business.model.valuehandler.ValueHandler;
 
 public final class DefaultHorseCharacter implements HorseCharacter {

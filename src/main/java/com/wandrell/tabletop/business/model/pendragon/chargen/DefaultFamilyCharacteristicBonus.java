@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.business.model.pendragon.character.background;
+package com.wandrell.tabletop.business.model.pendragon.chargen;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -8,13 +8,14 @@ import java.util.Map;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
-public final class DefaultFamilyCharacteristic implements FamilyCharacteristic {
+public final class DefaultFamilyCharacteristicBonus implements
+        FamilyCharacteristicBonus {
 
     private final Map<String, Integer> attributes;
     private final String               name;
     private final Map<String, Integer> skills;
 
-    public DefaultFamilyCharacteristic(final String name,
+    public DefaultFamilyCharacteristicBonus(final String name,
             final Map<String, Integer> attributes,
             final Map<String, Integer> skills) {
         super();
@@ -37,7 +38,7 @@ public final class DefaultFamilyCharacteristic implements FamilyCharacteristic {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultFamilyCharacteristic other = (DefaultFamilyCharacteristic) obj;
+        DefaultFamilyCharacteristicBonus other = (DefaultFamilyCharacteristicBonus) obj;
         return Objects.equal(name, other.name);
     }
 
@@ -47,7 +48,7 @@ public final class DefaultFamilyCharacteristic implements FamilyCharacteristic {
     }
 
     @Override
-    public final String getName() {
+    public final String getFamilyCharacteristic() {
         return name;
     }
 

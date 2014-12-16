@@ -1,7 +1,10 @@
-package com.wandrell.tabletop.business.model.pendragon.valuehandler;
+package com.wandrell.tabletop.business.model.pendragon.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
@@ -13,24 +16,21 @@ import com.wandrell.tabletop.business.model.valuehandler.module.interval.Interva
 import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractEditableStoreModule;
 import com.wandrell.tabletop.business.model.valuehandler.module.validator.ValidatorModule;
 
-public final class DefaultDirectedTrait implements DirectedTrait {
+public final class DefaultAttribute implements Attribute {
 
-    private final ModularEditableValueHandler composite;
-    private String                            descriptor = "";
-    private Trait                             trait;
+    private final Collection<DerivedAttribute> attributes = new LinkedList<>();
+    private final ModularEditableValueHandler  composite;
 
-    public DefaultDirectedTrait(final DefaultDirectedTrait trait) {
+    public DefaultAttribute(final DefaultAttribute attribute) {
         super();
 
-        checkNotNull(trait, "Received a null pointer as trait");
+        checkNotNull(attribute, "Received a null pointer as attribute");
 
-        composite = trait.composite.createNewInstance();
-
-        descriptor = trait.descriptor;
+        composite = attribute.composite.createNewInstance();
     }
 
-    public DefaultDirectedTrait(final String name,
-            final GeneratorModule generator, final IntervalModule interval,
+    public DefaultAttribute(final String name, final GeneratorModule generator,
+            final IntervalModule interval,
             final AbstractEditableStoreModule store,
             final ValidatorModule validator) {
         super();
@@ -57,8 +57,8 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
-    public final DefaultDirectedTrait createNewInstance() {
-        return new DefaultDirectedTrait(this);
+    public final DefaultAttribute createNewInstance() {
+        return new DefaultAttribute(this);
     }
 
     @Override
@@ -67,22 +67,21 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
-    public final boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultDirectedTrait other = (DefaultDirectedTrait) obj;
-        return Objects.equals(composite, other.composite)
-                && Objects.equals(descriptor, other.descriptor)
-                && Objects.equals(trait, other.trait);
+        DefaultAttribute other = (DefaultAttribute) obj;
+        return Objects.equals(composite, other.composite);
     }
 
     @Override
-    public final String getDescriptor() {
-        return descriptor;
+    public final Collection<DerivedAttribute> getDerivedAttributes() {
+        return Collections
+                .unmodifiableCollection(getDerivedAttributesModifiable());
     }
 
     @Override
@@ -93,11 +92,6 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     @Override
     public final String getName() {
         return getValueHandler().getName();
-    }
-
-    @Override
-    public final Trait getTrait() {
-        return trait;
     }
 
     @Override
@@ -112,7 +106,7 @@ public final class DefaultDirectedTrait implements DirectedTrait {
 
     @Override
     public final int hashCode() {
-        return Objects.hash(composite, descriptor, trait);
+        return getValueHandler().hashCode();
     }
 
     @Override
@@ -136,18 +130,14 @@ public final class DefaultDirectedTrait implements DirectedTrait {
         getValueHandler().removeValueEventListener(listener);
     }
 
-    public final void setDescriptor(final String descriptor) {
-        if (descriptor == null) {
-            throw new NullPointerException();
+    public final void setDerivedAttributes(
+            final Collection<DerivedAttribute> attributes) {
+        getDerivedAttributesModifiable().clear();
+        for (final DerivedAttribute attribute : attributes) {
+            checkNotNull(attribute, "Received a null pointer as attribute");
+
+            getDerivedAttributesModifiable().add(attribute);
         }
-
-        this.descriptor = descriptor;
-    }
-
-    public final void setTrait(final Trait trait) {
-        checkNotNull(trait, "Received a null pointer as trait");
-
-        this.trait = trait;
     }
 
     @Override
@@ -158,8 +148,11 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this).add("name", getName())
-                .add("descriptor", getDescriptor()).add("value", getValue())
-                .toString();
+                .add("value", getValue()).toString();
+    }
+
+    private final Collection<DerivedAttribute> getDerivedAttributesModifiable() {
+        return attributes;
     }
 
     private final EditableValueHandler getValueHandler() {

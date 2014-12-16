@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.business.model.pendragon.character.background;
+package com.wandrell.tabletop.business.model.pendragon.chargen;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -9,29 +9,29 @@ import java.util.Objects;
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.character.Gender;
 import com.wandrell.tabletop.business.model.interval.IntervalTable;
-import com.wandrell.tabletop.business.model.pendragon.inventory.AdditionalBelongings;
 
-public final class DefaultCulture implements Culture {
+public final class DefaultCultureBonus implements CultureBonus {
 
-    private final FamilyCharacteristic                femaleFamilyCharacteristic;
+    private final FamilyCharacteristicBonus           femaleFamilyCharacteristic;
     private final IntervalTable<AdditionalBelongings> initialLuckFemale;
     private final IntervalTable<AdditionalBelongings> initialLuckMale;
-    private final FamilyCharacteristic                maleFamilyCharacteristic;
+    private final FamilyCharacteristicBonus           maleFamilyCharacteristic;
     private final String                              name;
     private final CultureCharacterTemplate            templateDefaultFemale;
     private final CultureCharacterTemplate            templateDefaultMale;
     private final CultureCharacterTemplate            templateRandomFemale;
     private final CultureCharacterTemplate            templateRandomMale;
 
-    public DefaultCulture(final String name, final Map<String, Path> files,
+    public DefaultCultureBonus(final String name,
+            final Map<String, Path> files,
             final CultureCharacterTemplate templateDefaultFemale,
             final CultureCharacterTemplate templateRandomFemale,
             final CultureCharacterTemplate templateDefaultMale,
             final CultureCharacterTemplate templateRandomMale,
             final IntervalTable<AdditionalBelongings> initialLuckFemale,
             final IntervalTable<AdditionalBelongings> initialLuckMale,
-            final FamilyCharacteristic femaleFamilyCharacteristic,
-            final FamilyCharacteristic maleFamilyCharacteristic) {
+            final FamilyCharacteristicBonus femaleFamilyCharacteristic,
+            final FamilyCharacteristicBonus maleFamilyCharacteristic) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -75,14 +75,19 @@ public final class DefaultCulture implements Culture {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultCulture other = (DefaultCulture) obj;
+        DefaultCultureBonus other = (DefaultCultureBonus) obj;
         return Objects.equals(name, other.name);
     }
 
     @Override
-    public final FamilyCharacteristic getFamilyCharacteristic(
+    public final String getCulture() {
+        return name;
+    }
+
+    @Override
+    public final FamilyCharacteristicBonus getFamilyCharacteristic(
             final Gender gender) {
-        final FamilyCharacteristic result;
+        final FamilyCharacteristicBonus result;
 
         checkNotNull(gender, "Received a null pointer as gender");
 
@@ -119,11 +124,6 @@ public final class DefaultCulture implements Culture {
         }
 
         return result;
-    }
-
-    @Override
-    public final String getName() {
-        return name;
     }
 
     @Override
@@ -177,7 +177,7 @@ public final class DefaultCulture implements Culture {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final FamilyCharacteristic getFemaleFamilyCharacteristic() {
+    private final FamilyCharacteristicBonus getFemaleFamilyCharacteristic() {
         return femaleFamilyCharacteristic;
     }
 
@@ -193,7 +193,7 @@ public final class DefaultCulture implements Culture {
         return templateDefaultFemale;
     }
 
-    private final FamilyCharacteristic getMaleFamilyCharacteristic() {
+    private final FamilyCharacteristicBonus getMaleFamilyCharacteristic() {
         return maleFamilyCharacteristic;
     }
 

@@ -5,8 +5,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Attribute;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.DerivedAttribute;
+import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
+import com.wandrell.tabletop.business.model.pendragon.stats.DerivedAttribute;
 
 public final class DefaultPendragonBaseCharacter implements
         PendragonBaseCharacter {

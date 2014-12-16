@@ -7,13 +7,13 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.business.model.character.Gender;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Attribute;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.DerivedAttribute;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.DirectedTrait;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Passion;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Skill;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.SpecialtySkill;
-import com.wandrell.tabletop.business.model.pendragon.valuehandler.Trait;
+import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
+import com.wandrell.tabletop.business.model.pendragon.stats.DerivedAttribute;
+import com.wandrell.tabletop.business.model.pendragon.stats.DirectedTrait;
+import com.wandrell.tabletop.business.model.pendragon.stats.Passion;
+import com.wandrell.tabletop.business.model.pendragon.stats.Skill;
+import com.wandrell.tabletop.business.model.pendragon.stats.SpecialtySkill;
+import com.wandrell.tabletop.business.model.pendragon.stats.Trait;
 
 public final class DefaultPendragonHumanCharacter implements
         PendragonHumanCharacter {

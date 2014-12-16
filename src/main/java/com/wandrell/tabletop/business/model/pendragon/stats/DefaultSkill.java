@@ -1,10 +1,7 @@
-package com.wandrell.tabletop.business.model.pendragon.valuehandler;
+package com.wandrell.tabletop.business.model.pendragon.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
@@ -16,23 +13,39 @@ import com.wandrell.tabletop.business.model.valuehandler.module.interval.Interva
 import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractEditableStoreModule;
 import com.wandrell.tabletop.business.model.valuehandler.module.validator.ValidatorModule;
 
-public final class DefaultAttribute implements Attribute {
+public final class DefaultSkill implements Skill {
 
-    private final Collection<DerivedAttribute> attributes = new LinkedList<>();
-    private final ModularEditableValueHandler  composite;
+    private final boolean                     combatSkill;
+    private final ModularEditableValueHandler composite;
+    private final boolean                     courtlySkill;
+    private String                            descriptor = "";
+    private final boolean                     knightlySkill;
+    private final boolean                     knowledgeSkill;
+    private final boolean                     repeteable;
 
-    public DefaultAttribute(final DefaultAttribute attribute) {
+    public DefaultSkill(final DefaultSkill skill) {
         super();
 
-        checkNotNull(attribute, "Received a null pointer as attribute");
+        checkNotNull(skill, "Received a null pointer as skill");
 
-        composite = attribute.composite.createNewInstance();
+        composite = skill.composite.createNewInstance();
+
+        descriptor = skill.descriptor;
+
+        combatSkill = skill.combatSkill;
+        knightlySkill = skill.knightlySkill;
+        knowledgeSkill = skill.knowledgeSkill;
+        courtlySkill = skill.courtlySkill;
+
+        repeteable = skill.repeteable;
     }
 
-    public DefaultAttribute(final String name, final GeneratorModule generator,
+    public DefaultSkill(final String name, final GeneratorModule generator,
             final IntervalModule interval,
             final AbstractEditableStoreModule store,
-            final ValidatorModule validator) {
+            final ValidatorModule validator, final Boolean combatSkill,
+            final Boolean knightlySkill, final Boolean knowledgeSkill,
+            final Boolean courtlySkill, final Boolean repeteable) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -40,9 +53,22 @@ public final class DefaultAttribute implements Attribute {
         checkNotNull(interval, "Received a null pointer as interval");
         checkNotNull(store, "Received a null pointer as store");
         checkNotNull(validator, "Received a null pointer as validator");
+        checkNotNull(combatSkill, "Received a null pointer as combat flag");
+        checkNotNull(knightlySkill, "Received a null pointer as knightly flag");
+        checkNotNull(knowledgeSkill,
+                "Received a null pointer as knowledge flag");
+        checkNotNull(courtlySkill, "Received a null pointer as courtly flag");
+        checkNotNull(repeteable, "Received a null pointer as repeteable flag");
 
         composite = new ModularEditableValueHandler(name, generator, interval,
                 store, validator);
+
+        this.combatSkill = combatSkill;
+        this.knightlySkill = knightlySkill;
+        this.knowledgeSkill = knowledgeSkill;
+        this.courtlySkill = courtlySkill;
+
+        this.repeteable = repeteable;
     }
 
     @Override
@@ -57,8 +83,8 @@ public final class DefaultAttribute implements Attribute {
     }
 
     @Override
-    public final DefaultAttribute createNewInstance() {
-        return new DefaultAttribute(this);
+    public final DefaultSkill createNewInstance() {
+        return new DefaultSkill(this);
     }
 
     @Override
@@ -67,21 +93,21 @@ public final class DefaultAttribute implements Attribute {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultAttribute other = (DefaultAttribute) obj;
-        return Objects.equals(composite, other.composite);
+        DefaultSkill other = (DefaultSkill) obj;
+        return Objects.equals(composite, other.composite)
+                && Objects.equals(descriptor, other.descriptor);
     }
 
     @Override
-    public final Collection<DerivedAttribute> getDerivedAttributes() {
-        return Collections
-                .unmodifiableCollection(getDerivedAttributesModifiable());
+    public final String getDescriptor() {
+        return descriptor;
     }
 
     @Override
@@ -106,7 +132,7 @@ public final class DefaultAttribute implements Attribute {
 
     @Override
     public final int hashCode() {
-        return getValueHandler().hashCode();
+        return Objects.hash(composite, descriptor);
     }
 
     @Override
@@ -125,19 +151,40 @@ public final class DefaultAttribute implements Attribute {
     }
 
     @Override
+    public final Boolean isCombatSkill() {
+        return combatSkill;
+    }
+
+    @Override
+    public final Boolean isCourtlySkill() {
+        return courtlySkill;
+    }
+
+    @Override
+    public final Boolean isKnightlySkill() {
+        return knightlySkill;
+    }
+
+    @Override
+    public final Boolean isKnowledgeSkill() {
+        return knowledgeSkill;
+    }
+
+    @Override
+    public final Boolean isRepeatable() {
+        return repeteable;
+    }
+
+    @Override
     public final void removeValueEventListener(
             final ValueHandlerListener listener) {
         getValueHandler().removeValueEventListener(listener);
     }
 
-    public final void setDerivedAttributes(
-            final Collection<DerivedAttribute> attributes) {
-        getDerivedAttributesModifiable().clear();
-        for (final DerivedAttribute attribute : attributes) {
-            checkNotNull(attribute, "Received a null pointer as attribute");
+    public final void setDescriptor(final String descriptor) {
+        checkNotNull(descriptor, "Received a null pointer as descriptor");
 
-            getDerivedAttributesModifiable().add(attribute);
-        }
+        this.descriptor = descriptor;
     }
 
     @Override
@@ -148,11 +195,8 @@ public final class DefaultAttribute implements Attribute {
     @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this).add("name", getName())
-                .add("value", getValue()).toString();
-    }
-
-    private final Collection<DerivedAttribute> getDerivedAttributesModifiable() {
-        return attributes;
+                .add("descriptor", getDescriptor()).add("value", getValue())
+                .toString();
     }
 
     private final EditableValueHandler getValueHandler() {
