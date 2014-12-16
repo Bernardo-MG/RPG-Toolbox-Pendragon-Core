@@ -50,11 +50,6 @@ public final class DefaultPassion implements Passion {
     }
 
     @Override
-    public final void addValue(final Integer value) {
-        getValueHandler().addValue(value);
-    }
-
-    @Override
     public final void
             addValueEventListener(final ValueHandlerListener listener) {
         getValueHandler().addValueEventListener(listener);

@@ -51,11 +51,6 @@ public final class DefaultAttribute implements Attribute {
     }
 
     @Override
-    public final void addValue(final Integer value) {
-        getValueHandler().addValue(value);
-    }
-
-    @Override
     public final void
             addValueEventListener(final ValueHandlerListener listener) {
         getValueHandler().addValueEventListener(listener);

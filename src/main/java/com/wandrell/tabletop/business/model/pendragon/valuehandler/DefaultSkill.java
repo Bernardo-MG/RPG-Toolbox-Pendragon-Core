@@ -77,11 +77,6 @@ public final class DefaultSkill implements Skill {
     }
 
     @Override
-    public final void addValue(final Integer value) {
-        getValueHandler().acceptsValue(value);
-    }
-
-    @Override
     public final void
             addValueEventListener(final ValueHandlerListener listener) {
         getValueHandler().addValueEventListener(listener);
