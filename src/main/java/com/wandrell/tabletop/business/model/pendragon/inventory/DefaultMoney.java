@@ -5,12 +5,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
+import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
 
 public final class DefaultMoney implements Money {
 
-    private final EditableValueHandler denarii;
-    private final EditableValueHandler libra;
+    private final EditableValueBox denarii;
+    private final EditableValueBox libra;
 
     public DefaultMoney(final DefaultMoney money) {
         super();
@@ -21,8 +21,8 @@ public final class DefaultMoney implements Money {
         libra = money.libra.createNewInstance();
     }
 
-    public DefaultMoney(final EditableValueHandler denarii,
-            final EditableValueHandler libra) {
+    public DefaultMoney(final EditableValueBox denarii,
+            final EditableValueBox libra) {
         super();
 
         checkNotNull(denarii, "Received a null pointer as denarii");
@@ -51,12 +51,12 @@ public final class DefaultMoney implements Money {
     }
 
     @Override
-    public final EditableValueHandler getDenarii() {
+    public final EditableValueBox getDenarii() {
         return denarii;
     }
 
     @Override
-    public final EditableValueHandler getLibra() {
+    public final EditableValueBox getLibra() {
         return libra;
     }
 

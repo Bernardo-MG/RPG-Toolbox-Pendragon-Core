@@ -20,12 +20,12 @@ import com.wandrell.tabletop.business.model.pendragon.stats.Passion;
 import com.wandrell.tabletop.business.model.pendragon.stats.Skill;
 import com.wandrell.tabletop.business.model.pendragon.stats.SpecialtySkill;
 import com.wandrell.tabletop.business.model.pendragon.stats.Trait;
-import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
+import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
 
 public final class DefaultPendragonPlayerCharacter implements
         PendragonPlayerCharacter {
 
-    private final EditableValueHandler           armor;
+    private final EditableValueBox               armor;
     private final String                         culture;
     private final Collection<Skill>              exclusiveSkills = new LinkedHashSet<>();
     private final String                         fatherClass;
@@ -93,7 +93,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     public DefaultPendragonPlayerCharacter(
             final PendragonHumanCharacter character,
-            final EditableValueHandler armor, final String player,
+            final EditableValueBox armor, final String player,
             final String religion, final String culture,
             final String fatherClass, final String homeland,
             final GloryManager glory, final Money money, final Boolean knight) {
@@ -287,7 +287,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final EditableValueHandler getArmor() {
+    public final EditableValueBox getArmor() {
         return armor;
     }
 

@@ -3,16 +3,17 @@ package com.wandrell.tabletop.business.model.pendragon.stats.module.store;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.wandrell.tabletop.business.model.pendragon.glory.FatherClassGlory;
-import com.wandrell.tabletop.business.model.valuehandler.ValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractStoreModule;
+import com.wandrell.tabletop.business.model.valuebox.ValueBox;
+import com.wandrell.tabletop.business.model.valuebox.derived.AbstractDerivedValueViewPoint;
 
-public final class FatherClassGloryStore extends AbstractStoreModule {
+public final class FatherClassGloryDerivedValueViewPoint extends
+        AbstractDerivedValueViewPoint {
 
     private final FatherClassGlory fatherClass;
-    private final ValueHandler     years;
+    private final ValueBox         years;
 
-    public FatherClassGloryStore(final FatherClassGlory fatherClass,
-            final ValueHandler years) {
+    public FatherClassGloryDerivedValueViewPoint(
+            final FatherClassGlory fatherClass, final ValueBox years) {
         super();
 
         checkNotNull(fatherClass, "Received a null pointer as father class");
@@ -22,18 +23,14 @@ public final class FatherClassGloryStore extends AbstractStoreModule {
         this.years = years;
     }
 
-    public FatherClassGloryStore(final FatherClassGloryStore store) {
+    public FatherClassGloryDerivedValueViewPoint(
+            final FatherClassGloryDerivedValueViewPoint store) {
         super();
 
         checkNotNull(store, "Received a null pointer as store");
 
         fatherClass = store.fatherClass;
         years = store.years;
-    }
-
-    @Override
-    public final FatherClassGloryStore createNewInstance() {
-        return new FatherClassGloryStore(this);
     }
 
     @Override
@@ -51,7 +48,7 @@ public final class FatherClassGloryStore extends AbstractStoreModule {
         return fatherClass;
     }
 
-    private final ValueHandler getYears() {
+    private final ValueBox getYears() {
         return years;
     }
 

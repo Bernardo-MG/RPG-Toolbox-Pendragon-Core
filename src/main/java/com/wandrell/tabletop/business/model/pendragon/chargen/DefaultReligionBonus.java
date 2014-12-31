@@ -13,13 +13,15 @@ public final class DefaultReligionBonus implements ReligionBonus {
 
     private final Integer              bonusArmor;
     private final Integer              bonusDamage;
+    private final Integer              bonusDamageDice;
     private final Map<String, Integer> bonusDerived;
     private final String               name;
     private final Collection<String>   traits;
 
     public DefaultReligionBonus(final String name,
             final Map<String, Integer> bonusDerived, final Integer bonusArmor,
-            final Integer bonusDamage, final Collection<String> traits) {
+            final Integer bonusDamage, final Integer bonusDamageDice,
+            final Collection<String> traits) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -27,6 +29,8 @@ public final class DefaultReligionBonus implements ReligionBonus {
                 "Received a null pointer as derived attributes bonus");
         checkNotNull(bonusArmor, "Received a null pointer as armor bonus");
         checkNotNull(bonusDamage, "Received a null pointer as damage bonus");
+        checkNotNull(bonusDamageDice,
+                "Received a null pointer as damage dice bonus");
         checkNotNull(traits, "Received a null pointer as traits");
 
         this.name = name;
@@ -36,6 +40,7 @@ public final class DefaultReligionBonus implements ReligionBonus {
         this.bonusArmor = bonusArmor;
 
         this.bonusDamage = bonusDamage;
+        this.bonusDamageDice = bonusDamageDice;
 
         this.traits = traits;
     }
@@ -60,6 +65,11 @@ public final class DefaultReligionBonus implements ReligionBonus {
     @Override
     public final Integer getDamageBonus() {
         return bonusDamage;
+    }
+
+    @Override
+    public final Integer getDamageDiceBonus() {
+        return bonusDamageDice;
     }
 
     @Override

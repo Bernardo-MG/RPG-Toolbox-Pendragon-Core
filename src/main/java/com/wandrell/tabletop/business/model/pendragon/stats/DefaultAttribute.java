@@ -8,18 +8,14 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
-import com.wandrell.tabletop.business.model.valuehandler.module.generator.GeneratorModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.interval.IntervalModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractEditableStoreModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.validator.ValidatorModule;
+import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.event.ValueBoxListener;
 
 public final class DefaultAttribute implements Attribute {
 
     private final Collection<DerivedAttribute> attributes = new LinkedList<>();
-    private final ModularEditableValueHandler  composite;
+    private final DefaultEditableValueBox      composite;
 
     public DefaultAttribute(final DefaultAttribute attribute) {
         super();
@@ -29,41 +25,21 @@ public final class DefaultAttribute implements Attribute {
         composite = attribute.composite.createNewInstance();
     }
 
-    public DefaultAttribute(final String name, final GeneratorModule generator,
-            final IntervalModule interval,
-            final AbstractEditableStoreModule store,
-            final ValidatorModule validator) {
+    public DefaultAttribute(final Integer value, final Integer lowerLimit,
+            final Integer upperLimit) {
         super();
 
-        checkNotNull(name, "Received a null pointer as name");
-        checkNotNull(generator, "Received a null pointer as generator");
-        checkNotNull(interval, "Received a null pointer as interval");
-        checkNotNull(store, "Received a null pointer as store");
-        checkNotNull(validator, "Received a null pointer as validator");
-
-        composite = new ModularEditableValueHandler(name, generator, interval,
-                store, validator);
+        composite = new DefaultEditableValueBox(value, lowerLimit, upperLimit);
     }
 
     @Override
-    public final Boolean acceptsValue(final Integer value) {
-        return getValueHandler().acceptsValue(value);
-    }
-
-    @Override
-    public final void
-            addValueEventListener(final ValueHandlerListener listener) {
+    public final void addValueEventListener(final ValueBoxListener listener) {
         getValueHandler().addValueEventListener(listener);
     }
 
     @Override
     public final DefaultAttribute createNewInstance() {
         return new DefaultAttribute(this);
-    }
-
-    @Override
-    public final void decreaseValue() {
-        getValueHandler().decreaseValue();
     }
 
     @Override
@@ -90,11 +66,6 @@ public final class DefaultAttribute implements Attribute {
     }
 
     @Override
-    public final String getName() {
-        return getValueHandler().getName();
-    }
-
-    @Override
     public final Integer getUpperLimit() {
         return getValueHandler().getUpperLimit();
     }
@@ -110,23 +81,7 @@ public final class DefaultAttribute implements Attribute {
     }
 
     @Override
-    public final void increaseValue() {
-        getValueHandler().increaseValue();
-    }
-
-    @Override
-    public final Boolean isAbleToDecrease() {
-        return getValueHandler().isAbleToDecrease();
-    }
-
-    @Override
-    public final Boolean isAbleToIncrease() {
-        return getValueHandler().isAbleToIncrease();
-    }
-
-    @Override
-    public final void removeValueEventListener(
-            final ValueHandlerListener listener) {
+    public final void removeValueEventListener(final ValueBoxListener listener) {
         getValueHandler().removeValueEventListener(listener);
     }
 
@@ -141,21 +96,31 @@ public final class DefaultAttribute implements Attribute {
     }
 
     @Override
+    public final void setLowerLimit(final Integer lowerLimit) {
+        getValueHandler().setLowerLimit(lowerLimit);
+    }
+
+    @Override
+    public final void setUpperLimit(final Integer upperLimit) {
+        getValueHandler().setUpperLimit(upperLimit);
+    }
+
+    @Override
     public final void setValue(final Integer value) {
         getValueHandler().setValue(value);
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", getName())
-                .add("value", getValue()).toString();
+        return MoreObjects.toStringHelper(this).add("value", getValue())
+                .toString();
     }
 
     private final Collection<DerivedAttribute> getDerivedAttributesModifiable() {
         return attributes;
     }
 
-    private final EditableValueHandler getValueHandler() {
+    private final EditableValueBox getValueHandler() {
         return composite;
     }
 

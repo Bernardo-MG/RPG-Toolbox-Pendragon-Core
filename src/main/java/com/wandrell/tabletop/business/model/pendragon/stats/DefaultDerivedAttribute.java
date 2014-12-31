@@ -8,42 +8,37 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.valuehandler.ModularDerivedValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.ValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
-import com.wandrell.tabletop.business.model.valuehandler.module.store.StoreModule;
+import com.wandrell.tabletop.business.model.valuebox.ValueBox;
+import com.wandrell.tabletop.business.model.valuebox.derived.DerivedValueBox;
+import com.wandrell.tabletop.business.model.valuebox.derived.DerivedValueViewPoint;
+import com.wandrell.tabletop.business.model.valuebox.event.ValueBoxListener;
 
 public final class DefaultDerivedAttribute implements DerivedAttribute {
 
-    private final Collection<Attribute>      attributes = new LinkedList<>();
-    private final ModularDerivedValueHandler composite;
+    private final Collection<Attribute> attributes = new LinkedList<>();
+    private final DerivedValueBox       composite;
 
     public DefaultDerivedAttribute(final DefaultDerivedAttribute attribute) {
         super();
 
         checkNotNull(attribute, "Received a null pointer as attribute");
 
-        composite = attribute.composite.createNewInstance();
+        composite = new DerivedValueBox(attribute.composite.getViewPoint());
     }
 
-    public DefaultDerivedAttribute(final String name, final StoreModule store) {
+    public DefaultDerivedAttribute(final String name,
+            final DerivedValueViewPoint view) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
-        checkNotNull(store, "Received a null pointer as store");
+        checkNotNull(view, "Received a null pointer as view point");
 
-        composite = new ModularDerivedValueHandler(name, store);
+        composite = new DerivedValueBox(view);
     }
 
     @Override
-    public final void
-            addValueEventListener(final ValueHandlerListener listener) {
+    public final void addValueEventListener(final ValueBoxListener listener) {
         getValueHandler().addValueEventListener(listener);
-    }
-
-    @Override
-    public final DefaultDerivedAttribute createNewInstance() {
-        return new DefaultDerivedAttribute(this);
     }
 
     @Override
@@ -56,11 +51,6 @@ public final class DefaultDerivedAttribute implements DerivedAttribute {
             return false;
         DefaultDerivedAttribute other = (DefaultDerivedAttribute) obj;
         return Objects.equals(composite, other.composite);
-    }
-
-    @Override
-    public final String getName() {
-        return getValueHandler().getName();
     }
 
     @Override
@@ -80,8 +70,7 @@ public final class DefaultDerivedAttribute implements DerivedAttribute {
     }
 
     @Override
-    public final void removeValueEventListener(
-            final ValueHandlerListener listener) {
+    public final void removeValueEventListener(final ValueBoxListener listener) {
         getValueHandler().removeValueEventListener(listener);
     }
 
@@ -97,15 +86,15 @@ public final class DefaultDerivedAttribute implements DerivedAttribute {
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", getName())
-                .add("value", getValue()).toString();
+        return MoreObjects.toStringHelper(this).add("value", getValue())
+                .toString();
     }
 
     private final Collection<Attribute> getParentAttributesModifiable() {
         return attributes;
     }
 
-    private final ValueHandler getValueHandler() {
+    private final ValueBox getValueHandler() {
         return composite;
     }
 

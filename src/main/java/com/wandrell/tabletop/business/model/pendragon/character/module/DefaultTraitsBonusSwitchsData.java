@@ -5,11 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
+import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
 
 public final class DefaultTraitsBonusSwitchsData {
 
-    private final Map<String, EditableValueHandler> storeTraitsBonusSwitchs = new LinkedHashMap<>();
+    private final Map<String, EditableValueBox> storeTraitsBonusSwitchs = new LinkedHashMap<>();
 
     public DefaultTraitsBonusSwitchsData() {
         super();
@@ -19,7 +19,7 @@ public final class DefaultTraitsBonusSwitchsData {
             final DefaultTraitsBonusSwitchsData traitsBonus) {
         super();
 
-        for (final Entry<String, EditableValueHandler> entry : traitsBonus.storeTraitsBonusSwitchs
+        for (final Entry<String, EditableValueBox> entry : traitsBonus.storeTraitsBonusSwitchs
                 .entrySet()) {
             storeTraitsBonusSwitchs.put(entry.getKey(), entry.getValue());
         }
@@ -53,7 +53,7 @@ public final class DefaultTraitsBonusSwitchsData {
         return equals;
     }
 
-    public final EditableValueHandler getBonusSwitch(final String name) {
+    public final EditableValueBox getBonusSwitch(final String name) {
         return getBonusSwitchsStore().get(name);
     }
 
@@ -75,7 +75,7 @@ public final class DefaultTraitsBonusSwitchsData {
     }
 
     public final void initializeChivaldryTraitsBonusSwitch(
-            final Iterator<EditableValueHandler> itrTraits) {
+            final Iterator<EditableValueBox> itrTraits) {
         // final ModularValueHandler vhSwitch;
         //
         // if (!hasBonusSwitch(NameLabels.BONUS_TRAITS_CHIVALDRY_SWITCH)) {
@@ -91,7 +91,7 @@ public final class DefaultTraitsBonusSwitchsData {
     }
 
     public final void initializeGentlewomanTraitsBonusSwitch(
-            final Iterator<EditableValueHandler> itrTraits) {
+            final Iterator<EditableValueBox> itrTraits) {
         // final ModularValueHandler vhSwitch;
         //
         // if (!hasBonusSwitch(NameLabels.BONUS_TRAITS_GENTLEWOMAN_SWITCH)) {
@@ -107,7 +107,7 @@ public final class DefaultTraitsBonusSwitchsData {
     }
 
     public final void initializeReligiousTraitsBonusSwitch(
-            final Iterator<EditableValueHandler> itrTraits) {
+            final Iterator<EditableValueBox> itrTraits) {
         // final ModularValueHandler vhTraitsReligious = new
         // IntegerSecondaryValuesValueHandler<ValueHandler>(
         // NameLabels.BONUS_TRAITS_RELIGIOUS_SWITCH);
@@ -127,7 +127,7 @@ public final class DefaultTraitsBonusSwitchsData {
         // getBonusSwitchsStore().addInterval(vhTraitsReligious);
     }
 
-    private final Map<String, EditableValueHandler> getBonusSwitchsStore() {
+    private final Map<String, EditableValueBox> getBonusSwitchsStore() {
         return storeTraitsBonusSwitchs;
     }
 

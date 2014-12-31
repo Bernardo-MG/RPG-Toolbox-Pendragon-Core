@@ -5,24 +5,22 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Collection;
 import java.util.Collections;
 
-import com.wandrell.tabletop.business.model.valuehandler.ValueHandler;
+import com.wandrell.tabletop.business.model.valuebox.ValueBox;
 
 public final class DefaultGloryKeeper implements GloryManager {
 
-    private final ValueHandler           chivaldryGlory;
+    private final ValueBox               chivaldryGlory;
     private final Collection<GloryEvent> events;
-    private final ValueHandler           gentlewomanGlory;
-    private final ValueHandler           passionsGlory;
-    private final ValueHandler           religiousGlory;
-    private final ValueHandler           traitsGlory;
-    private final ValueHandler           yearlyGlory;
+    private final ValueBox               gentlewomanGlory;
+    private final ValueBox               passionsGlory;
+    private final ValueBox               religiousGlory;
+    private final ValueBox               traitsGlory;
+    private final ValueBox               yearlyGlory;
 
     public DefaultGloryKeeper(final Collection<GloryEvent> events,
-            final ValueHandler chivaldryGlory,
-            final ValueHandler gentlewomanGlory,
-            final ValueHandler passionsGlory,
-            final ValueHandler religiousGlory, final ValueHandler traitsGlory,
-            final ValueHandler yearlyGlory) {
+            final ValueBox chivaldryGlory, final ValueBox gentlewomanGlory,
+            final ValueBox passionsGlory, final ValueBox religiousGlory,
+            final ValueBox traitsGlory, final ValueBox yearlyGlory) {
         super();
 
         checkNotNull(events, "Received a null pointer as events");
@@ -69,7 +67,7 @@ public final class DefaultGloryKeeper implements GloryManager {
     }
 
     @Override
-    public final ValueHandler getChivaldryGlory() {
+    public final ValueBox getChivaldryGlory() {
         return chivaldryGlory;
     }
 
@@ -79,27 +77,27 @@ public final class DefaultGloryKeeper implements GloryManager {
     }
 
     @Override
-    public final ValueHandler getGentlewomanGlory() {
+    public final ValueBox getGentlewomanGlory() {
         return gentlewomanGlory;
     }
 
     @Override
-    public final ValueHandler getPassionsGlory() {
+    public final ValueBox getPassionsGlory() {
         return passionsGlory;
     }
 
     @Override
-    public final ValueHandler getReligiousGlory() {
+    public final ValueBox getReligiousGlory() {
         return religiousGlory;
     }
 
     @Override
-    public final ValueHandler getTraitsGlory() {
+    public final ValueBox getTraitsGlory() {
         return traitsGlory;
     }
 
     @Override
-    public final ValueHandler getYearlyGlory() {
+    public final ValueBox getYearlyGlory() {
         return yearlyGlory;
     }
 

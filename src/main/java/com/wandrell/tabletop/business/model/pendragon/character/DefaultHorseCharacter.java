@@ -4,7 +4,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
 import com.wandrell.tabletop.business.model.pendragon.stats.DerivedAttribute;
-import com.wandrell.tabletop.business.model.valuehandler.ValueHandler;
+import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.ValueBox;
 
 public final class DefaultHorseCharacter implements HorseCharacter {
 
@@ -12,7 +13,7 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     private final PendragonBaseCharacter baseCharacter;
     private final Boolean                combat;
     private final Boolean                hunting;
-    private final ValueHandler           naturalArmor;
+    private final EditableValueBox       naturalArmor;
     private Boolean                      ruined;
     private final String                 type;
 
@@ -33,7 +34,7 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     }
 
     public DefaultHorseCharacter(final PendragonBaseCharacter character,
-            final String type, final ValueHandler naturalArmor,
+            final String type, final EditableValueBox naturalArmor,
             final Boolean combat, final Boolean hunting, final Boolean armored) {
         super();
 
@@ -111,7 +112,7 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     }
 
     @Override
-    public final ValueHandler getNaturalArmor() {
+    public final ValueBox getNaturalArmor() {
         return naturalArmor;
     }
 

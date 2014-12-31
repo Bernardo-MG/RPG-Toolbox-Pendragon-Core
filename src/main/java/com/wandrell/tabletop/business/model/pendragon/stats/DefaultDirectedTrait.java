@@ -5,65 +5,48 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
-import com.wandrell.tabletop.business.model.valuehandler.module.generator.GeneratorModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.interval.IntervalModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractEditableStoreModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.validator.ValidatorModule;
+import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.event.ValueBoxListener;
 
 public final class DefaultDirectedTrait implements DirectedTrait {
 
-    private final ModularEditableValueHandler composite;
-    private String                            descriptor = "";
-    private Trait                             trait;
+    private final DefaultEditableValueBox composite;
+    private String                        descriptor = "";
+    private final String                  name;
+    private Trait                         trait;
 
     public DefaultDirectedTrait(final DefaultDirectedTrait trait) {
         super();
 
         checkNotNull(trait, "Received a null pointer as trait");
 
+        name = trait.name;
+
         composite = trait.composite.createNewInstance();
 
         descriptor = trait.descriptor;
     }
 
-    public DefaultDirectedTrait(final String name,
-            final GeneratorModule generator, final IntervalModule interval,
-            final AbstractEditableStoreModule store,
-            final ValidatorModule validator) {
+    public DefaultDirectedTrait(final String name, final Integer value,
+            final Integer lowerLimit, final Integer upperLimit) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
-        checkNotNull(generator, "Received a null pointer as generator");
-        checkNotNull(interval, "Received a null pointer as interval");
-        checkNotNull(store, "Received a null pointer as store");
-        checkNotNull(validator, "Received a null pointer as validator");
 
-        composite = new ModularEditableValueHandler(name, generator, interval,
-                store, validator);
+        this.name = name;
+
+        composite = new DefaultEditableValueBox(value, lowerLimit, upperLimit);
     }
 
     @Override
-    public final Boolean acceptsValue(final Integer value) {
-        return getValueHandler().acceptsValue(value);
-    }
-
-    @Override
-    public final void
-            addValueEventListener(final ValueHandlerListener listener) {
+    public final void addValueEventListener(final ValueBoxListener listener) {
         getValueHandler().addValueEventListener(listener);
     }
 
     @Override
     public final DefaultDirectedTrait createNewInstance() {
         return new DefaultDirectedTrait(this);
-    }
-
-    @Override
-    public final void decreaseValue() {
-        getValueHandler().decreaseValue();
     }
 
     @Override
@@ -91,8 +74,8 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
-    public final String getName() {
-        return getValueHandler().getName();
+    public final String getNameToken() {
+        return name;
     }
 
     @Override
@@ -116,32 +99,27 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
-    public final void increaseValue() {
-        getValueHandler().increaseValue();
+    public final Boolean isDescribed() {
+        return true;
     }
 
     @Override
-    public final Boolean isAbleToDecrease() {
-        return getValueHandler().isAbleToDecrease();
-    }
-
-    @Override
-    public final Boolean isAbleToIncrease() {
-        return getValueHandler().isAbleToIncrease();
-    }
-
-    @Override
-    public final void removeValueEventListener(
-            final ValueHandlerListener listener) {
+    public final void removeValueEventListener(final ValueBoxListener listener) {
         getValueHandler().removeValueEventListener(listener);
     }
 
+    @Override
     public final void setDescriptor(final String descriptor) {
         if (descriptor == null) {
             throw new NullPointerException();
         }
 
         this.descriptor = descriptor;
+    }
+
+    @Override
+    public final void setLowerLimit(final Integer lowerLimit) {
+        getValueHandler().setLowerLimit(lowerLimit);
     }
 
     public final void setTrait(final Trait trait) {
@@ -151,18 +129,23 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
+    public final void setUpperLimit(final Integer upperLimit) {
+        getValueHandler().setUpperLimit(upperLimit);
+    }
+
+    @Override
     public final void setValue(final Integer value) {
         getValueHandler().setValue(value);
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", getName())
-                .add("descriptor", getDescriptor()).add("value", getValue())
+        return MoreObjects.toStringHelper(this).add("name", name)
+                .add("descriptor", descriptor).add("value", getValue())
                 .toString();
     }
 
-    private final EditableValueHandler getValueHandler() {
+    private final EditableValueBox getValueHandler() {
         return composite;
     }
 

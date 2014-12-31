@@ -6,70 +6,52 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
-import com.wandrell.tabletop.business.model.valuehandler.module.generator.GeneratorModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.interval.IntervalModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractEditableStoreModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.store.ProxyStore;
-import com.wandrell.tabletop.business.model.valuehandler.module.validator.ValidatorModule;
+import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.event.ValueBoxListener;
 
 public final class DefaultSpecialtySkill implements SpecialtySkill {
 
-    private final ModularEditableValueHandler composite;
-    private final Set<String>                 skills = new HashSet<String>();
+    private final DefaultEditableValueBox composite;
+    private final String                  name;
+    private final Collection<String>      skills = new HashSet<String>();
 
     public DefaultSpecialtySkill(final DefaultSpecialtySkill skill) {
         super();
 
         checkNotNull(skill, "Received a null pointer as skill");
 
+        name = skill.name;
+
         composite = skill.composite.createNewInstance();
 
         skills.addAll(skill.skills);
     }
 
-    public DefaultSpecialtySkill(final String name,
-            final GeneratorModule generator, final IntervalModule interval,
-            final AbstractEditableStoreModule store,
-            final ValidatorModule validator, final Collection<String> skills) {
+    public DefaultSpecialtySkill(final String name, final Integer value,
+            final Integer lowerLimit, final Integer upperLimit,
+            final Collection<String> skills) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
-        checkNotNull(generator, "Received a null pointer as generator");
-        checkNotNull(interval, "Received a null pointer as interval");
-        checkNotNull(store, "Received a null pointer as store");
-        checkNotNull(validator, "Received a null pointer as validator");
         checkNotNull(skills, "Received a null pointer as skills");
 
-        composite = new ModularEditableValueHandler(name, generator, interval,
-                store, validator);
+        this.name = name;
+
+        composite = new DefaultEditableValueBox(value, lowerLimit, upperLimit);
 
         setSurrogatedSkillsNames(skills);
     }
 
     @Override
-    public final Boolean acceptsValue(final Integer value) {
-        return getValueHandler().acceptsValue(value);
-    }
-
-    @Override
-    public final void
-            addValueEventListener(final ValueHandlerListener listener) {
+    public final void addValueEventListener(final ValueBoxListener listener) {
         getValueHandler().addValueEventListener(listener);
     }
 
     @Override
     public final DefaultSpecialtySkill createNewInstance() {
         return new DefaultSpecialtySkill(this);
-    }
-
-    @Override
-    public final void decreaseValue() {
-        getValueHandler().decreaseValue();
     }
 
     @Override
@@ -85,13 +67,18 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
     }
 
     @Override
+    public final String getDescriptor() {
+        return "";
+    }
+
+    @Override
     public final Integer getLowerLimit() {
         return getValueHandler().getLowerLimit();
     }
 
     @Override
-    public final String getName() {
-        return getValueHandler().getName();
+    public final String getNameToken() {
+        return name;
     }
 
     @Override
@@ -116,32 +103,26 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
     }
 
     @Override
-    public final void increaseValue() {
-        getValueHandler().increaseValue();
+    public final Boolean isDescribed() {
+        return false;
     }
 
     @Override
-    public final Boolean isAbleToDecrease() {
-        return getValueHandler().isAbleToDecrease();
-    }
-
-    @Override
-    public final Boolean isAbleToIncrease() {
-        return getValueHandler().isAbleToIncrease();
-    }
-
-    public final void registerSkill(final Skill skill) {
-        checkNotNull(skill, "Received a null pointer as skill");
-
-        if (getSurrogatedSkillsModifiable().contains(skill.getName())) {
-            getValueHandler().setStore(new ProxyStore(getValueHandler()));
-        }
-    }
-
-    @Override
-    public final void removeValueEventListener(
-            final ValueHandlerListener listener) {
+    public final void removeValueEventListener(final ValueBoxListener listener) {
         getValueHandler().removeValueEventListener(listener);
+    }
+
+    @Override
+    public final void setDescriptor(final String descriptor) {}
+
+    @Override
+    public final void setLowerLimit(final Integer lowerLimit) {
+        getValueHandler().setLowerLimit(lowerLimit);
+    }
+
+    @Override
+    public final void setUpperLimit(final Integer upperLimit) {
+        getValueHandler().setUpperLimit(upperLimit);
     }
 
     @Override
@@ -151,7 +132,7 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", getName())
+        return MoreObjects.toStringHelper(this).add("name", name)
                 .add("value", getValue()).toString();
     }
 
@@ -159,7 +140,7 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
         return skills;
     }
 
-    private final ModularEditableValueHandler getValueHandler() {
+    private final DefaultEditableValueBox getValueHandler() {
         return composite;
     }
 

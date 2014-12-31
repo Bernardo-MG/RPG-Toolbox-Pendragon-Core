@@ -5,19 +5,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.valuehandler.EditableValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.ModularEditableValueHandler;
-import com.wandrell.tabletop.business.model.valuehandler.event.ValueHandlerListener;
-import com.wandrell.tabletop.business.model.valuehandler.module.generator.GeneratorModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.interval.IntervalModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.store.AbstractEditableStoreModule;
-import com.wandrell.tabletop.business.model.valuehandler.module.validator.ValidatorModule;
+import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.event.ValueBoxListener;
 
 public final class DefaultTrait implements Trait {
 
-    private final ModularEditableValueHandler composite;
-    private final Boolean                     goodTrait;
-    private Trait                             traitMirror;
+    private final DefaultEditableValueBox composite;
+    private final Boolean                 goodTrait;
+    private Trait                         traitMirror;
 
     public DefaultTrait(final DefaultTrait trait) {
         super();
@@ -29,44 +25,25 @@ public final class DefaultTrait implements Trait {
         goodTrait = trait.goodTrait;
     }
 
-    public DefaultTrait(final String name, final GeneratorModule generator,
-            final IntervalModule interval,
-            final AbstractEditableStoreModule store,
-            final ValidatorModule validator, final boolean goodTrait) {
+    public DefaultTrait(final Integer value, final Integer lowerLimit,
+            final Integer upperLimit, final boolean goodTrait) {
         super();
 
-        checkNotNull(name, "Received a null pointer as name");
-        checkNotNull(generator, "Received a null pointer as generator");
-        checkNotNull(interval, "Received a null pointer as interval");
-        checkNotNull(store, "Received a null pointer as store");
-        checkNotNull(validator, "Received a null pointer as validator");
         checkNotNull(goodTrait, "Received a null pointer as good trait flag");
 
-        composite = new ModularEditableValueHandler(name, generator, interval,
-                store, validator);
+        composite = new DefaultEditableValueBox(value, lowerLimit, upperLimit);
 
         this.goodTrait = goodTrait;
     }
 
     @Override
-    public final Boolean acceptsValue(final Integer value) {
-        return getValueHandler().acceptsValue(value);
-    }
-
-    @Override
-    public final void
-            addValueEventListener(final ValueHandlerListener listener) {
+    public final void addValueEventListener(final ValueBoxListener listener) {
         getValueHandler().addValueEventListener(listener);
     }
 
     @Override
     public final DefaultTrait createNewInstance() {
         return new DefaultTrait(this);
-    }
-
-    @Override
-    public final void decreaseValue() {
-        getValueHandler().decreaseValue();
     }
 
     @Override
@@ -92,11 +69,6 @@ public final class DefaultTrait implements Trait {
     }
 
     @Override
-    public final String getName() {
-        return getValueHandler().getName();
-    }
-
-    @Override
     public final Integer getUpperLimit() {
         return getValueHandler().getUpperLimit();
     }
@@ -112,33 +84,27 @@ public final class DefaultTrait implements Trait {
     }
 
     @Override
-    public final void increaseValue() {
-        getValueHandler().increaseValue();
-    }
-
-    @Override
-    public final Boolean isAbleToDecrease() {
-        return getValueHandler().isAbleToDecrease();
-    }
-
-    @Override
-    public final Boolean isAbleToIncrease() {
-        return getValueHandler().isAbleToIncrease();
-    }
-
-    @Override
     public final Boolean isGoodTrait() {
         return goodTrait;
     }
 
     @Override
-    public final void removeValueEventListener(
-            final ValueHandlerListener listener) {
+    public final void removeValueEventListener(final ValueBoxListener listener) {
         getValueHandler().removeValueEventListener(listener);
+    }
+
+    @Override
+    public final void setLowerLimit(final Integer lowerLimit) {
+        getValueHandler().setLowerLimit(lowerLimit);
     }
 
     public final void setMirrorTrait(final Trait trait) {
         traitMirror = trait;
+    }
+
+    @Override
+    public final void setUpperLimit(final Integer upperLimit) {
+        getValueHandler().setUpperLimit(upperLimit);
     }
 
     @Override
@@ -148,11 +114,11 @@ public final class DefaultTrait implements Trait {
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", getName())
-                .add("value", getValue()).add("good", goodTrait).toString();
+        return MoreObjects.toStringHelper(this).add("value", getValue())
+                .add("good", goodTrait).toString();
     }
 
-    protected final EditableValueHandler getValueHandler() {
+    protected final EditableValueBox getValueHandler() {
         return composite;
     }
 
