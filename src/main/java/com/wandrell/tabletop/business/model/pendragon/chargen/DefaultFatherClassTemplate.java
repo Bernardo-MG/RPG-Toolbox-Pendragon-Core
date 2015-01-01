@@ -9,7 +9,7 @@ import java.util.Objects;
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
 
-public final class DefaultFatherClassBonus implements FatherClassBonus {
+public final class DefaultFatherClassTemplate implements FatherClassTemplate {
 
     private final Money              money;
     private final String             name;
@@ -18,7 +18,7 @@ public final class DefaultFatherClassBonus implements FatherClassBonus {
     private final Integer            skillsNonCombatPoints;
     private final Integer            skillsPoints;
 
-    public DefaultFatherClassBonus(final String name,
+    public DefaultFatherClassTemplate(final String name,
             final Integer skillsGroupPoints,
             final Collection<String> skillsGroup, final Integer skillsPoints,
             final Integer skillsNonCombatPoints, final Money money) {
@@ -54,7 +54,7 @@ public final class DefaultFatherClassBonus implements FatherClassBonus {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultFatherClassBonus other = (DefaultFatherClassBonus) obj;
+        DefaultFatherClassTemplate other = (DefaultFatherClassTemplate) obj;
         return Objects.equals(name, other.name);
     }
 

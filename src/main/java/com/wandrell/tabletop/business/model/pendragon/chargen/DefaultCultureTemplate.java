@@ -10,19 +10,19 @@ import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.character.Gender;
 import com.wandrell.tabletop.business.model.interval.IntervalTable;
 
-public final class DefaultCultureBonus implements CultureBonus {
+public final class DefaultCultureTemplate implements CultureTemplate {
 
-    private final FamilyCharacteristicBonus           femaleFamilyCharacteristic;
+    private final FamilyCharacteristicTemplate        femaleFamilyCharacteristic;
     private final IntervalTable<AdditionalBelongings> initialLuckFemale;
     private final IntervalTable<AdditionalBelongings> initialLuckMale;
-    private final FamilyCharacteristicBonus           maleFamilyCharacteristic;
+    private final FamilyCharacteristicTemplate        maleFamilyCharacteristic;
     private final String                              name;
     private final CultureCharacterTemplate            templateDefaultFemale;
     private final CultureCharacterTemplate            templateDefaultMale;
     private final CultureCharacterTemplate            templateRandomFemale;
     private final CultureCharacterTemplate            templateRandomMale;
 
-    public DefaultCultureBonus(final String name,
+    public DefaultCultureTemplate(final String name,
             final Map<String, Path> files,
             final CultureCharacterTemplate templateDefaultFemale,
             final CultureCharacterTemplate templateRandomFemale,
@@ -30,8 +30,8 @@ public final class DefaultCultureBonus implements CultureBonus {
             final CultureCharacterTemplate templateRandomMale,
             final IntervalTable<AdditionalBelongings> initialLuckFemale,
             final IntervalTable<AdditionalBelongings> initialLuckMale,
-            final FamilyCharacteristicBonus femaleFamilyCharacteristic,
-            final FamilyCharacteristicBonus maleFamilyCharacteristic) {
+            final FamilyCharacteristicTemplate femaleFamilyCharacteristic,
+            final FamilyCharacteristicTemplate maleFamilyCharacteristic) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -75,7 +75,7 @@ public final class DefaultCultureBonus implements CultureBonus {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultCultureBonus other = (DefaultCultureBonus) obj;
+        DefaultCultureTemplate other = (DefaultCultureTemplate) obj;
         return Objects.equals(name, other.name);
     }
 
@@ -85,9 +85,9 @@ public final class DefaultCultureBonus implements CultureBonus {
     }
 
     @Override
-    public final FamilyCharacteristicBonus getFamilyCharacteristic(
+    public final FamilyCharacteristicTemplate getFamilyCharacteristic(
             final Gender gender) {
-        final FamilyCharacteristicBonus result;
+        final FamilyCharacteristicTemplate result;
 
         checkNotNull(gender, "Received a null pointer as gender");
 
@@ -177,7 +177,7 @@ public final class DefaultCultureBonus implements CultureBonus {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final FamilyCharacteristicBonus getFemaleFamilyCharacteristic() {
+    private final FamilyCharacteristicTemplate getFemaleFamilyCharacteristic() {
         return femaleFamilyCharacteristic;
     }
 
@@ -193,7 +193,7 @@ public final class DefaultCultureBonus implements CultureBonus {
         return templateDefaultFemale;
     }
 
-    private final FamilyCharacteristicBonus getMaleFamilyCharacteristic() {
+    private final FamilyCharacteristicTemplate getMaleFamilyCharacteristic() {
         return maleFamilyCharacteristic;
     }
 

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 
-public final class DefaultReligionBonus implements ReligionBonus {
+public final class DefaultReligionTemplate implements ReligionTemplate {
 
     private final Integer              bonusArmor;
     private final Integer              bonusDamage;
@@ -18,7 +18,7 @@ public final class DefaultReligionBonus implements ReligionBonus {
     private final String               name;
     private final Collection<String>   traits;
 
-    public DefaultReligionBonus(final String name,
+    public DefaultReligionTemplate(final String name,
             final Map<String, Integer> bonusDerived, final Integer bonusArmor,
             final Integer bonusDamage, final Integer bonusDamageDice,
             final Collection<String> traits) {
@@ -53,7 +53,7 @@ public final class DefaultReligionBonus implements ReligionBonus {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultReligionBonus other = (DefaultReligionBonus) obj;
+        DefaultReligionTemplate other = (DefaultReligionTemplate) obj;
         return Objects.equals(name, other.name);
     }
 

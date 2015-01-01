@@ -8,14 +8,14 @@ import java.util.Map;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
-public final class DefaultFamilyCharacteristicBonus implements
-        FamilyCharacteristicBonus {
+public final class DefaultFamilyCharacteristicTemplate implements
+        FamilyCharacteristicTemplate {
 
     private final Map<String, Integer> attributes;
     private final String               name;
     private final Map<String, Integer> skills;
 
-    public DefaultFamilyCharacteristicBonus(final String name,
+    public DefaultFamilyCharacteristicTemplate(final String name,
             final Map<String, Integer> attributes,
             final Map<String, Integer> skills) {
         super();
@@ -38,7 +38,7 @@ public final class DefaultFamilyCharacteristicBonus implements
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultFamilyCharacteristicBonus other = (DefaultFamilyCharacteristicBonus) obj;
+        DefaultFamilyCharacteristicTemplate other = (DefaultFamilyCharacteristicTemplate) obj;
         return Objects.equal(name, other.name);
     }
 
