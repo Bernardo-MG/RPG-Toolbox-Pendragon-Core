@@ -9,32 +9,20 @@ import com.google.common.base.MoreObjects;
 public final class DefaultFatherClassGlory implements FatherClassGlory {
 
     private final Integer baseGlory;
-    private final Integer gloryPerYear;
     private final String  name;
-
-    public DefaultFatherClassGlory(
-            final DefaultFatherClassGlory fatherClassGlory) {
-        super();
-
-        checkNotNull(fatherClassGlory,
-                "Received a null pointer as father class glory");
-
-        name = fatherClassGlory.name;
-        baseGlory = fatherClassGlory.baseGlory;
-        gloryPerYear = fatherClassGlory.gloryPerYear;
-    }
+    private final Integer yearlyGlory;
 
     public DefaultFatherClassGlory(final String name, final Integer baseGlory,
-            final Integer gloryPerYear) {
+            final Integer yearlyGlory) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
         checkNotNull(baseGlory, "Received a null pointer as base glory");
-        checkNotNull(gloryPerYear, "Received a null pointer as glory per year");
+        checkNotNull(yearlyGlory, "Received a null pointer as glory per year");
 
         this.name = name;
         this.baseGlory = baseGlory;
-        this.gloryPerYear = gloryPerYear;
+        this.yearlyGlory = yearlyGlory;
     }
 
     @Override
@@ -55,13 +43,13 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
     }
 
     @Override
-    public final Integer getGloryPerYear() {
-        return gloryPerYear;
+    public final String getFatherClass() {
+        return name;
     }
 
     @Override
-    public final String getName() {
-        return name;
+    public final Integer getYearlyGlory() {
+        return yearlyGlory;
     }
 
     @Override

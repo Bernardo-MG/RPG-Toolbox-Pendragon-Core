@@ -38,7 +38,7 @@ public final class FatherClassGloryDerivedValueViewPoint extends
         final Integer value;
 
         value = getFatherClassGlory().getBaseGlory()
-                + (getFatherClassGlory().getGloryPerYear() * getYears()
+                + (getFatherClassGlory().getYearlyGlory() * getYears()
                         .getValue());
 
         return value;

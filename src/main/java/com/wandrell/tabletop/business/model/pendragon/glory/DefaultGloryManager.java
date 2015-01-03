@@ -7,7 +7,7 @@ import java.util.Collections;
 
 import com.wandrell.tabletop.business.model.valuebox.ValueBox;
 
-public final class DefaultGloryKeeper implements GloryManager {
+public final class DefaultGloryManager implements GloryManager {
 
     private final ValueBox               chivaldryGlory;
     private final Collection<GloryEvent> events;
@@ -17,7 +17,7 @@ public final class DefaultGloryKeeper implements GloryManager {
     private final ValueBox               traitsGlory;
     private final ValueBox               yearlyGlory;
 
-    public DefaultGloryKeeper(final Collection<GloryEvent> events,
+    public DefaultGloryManager(final Collection<GloryEvent> events,
             final ValueBox chivaldryGlory, final ValueBox gentlewomanGlory,
             final ValueBox passionsGlory, final ValueBox religiousGlory,
             final ValueBox traitsGlory, final ValueBox yearlyGlory) {
@@ -44,7 +44,7 @@ public final class DefaultGloryKeeper implements GloryManager {
         this.yearlyGlory = yearlyGlory;
     }
 
-    public DefaultGloryKeeper(final DefaultGloryKeeper glory) {
+    public DefaultGloryManager(final DefaultGloryManager glory) {
         super();
 
         checkNotNull(glory, "Received a null pointer as glory");
