@@ -74,7 +74,7 @@ public final class DefaultDirectedTrait implements DirectedTrait {
     }
 
     @Override
-    public final String getNameToken() {
+    public final String getName() {
         return name;
     }
 

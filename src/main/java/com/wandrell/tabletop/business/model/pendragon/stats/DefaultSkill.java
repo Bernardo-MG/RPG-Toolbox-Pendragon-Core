@@ -100,7 +100,7 @@ public final class DefaultSkill implements Skill {
     }
 
     @Override
-    public final String getNameToken() {
+    public final String getName() {
         return name;
     }
 

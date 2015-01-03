@@ -72,7 +72,7 @@ public final class DefaultPassion implements Passion {
     }
 
     @Override
-    public final String getNameToken() {
+    public final String getName() {
         return name;
     }
 
