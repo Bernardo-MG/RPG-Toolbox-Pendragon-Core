@@ -18,7 +18,7 @@ public final class DefaultSkill implements Skill {
     private final Boolean                 knightlySkill;
     private final Boolean                 knowledgeSkill;
     private final String                  name;
-    private final Boolean                 repeteable;
+    private final Boolean                 repeatable;
 
     public DefaultSkill(final DefaultSkill skill) {
         super();
@@ -36,7 +36,7 @@ public final class DefaultSkill implements Skill {
         knowledgeSkill = skill.knowledgeSkill;
         courtlySkill = skill.courtlySkill;
 
-        repeteable = skill.repeteable;
+        repeatable = skill.repeatable;
     }
 
     public DefaultSkill(final String name, final Integer value,
@@ -63,7 +63,7 @@ public final class DefaultSkill implements Skill {
         this.knowledgeSkill = knowledgeSkill;
         this.courtlySkill = courtlySkill;
 
-        this.repeteable = repeteable;
+        this.repeatable = repeteable;
     }
 
     @Override
@@ -145,11 +145,6 @@ public final class DefaultSkill implements Skill {
     }
 
     @Override
-    public final Boolean isRepeatable() {
-        return repeteable;
-    }
-
-    @Override
     public final void removeValueEventListener(final ValueBoxListener listener) {
         getValueHandler().removeValueEventListener(listener);
     }
@@ -185,6 +180,10 @@ public final class DefaultSkill implements Skill {
 
     private final EditableValueBox getValueHandler() {
         return composite;
+    }
+
+    private final Boolean isRepeatable() {
+        return repeatable;
     }
 
 }
