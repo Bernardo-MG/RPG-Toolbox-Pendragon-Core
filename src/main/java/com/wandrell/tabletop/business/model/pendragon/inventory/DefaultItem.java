@@ -2,6 +2,8 @@ package com.wandrell.tabletop.business.model.pendragon.inventory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.common.base.MoreObjects;
+
 public final class DefaultItem implements Item {
 
     private final String description;
@@ -34,6 +36,11 @@ public final class DefaultItem implements Item {
     @Override
     public final String getName() {
         return name;
+    }
+
+    @Override
+    public final String toString() {
+        return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
 }

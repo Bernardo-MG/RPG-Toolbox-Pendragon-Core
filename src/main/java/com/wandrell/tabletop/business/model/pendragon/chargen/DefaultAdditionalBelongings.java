@@ -8,7 +8,7 @@ import java.util.Collections;
 import com.wandrell.tabletop.business.model.dice.Dice;
 import com.wandrell.tabletop.business.model.interval.IntervalTable;
 import com.wandrell.tabletop.business.model.pendragon.character.HorseCharacter;
-import com.wandrell.tabletop.business.model.pendragon.inventory.Equipment;
+import com.wandrell.tabletop.business.model.pendragon.inventory.Item;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Shield;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Weapon;
@@ -16,9 +16,9 @@ import com.wandrell.tabletop.business.model.pendragon.manor.Pet;
 
 public final class DefaultAdditionalBelongings implements AdditionalBelongings {
 
-    private final Collection<Equipment>      equipment;
     private final Boolean                    hasToChoose;
     private final Collection<HorseCharacter> horses;
+    private final Collection<Item>           items;
     private final Money                      money;
     private final String                     nameMoney;
     private final Collection<Pet>            pets;
@@ -30,7 +30,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     public DefaultAdditionalBelongings(final Boolean hasToChoose,
             final Money money, final String nameMoney,
             final IntervalTable<?> table, final Collection<Dice> rerolls,
-            final Collection<Equipment> equipment,
+            final Collection<Item> items,
             final Collection<HorseCharacter> horses,
             final Collection<Pet> pets, final Collection<Shield> shields,
             final Collection<Weapon> weapons) {
@@ -41,7 +41,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
         checkNotNull(nameMoney, "Received a null pointer as money name");
         checkNotNull(table, "Received a null pointer as table");
         checkNotNull(rerolls, "Received a null pointer as re-rolls");
-        checkNotNull(equipment, "Received a null pointer as equipment");
+        checkNotNull(items, "Received a null pointer as equipment");
         checkNotNull(horses, "Received a null pointer as horses");
         checkNotNull(pets, "Received a null pointer as pets");
         checkNotNull(shields, "Received a null pointer as shields");
@@ -54,7 +54,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
 
         this.table = table;
 
-        this.equipment = equipment;
+        this.items = items;
         this.horses = horses;
         this.pets = pets;
         this.shields = shields;
@@ -62,13 +62,13 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     }
 
     @Override
-    public final Collection<Equipment> getEquipment() {
-        return Collections.unmodifiableCollection(getEquipmentModifiable());
+    public final Collection<HorseCharacter> getHorses() {
+        return Collections.unmodifiableCollection(getHorsesModifiable());
     }
 
     @Override
-    public final Collection<HorseCharacter> getHorses() {
-        return Collections.unmodifiableCollection(getHorsesModifiable());
+    public final Collection<Item> getItems() {
+        return Collections.unmodifiableCollection(getItemsModifiable());
     }
 
     @Override
@@ -111,12 +111,12 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
         return hasToChoose;
     }
 
-    private final Collection<Equipment> getEquipmentModifiable() {
-        return equipment;
-    }
-
     private final Collection<HorseCharacter> getHorsesModifiable() {
         return horses;
+    }
+
+    private final Collection<Item> getItemsModifiable() {
+        return items;
     }
 
     private final Collection<Pet> getPetsModifiable() {

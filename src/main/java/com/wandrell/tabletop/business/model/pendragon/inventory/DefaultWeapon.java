@@ -2,39 +2,43 @@ package com.wandrell.tabletop.business.model.pendragon.inventory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.wandrell.tabletop.business.model.dice.Dice;
+import java.util.Map;
+
+import com.google.common.base.MoreObjects;
 
 public final class DefaultWeapon implements Weapon {
 
-    private final Boolean   breakingEnemyOnDraw;
-    private final Boolean   breakingOnFumble;
-    private final Integer   damageBonus;
-    private final Boolean   damageOverriden;
-    private final Dice      damageOverridenDice;
-    private final Boolean   hittingBack;
-    private final Boolean   ignoringShield;
-    private final Equipment item;
-    private final Boolean   reducingShieldToRoll;
-    private final String    skill;
-    private final Boolean   twoHanded;
+    private final Map<ArmorType, Integer> armorBonus;
+    private final Boolean                 breakingEnemyOnDraw;
+    private final Boolean                 breakingOnFumble;
+    private final Integer                 damageBonus;
+    private final Integer                 damageDiceBonus;
+    private final Integer                 damageOverridenDice;
+    private final Boolean                 hittingBack;
+    private final Boolean                 ignoringShield;
+    private final Item                    item;
+    private final Boolean                 reducingShieldToRoll;
+    private final String                  skill;
+    private final Boolean                 twoHanded;
 
-    public DefaultWeapon(final Equipment item, final String skill,
+    public DefaultWeapon(final String name, final String description,
+            final Money money, final String skill, final Integer damageBonus,
+            final Integer damageDiceBonus, final Integer damageOverridenDice,
+            final Map<ArmorType, Integer> armorBonus,
             final Boolean breakingEnemyOnDraw, final Boolean breakingOnFumble,
-            final Integer damageBonus, final Boolean damageOverriden,
             final Boolean hittingBack, final Boolean ignoringShield,
-            final Boolean reducingShieldToRoll, final Boolean twoHanded,
-            final Dice damageOverridenDice) {
+            final Boolean reducingShieldToRoll, final Boolean twoHanded) {
         super();
 
-        checkNotNull(item, "Received a null pointer as item");
         checkNotNull(skill, "Received a null pointer as skill");
         checkNotNull(breakingEnemyOnDraw,
                 "Received a null pointer as breaks enemy on draw flag");
         checkNotNull(breakingOnFumble,
                 "Received a null pointer as breaks on fumble lag");
+        checkNotNull(armorBonus, "Received a null pointer as vs armor bonus");
         checkNotNull(damageBonus, "Received a null pointer as damage bonus");
-        checkNotNull(damageOverriden,
-                "Received a null pointer as damage overriden flag");
+        checkNotNull(damageDiceBonus,
+                "Received a null pointer as damage dice bonus");
         checkNotNull(hittingBack,
                 "Received a null pointer as hitting back flag");
         checkNotNull(ignoringShield,
@@ -45,19 +49,28 @@ public final class DefaultWeapon implements Weapon {
         checkNotNull(damageOverridenDice,
                 "Received a null pointer as damage override dice");
 
+        this.item = new DefaultItem(name, description, money);
+
         this.skill = skill;
-        this.item = item;
+
+        this.damageBonus = damageBonus;
+        this.damageDiceBonus = damageDiceBonus;
+
+        this.damageOverridenDice = damageOverridenDice;
+
+        this.armorBonus = armorBonus;
 
         this.breakingEnemyOnDraw = breakingEnemyOnDraw;
         this.breakingOnFumble = breakingOnFumble;
-        this.damageBonus = damageBonus;
-        this.damageOverriden = damageOverriden;
         this.hittingBack = hittingBack;
         this.ignoringShield = ignoringShield;
         this.reducingShieldToRoll = reducingShieldToRoll;
         this.twoHanded = twoHanded;
+    }
 
-        this.damageOverridenDice = damageOverridenDice;
+    @Override
+    public final Map<ArmorType, Integer> getArmorBonusDice() {
+        return armorBonus;
     }
 
     @Override
@@ -66,7 +79,12 @@ public final class DefaultWeapon implements Weapon {
     }
 
     @Override
-    public final Dice getDamageOverridenDice() {
+    public final Integer getDamageDiceBonus() {
+        return damageDiceBonus;
+    }
+
+    @Override
+    public final Integer getDamageOverrideDice() {
         return damageOverridenDice;
     }
 
@@ -101,11 +119,6 @@ public final class DefaultWeapon implements Weapon {
     }
 
     @Override
-    public final Boolean isDamageOverriden() {
-        return damageOverriden;
-    }
-
-    @Override
     public final Boolean isHittingBack() {
         return hittingBack;
     }
@@ -125,7 +138,13 @@ public final class DefaultWeapon implements Weapon {
         return twoHanded;
     }
 
-    private final Equipment getBaseItem() {
+    @Override
+    public final String toString() {
+        return MoreObjects.toStringHelper(this).add("name", getName())
+                .toString();
+    }
+
+    private final Item getBaseItem() {
         return item;
     }
 
