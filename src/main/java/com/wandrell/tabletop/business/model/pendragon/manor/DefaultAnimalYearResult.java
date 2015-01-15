@@ -14,11 +14,11 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
     private final String  name;
     private final Boolean producesMoney;
     private final Boolean puppies;
-    private final Pet     puppy;
+    private final String  puppy;
 
     public DefaultAnimalYearResult(final String name, final Money money,
-            final Pet puppy, final Boolean dying, final Boolean producesMoney,
-            final Boolean puppies) {
+            final String puppy, final Boolean dying,
+            final Boolean producesMoney, final Boolean puppies) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -51,17 +51,17 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
     }
 
     @Override
+    public final String getDescription() {
+        return name;
+    }
+
+    @Override
     public final Money getMoney() {
         return money;
     }
 
     @Override
-    public final String getName() {
-        return name;
-    }
-
-    @Override
-    public final Pet getPuppy() {
+    public final String getPuppy() {
         return puppy;
     }
 
