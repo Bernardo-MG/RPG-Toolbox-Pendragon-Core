@@ -14,7 +14,6 @@ import com.wandrell.tabletop.business.model.pendragon.inventory.Item;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
 import com.wandrell.tabletop.business.model.pendragon.manor.Pet;
 import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
-import com.wandrell.tabletop.business.model.pendragon.stats.DerivedAttribute;
 import com.wandrell.tabletop.business.model.pendragon.stats.DirectedTrait;
 import com.wandrell.tabletop.business.model.pendragon.stats.Passion;
 import com.wandrell.tabletop.business.model.pendragon.stats.Skill;
@@ -297,7 +296,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Attribute getConstitution() {
+    public final Integer getConstitution() {
         return getBaseCharacter().getConstitution();
     }
 
@@ -317,7 +316,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final DerivedAttribute getDamage() {
+    public final Integer getDamage() {
         return getBaseCharacter().getDamage();
     }
 
@@ -327,12 +326,12 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Attribute getDexterity() {
+    public final Integer getDexterity() {
         return getBaseCharacter().getDexterity();
     }
 
     @Override
-    public final DerivedAttribute getDexterityRoll() {
+    public final Integer getDexterityRoll() {
         return getBaseCharacter().getDexterityRoll();
     }
 
@@ -388,12 +387,12 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final DerivedAttribute getHealingRate() {
+    public final Integer getHealingRate() {
         return getBaseCharacter().getHealingRate();
     }
 
     @Override
-    public final DerivedAttribute getHitPoints() {
+    public final Integer getHitPoints() {
         return getBaseCharacter().getHitPoints();
     }
 
@@ -445,7 +444,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final DerivedAttribute getMajorWoundTreshold() {
+    public final Integer getMajorWoundTreshold() {
         return getBaseCharacter().getMajorWoundTreshold();
     }
 
@@ -465,7 +464,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final DerivedAttribute getMovementRate() {
+    public final Integer getMovementRate() {
         return getBaseCharacter().getMovementRate();
     }
 
@@ -520,7 +519,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Attribute getSize() {
+    public final Integer getSize() {
         return getBaseCharacter().getSize();
     }
 
@@ -535,7 +534,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Attribute getStrength() {
+    public final Integer getStrength() {
         return getBaseCharacter().getStrength();
     }
 
@@ -555,7 +554,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final DerivedAttribute getUnconsciousTreshold() {
+    public final Integer getUnconsciousTreshold() {
         return getBaseCharacter().getUnconsciousTreshold();
     }
 
@@ -570,7 +569,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final DerivedAttribute getWeight() {
+    public final Integer getWeight() {
         return getBaseCharacter().getWeight();
     }
 

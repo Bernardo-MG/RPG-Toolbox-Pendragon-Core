@@ -133,43 +133,43 @@ public final class DefaultPendragonBaseCharacter implements
     }
 
     @Override
-    public final Attribute getConstitution() {
-        return constitution;
+    public final Integer getConstitution() {
+        return constitution.getValue();
     }
 
     @Override
-    public final DerivedAttribute getDamage() {
-        return damage;
+    public final Integer getDamage() {
+        return damage.getValue();
     }
 
     @Override
-    public final Attribute getDexterity() {
-        return dexterity;
+    public final Integer getDexterity() {
+        return dexterity.getValue();
     }
 
     @Override
-    public final DerivedAttribute getDexterityRoll() {
-        return dexterityRoll;
+    public final Integer getDexterityRoll() {
+        return dexterityRoll.getValue();
     }
 
     @Override
-    public final DerivedAttribute getHealingRate() {
-        return healingRate;
+    public final Integer getHealingRate() {
+        return healingRate.getValue();
     }
 
     @Override
-    public final DerivedAttribute getHitPoints() {
-        return hitPoints;
+    public final Integer getHitPoints() {
+        return hitPoints.getValue();
     }
 
     @Override
-    public final DerivedAttribute getMajorWoundTreshold() {
-        return majorWoundTreshold;
+    public final Integer getMajorWoundTreshold() {
+        return majorWoundTreshold.getValue();
     }
 
     @Override
-    public final DerivedAttribute getMovementRate() {
-        return movementRate;
+    public final Integer getMovementRate() {
+        return movementRate.getValue();
     }
 
     @Override
@@ -178,23 +178,23 @@ public final class DefaultPendragonBaseCharacter implements
     }
 
     @Override
-    public final Attribute getSize() {
-        return size;
+    public final Integer getSize() {
+        return size.getValue();
     }
 
     @Override
-    public final Attribute getStrength() {
-        return strength;
+    public final Integer getStrength() {
+        return strength.getValue();
     }
 
     @Override
-    public final DerivedAttribute getUnconsciousTreshold() {
-        return unconsciousTreshold;
+    public final Integer getUnconsciousTreshold() {
+        return unconsciousTreshold.getValue();
     }
 
     @Override
-    public final DerivedAttribute getWeight() {
-        return weight;
+    public final Integer getWeight() {
+        return weight.getValue();
     }
 
     @Override

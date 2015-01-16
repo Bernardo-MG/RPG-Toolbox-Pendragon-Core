@@ -2,18 +2,13 @@ package com.wandrell.tabletop.business.model.pendragon.character;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
-import com.wandrell.tabletop.business.model.pendragon.stats.DerivedAttribute;
-import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
-import com.wandrell.tabletop.business.model.valuebox.ValueBox;
-
 public final class DefaultHorseCharacter implements HorseCharacter {
 
     private final Boolean                armored;
     private final PendragonBaseCharacter baseCharacter;
     private final Boolean                combat;
     private final Boolean                hunting;
-    private final EditableValueBox       naturalArmor;
+    private final Integer                naturalArmor;
     private Boolean                      ruined;
     private final String                 type;
 
@@ -26,7 +21,7 @@ public final class DefaultHorseCharacter implements HorseCharacter {
 
         type = horse.type;
 
-        naturalArmor = horse.naturalArmor.createNewInstance();
+        naturalArmor = horse.naturalArmor;
 
         combat = horse.combat;
         hunting = horse.hunting;
@@ -34,7 +29,7 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     }
 
     public DefaultHorseCharacter(final PendragonBaseCharacter character,
-            final String type, final EditableValueBox naturalArmor,
+            final String type, final Integer naturalArmor,
             final Boolean combat, final Boolean hunting, final Boolean armored) {
         super();
 
@@ -62,32 +57,32 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     }
 
     @Override
-    public final Attribute getConstitution() {
+    public final Integer getConstitution() {
         return getBaseCharacter().getConstitution();
     }
 
     @Override
-    public final DerivedAttribute getDamage() {
+    public final Integer getDamage() {
         return getBaseCharacter().getDamage();
     }
 
     @Override
-    public final Attribute getDexterity() {
+    public final Integer getDexterity() {
         return getBaseCharacter().getConstitution();
     }
 
     @Override
-    public final DerivedAttribute getDexterityRoll() {
+    public final Integer getDexterityRoll() {
         return getBaseCharacter().getDexterityRoll();
     }
 
     @Override
-    public final DerivedAttribute getHealingRate() {
+    public final Integer getHealingRate() {
         return getBaseCharacter().getHealingRate();
     }
 
     @Override
-    public final DerivedAttribute getHitPoints() {
+    public final Integer getHitPoints() {
         return getBaseCharacter().getHitPoints();
     }
 
@@ -97,12 +92,12 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     }
 
     @Override
-    public final DerivedAttribute getMajorWoundTreshold() {
+    public final Integer getMajorWoundTreshold() {
         return getBaseCharacter().getMajorWoundTreshold();
     }
 
     @Override
-    public final DerivedAttribute getMovementRate() {
+    public final Integer getMovementRate() {
         return getBaseCharacter().getMovementRate();
     }
 
@@ -112,27 +107,27 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     }
 
     @Override
-    public final ValueBox getNaturalArmor() {
+    public final Integer getNaturalArmor() {
         return naturalArmor;
     }
 
     @Override
-    public final Attribute getSize() {
+    public final Integer getSize() {
         return getBaseCharacter().getSize();
     }
 
     @Override
-    public final Attribute getStrength() {
+    public final Integer getStrength() {
         return getBaseCharacter().getStrength();
     }
 
     @Override
-    public final DerivedAttribute getUnconsciousTreshold() {
+    public final Integer getUnconsciousTreshold() {
         return getBaseCharacter().getUnconsciousTreshold();
     }
 
     @Override
-    public final DerivedAttribute getWeight() {
+    public final Integer getWeight() {
         return getBaseCharacter().getWeight();
     }
 
