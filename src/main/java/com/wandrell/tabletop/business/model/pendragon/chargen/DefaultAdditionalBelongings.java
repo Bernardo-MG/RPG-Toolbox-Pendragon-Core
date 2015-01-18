@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import com.wandrell.tabletop.business.model.dice.Dice;
-import com.wandrell.tabletop.business.model.interval.IntervalTable;
 import com.wandrell.tabletop.business.model.pendragon.character.HorseCharacter;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Item;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
@@ -24,13 +23,12 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     private final Collection<Pet>            pets;
     private final Collection<Dice>           rerolls;
     private final Collection<Shield>         shields;
-    private final IntervalTable<?>           table;
+    private final String                     table;
     private final Collection<Weapon>         weapons;
 
     public DefaultAdditionalBelongings(final Boolean hasToChoose,
-            final Money money, final String nameMoney,
-            final IntervalTable<?> table, final Collection<Dice> rerolls,
-            final Collection<Item> items,
+            final Money money, final String nameMoney, final String table,
+            final Collection<Dice> rerolls, final Collection<Item> items,
             final Collection<HorseCharacter> horses,
             final Collection<Pet> pets, final Collection<Shield> shields,
             final Collection<Weapon> weapons) {
@@ -92,13 +90,13 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     }
 
     @Override
-    public final Collection<Shield> getShields() {
-        return Collections.unmodifiableCollection(getShieldsModifiable());
+    public final String getRerollTable() {
+        return table;
     }
 
     @Override
-    public final IntervalTable<?> getTable() {
-        return table;
+    public final Collection<Shield> getShields() {
+        return Collections.unmodifiableCollection(getShieldsModifiable());
     }
 
     @Override
