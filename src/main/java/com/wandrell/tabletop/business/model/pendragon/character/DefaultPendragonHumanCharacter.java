@@ -7,17 +7,18 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.business.model.character.Gender;
-import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
 import com.wandrell.tabletop.business.model.pendragon.stats.DirectedTrait;
 import com.wandrell.tabletop.business.model.pendragon.stats.Passion;
 import com.wandrell.tabletop.business.model.pendragon.stats.Skill;
 import com.wandrell.tabletop.business.model.pendragon.stats.SpecialtySkill;
 import com.wandrell.tabletop.business.model.pendragon.stats.Trait;
+import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.ValueBox;
 
 public final class DefaultPendragonHumanCharacter implements
         PendragonHumanCharacter {
 
-    private final Attribute                  appearance;
+    private final ValueBox                   appearance;
     private final PendragonBaseCharacter     baseCharacter;
     private final Trait                      chaste;
     private final Collection<DirectedTrait>  directedTraits  = new LinkedHashSet<>();
@@ -85,7 +86,7 @@ public final class DefaultPendragonHumanCharacter implements
 
     public DefaultPendragonHumanCharacter(
             final PendragonBaseCharacter baseCharacter,
-            final Attribute appearance, final Trait chaste,
+            final Integer appearance, final Trait chaste,
             final Trait energetic, final Trait forgiving, final Trait generous,
             final Trait honest, final Trait just, final Trait merciful,
             final Trait modest, final Trait pious, final Trait prudent,
@@ -110,7 +111,8 @@ public final class DefaultPendragonHumanCharacter implements
 
         this.baseCharacter = baseCharacter;
 
-        this.appearance = appearance;
+        this.appearance = new DefaultEditableValueBox(appearance, 0,
+                Integer.MAX_VALUE);
 
         this.chaste = chaste;
         this.energetic = energetic;
@@ -183,8 +185,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Attribute getAppearance() {
-        return appearance;
+    public final Integer getAppearance() {
+        return appearance.getValue();
     }
 
     @Override

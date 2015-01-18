@@ -5,53 +5,48 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
-import com.wandrell.tabletop.business.model.pendragon.stats.DerivedAttribute;
+import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.ValueBox;
 
 public final class DefaultPendragonBaseCharacter implements
         PendragonBaseCharacter {
 
-    private final Attribute               constitution;
-
-    private final DerivedAttribute        damage;
+    private final EditableValueBox        constitution;
+    private final ValueBox                damage;
     private final DerivedAttributeBuilder derivedBuilder;
-    private final Attribute               dexterity;
-    private final DerivedAttribute        dexterityRoll;
-    private final DerivedAttribute        healingRate;
-    private final DerivedAttribute        hitPoints;
-    private final DerivedAttribute        majorWoundTreshold;
-    private final DerivedAttribute        movementRate;
+    private final EditableValueBox        dexterity;
+    private final ValueBox                dexterityRoll;
+    private final ValueBox                healingRate;
+    private final ValueBox                hitPoints;
+    private final ValueBox                majorWoundTreshold;
+    private final ValueBox                movementRate;
     private final String                  name;
-    private final Attribute               size;
-    private final Attribute               strength;
-    private final DerivedAttribute        unconsciousTreshold;
-    private final DerivedAttribute        weight;
+    private final EditableValueBox        size;
+    private final EditableValueBox        strength;
+    private final ValueBox                unconsciousTreshold;
+    private final ValueBox                weight;
 
     public interface DerivedAttributeBuilder {
 
-        public DerivedAttribute
-                getDamage(final PendragonBaseCharacter character);
+        public ValueBox getDamage(final PendragonBaseCharacter character);
 
-        public DerivedAttribute getDexterityRoll(
+        public ValueBox
+                getDexterityRoll(final PendragonBaseCharacter character);
+
+        public ValueBox getHealingRate(final PendragonBaseCharacter character);
+
+        public ValueBox getHitPoints(final PendragonBaseCharacter character);
+
+        public ValueBox getMajorWoundTreshold(
                 final PendragonBaseCharacter character);
 
-        public DerivedAttribute getHealingRate(
+        public ValueBox getMovementRate(final PendragonBaseCharacter character);
+
+        public ValueBox getUnconsciousTreshold(
                 final PendragonBaseCharacter character);
 
-        public DerivedAttribute getHitPoints(
-                final PendragonBaseCharacter character);
-
-        public DerivedAttribute getMajorWoundTreshold(
-                final PendragonBaseCharacter character);
-
-        public DerivedAttribute getMovementRate(
-                final PendragonBaseCharacter character);
-
-        public DerivedAttribute getUnconsciousTreshold(
-                final PendragonBaseCharacter character);
-
-        public DerivedAttribute
-                getWeight(final PendragonBaseCharacter character);
+        public ValueBox getWeight(final PendragonBaseCharacter character);
 
     }
 
@@ -81,8 +76,8 @@ public final class DefaultPendragonBaseCharacter implements
     }
 
     public DefaultPendragonBaseCharacter(final String name,
-            final Attribute constitution, final Attribute dexterity,
-            final Attribute size, final Attribute strength,
+            final Integer constitution, final Integer dexterity,
+            final Integer size, final Integer strength,
             final DerivedAttributeBuilder derivedAttributeBuilder) {
         super();
 
@@ -96,10 +91,14 @@ public final class DefaultPendragonBaseCharacter implements
 
         this.name = name;
 
-        this.constitution = constitution;
-        this.dexterity = dexterity;
-        this.size = size;
-        this.strength = strength;
+        // TODO: Maybe the attributes limits should be configurable
+        this.constitution = new DefaultEditableValueBox(constitution, 0,
+                Integer.MAX_VALUE);
+        this.dexterity = new DefaultEditableValueBox(dexterity, 0,
+                Integer.MAX_VALUE);
+        this.size = new DefaultEditableValueBox(size, 0, Integer.MAX_VALUE);
+        this.strength = new DefaultEditableValueBox(strength, 0,
+                Integer.MAX_VALUE);
 
         derivedBuilder = derivedAttributeBuilder;
 

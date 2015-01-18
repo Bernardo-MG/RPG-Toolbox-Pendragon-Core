@@ -7,7 +7,7 @@ import java.util.Objects;
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
 import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
-import com.wandrell.tabletop.business.model.valuebox.event.ValueBoxListener;
+import com.wandrell.tabletop.business.util.event.ValueChangeListener;
 
 public final class DefaultPassion implements Passion {
 
@@ -39,8 +39,9 @@ public final class DefaultPassion implements Passion {
     }
 
     @Override
-    public final void addValueEventListener(final ValueBoxListener listener) {
-        getValueHandler().addValueEventListener(listener);
+    public final void
+            addValueChangeListener(final ValueChangeListener listener) {
+        getValueHandler().addValueChangeListener(listener);
     }
 
     @Override
@@ -98,8 +99,9 @@ public final class DefaultPassion implements Passion {
     }
 
     @Override
-    public final void removeValueEventListener(final ValueBoxListener listener) {
-        getValueHandler().removeValueEventListener(listener);
+    public final void removeValueChangeListener(
+            final ValueChangeListener listener) {
+        getValueHandler().removeValueChangeListener(listener);
     }
 
     @Override

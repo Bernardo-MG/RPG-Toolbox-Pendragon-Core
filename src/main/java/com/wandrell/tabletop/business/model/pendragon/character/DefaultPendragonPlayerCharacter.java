@@ -13,12 +13,12 @@ import com.wandrell.tabletop.business.model.pendragon.glory.GloryManager;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Item;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
 import com.wandrell.tabletop.business.model.pendragon.manor.Pet;
-import com.wandrell.tabletop.business.model.pendragon.stats.Attribute;
 import com.wandrell.tabletop.business.model.pendragon.stats.DirectedTrait;
 import com.wandrell.tabletop.business.model.pendragon.stats.Passion;
 import com.wandrell.tabletop.business.model.pendragon.stats.Skill;
 import com.wandrell.tabletop.business.model.pendragon.stats.SpecialtySkill;
 import com.wandrell.tabletop.business.model.pendragon.stats.Trait;
+import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
 import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
 
 public final class DefaultPendragonPlayerCharacter implements
@@ -91,15 +91,13 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     public DefaultPendragonPlayerCharacter(
-            final PendragonHumanCharacter character,
-            final EditableValueBox armor, final String player,
+            final PendragonHumanCharacter character, final String player,
             final String religion, final String culture,
             final String fatherClass, final String homeland,
             final GloryManager glory, final Money money, final Boolean knight) {
         super();
 
         checkNotNull(character, "Received a null pointer as base character");
-        checkNotNull(armor, "Received a null pointer as armor");
         checkNotNull(player, "Received a null pointer as player name");
         checkNotNull(religion, "Received a null pointer as religion");
         checkNotNull(culture, "Received a null pointer as culture");
@@ -123,7 +121,7 @@ public final class DefaultPendragonPlayerCharacter implements
         // Initializes data holders
         this.glory = glory;
         this.money = money;
-        this.armor = armor;
+        this.armor = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
     }
 
     @Override
@@ -276,7 +274,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Attribute getAppearance() {
+    public final Integer getAppearance() {
         return getBaseCharacter().getAppearance();
     }
 
