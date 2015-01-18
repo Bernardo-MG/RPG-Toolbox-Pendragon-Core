@@ -5,71 +5,55 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
-import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.DefaultSkillBox;
+import com.wandrell.tabletop.business.model.valuebox.SkillBox;
 import com.wandrell.tabletop.business.util.event.ValueChangeListener;
 
 public final class DefaultSkill implements Skill {
 
-    private final Boolean                 combatSkill;
-    private final DefaultEditableValueBox composite;
-    private final Boolean                 courtlySkill;
-    private String                        descriptor = "";
-    private final Boolean                 knightlySkill;
-    private final Boolean                 knowledgeSkill;
-    private final String                  name;
-    private final Boolean                 repeatable;
+    private final Boolean  combatSkill;
+    private final SkillBox composite;
+    private final Boolean  courtlySkill;
+    private final Boolean  knightlySkill;
+    private final Boolean  knowledgeSkill;
 
     public DefaultSkill(final DefaultSkill skill) {
         super();
 
         checkNotNull(skill, "Received a null pointer as skill");
 
-        name = skill.name;
-
         composite = skill.composite.createNewInstance();
-
-        descriptor = skill.descriptor;
 
         combatSkill = skill.combatSkill;
         knightlySkill = skill.knightlySkill;
         knowledgeSkill = skill.knowledgeSkill;
         courtlySkill = skill.courtlySkill;
-
-        repeatable = skill.repeatable;
     }
 
     public DefaultSkill(final String name, final Integer value,
             final Integer lowerLimit, final Integer upperLimit,
             final Boolean combatSkill, final Boolean knightlySkill,
-            final Boolean knowledgeSkill, final Boolean courtlySkill,
-            final Boolean repeteable) {
+            final Boolean knowledgeSkill, final Boolean courtlySkill) {
         super();
 
-        checkNotNull(name, "Received a null pointer as name");
         checkNotNull(combatSkill, "Received a null pointer as combat flag");
         checkNotNull(knightlySkill, "Received a null pointer as knightly flag");
         checkNotNull(knowledgeSkill,
                 "Received a null pointer as knowledge flag");
         checkNotNull(courtlySkill, "Received a null pointer as courtly flag");
-        checkNotNull(repeteable, "Received a null pointer as repeteable flag");
 
-        this.name = name;
-
-        composite = new DefaultEditableValueBox(value, lowerLimit, upperLimit);
+        composite = new DefaultSkillBox(name, value, lowerLimit, upperLimit);
 
         this.combatSkill = combatSkill;
         this.knightlySkill = knightlySkill;
         this.knowledgeSkill = knowledgeSkill;
         this.courtlySkill = courtlySkill;
-
-        this.repeatable = repeteable;
     }
 
     @Override
     public final void
             addValueChangeListener(final ValueChangeListener listener) {
-        getValueHandler().addValueChangeListener(listener);
+        getBaseSkill().addValueChangeListener(listener);
     }
 
     @Override
@@ -86,38 +70,37 @@ public final class DefaultSkill implements Skill {
         if (getClass() != obj.getClass())
             return false;
         DefaultSkill other = (DefaultSkill) obj;
-        return Objects.equals(composite, other.composite)
-                && Objects.equals(descriptor, other.descriptor);
+        return Objects.equals(composite, other.composite);
     }
 
     @Override
     public final String getDescriptor() {
-        return descriptor;
+        return getBaseSkill().getDescriptor();
     }
 
     @Override
     public final Integer getLowerLimit() {
-        return getValueHandler().getLowerLimit();
+        return getBaseSkill().getLowerLimit();
     }
 
     @Override
     public final String getName() {
-        return name;
+        return getBaseSkill().getName();
     }
 
     @Override
     public final Integer getUpperLimit() {
-        return getValueHandler().getUpperLimit();
+        return getBaseSkill().getUpperLimit();
     }
 
     @Override
     public final Integer getValue() {
-        return getValueHandler().getValue();
+        return getBaseSkill().getValue();
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(composite, descriptor);
+        return Objects.hashCode(composite);
     }
 
     @Override
@@ -132,7 +115,7 @@ public final class DefaultSkill implements Skill {
 
     @Override
     public final Boolean isDescribed() {
-        return isRepeatable();
+        return getBaseSkill().isDescribed();
     }
 
     @Override
@@ -148,44 +131,44 @@ public final class DefaultSkill implements Skill {
     @Override
     public final void removeValueChangeListener(
             final ValueChangeListener listener) {
-        getValueHandler().removeValueChangeListener(listener);
+        getBaseSkill().removeValueChangeListener(listener);
+    }
+
+    @Override
+    public final void setDescribed(final Boolean described) {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
     public final void setDescriptor(final String descriptor) {
-        checkNotNull(descriptor, "Received a null pointer as descriptor");
-
-        this.descriptor = descriptor;
+        getBaseSkill().setDescriptor(descriptor);
     }
 
     @Override
     public final void setLowerLimit(final Integer lowerLimit) {
-        getValueHandler().setLowerLimit(lowerLimit);
+        getBaseSkill().setLowerLimit(lowerLimit);
     }
 
     @Override
     public final void setUpperLimit(final Integer upperLimit) {
-        getValueHandler().setUpperLimit(upperLimit);
+        getBaseSkill().setUpperLimit(upperLimit);
     }
 
     @Override
     public final void setValue(final Integer value) {
-        getValueHandler().setValue(value);
+        getBaseSkill().setValue(value);
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name)
+        return MoreObjects.toStringHelper(this).add("name", getName())
                 .add("descriptor", getDescriptor()).add("value", getValue())
                 .toString();
     }
 
-    private final EditableValueBox getValueHandler() {
+    private final SkillBox getBaseSkill() {
         return composite;
-    }
-
-    private final Boolean isRepeatable() {
-        return repeatable;
     }
 
 }

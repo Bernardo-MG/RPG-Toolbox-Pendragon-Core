@@ -7,19 +7,18 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.business.model.character.Gender;
+import com.wandrell.tabletop.business.model.pendragon.character.DefaultPendragonBaseCharacter.DerivedAttributeBuilder;
 import com.wandrell.tabletop.business.model.pendragon.character.follower.Follower;
 import com.wandrell.tabletop.business.model.pendragon.character.follower.Wife;
 import com.wandrell.tabletop.business.model.pendragon.glory.GloryManager;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Item;
 import com.wandrell.tabletop.business.model.pendragon.inventory.Money;
 import com.wandrell.tabletop.business.model.pendragon.manor.Pet;
-import com.wandrell.tabletop.business.model.pendragon.stats.DirectedTrait;
-import com.wandrell.tabletop.business.model.pendragon.stats.Passion;
 import com.wandrell.tabletop.business.model.pendragon.stats.Skill;
 import com.wandrell.tabletop.business.model.pendragon.stats.SpecialtySkill;
-import com.wandrell.tabletop.business.model.pendragon.stats.Trait;
 import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
 import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.SkillBox;
 
 public final class DefaultPendragonPlayerCharacter implements
         PendragonPlayerCharacter {
@@ -78,7 +77,7 @@ public final class DefaultPendragonPlayerCharacter implements
         horses.addAll(character.horses);
 
         // Initializes data holders
-        armor = character.armor.createNewInstance();
+        armor = character.getArmorValueBox().createNewInstance();
         glory = character.glory;
         money = character.money.createNewInstance();
 
@@ -90,14 +89,13 @@ public final class DefaultPendragonPlayerCharacter implements
         // PendragonLabels.BONUS_TRAITS_RELIGIOUS_SWITCH));
     }
 
-    public DefaultPendragonPlayerCharacter(
-            final PendragonHumanCharacter character, final String player,
-            final String religion, final String culture,
+    public DefaultPendragonPlayerCharacter(final String name,
+            final DerivedAttributeBuilder derivedAttributeBuilder,
+            final String player, final String religion, final String culture,
             final String fatherClass, final String homeland,
             final GloryManager glory, final Money money, final Boolean knight) {
         super();
 
-        checkNotNull(character, "Received a null pointer as base character");
         checkNotNull(player, "Received a null pointer as player name");
         checkNotNull(religion, "Received a null pointer as religion");
         checkNotNull(culture, "Received a null pointer as culture");
@@ -107,7 +105,8 @@ public final class DefaultPendragonPlayerCharacter implements
         checkNotNull(money, "Received a null pointer as money");
         checkNotNull(knight, "Received a null pointer as knight flag");
 
-        humanCharacter = character;
+        humanCharacter = new DefaultPendragonHumanCharacter(name,
+                derivedAttributeBuilder);
 
         playerName = player;
 
@@ -125,7 +124,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void addDirectedTrait(final DirectedTrait directedTrait) {
+    public final void addDirectedTrait(final SkillBox directedTrait) {
         checkNotNull(directedTrait, "Received a null pointer as directed trait");
 
         getBaseCharacter().addDirectedTrait(directedTrait);
@@ -174,7 +173,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void addPassion(final Passion passion) {
+    public final void addPassion(final SkillBox passion) {
         checkNotNull(passion, "Received a null pointer as passion");
 
         getBaseCharacter().addPassion(passion);
@@ -279,17 +278,17 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getArbitrary() {
+    public final Integer getArbitrary() {
         return getBaseCharacter().getArbitrary();
     }
 
     @Override
-    public final EditableValueBox getArmor() {
-        return armor;
+    public final Integer getArmor() {
+        return getArmorValueBox().getValue();
     }
 
     @Override
-    public final Trait getChaste() {
+    public final Integer getChaste() {
         return getBaseCharacter().getChaste();
     }
 
@@ -299,12 +298,12 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getCowardly() {
+    public final Integer getCowardly() {
         return getBaseCharacter().getCowardly();
     }
 
     @Override
-    public final Trait getCruel() {
+    public final Integer getCruel() {
         return getBaseCharacter().getCruel();
     }
 
@@ -319,7 +318,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getDeceitful() {
+    public final Integer getDeceitful() {
         return getBaseCharacter().getDeceitful();
     }
 
@@ -334,7 +333,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Collection<DirectedTrait> getDirectedTraits() {
+    public final Collection<SkillBox> getDirectedTraits() {
         return getBaseCharacter().getDirectedTraits();
     }
 
@@ -344,7 +343,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getEnergetic() {
+    public final Integer getEnergetic() {
         return getBaseCharacter().getEnergetic();
     }
 
@@ -365,7 +364,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getForgiving() {
+    public final Integer getForgiving() {
         return getBaseCharacter().getForgiving();
     }
 
@@ -375,7 +374,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getGenerous() {
+    public final Integer getGenerous() {
         return getBaseCharacter().getGenerous();
     }
 
@@ -412,7 +411,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getHonest() {
+    public final Integer getHonest() {
         return getBaseCharacter().getHonest();
     }
 
@@ -422,22 +421,22 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getIndulgent() {
+    public final Integer getIndulgent() {
         return getBaseCharacter().getIndulgent();
     }
 
     @Override
-    public final Trait getJust() {
+    public final Integer getJust() {
         return getBaseCharacter().getJust();
     }
 
     @Override
-    public final Trait getLazy() {
+    public final Integer getLazy() {
         return getBaseCharacter().getLazy();
     }
 
     @Override
-    public final Trait getLustful() {
+    public final Integer getLustful() {
         return getBaseCharacter().getLustful();
     }
 
@@ -447,12 +446,12 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getMerciful() {
+    public final Integer getMerciful() {
         return getBaseCharacter().getMerciful();
     }
 
     @Override
-    public final Trait getModest() {
+    public final Integer getModest() {
         return getBaseCharacter().getModest();
     }
 
@@ -472,7 +471,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Collection<Passion> getPassions() {
+    public final Collection<SkillBox> getPassions() {
         return getBaseCharacter().getPassions();
     }
 
@@ -482,7 +481,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getPious() {
+    public final Integer getPious() {
         return getBaseCharacter().getPious();
     }
 
@@ -492,17 +491,17 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getProud() {
+    public final Integer getProud() {
         return getBaseCharacter().getProud();
     }
 
     @Override
-    public final Trait getPrudent() {
+    public final Integer getPrudent() {
         return getBaseCharacter().getPrudent();
     }
 
     @Override
-    public final Trait getReckless() {
+    public final Integer getReckless() {
         return getBaseCharacter().getReckless();
     }
 
@@ -512,7 +511,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getSelfish() {
+    public final Integer getSelfish() {
         return getBaseCharacter().getSelfish();
     }
 
@@ -537,17 +536,17 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getSuspicious() {
+    public final Integer getSuspicious() {
         return getBaseCharacter().getSuspicious();
     }
 
     @Override
-    public final Trait getTemperate() {
+    public final Integer getTemperate() {
         return getBaseCharacter().getTemperate();
     }
 
     @Override
-    public final Trait getTrusting() {
+    public final Integer getTrusting() {
         return getBaseCharacter().getTrusting();
     }
 
@@ -557,12 +556,12 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getValorous() {
+    public final Integer getValorous() {
         return getBaseCharacter().getValorous();
     }
 
     @Override
-    public final Trait getVengeful() {
+    public final Integer getVengeful() {
         return getBaseCharacter().getVengeful();
     }
 
@@ -577,8 +576,8 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Trait getWordly() {
-        return getBaseCharacter().getWordly();
+    public final Integer getWorldly() {
+        return getBaseCharacter().getWorldly();
     }
 
     @Override
@@ -587,7 +586,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void removeDirectedTrait(final DirectedTrait directedTrait) {
+    public final void removeDirectedTrait(final SkillBox directedTrait) {
         getBaseCharacter().removeDirectedTrait(directedTrait);
     }
 
@@ -623,7 +622,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void removePassion(final Passion passion) {
+    public final void removePassion(final SkillBox passion) {
         getBaseCharacter().removePassion(passion);
     }
 
@@ -648,8 +647,47 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void
-            setDirectedTraits(Collection<DirectedTrait> directedTraits) {
+    public final void setAppearance(final Integer appearance) {
+        getBaseCharacter().setAppearance(appearance);
+    }
+
+    @Override
+    public final void setArbitrary(final Integer arbitrary) {
+        getBaseCharacter().setArbitrary(arbitrary);
+    }
+
+    @Override
+    public final void setChaste(final Integer chaste) {
+        getBaseCharacter().setChaste(chaste);
+    }
+
+    @Override
+    public final void setConstitution(final Integer constitution) {
+        getBaseCharacter().setConstitution(constitution);
+    }
+
+    @Override
+    public final void setCowardly(final Integer cowardly) {
+        getBaseCharacter().setCowardly(cowardly);
+    }
+
+    @Override
+    public final void setCruel(final Integer cruel) {
+        getBaseCharacter().setCruel(cruel);
+    }
+
+    @Override
+    public final void setDeceitful(final Integer deceitful) {
+        getBaseCharacter().setDeceitful(deceitful);
+    }
+
+    @Override
+    public final void setDexterity(final Integer dexterity) {
+        getBaseCharacter().setDexterity(dexterity);
+    }
+
+    @Override
+    public final void setDirectedTraits(Collection<SkillBox> directedTraits) {
         getBaseCharacter().setDirectedTraits(directedTraits);
     }
 
@@ -661,6 +699,11 @@ public final class DefaultPendragonPlayerCharacter implements
         for (final DistinctiveFeature feature : features) {
             getFeaturesModifiable().add(feature);
         }
+    }
+
+    @Override
+    public final void setEnergetic(final Integer energetic) {
+        getBaseCharacter().setEnergetic(energetic);
     }
 
     @Override
@@ -680,6 +723,16 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
+    public final void setForgiving(final Integer forgiving) {
+        getBaseCharacter().setForgiving(forgiving);
+    }
+
+    @Override
+    public final void setGenerous(final Integer generous) {
+        getBaseCharacter().setGenerous(generous);
+    }
+
+    @Override
     public final void setHoldingsAtHome(final Collection<Item> items) {
         getHoldingsAtHomeModifiable().clear();
         for (final Item item : items) {
@@ -696,6 +749,11 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
+    public final void setHonest(final Integer honest) {
+        getBaseCharacter().setHonest(honest);
+    }
+
+    @Override
     public final void setHorses(final Collection<HorseCharacter> horses) {
         getHorsesModifiable().clear();
         for (final HorseCharacter horse : horses) {
@@ -704,7 +762,37 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void setPassions(final Collection<Passion> passions) {
+    public final void setIndulgent(final Integer indulgent) {
+        getBaseCharacter().setIndulgent(indulgent);
+    }
+
+    @Override
+    public final void setJust(final Integer just) {
+        getBaseCharacter().setJust(just);
+    }
+
+    @Override
+    public final void setLazy(final Integer lazy) {
+        getBaseCharacter().setLazy(lazy);
+    }
+
+    @Override
+    public final void setLustful(final Integer lustful) {
+        getBaseCharacter().setLustful(lustful);
+    }
+
+    @Override
+    public final void setMerciful(final Integer merciful) {
+        getBaseCharacter().setMerciful(merciful);
+    }
+
+    @Override
+    public final void setModest(final Integer modest) {
+        getBaseCharacter().setModest(modest);
+    }
+
+    @Override
+    public final void setPassions(final Collection<SkillBox> passions) {
         getBaseCharacter().setPassions(passions);
     }
 
@@ -714,6 +802,36 @@ public final class DefaultPendragonPlayerCharacter implements
         for (final Pet pet : pets) {
             getPetsModifiable().add(pet);
         }
+    }
+
+    @Override
+    public final void setPious(final Integer pious) {
+        getBaseCharacter().setPious(pious);
+    }
+
+    @Override
+    public final void setProud(final Integer proud) {
+        getBaseCharacter().setProud(proud);
+    }
+
+    @Override
+    public final void setPrudent(final Integer prudent) {
+        getBaseCharacter().setPrudent(prudent);
+    }
+
+    @Override
+    public final void setReckless(final Integer reckless) {
+        getBaseCharacter().setReckless(reckless);
+    }
+
+    @Override
+    public final void setSelfish(final Integer selfish) {
+        getBaseCharacter().setSelfish(selfish);
+    }
+
+    @Override
+    public final void setSize(final Integer size) {
+        getBaseCharacter().setSize(size);
     }
 
     @Override
@@ -728,11 +846,35 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
+    public final void setStrength(final Integer strength) {
+        getBaseCharacter().setStrength(strength);
+    }
+
+    @Override
+    public final void setSuspicious(final Integer suspicious) {
+        getBaseCharacter().setSuspicious(suspicious);
+    }
+
+    @Override
+    public final void setTemperate(final Integer temperate) {
+        getBaseCharacter().setTemperate(temperate);
+    }
+
+    @Override
+    public final void setTrusting(final Integer trusting) {
+        getBaseCharacter().setTrusting(trusting);
+    }
+
+    @Override
     public final void setWives(final Collection<Wife> wives) {
         getWivesModifiable().clear();
         for (final Wife wife : wives) {
             addWife(wife);
         }
+    }
+
+    private final EditableValueBox getArmorValueBox() {
+        return armor;
     }
 
     private final PendragonHumanCharacter getBaseCharacter() {

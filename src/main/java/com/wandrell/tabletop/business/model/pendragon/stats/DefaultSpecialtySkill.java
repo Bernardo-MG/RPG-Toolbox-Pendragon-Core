@@ -8,21 +8,19 @@ import java.util.HashSet;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.DefaultSkillBox;
+import com.wandrell.tabletop.business.model.valuebox.SkillBox;
 import com.wandrell.tabletop.business.util.event.ValueChangeListener;
 
 public final class DefaultSpecialtySkill implements SpecialtySkill {
 
-    private final DefaultEditableValueBox composite;
-    private final String                  name;
-    private final Collection<String>      skills = new HashSet<String>();
+    private final SkillBox           composite;
+    private final Collection<String> skills = new HashSet<String>();
 
     public DefaultSpecialtySkill(final DefaultSpecialtySkill skill) {
         super();
 
         checkNotNull(skill, "Received a null pointer as skill");
-
-        name = skill.name;
 
         composite = skill.composite.createNewInstance();
 
@@ -37,9 +35,7 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
         checkNotNull(name, "Received a null pointer as name");
         checkNotNull(skills, "Received a null pointer as skills");
 
-        this.name = name;
-
-        composite = new DefaultEditableValueBox(value, lowerLimit, upperLimit);
+        composite = new DefaultSkillBox(name, value, lowerLimit, upperLimit);
 
         setSurrogatedSkillsNames(skills);
     }
@@ -47,7 +43,7 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
     @Override
     public final void
             addValueChangeListener(final ValueChangeListener listener) {
-        getValueHandler().addValueChangeListener(listener);
+        getBaseSkill().addValueChangeListener(listener);
     }
 
     @Override
@@ -74,12 +70,12 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
 
     @Override
     public final Integer getLowerLimit() {
-        return getValueHandler().getLowerLimit();
+        return getBaseSkill().getLowerLimit();
     }
 
     @Override
     public final String getName() {
-        return name;
+        return getBaseSkill().getName();
     }
 
     @Override
@@ -90,12 +86,12 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
 
     @Override
     public final Integer getUpperLimit() {
-        return getValueHandler().getUpperLimit();
+        return getBaseSkill().getUpperLimit();
     }
 
     @Override
     public final Integer getValue() {
-        return getValueHandler().getValue();
+        return getBaseSkill().getValue();
     }
 
     @Override
@@ -111,7 +107,12 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
     @Override
     public final void removeValueChangeListener(
             final ValueChangeListener listener) {
-        getValueHandler().removeValueChangeListener(listener);
+        getBaseSkill().removeValueChangeListener(listener);
+    }
+
+    @Override
+    public final void setDescribed(final Boolean described) {
+        getBaseSkill().setDescribed(described);
     }
 
     @Override
@@ -119,31 +120,31 @@ public final class DefaultSpecialtySkill implements SpecialtySkill {
 
     @Override
     public final void setLowerLimit(final Integer lowerLimit) {
-        getValueHandler().setLowerLimit(lowerLimit);
+        getBaseSkill().setLowerLimit(lowerLimit);
     }
 
     @Override
     public final void setUpperLimit(final Integer upperLimit) {
-        getValueHandler().setUpperLimit(upperLimit);
+        getBaseSkill().setUpperLimit(upperLimit);
     }
 
     @Override
     public final void setValue(final Integer value) {
-        getValueHandler().setValue(value);
+        getBaseSkill().setValue(value);
     }
 
     @Override
     public final String toString() {
-        return MoreObjects.toStringHelper(this).add("name", name)
+        return MoreObjects.toStringHelper(this).add("name", getName())
                 .add("value", getValue()).toString();
+    }
+
+    private final SkillBox getBaseSkill() {
+        return composite;
     }
 
     private final Collection<String> getSurrogatedSkillsModifiable() {
         return skills;
-    }
-
-    private final DefaultEditableValueBox getValueHandler() {
-        return composite;
     }
 
     private final void

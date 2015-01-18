@@ -30,9 +30,7 @@ public final class DefaultHorseCharacter implements HorseCharacter {
         armored = horse.armored;
     }
 
-    public DefaultHorseCharacter(final String name, final Integer constitution,
-            final Integer dexterity, final Integer size,
-            final Integer strength,
+    public DefaultHorseCharacter(final String name,
             final DerivedAttributeBuilder derivedAttributeBuilder,
             final String type, final Integer naturalArmor,
             final Boolean combat, final Boolean hunting, final Boolean armored) {
@@ -44,8 +42,8 @@ public final class DefaultHorseCharacter implements HorseCharacter {
         checkNotNull(hunting, "Received a null pointer as hunting flag");
         checkNotNull(armored, "Received a null pointer as armored flag");
 
-        baseCharacter = new DefaultPendragonBaseCharacter(name, constitution,
-                dexterity, size, strength, derivedAttributeBuilder);
+        baseCharacter = new DefaultPendragonBaseCharacter(name,
+                derivedAttributeBuilder);
 
         this.type = type;
 
@@ -157,8 +155,28 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     }
 
     @Override
+    public final void setConstitution(final Integer constitution) {
+        getBaseCharacter().setConstitution(constitution);
+    }
+
+    @Override
+    public final void setDexterity(final Integer dexterity) {
+        getBaseCharacter().setDexterity(dexterity);
+    }
+
+    @Override
     public final void setRuined(final Boolean ruined) {
         this.ruined = ruined;
+    }
+
+    @Override
+    public final void setSize(final Integer size) {
+        getBaseCharacter().setSize(size);
+    }
+
+    @Override
+    public final void setStrength(final Integer strength) {
+        getBaseCharacter().setStrength(strength);
     }
 
     private final PendragonBaseCharacter getBaseCharacter() {

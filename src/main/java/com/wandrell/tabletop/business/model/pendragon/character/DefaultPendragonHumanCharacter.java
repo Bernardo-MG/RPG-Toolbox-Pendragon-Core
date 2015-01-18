@@ -7,37 +7,49 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.business.model.character.Gender;
-import com.wandrell.tabletop.business.model.pendragon.stats.DirectedTrait;
-import com.wandrell.tabletop.business.model.pendragon.stats.Passion;
+import com.wandrell.tabletop.business.model.pendragon.character.DefaultPendragonBaseCharacter.DerivedAttributeBuilder;
 import com.wandrell.tabletop.business.model.pendragon.stats.Skill;
 import com.wandrell.tabletop.business.model.pendragon.stats.SpecialtySkill;
-import com.wandrell.tabletop.business.model.pendragon.stats.Trait;
 import com.wandrell.tabletop.business.model.valuebox.DefaultEditableValueBox;
-import com.wandrell.tabletop.business.model.valuebox.ValueBox;
+import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
+import com.wandrell.tabletop.business.model.valuebox.SkillBox;
 
 public final class DefaultPendragonHumanCharacter implements
         PendragonHumanCharacter {
 
-    private final ValueBox                   appearance;
+    private final EditableValueBox           appearance;
+    private final EditableValueBox           arbitrary;
     private final PendragonBaseCharacter     baseCharacter;
-    private final Trait                      chaste;
-    private final Collection<DirectedTrait>  directedTraits  = new LinkedHashSet<>();
-    private final Trait                      energetic;
-    private final Trait                      forgiving;
+    private final EditableValueBox           chaste;
+    private final EditableValueBox           cowardly;
+    private final EditableValueBox           cruel;
+    private final EditableValueBox           deceitful;
+    private final Collection<SkillBox>       directedTraits  = new LinkedHashSet<>();
+    private final EditableValueBox           energetic;
+    private final EditableValueBox           forgiving;
     private Gender                           gender;
-    private final Trait                      generous;
-    private final Trait                      honest;
-    private final Trait                      just;
-    private final Trait                      merciful;
-    private final Trait                      modest;
-    private final Collection<Passion>        passions        = new LinkedHashSet<>();
-    private final Trait                      pious;
-    private final Trait                      prudent;
+    private final EditableValueBox           generous;
+    private final EditableValueBox           honest;
+    private final EditableValueBox           indulgent;
+    private final EditableValueBox           just;
+    private final EditableValueBox           lazy;
+    private final EditableValueBox           lustful;
+    private final EditableValueBox           merciful;
+    private final EditableValueBox           modest;
+    private final Collection<SkillBox>       passions        = new LinkedHashSet<>();
+    private final EditableValueBox           pious;
+    private final EditableValueBox           proud;
+    private final EditableValueBox           prudent;
+    private final EditableValueBox           reckless;
+    private final EditableValueBox           selfish;
     private final Collection<Skill>          skills          = new LinkedHashSet<>();
     private final Collection<SpecialtySkill> skillsSpecialty = new LinkedHashSet<>();
-    private final Trait                      temperate;
-    private final Trait                      trusting;
-    private final Trait                      valorous;
+    private final EditableValueBox           suspicious;
+    private final EditableValueBox           temperate;
+    private final EditableValueBox           trusting;
+    private final EditableValueBox           valorous;
+    private final EditableValueBox           vengeful;
+    private final EditableValueBox           worldly;
 
     public DefaultPendragonHumanCharacter(
             final DefaultPendragonHumanCharacter character) {
@@ -47,33 +59,46 @@ public final class DefaultPendragonHumanCharacter implements
 
         baseCharacter = character.baseCharacter.createNewInstance();
 
-        appearance = character.appearance;
+        appearance = character.appearance.createNewInstance();
 
-        // TODO: Correctly initialize traits
-        chaste = character.chaste;
-        energetic = character.energetic;
-        forgiving = character.forgiving;
-        generous = character.generous;
-        honest = character.honest;
-        just = character.just;
-        merciful = character.merciful;
-        modest = character.modest;
-        pious = character.pious;
-        prudent = character.prudent;
-        temperate = character.temperate;
-        trusting = character.trusting;
-        valorous = character.valorous;
+        chaste = character.chaste.createNewInstance();
+        energetic = character.energetic.createNewInstance();
+        forgiving = character.forgiving.createNewInstance();
+        generous = character.generous.createNewInstance();
+        honest = character.honest.createNewInstance();
+        just = character.just.createNewInstance();
+        merciful = character.merciful.createNewInstance();
+        modest = character.modest.createNewInstance();
+        pious = character.pious.createNewInstance();
+        prudent = character.prudent.createNewInstance();
+        temperate = character.temperate.createNewInstance();
+        trusting = character.trusting.createNewInstance();
+        valorous = character.valorous.createNewInstance();
+
+        this.arbitrary = character.arbitrary.createNewInstance();
+        this.cowardly = character.cowardly.createNewInstance();
+        this.cruel = character.cruel.createNewInstance();
+        this.deceitful = character.deceitful.createNewInstance();
+        this.indulgent = character.indulgent.createNewInstance();
+        this.lazy = character.lazy.createNewInstance();
+        this.lustful = character.lustful.createNewInstance();
+        this.proud = character.proud.createNewInstance();
+        this.reckless = character.reckless.createNewInstance();
+        this.selfish = character.selfish.createNewInstance();
+        this.suspicious = character.suspicious.createNewInstance();
+        this.vengeful = character.vengeful.createNewInstance();
+        this.worldly = character.worldly.createNewInstance();
 
         for (final SpecialtySkill skill : character.skillsSpecialty) {
             // TODO: Make sure this works
             skillsSpecialty.add(skill.createNewInstance());
         }
 
-        for (final DirectedTrait trait : character.directedTraits) {
+        for (final SkillBox trait : character.directedTraits) {
             directedTraits.add(trait.createNewInstance());
         }
 
-        for (final Passion passion : character.passions) {
+        for (final SkillBox passion : character.passions) {
             passions.add(passion.createNewInstance());
         }
 
@@ -84,60 +109,53 @@ public final class DefaultPendragonHumanCharacter implements
         gender = character.gender;
     }
 
-    public DefaultPendragonHumanCharacter(
-            final PendragonBaseCharacter baseCharacter,
-            final Integer appearance, final Trait chaste,
-            final Trait energetic, final Trait forgiving, final Trait generous,
-            final Trait honest, final Trait just, final Trait merciful,
-            final Trait modest, final Trait pious, final Trait prudent,
-            final Trait temperate, final Trait trusting, final Trait valorous) {
+    public DefaultPendragonHumanCharacter(final String name,
+            final DerivedAttributeBuilder derivedAttributeBuilder) {
         super();
 
-        checkNotNull(baseCharacter, "Received a null pointer as base character");
-        checkNotNull(appearance, "Received a null pointer as appearance");
-        checkNotNull(chaste, "Received a null pointer as chaste");
-        checkNotNull(energetic, "Received a null pointer as energetic");
-        checkNotNull(forgiving, "Received a null pointer as forgiving");
-        checkNotNull(generous, "Received a null pointer as generous");
-        checkNotNull(honest, "Received a null pointer as honest");
-        checkNotNull(just, "Received a null pointer as just");
-        checkNotNull(merciful, "Received a null pointer as merciful");
-        checkNotNull(modest, "Received a null pointer as modest");
-        checkNotNull(pious, "Received a null pointer as pious");
-        checkNotNull(prudent, "Received a null pointer as prudent");
-        checkNotNull(temperate, "Received a null pointer as temperate");
-        checkNotNull(trusting, "Received a null pointer as trusting");
-        checkNotNull(valorous, "Received a null pointer as valorous");
+        this.baseCharacter = new DefaultPendragonBaseCharacter(name,
+                derivedAttributeBuilder);
 
-        this.baseCharacter = baseCharacter;
+        this.appearance = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
 
-        this.appearance = new DefaultEditableValueBox(appearance, 0,
-                Integer.MAX_VALUE);
+        this.chaste = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.energetic = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.forgiving = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.generous = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.honest = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.just = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.merciful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.modest = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.pious = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.prudent = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.temperate = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.trusting = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.valorous = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
 
-        this.chaste = chaste;
-        this.energetic = energetic;
-        this.forgiving = forgiving;
-        this.generous = generous;
-        this.honest = honest;
-        this.just = just;
-        this.merciful = merciful;
-        this.modest = modest;
-        this.pious = pious;
-        this.prudent = prudent;
-        this.temperate = temperate;
-        this.trusting = trusting;
-        this.valorous = valorous;
+        this.arbitrary = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.cowardly = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.cruel = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.deceitful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.indulgent = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.lazy = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.lustful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.proud = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.reckless = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.selfish = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.suspicious = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.vengeful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.worldly = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
     }
 
     @Override
-    public final void addDirectedTrait(final DirectedTrait trait) {
+    public final void addDirectedTrait(final SkillBox trait) {
         checkNotNull(trait, "Received a null pointer as trait");
 
         getDirectedTraitsModifiable().add(trait);
     }
 
     @Override
-    public final void addPassion(final Passion passion) {
+    public final void addPassion(final SkillBox passion) {
         checkNotNull(passion, "Received a null pointer as passion");
 
         getPassionsModifiable().add(passion);
@@ -190,13 +208,13 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Trait getArbitrary() {
-        return getJust().getMirrorTrait();
+    public final Integer getArbitrary() {
+        return arbitrary.getValue();
     }
 
     @Override
-    public final Trait getChaste() {
-        return chaste;
+    public final Integer getChaste() {
+        return chaste.getValue();
     }
 
     @Override
@@ -205,13 +223,13 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Trait getCowardly() {
-        return getValorous().getMirrorTrait();
+    public final Integer getCowardly() {
+        return cowardly.getValue();
     }
 
     @Override
-    public final Trait getCruel() {
-        return getMerciful().getMirrorTrait();
+    public final Integer getCruel() {
+        return cruel.getValue();
     }
 
     @Override
@@ -220,8 +238,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Trait getDeceitful() {
-        return getHonest().getMirrorTrait();
+    public final Integer getDeceitful() {
+        return deceitful.getValue();
     }
 
     @Override
@@ -235,19 +253,19 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Collection<DirectedTrait> getDirectedTraits() {
+    public final Collection<SkillBox> getDirectedTraits() {
         return Collections
                 .unmodifiableCollection(getDirectedTraitsModifiable());
     }
 
     @Override
-    public final Trait getEnergetic() {
-        return energetic;
+    public final Integer getEnergetic() {
+        return energetic.getValue();
     }
 
     @Override
-    public final Trait getForgiving() {
-        return forgiving;
+    public final Integer getForgiving() {
+        return forgiving.getValue();
     }
 
     @Override
@@ -256,8 +274,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Trait getGenerous() {
-        return generous;
+    public final Integer getGenerous() {
+        return generous.getValue();
     }
 
     @Override
@@ -271,28 +289,28 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Trait getHonest() {
-        return honest;
+    public final Integer getHonest() {
+        return honest.getValue();
     }
 
     @Override
-    public final Trait getIndulgent() {
-        return getTemperate().getMirrorTrait();
+    public final Integer getIndulgent() {
+        return indulgent.getValue();
     }
 
     @Override
-    public final Trait getJust() {
-        return just;
+    public final Integer getJust() {
+        return just.getValue();
     }
 
     @Override
-    public final Trait getLazy() {
-        return getEnergetic().getMirrorTrait();
+    public final Integer getLazy() {
+        return lazy.getValue();
     }
 
     @Override
-    public final Trait getLustful() {
-        return getChaste().getMirrorTrait();
+    public final Integer getLustful() {
+        return lustful.getValue();
     }
 
     @Override
@@ -301,13 +319,13 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Trait getMerciful() {
-        return merciful;
+    public final Integer getMerciful() {
+        return merciful.getValue();
     }
 
     @Override
-    public final Trait getModest() {
-        return modest;
+    public final Integer getModest() {
+        return modest.getValue();
     }
 
     @Override
@@ -321,33 +339,33 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Collection<Passion> getPassions() {
+    public final Collection<SkillBox> getPassions() {
         return Collections.unmodifiableCollection(getPassionsModifiable());
     }
 
     @Override
-    public final Trait getPious() {
-        return pious;
+    public final Integer getPious() {
+        return pious.getValue();
     }
 
     @Override
-    public final Trait getProud() {
-        return getModest().getMirrorTrait();
+    public final Integer getProud() {
+        return proud.getValue();
     }
 
     @Override
-    public final Trait getPrudent() {
-        return prudent;
+    public final Integer getPrudent() {
+        return prudent.getValue();
     }
 
     @Override
-    public final Trait getReckless() {
-        return getPrudent().getMirrorTrait();
+    public final Integer getReckless() {
+        return reckless.getValue();
     }
 
     @Override
-    public final Trait getSelfish() {
-        return getGenerous().getMirrorTrait();
+    public final Integer getSelfish() {
+        return selfish.getValue();
     }
 
     @Override
@@ -372,18 +390,18 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Trait getSuspicious() {
-        return getTrusting().getMirrorTrait();
+    public final Integer getSuspicious() {
+        return suspicious.getValue();
     }
 
     @Override
-    public final Trait getTemperate() {
-        return temperate;
+    public final Integer getTemperate() {
+        return temperate.getValue();
     }
 
     @Override
-    public final Trait getTrusting() {
-        return trusting;
+    public final Integer getTrusting() {
+        return trusting.getValue();
     }
 
     @Override
@@ -392,13 +410,13 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Trait getValorous() {
-        return valorous;
+    public final Integer getValorous() {
+        return valorous.getValue();
     }
 
     @Override
-    public final Trait getVengeful() {
-        return getForgiving().getMirrorTrait();
+    public final Integer getVengeful() {
+        return vengeful.getValue();
     }
 
     @Override
@@ -407,17 +425,17 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Trait getWordly() {
-        return getPious().getMirrorTrait();
+    public final Integer getWorldly() {
+        return worldly.getValue();
     }
 
     @Override
-    public final void removeDirectedTrait(final DirectedTrait directedTrait) {
+    public final void removeDirectedTrait(final SkillBox directedTrait) {
         getDirectedTraitsModifiable().remove(directedTrait);
     }
 
     @Override
-    public final void removePassion(final Passion passion) {
+    public final void removePassion(final SkillBox passion) {
         getPassionsModifiable().remove(passion);
     }
 
@@ -432,11 +450,61 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final void setDirectedTraits(final Collection<DirectedTrait> traits) {
+    public final void setAppearance(final Integer appearance) {
+        this.appearance.setValue(appearance);
+    }
+
+    @Override
+    public final void setArbitrary(final Integer arbitrary) {
+        this.arbitrary.setValue(arbitrary);
+    }
+
+    @Override
+    public final void setChaste(final Integer chaste) {
+        this.chaste.setValue(chaste);
+    }
+
+    @Override
+    public final void setConstitution(final Integer constitution) {
+        getBaseCharacter().setConstitution(constitution);
+    }
+
+    @Override
+    public final void setCowardly(final Integer cowardly) {
+        this.cowardly.setValue(cowardly);
+    }
+
+    @Override
+    public final void setCruel(final Integer cruel) {
+        this.cruel.setValue(cruel);
+    }
+
+    @Override
+    public final void setDeceitful(final Integer deceitful) {
+        this.deceitful.setValue(deceitful);
+    }
+
+    @Override
+    public final void setDexterity(final Integer dexterity) {
+        getBaseCharacter().setDexterity(dexterity);
+    }
+
+    @Override
+    public final void setDirectedTraits(final Collection<SkillBox> traits) {
         getDirectedTraitsModifiable().clear();
-        for (final DirectedTrait trait : traits) {
+        for (final SkillBox trait : traits) {
             addDirectedTrait(trait);
         }
+    }
+
+    @Override
+    public final void setEnergetic(final Integer energetic) {
+        this.energetic.setValue(energetic);
+    }
+
+    @Override
+    public final void setForgiving(final Integer forgiving) {
+        this.forgiving.setValue(forgiving);
     }
 
     public final void setGender(final Gender gender) {
@@ -444,13 +512,83 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final void setPassions(final Collection<Passion> passions) {
+    public final void setGenerous(final Integer generous) {
+        this.generous.setValue(generous);
+    }
+
+    @Override
+    public final void setHonest(final Integer honest) {
+        this.honest.setValue(honest);
+    }
+
+    @Override
+    public final void setIndulgent(final Integer indulgent) {
+        this.indulgent.setValue(indulgent);
+    }
+
+    @Override
+    public final void setJust(final Integer just) {
+        this.just.setValue(just);
+    }
+
+    @Override
+    public final void setLazy(final Integer lazy) {
+        this.lazy.setValue(lazy);
+    }
+
+    @Override
+    public final void setLustful(final Integer lustful) {
+        this.lustful.setValue(lustful);
+    }
+
+    @Override
+    public final void setMerciful(final Integer merciful) {
+        this.merciful.setValue(merciful);
+    }
+
+    @Override
+    public final void setModest(final Integer modest) {
+        this.modest.setValue(modest);
+    }
+
+    @Override
+    public final void setPassions(final Collection<SkillBox> passions) {
         checkNotNull(passions, "Received a null pointer as passions");
 
         getPassionsModifiable().clear();
-        for (final Passion passion : passions) {
+        for (final SkillBox passion : passions) {
             addPassion(passion);
         }
+    }
+
+    @Override
+    public final void setPious(final Integer pious) {
+        this.pious.setValue(pious);
+    }
+
+    @Override
+    public final void setProud(final Integer proud) {
+        this.proud.setValue(proud);
+    }
+
+    @Override
+    public final void setPrudent(final Integer prudent) {
+        this.prudent.setValue(prudent);
+    }
+
+    @Override
+    public final void setReckless(final Integer reckless) {
+        this.reckless.setValue(reckless);
+    }
+
+    @Override
+    public final void setSelfish(final Integer selfish) {
+        this.selfish.setValue(selfish);
+    }
+
+    @Override
+    public final void setSize(final Integer size) {
+        getBaseCharacter().setSize(size);
     }
 
     @Override
@@ -475,6 +613,26 @@ public final class DefaultPendragonHumanCharacter implements
         }
     }
 
+    @Override
+    public final void setStrength(final Integer strength) {
+        getBaseCharacter().setStrength(strength);
+    }
+
+    @Override
+    public final void setSuspicious(final Integer suspicious) {
+        this.suspicious.setValue(suspicious);
+    }
+
+    @Override
+    public final void setTemperate(final Integer temperate) {
+        this.temperate.setValue(temperate);
+    }
+
+    @Override
+    public final void setTrusting(final Integer trusting) {
+        this.trusting.setValue(trusting);
+    }
+
     private final void assembleSpecialtySkill(final SpecialtySkill vhAdvSkill) {
         // for (final String skill : vhAdvSkill.getSurrogatedSkills()) {
         // if (hasSkill(skill, "")) {
@@ -488,11 +646,11 @@ public final class DefaultPendragonHumanCharacter implements
         return baseCharacter;
     }
 
-    private final Collection<DirectedTrait> getDirectedTraitsModifiable() {
+    private final Collection<SkillBox> getDirectedTraitsModifiable() {
         return directedTraits;
     }
 
-    private final Collection<Passion> getPassionsModifiable() {
+    private final Collection<SkillBox> getPassionsModifiable() {
         return passions;
     }
 
