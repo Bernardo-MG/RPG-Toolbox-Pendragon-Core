@@ -5,25 +5,26 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Collections;
 import java.util.Map;
 
+import com.wandrell.tabletop.business.model.dice.Dice;
 import com.wandrell.tabletop.business.model.skill.NameAndDescriptor;
 
-public final class DefaultCultureCharacterTemplate implements
-        CultureCharacterTemplate {
+public final class DefaultCultureCharacterRandomTemplate implements
+        CultureCharacterRandomTemplate {
 
-    private final Map<String, Integer>            attributes;
-    private final Map<NameAndDescriptor, Integer> directedTraits;
-    private final Map<NameAndDescriptor, Integer> passions;
-    private final Map<NameAndDescriptor, Integer> skills;
-    private final Map<String, Integer>            specialtySkills;
-    private final Map<String, Integer>            traits;
+    private final Map<String, Dice>            attributes;
+    private final Map<NameAndDescriptor, Dice> directedTraits;
+    private final Map<NameAndDescriptor, Dice> passions;
+    private final Map<NameAndDescriptor, Dice> skills;
+    private final Map<String, Dice>            specialtySkills;
+    private final Map<String, Dice>            traits;
 
-    public DefaultCultureCharacterTemplate(
-            final Map<String, Integer> attributes,
-            final Map<NameAndDescriptor, Integer> skills,
-            final Map<String, Integer> specialtySkills,
-            final Map<String, Integer> traits,
-            final Map<NameAndDescriptor, Integer> directedTraits,
-            final Map<NameAndDescriptor, Integer> passions) {
+    public DefaultCultureCharacterRandomTemplate(
+            final Map<String, Dice> attributes,
+            final Map<NameAndDescriptor, Dice> skills,
+            final Map<String, Dice> specialtySkills,
+            final Map<String, Dice> traits,
+            final Map<NameAndDescriptor, Dice> directedTraits,
+            final Map<NameAndDescriptor, Dice> passions) {
         super();
 
         checkNotNull(attributes, "Received a null pointer as attributes");
@@ -44,56 +45,56 @@ public final class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final Map<String, Integer> getAttributes() {
+    public final Map<String, Dice> getAttributes() {
         return Collections.unmodifiableMap(getAttributesModifiable());
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getDirectedTraits() {
+    public final Map<NameAndDescriptor, Dice> getDirectedTraits() {
         return Collections.unmodifiableMap(getDirectedTraitsModifiable());
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getPassions() {
+    public final Map<NameAndDescriptor, Dice> getPassions() {
         return Collections.unmodifiableMap(getPassionsModifiable());
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getSkills() {
+    public final Map<NameAndDescriptor, Dice> getSkills() {
         return Collections.unmodifiableMap(getSkillsModifiable());
     }
 
     @Override
-    public final Map<String, Integer> getSpecialtySkills() {
+    public final Map<String, Dice> getSpecialtySkills() {
         return Collections.unmodifiableMap(getSpecialtySkillsModifiable());
     }
 
     @Override
-    public final Map<String, Integer> getTraits() {
+    public final Map<String, Dice> getTraits() {
         return Collections.unmodifiableMap(getTraitsModifiable());
     }
 
-    private final Map<String, Integer> getAttributesModifiable() {
+    private final Map<String, Dice> getAttributesModifiable() {
         return attributes;
     }
 
-    private final Map<NameAndDescriptor, Integer> getDirectedTraitsModifiable() {
+    private final Map<NameAndDescriptor, Dice> getDirectedTraitsModifiable() {
         return directedTraits;
     }
 
-    private final Map<NameAndDescriptor, Integer> getPassionsModifiable() {
+    private final Map<NameAndDescriptor, Dice> getPassionsModifiable() {
         return passions;
     }
 
-    private final Map<NameAndDescriptor, Integer> getSkillsModifiable() {
+    private final Map<NameAndDescriptor, Dice> getSkillsModifiable() {
         return skills;
     }
 
-    private final Map<String, Integer> getSpecialtySkillsModifiable() {
+    private final Map<String, Dice> getSpecialtySkillsModifiable() {
         return specialtySkills;
     }
 
-    private final Map<String, Integer> getTraitsModifiable() {
+    private final Map<String, Dice> getTraitsModifiable() {
         return traits;
     }
 

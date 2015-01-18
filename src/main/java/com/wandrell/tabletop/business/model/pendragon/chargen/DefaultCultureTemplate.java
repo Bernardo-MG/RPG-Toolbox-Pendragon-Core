@@ -19,15 +19,15 @@ public final class DefaultCultureTemplate implements CultureTemplate {
     private final String                              name;
     private final CultureCharacterTemplate            templateDefaultFemale;
     private final CultureCharacterTemplate            templateDefaultMale;
-    private final CultureCharacterTemplate            templateRandomFemale;
-    private final CultureCharacterTemplate            templateRandomMale;
+    private final CultureCharacterRandomTemplate      templateRandomFemale;
+    private final CultureCharacterRandomTemplate      templateRandomMale;
 
     public DefaultCultureTemplate(final String name,
             final Map<String, Path> files,
             final CultureCharacterTemplate templateDefaultFemale,
-            final CultureCharacterTemplate templateRandomFemale,
+            final CultureCharacterRandomTemplate templateRandomFemale,
             final CultureCharacterTemplate templateDefaultMale,
-            final CultureCharacterTemplate templateRandomMale,
+            final CultureCharacterRandomTemplate templateRandomMale,
             final IntervalTable<AdditionalBelongings> initialLuckFemale,
             final IntervalTable<AdditionalBelongings> initialLuckMale,
             final FamilyCharacteristicTemplate femaleFamilyCharacteristic,
@@ -127,9 +127,9 @@ public final class DefaultCultureTemplate implements CultureTemplate {
     }
 
     @Override
-    public final CultureCharacterTemplate
-            getRandomTemplate(final Gender gender) {
-        final CultureCharacterTemplate result;
+    public final CultureCharacterRandomTemplate getRandomTemplate(
+            final Gender gender) {
+        final CultureCharacterRandomTemplate result;
 
         checkNotNull(gender, "Received a null pointer as gender");
 
@@ -185,7 +185,7 @@ public final class DefaultCultureTemplate implements CultureTemplate {
         return initialLuckFemale;
     }
 
-    private final CultureCharacterTemplate getFemaleRandomTemplate() {
+    private final CultureCharacterRandomTemplate getFemaleRandomTemplate() {
         return templateRandomFemale;
     }
 
@@ -201,7 +201,7 @@ public final class DefaultCultureTemplate implements CultureTemplate {
         return initialLuckMale;
     }
 
-    private final CultureCharacterTemplate getMaleRandomTemplate() {
+    private final CultureCharacterRandomTemplate getMaleRandomTemplate() {
         return templateRandomMale;
     }
 
