@@ -2,6 +2,8 @@ package com.wandrell.tabletop.business.model.pendragon.character;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.wandrell.tabletop.business.model.pendragon.character.DefaultPendragonBaseCharacter.DerivedAttributeBuilder;
+
 public final class DefaultHorseCharacter implements HorseCharacter {
 
     private final Boolean                armored;
@@ -28,19 +30,22 @@ public final class DefaultHorseCharacter implements HorseCharacter {
         armored = horse.armored;
     }
 
-    public DefaultHorseCharacter(final PendragonBaseCharacter character,
+    public DefaultHorseCharacter(final String name, final Integer constitution,
+            final Integer dexterity, final Integer size,
+            final Integer strength,
+            final DerivedAttributeBuilder derivedAttributeBuilder,
             final String type, final Integer naturalArmor,
             final Boolean combat, final Boolean hunting, final Boolean armored) {
         super();
 
-        checkNotNull(character, "Received a null pointer as base character");
         checkNotNull(type, "Received a null pointer as type");
         checkNotNull(naturalArmor, "Received a null pointer as natural armor");
         checkNotNull(combat, "Received a null pointer as combat flag");
         checkNotNull(hunting, "Received a null pointer as hunting flag");
         checkNotNull(armored, "Received a null pointer as armored flag");
 
-        baseCharacter = character;
+        baseCharacter = new DefaultPendragonBaseCharacter(name, constitution,
+                dexterity, size, strength, derivedAttributeBuilder);
 
         this.type = type;
 
