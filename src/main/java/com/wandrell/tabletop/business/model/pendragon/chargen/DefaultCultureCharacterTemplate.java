@@ -5,28 +5,35 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Collections;
 import java.util.Map;
 
+import com.wandrell.tabletop.business.model.dice.Dice;
 import com.wandrell.tabletop.business.model.skill.NameAndDescriptor;
 
 public final class DefaultCultureCharacterTemplate implements
         CultureCharacterTemplate {
 
     private final Map<String, Integer>            attributes;
+    private final Map<String, Dice>               attributesRandom;
     private final Map<NameAndDescriptor, Integer> directedTraits;
     private final Map<NameAndDescriptor, Integer> passions;
+    private final Map<NameAndDescriptor, Dice>    passionsRandom;
     private final Map<NameAndDescriptor, Integer> skills;
     private final Map<String, Integer>            specialtySkills;
     private final Map<String, Integer>            traits;
 
     public DefaultCultureCharacterTemplate(
             final Map<String, Integer> attributes,
+            final Map<String, Dice> attributesRandom,
             final Map<NameAndDescriptor, Integer> skills,
             final Map<String, Integer> specialtySkills,
             final Map<String, Integer> traits,
             final Map<NameAndDescriptor, Integer> directedTraits,
-            final Map<NameAndDescriptor, Integer> passions) {
+            final Map<NameAndDescriptor, Integer> passions,
+            Map<NameAndDescriptor, Dice> passionsRandom) {
         super();
 
         checkNotNull(attributes, "Received a null pointer as attributes");
+        checkNotNull(attributesRandom,
+                "Received a null pointer as random attributes");
         checkNotNull(skills, "Received a null pointer as skills");
         checkNotNull(specialtySkills,
                 "Received a null pointer as specialty skills");
@@ -34,18 +41,27 @@ public final class DefaultCultureCharacterTemplate implements
         checkNotNull(directedTraits,
                 "Received a null pointer as directed traits");
         checkNotNull(passions, "Received a null pointer as passions");
+        checkNotNull(passionsRandom,
+                "Received a null pointer as random passions");
 
         this.attributes = attributes;
+        this.attributesRandom = attributesRandom;
         this.skills = skills;
         this.specialtySkills = specialtySkills;
         this.traits = traits;
         this.directedTraits = directedTraits;
         this.passions = passions;
+        this.passionsRandom = passionsRandom;
     }
 
     @Override
     public final Map<String, Integer> getAttributes() {
         return Collections.unmodifiableMap(getAttributesModifiable());
+    }
+
+    @Override
+    public final Map<String, Dice> getAttributesRandom() {
+        return attributesRandom;
     }
 
     @Override
@@ -56,6 +72,11 @@ public final class DefaultCultureCharacterTemplate implements
     @Override
     public final Map<NameAndDescriptor, Integer> getPassions() {
         return Collections.unmodifiableMap(getPassionsModifiable());
+    }
+
+    @Override
+    public final Map<NameAndDescriptor, Dice> getPassionsRandom() {
+        return passionsRandom;
     }
 
     @Override

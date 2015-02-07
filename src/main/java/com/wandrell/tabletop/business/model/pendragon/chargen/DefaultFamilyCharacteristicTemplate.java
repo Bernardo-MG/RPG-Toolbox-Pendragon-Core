@@ -49,7 +49,7 @@ public final class DefaultFamilyCharacteristicTemplate implements
     }
 
     @Override
-    public final String getFamilyCharacteristic() {
+    public final String getName() {
         return name;
     }
 
