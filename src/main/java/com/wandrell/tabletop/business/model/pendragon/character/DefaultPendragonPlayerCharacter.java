@@ -33,7 +33,7 @@ public final class DefaultPendragonPlayerCharacter implements
     private final Collection<Item>               holdingsAtHome  = new LinkedHashSet<>();
     private final Collection<Item>               holdingsCarried = new LinkedHashSet<>();
     private final String                         homeland;
-    private final Collection<HorseCharacter>     horses          = new LinkedHashSet<>();
+    private final Collection<Horse>              horses          = new LinkedHashSet<>();
     private final PendragonHumanCharacter        humanCharacter;
     private final Boolean                        knight;
     private final Money                          money;
@@ -166,7 +166,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void addHorse(final HorseCharacter horse) {
+    public final void addHorse(final Horse horse) {
         checkNotNull(horse, "Received a null pointer as horse");
 
         getHorsesModifiable().add(horse);
@@ -416,7 +416,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Collection<HorseCharacter> getHorses() {
+    public final Collection<Horse> getHorses() {
         return Collections.unmodifiableCollection(getHorsesModifiable());
     }
 
@@ -617,7 +617,7 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void removeHorse(final HorseCharacter horse) {
+    public final void removeHorse(final Horse horse) {
         getHorsesModifiable().remove(horse);
     }
 
@@ -754,9 +754,9 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void setHorses(final Collection<HorseCharacter> horses) {
+    public final void setHorses(final Collection<Horse> horses) {
         getHorsesModifiable().clear();
-        for (final HorseCharacter horse : horses) {
+        for (final Horse horse : horses) {
             getHorsesModifiable().add(horse);
         }
     }
@@ -901,7 +901,7 @@ public final class DefaultPendragonPlayerCharacter implements
         return holdingsCarried;
     }
 
-    private final Collection<HorseCharacter> getHorsesModifiable() {
+    private final Collection<Horse> getHorsesModifiable() {
         return horses;
     }
 

@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.wandrell.tabletop.business.model.pendragon.character.DefaultPendragonBaseCharacter.DerivedAttributeBuilder;
 
-public final class DefaultHorseCharacter implements HorseCharacter {
+public final class DefaultHorse implements Horse {
 
     private final Boolean                armored;
     private final PendragonBaseCharacter baseCharacter;
@@ -14,7 +14,7 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     private Boolean                      ruined;
     private final String                 type;
 
-    public DefaultHorseCharacter(final DefaultHorseCharacter horse) {
+    public DefaultHorse(final DefaultHorse horse) {
         super();
 
         checkNotNull(horse, "Received a null pointer as horse");
@@ -30,7 +30,7 @@ public final class DefaultHorseCharacter implements HorseCharacter {
         armored = horse.armored;
     }
 
-    public DefaultHorseCharacter(final String name,
+    public DefaultHorse(final String name,
             final DerivedAttributeBuilder derivedAttributeBuilder,
             final String type, final Integer naturalArmor,
             final Boolean combat, final Boolean hunting, final Boolean armored) {
@@ -55,8 +55,8 @@ public final class DefaultHorseCharacter implements HorseCharacter {
     }
 
     @Override
-    public final DefaultHorseCharacter createNewInstance() {
-        return new DefaultHorseCharacter(this);
+    public final DefaultHorse createNewInstance() {
+        return new DefaultHorse(this);
     }
 
     @Override
