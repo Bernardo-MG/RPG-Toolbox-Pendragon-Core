@@ -24,7 +24,7 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox           cowardly;
     private final EditableValueBox           cruel;
     private final EditableValueBox           deceitful;
-    private final Collection<SkillBox>       directedTraits  = new LinkedHashSet<>();
+    private final Collection<SkillBox>       directedTraits  = new LinkedHashSet<SkillBox>();
     private final EditableValueBox           energetic;
     private final EditableValueBox           forgiving;
     private Gender                           gender;
@@ -36,14 +36,14 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox           lustful;
     private final EditableValueBox           merciful;
     private final EditableValueBox           modest;
-    private final Collection<SkillBox>       passions        = new LinkedHashSet<>();
+    private final Collection<SkillBox>       passions        = new LinkedHashSet<SkillBox>();
     private final EditableValueBox           pious;
     private final EditableValueBox           proud;
     private final EditableValueBox           prudent;
     private final EditableValueBox           reckless;
     private final EditableValueBox           selfish;
-    private final Collection<Skill>          skills          = new LinkedHashSet<>();
-    private final Collection<SpecialtySkill> skillsSpecialty = new LinkedHashSet<>();
+    private final Collection<Skill>          skills          = new LinkedHashSet<Skill>();
+    private final Collection<SpecialtySkill> skillsSpecialty = new LinkedHashSet<SpecialtySkill>();
     private final EditableValueBox           suspicious;
     private final EditableValueBox           temperate;
     private final EditableValueBox           trusting;

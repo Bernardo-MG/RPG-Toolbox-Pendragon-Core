@@ -14,12 +14,12 @@ import com.wandrell.tabletop.business.model.skill.NameAndDescriptor;
 
 public final class DefaultHomelandTemplate implements HomelandTemplate {
 
-    private final Collection<NameAndDescriptor>   directedTraits  = new LinkedList<>();
+    private final Collection<NameAndDescriptor>   directedTraits  = new LinkedList<NameAndDescriptor>();
     private final String                          name;
-    private final Collection<NameAndDescriptor>   passions        = new LinkedList<>();
-    private final Map<NameAndDescriptor, Integer> skills          = new LinkedHashMap<>();
-    private final Map<String, Integer>            specialtySkills = new LinkedHashMap<>();
-    private final Map<String, Integer>            traits          = new LinkedHashMap<>();
+    private final Collection<NameAndDescriptor>   passions        = new LinkedList<NameAndDescriptor>();
+    private final Map<NameAndDescriptor, Integer> skills          = new LinkedHashMap<NameAndDescriptor, Integer>();
+    private final Map<String, Integer>            specialtySkills = new LinkedHashMap<String, Integer>();
+    private final Map<String, Integer>            traits          = new LinkedHashMap<String, Integer>();
 
     public DefaultHomelandTemplate(final String name,
             final Map<NameAndDescriptor, Integer> skills,

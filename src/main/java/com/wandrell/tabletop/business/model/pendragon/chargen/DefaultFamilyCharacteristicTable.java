@@ -21,7 +21,8 @@ public final class DefaultFamilyCharacteristicTable implements
         checkNotNull(name, "Received a null pointer as name");
 
         this.name = name;
-        table = new DefaultIntervalTable<>(intervals);
+        table = new DefaultIntervalTable<FamilyCharacteristicTemplate>(
+                intervals);
     }
 
     @Override

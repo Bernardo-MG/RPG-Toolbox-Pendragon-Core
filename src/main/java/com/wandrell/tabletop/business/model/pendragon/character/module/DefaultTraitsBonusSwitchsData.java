@@ -9,7 +9,7 @@ import com.wandrell.tabletop.business.model.valuebox.EditableValueBox;
 
 public final class DefaultTraitsBonusSwitchsData {
 
-    private final Map<String, EditableValueBox> storeTraitsBonusSwitchs = new LinkedHashMap<>();
+    private final Map<String, EditableValueBox> storeTraitsBonusSwitchs = new LinkedHashMap<String, EditableValueBox>();
 
     public DefaultTraitsBonusSwitchsData() {
         super();

@@ -25,22 +25,22 @@ public final class DefaultPendragonPlayerCharacter implements
 
     private final EditableValueBox               armor;
     private final String                         culture;
-    private final Collection<Skill>              exclusiveSkills = new LinkedHashSet<>();
+    private final Collection<Skill>              exclusiveSkills = new LinkedHashSet<Skill>();
     private final String                         fatherClass;
-    private final Collection<DistinctiveFeature> features        = new LinkedHashSet<>();
-    private final Collection<Follower>           followers       = new LinkedHashSet<>();
+    private final Collection<DistinctiveFeature> features        = new LinkedHashSet<DistinctiveFeature>();
+    private final Collection<Follower>           followers       = new LinkedHashSet<Follower>();
     private final GloryManager                   glory;
-    private final Collection<Item>               holdingsAtHome  = new LinkedHashSet<>();
-    private final Collection<Item>               holdingsCarried = new LinkedHashSet<>();
+    private final Collection<Item>               holdingsAtHome  = new LinkedHashSet<Item>();
+    private final Collection<Item>               holdingsCarried = new LinkedHashSet<Item>();
     private final String                         homeland;
-    private final Collection<Horse>              horses          = new LinkedHashSet<>();
+    private final Collection<Horse>              horses          = new LinkedHashSet<Horse>();
     private final PendragonHumanCharacter        humanCharacter;
     private final Boolean                        knight;
     private final Money                          money;
-    private final Collection<Pet>                pets            = new LinkedHashSet<>();
+    private final Collection<Pet>                pets            = new LinkedHashSet<Pet>();
     private final String                         playerName;
     private final String                         religion;
-    private final Collection<Wife>               wives           = new LinkedHashSet<>();
+    private final Collection<Wife>               wives           = new LinkedHashSet<Wife>();
 
     public DefaultPendragonPlayerCharacter(
             final DefaultPendragonPlayerCharacter character) {
