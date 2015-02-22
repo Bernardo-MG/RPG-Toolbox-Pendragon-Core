@@ -66,7 +66,7 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     }
 
     @Override
-    public final String getHomeland() {
+    public final String getName() {
         return name;
     }
 

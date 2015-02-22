@@ -79,7 +79,7 @@ public final class DefaultReligionTemplate implements ReligionTemplate {
     }
 
     @Override
-    public final String getReligion() {
+    public final String getName() {
         return name;
     }
 
