@@ -2,8 +2,6 @@ package com.wandrell.tabletop.pendragon.model.chargen;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.nio.file.Path;
-import java.util.Map;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
@@ -19,7 +17,6 @@ public final class DefaultCultureTemplate implements CultureTemplate {
     private final CultureCharacterTemplate     templateDefaultMale;
 
     public DefaultCultureTemplate(final String name,
-            final Map<String, Path> files,
             final CultureCharacterTemplate templateDefaultFemale,
             final CultureCharacterTemplate templateDefaultMale,
             final AdditionalBelongingsTable initialLuckFemale,
@@ -29,7 +26,6 @@ public final class DefaultCultureTemplate implements CultureTemplate {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
-        checkNotNull(files, "Received a null pointer as files");
         checkNotNull(templateDefaultFemale,
                 "Received a null pointer as default female template");
         checkNotNull(templateDefaultMale,

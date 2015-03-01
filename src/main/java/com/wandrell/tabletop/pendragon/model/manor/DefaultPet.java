@@ -7,12 +7,12 @@ import java.util.Objects;
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.interval.IntervalTable;
 
-public final class DefaultManorAnimal implements Pet {
+public final class DefaultPet implements Pet {
 
     private final String                          name;
     private final IntervalTable<AnimalYearResult> rolltable;
 
-    public DefaultManorAnimal(final String name,
+    public DefaultPet(final String name,
             final IntervalTable<AnimalYearResult> rolltable) {
         super();
 
@@ -32,7 +32,7 @@ public final class DefaultManorAnimal implements Pet {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultManorAnimal other = (DefaultManorAnimal) obj;
+        DefaultPet other = (DefaultPet) obj;
         return Objects.equals(name, other.name);
     }
 

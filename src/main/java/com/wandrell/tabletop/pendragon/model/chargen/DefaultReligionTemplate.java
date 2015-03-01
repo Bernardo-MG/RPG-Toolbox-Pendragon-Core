@@ -19,9 +19,9 @@ public final class DefaultReligionTemplate implements ReligionTemplate {
     private final Collection<String>   traits;
 
     public DefaultReligionTemplate(final String name,
+            final Collection<String> traits,
             final Map<String, Integer> bonusDerived, final Integer bonusArmor,
-            final Integer bonusDamage, final Integer bonusDamageDice,
-            final Collection<String> traits) {
+            final Integer bonusDamage, final Integer bonusDamageDice) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");

@@ -9,7 +9,9 @@ public final class DefaultHorse implements Horse {
     private final Boolean                armored;
     private final PendragonBaseCharacter baseCharacter;
     private final Boolean                combat;
+    private final Integer                damage;
     private final Boolean                hunting;
+    private final Integer                movement;
     private final Integer                naturalArmor;
     private Boolean                      ruined;
     private final String                 type;
@@ -24,6 +26,8 @@ public final class DefaultHorse implements Horse {
         type = horse.type;
 
         naturalArmor = horse.naturalArmor;
+        damage = horse.damage;
+        movement = horse.movement;
 
         combat = horse.combat;
         hunting = horse.hunting;
@@ -33,11 +37,14 @@ public final class DefaultHorse implements Horse {
     public DefaultHorse(final String name,
             final DerivedAttributeBuilder derivedAttributeBuilder,
             final String type, final Integer naturalArmor,
-            final Boolean combat, final Boolean hunting, final Boolean armored) {
+            final Integer damage, final Integer movement, final Boolean combat,
+            final Boolean hunting, final Boolean armored) {
         super();
 
         checkNotNull(type, "Received a null pointer as type");
         checkNotNull(naturalArmor, "Received a null pointer as natural armor");
+        checkNotNull(damage, "Received a null pointer as damage");
+        checkNotNull(movement, "Received a null pointer as movement");
         checkNotNull(combat, "Received a null pointer as combat flag");
         checkNotNull(hunting, "Received a null pointer as hunting flag");
         checkNotNull(armored, "Received a null pointer as armored flag");
@@ -48,6 +55,8 @@ public final class DefaultHorse implements Horse {
         this.type = type;
 
         this.naturalArmor = naturalArmor;
+        this.damage = damage;
+        this.movement = movement;
 
         this.combat = combat;
         this.hunting = hunting;
@@ -66,7 +75,7 @@ public final class DefaultHorse implements Horse {
 
     @Override
     public final Integer getDamage() {
-        return getBaseCharacter().getDamage();
+        return damage;
     }
 
     @Override
@@ -101,7 +110,7 @@ public final class DefaultHorse implements Horse {
 
     @Override
     public final Integer getMovementRate() {
-        return getBaseCharacter().getMovementRate();
+        return movement;
     }
 
     @Override

@@ -8,26 +8,25 @@ import com.wandrell.tabletop.interval.DefaultIntervalTable;
 import com.wandrell.tabletop.interval.Interval;
 import com.wandrell.tabletop.interval.IntervalTable;
 
-public final class DefaultFamilyCharacteristicTable implements
-        FamilyCharacteristicTable {
+public final class DefaultAdditionalBelongingsTable implements
+        AdditionalBelongingsTable {
 
-    private final String                                      name;
-    private final IntervalTable<FamilyCharacteristicTemplate> table;
+    private final String                              name;
+    private final IntervalTable<AdditionalBelongings> table;
 
-    public DefaultFamilyCharacteristicTable(final String name,
-            final Map<Interval, FamilyCharacteristicTemplate> intervals) {
+    public DefaultAdditionalBelongingsTable(final String name,
+            final Map<Interval, AdditionalBelongings> intervals) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
         checkNotNull(intervals, "Received a null pointer as intervals");
 
         this.name = name;
-        table = new DefaultIntervalTable<FamilyCharacteristicTemplate>(
-                intervals);
+        table = new DefaultIntervalTable<AdditionalBelongings>(intervals);
     }
 
     @Override
-    public final Map<Interval, FamilyCharacteristicTemplate> getIntervals() {
+    public final Map<Interval, AdditionalBelongings> getIntervals() {
         return getIntervalTable().getIntervals();
     }
 
@@ -47,12 +46,11 @@ public final class DefaultFamilyCharacteristicTable implements
     }
 
     @Override
-    public final FamilyCharacteristicTemplate getValue(final Integer number) {
+    public final AdditionalBelongings getValue(final Integer number) {
         return getIntervalTable().getValue(number);
     }
 
-    private final IntervalTable<FamilyCharacteristicTemplate>
-            getIntervalTable() {
+    private final IntervalTable<AdditionalBelongings> getIntervalTable() {
         return table;
     }
 

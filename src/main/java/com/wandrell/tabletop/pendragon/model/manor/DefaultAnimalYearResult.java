@@ -12,30 +12,22 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
     private final Boolean dying;
     private final Money   money;
     private final String  name;
-    private final Boolean producesMoney;
-    private final Boolean puppies;
     private final String  puppy;
 
     public DefaultAnimalYearResult(final String name, final Money money,
-            final String puppy, final Boolean dying,
-            final Boolean producesMoney, final Boolean puppies) {
+            final String puppy, final Boolean dying) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
         checkNotNull(money, "Received a null pointer as money");
         checkNotNull(puppy, "Received a null pointer as puppy");
         checkNotNull(dying, "Received a null pointer as dying flag");
-        checkNotNull(producesMoney,
-                "Received a null pointer as produces money flag");
-        checkNotNull(puppies, "Received a null pointer as puppies flag");
 
         this.name = name;
 
         this.money = money;
         this.puppy = puppy;
         this.dying = dying;
-        this.producesMoney = producesMoney;
-        this.puppies = puppies;
     }
 
     @Override
@@ -77,12 +69,12 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
 
     @Override
     public final Boolean isHavingPuppies() {
-        return puppies;
+        return (getPuppy().length() > 0);
     }
 
     @Override
     public final Boolean isProducingMoney() {
-        return producesMoney;
+        return (getMoney().getLibra() > 0) && (getMoney().getDenarii() > 0);
     }
 
     @Override
