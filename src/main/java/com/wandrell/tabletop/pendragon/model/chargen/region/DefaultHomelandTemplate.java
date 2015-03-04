@@ -26,7 +26,6 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
             final RegionTemplate region,
             final Map<NameAndDescriptor, Integer> skills,
             final Map<String, Integer> specialtySkills,
-            final Map<String, Integer> traits,
             final Collection<NameAndDescriptor> directedTraits,
             final Collection<NameAndDescriptor> passions) {
         super();
@@ -36,7 +35,6 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
         checkNotNull(skills, "Received a null pointer as skills");
         checkNotNull(specialtySkills,
                 "Received a null pointer as specialty skills");
-        checkNotNull(traits, "Received a null pointer as traits");
         checkNotNull(directedTraits,
                 "Received a null pointer as directed traits");
         checkNotNull(passions, "Received a null pointer as passions");
