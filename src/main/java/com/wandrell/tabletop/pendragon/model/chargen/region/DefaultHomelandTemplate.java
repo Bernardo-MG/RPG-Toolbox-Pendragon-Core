@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.pendragon.model.chargen;
+package com.wandrell.tabletop.pendragon.model.chargen.region;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.wandrell.tabletop.pendragon.model.chargen.region.HomelandTemplate;
 import com.wandrell.tabletop.skill.NameAndDescriptor;
 
 public final class DefaultHomelandTemplate implements HomelandTemplate {
@@ -17,11 +18,12 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     private final Collection<NameAndDescriptor>   directedTraits  = new LinkedList<NameAndDescriptor>();
     private final String                          name;
     private final Collection<NameAndDescriptor>   passions        = new LinkedList<NameAndDescriptor>();
+    private final RegionTemplate                  region;
     private final Map<NameAndDescriptor, Integer> skills          = new LinkedHashMap<NameAndDescriptor, Integer>();
     private final Map<String, Integer>            specialtySkills = new LinkedHashMap<String, Integer>();
-    private final Map<String, Integer>            traits          = new LinkedHashMap<String, Integer>();
 
     public DefaultHomelandTemplate(final String name,
+            final RegionTemplate region,
             final Map<NameAndDescriptor, Integer> skills,
             final Map<String, Integer> specialtySkills,
             final Map<String, Integer> traits,
@@ -29,6 +31,7 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
             final Collection<NameAndDescriptor> passions) {
         super();
 
+        checkNotNull(region, "Received a null pointer as region");
         checkNotNull(name, "Received a null pointer as name");
         checkNotNull(skills, "Received a null pointer as skills");
         checkNotNull(specialtySkills,
@@ -39,10 +42,10 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
         checkNotNull(passions, "Received a null pointer as passions");
 
         this.name = name;
+        this.region = region;
 
         this.skills.putAll(skills);
         this.specialtySkills.putAll(specialtySkills);
-        this.traits.putAll(traits);
         this.directedTraits.addAll(directedTraits);
         this.passions.addAll(passions);
     }
@@ -66,13 +69,18 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     }
 
     @Override
-    public final String getName() {
+    public final String getHomeland() {
         return name;
     }
 
     @Override
     public final Collection<NameAndDescriptor> getPassions() {
         return Collections.unmodifiableCollection(getPassionsModifiable());
+    }
+
+    @Override
+    public final RegionTemplate getRegion() {
+        return region;
     }
 
     @Override
@@ -83,11 +91,6 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     @Override
     public final Map<String, Integer> getSpecialtySkills() {
         return Collections.unmodifiableMap(getSpecialtySkillsModifiable());
-    }
-
-    @Override
-    public final Map<String, Integer> getTraits() {
-        return Collections.unmodifiableMap(getTraitsModifiable());
     }
 
     @Override
@@ -114,10 +117,6 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
 
     private final Map<String, Integer> getSpecialtySkillsModifiable() {
         return specialtySkills;
-    }
-
-    private final Map<String, Integer> getTraitsModifiable() {
-        return traits;
     }
 
 }
