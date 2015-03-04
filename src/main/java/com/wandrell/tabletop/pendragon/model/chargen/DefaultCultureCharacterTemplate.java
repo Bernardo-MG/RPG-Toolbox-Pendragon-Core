@@ -6,29 +6,29 @@ import java.util.Collections;
 import java.util.Map;
 
 import com.wandrell.tabletop.dice.Dice;
-import com.wandrell.tabletop.skill.NameAndDescriptor;
+import com.wandrell.tabletop.skill.SkillName;
 
 public final class DefaultCultureCharacterTemplate implements
         CultureCharacterTemplate {
 
     private final Map<String, Integer>            attributes;
     private final Map<String, Dice>               attributesRandom;
-    private final Map<NameAndDescriptor, Integer> directedTraits;
-    private final Map<NameAndDescriptor, Integer> passions;
-    private final Map<NameAndDescriptor, Dice>    passionsRandom;
-    private final Map<NameAndDescriptor, Integer> skills;
+    private final Map<SkillName, Integer> directedTraits;
+    private final Map<SkillName, Integer> passions;
+    private final Map<SkillName, Dice>    passionsRandom;
+    private final Map<SkillName, Integer> skills;
     private final Map<String, Integer>            specialtySkills;
     private final Map<String, Integer>            traits;
 
     public DefaultCultureCharacterTemplate(
             final Map<String, Integer> attributes,
             final Map<String, Dice> attributesRandom,
-            final Map<NameAndDescriptor, Integer> skills,
+            final Map<SkillName, Integer> skills,
             final Map<String, Integer> specialtySkills,
             final Map<String, Integer> traits,
-            final Map<NameAndDescriptor, Integer> directedTraits,
-            final Map<NameAndDescriptor, Integer> passions,
-            Map<NameAndDescriptor, Dice> passionsRandom) {
+            final Map<SkillName, Integer> directedTraits,
+            final Map<SkillName, Integer> passions,
+            Map<SkillName, Dice> passionsRandom) {
         super();
 
         checkNotNull(attributes, "Received a null pointer as attributes");
@@ -65,22 +65,22 @@ public final class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getDirectedTraits() {
+    public final Map<SkillName, Integer> getDirectedTraits() {
         return Collections.unmodifiableMap(getDirectedTraitsModifiable());
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getPassions() {
+    public final Map<SkillName, Integer> getPassions() {
         return Collections.unmodifiableMap(getPassionsModifiable());
     }
 
     @Override
-    public final Map<NameAndDescriptor, Dice> getPassionsRandom() {
+    public final Map<SkillName, Dice> getPassionsRandom() {
         return passionsRandom;
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getSkills() {
+    public final Map<SkillName, Integer> getSkills() {
         return Collections.unmodifiableMap(getSkillsModifiable());
     }
 
@@ -98,15 +98,15 @@ public final class DefaultCultureCharacterTemplate implements
         return attributes;
     }
 
-    private final Map<NameAndDescriptor, Integer> getDirectedTraitsModifiable() {
+    private final Map<SkillName, Integer> getDirectedTraitsModifiable() {
         return directedTraits;
     }
 
-    private final Map<NameAndDescriptor, Integer> getPassionsModifiable() {
+    private final Map<SkillName, Integer> getPassionsModifiable() {
         return passions;
     }
 
-    private final Map<NameAndDescriptor, Integer> getSkillsModifiable() {
+    private final Map<SkillName, Integer> getSkillsModifiable() {
         return skills;
     }
 

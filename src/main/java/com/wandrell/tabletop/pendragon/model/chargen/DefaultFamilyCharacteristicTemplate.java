@@ -7,18 +7,18 @@ import java.util.Map;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.wandrell.tabletop.skill.NameAndDescriptor;
+import com.wandrell.tabletop.skill.SkillName;
 
 public final class DefaultFamilyCharacteristicTemplate implements
         FamilyCharacteristicTemplate {
 
     private final Map<String, Integer>            attributes;
     private final String                          name;
-    private final Map<NameAndDescriptor, Integer> skills;
+    private final Map<SkillName, Integer> skills;
 
     public DefaultFamilyCharacteristicTemplate(final String name,
             final Map<String, Integer> attributes,
-            final Map<NameAndDescriptor, Integer> skills) {
+            final Map<SkillName, Integer> skills) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -54,7 +54,7 @@ public final class DefaultFamilyCharacteristicTemplate implements
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getSkills() {
+    public final Map<SkillName, Integer> getSkills() {
         return Collections.unmodifiableMap(getSkillsModifiable());
     }
 
@@ -72,7 +72,7 @@ public final class DefaultFamilyCharacteristicTemplate implements
         return attributes;
     }
 
-    private final Map<NameAndDescriptor, Integer> getSkillsModifiable() {
+    private final Map<SkillName, Integer> getSkillsModifiable() {
         return skills;
     }
 

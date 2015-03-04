@@ -11,23 +11,23 @@ import java.util.Map;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.wandrell.tabletop.pendragon.model.chargen.region.HomelandTemplate;
-import com.wandrell.tabletop.skill.NameAndDescriptor;
+import com.wandrell.tabletop.skill.SkillName;
 
 public final class DefaultHomelandTemplate implements HomelandTemplate {
 
-    private final Collection<NameAndDescriptor>   directedTraits  = new LinkedList<NameAndDescriptor>();
+    private final Collection<SkillName>   directedTraits  = new LinkedList<SkillName>();
     private final String                          name;
-    private final Collection<NameAndDescriptor>   passions        = new LinkedList<NameAndDescriptor>();
+    private final Collection<SkillName>   passions        = new LinkedList<SkillName>();
     private final RegionTemplate                  region;
-    private final Map<NameAndDescriptor, Integer> skills          = new LinkedHashMap<NameAndDescriptor, Integer>();
+    private final Map<SkillName, Integer> skills          = new LinkedHashMap<SkillName, Integer>();
     private final Map<String, Integer>            specialtySkills = new LinkedHashMap<String, Integer>();
 
     public DefaultHomelandTemplate(final String name,
             final RegionTemplate region,
-            final Map<NameAndDescriptor, Integer> skills,
+            final Map<SkillName, Integer> skills,
             final Map<String, Integer> specialtySkills,
-            final Collection<NameAndDescriptor> directedTraits,
-            final Collection<NameAndDescriptor> passions) {
+            final Collection<SkillName> directedTraits,
+            final Collection<SkillName> passions) {
         super();
 
         checkNotNull(region, "Received a null pointer as region");
@@ -61,7 +61,7 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     }
 
     @Override
-    public final Collection<NameAndDescriptor> getDirectedTraits() {
+    public final Collection<SkillName> getDirectedTraits() {
         return Collections
                 .unmodifiableCollection(getDirectedTraitsModifiable());
     }
@@ -72,7 +72,7 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     }
 
     @Override
-    public final Collection<NameAndDescriptor> getPassions() {
+    public final Collection<SkillName> getPassions() {
         return Collections.unmodifiableCollection(getPassionsModifiable());
     }
 
@@ -82,7 +82,7 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getSkills() {
+    public final Map<SkillName, Integer> getSkills() {
         return Collections.unmodifiableMap(getSkillsModifiable());
     }
 
@@ -101,15 +101,15 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final Collection<NameAndDescriptor> getDirectedTraitsModifiable() {
+    private final Collection<SkillName> getDirectedTraitsModifiable() {
         return directedTraits;
     }
 
-    private final Collection<NameAndDescriptor> getPassionsModifiable() {
+    private final Collection<SkillName> getPassionsModifiable() {
         return passions;
     }
 
-    private final Map<NameAndDescriptor, Integer> getSkillsModifiable() {
+    private final Map<SkillName, Integer> getSkillsModifiable() {
         return skills;
     }
 

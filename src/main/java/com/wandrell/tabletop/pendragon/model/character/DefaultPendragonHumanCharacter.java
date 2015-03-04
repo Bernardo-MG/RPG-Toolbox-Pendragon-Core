@@ -8,8 +8,8 @@ import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonBaseCharacter.DerivedAttributeBuilder;
-import com.wandrell.tabletop.pendragon.model.stats.Skill;
-import com.wandrell.tabletop.pendragon.model.stats.SpecialtySkill;
+import com.wandrell.tabletop.pendragon.model.stats.PendragonSkillBox;
+import com.wandrell.tabletop.pendragon.model.stats.SpecialtySkillBox;
 import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
 import com.wandrell.tabletop.valuebox.EditableValueBox;
 import com.wandrell.tabletop.valuebox.SkillBox;
@@ -42,8 +42,8 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox           prudent;
     private final EditableValueBox           reckless;
     private final EditableValueBox           selfish;
-    private final Collection<Skill>          skills          = new LinkedHashSet<Skill>();
-    private final Collection<SpecialtySkill> skillsSpecialty = new LinkedHashSet<SpecialtySkill>();
+    private final Collection<PendragonSkillBox>          skills          = new LinkedHashSet<PendragonSkillBox>();
+    private final Collection<SpecialtySkillBox> skillsSpecialty = new LinkedHashSet<SpecialtySkillBox>();
     private final EditableValueBox           suspicious;
     private final EditableValueBox           temperate;
     private final EditableValueBox           trusting;
@@ -89,7 +89,7 @@ public final class DefaultPendragonHumanCharacter implements
         this.vengeful = character.vengeful.createNewInstance();
         this.worldly = character.worldly.createNewInstance();
 
-        for (final SpecialtySkill skill : character.skillsSpecialty) {
+        for (final SpecialtySkillBox skill : character.skillsSpecialty) {
             // TODO: Make sure this works
             skillsSpecialty.add(skill.createNewInstance());
         }
@@ -102,7 +102,7 @@ public final class DefaultPendragonHumanCharacter implements
             passions.add(passion.createNewInstance());
         }
 
-        for (final Skill skill : character.skills) {
+        for (final PendragonSkillBox skill : character.skills) {
             skills.add(skill.createNewInstance());
         }
 
@@ -162,7 +162,7 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final void addSkill(final Skill skill) {
+    public final void addSkill(final PendragonSkillBox skill) {
         checkNotNull(skill, "Received a null pointer as skill");
 
         getSkillsModifiable().add(skill);
@@ -170,7 +170,7 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final void addSpecialtySkill(final SpecialtySkill skill) {
+    public final void addSpecialtySkill(final SpecialtySkillBox skill) {
         checkNotNull(skill, "Received a null pointer as specialty skill");
 
         getSpecialtySkillsModifiable().add(skill);
@@ -374,12 +374,12 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Collection<Skill> getSkills() {
+    public final Collection<PendragonSkillBox> getSkills() {
         return Collections.unmodifiableCollection(getSkillsModifiable());
     }
 
     @Override
-    public final Collection<SpecialtySkill> getSpecialtySkills() {
+    public final Collection<SpecialtySkillBox> getSpecialtySkills() {
         return Collections
                 .unmodifiableCollection(getSpecialtySkillsModifiable());
     }
@@ -440,12 +440,12 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final void removeSkill(final Skill skill) {
+    public final void removeSkill(final PendragonSkillBox skill) {
         getSkillsModifiable().remove(skill);
     }
 
     @Override
-    public final void removeSpecialtySkill(final SpecialtySkill skill) {
+    public final void removeSpecialtySkill(final SpecialtySkillBox skill) {
         getSpecialtySkillsModifiable().remove(skill);
     }
 
@@ -592,23 +592,23 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final void setSkills(final Collection<Skill> skills) {
+    public final void setSkills(final Collection<PendragonSkillBox> skills) {
         checkNotNull(skills, "Received a null pointer as skills");
 
         getSkillsModifiable().clear();
 
-        for (final Skill skill : skills) {
+        for (final PendragonSkillBox skill : skills) {
             getSkillsModifiable().add(skill);
         }
     }
 
     @Override
     public final void
-            setSpecialtySkills(final Collection<SpecialtySkill> skills) {
+            setSpecialtySkills(final Collection<SpecialtySkillBox> skills) {
         checkNotNull(skills, "Received a null pointer as specialty skills");
 
         getSpecialtySkillsModifiable().clear();
-        for (final SpecialtySkill skill : skills) {
+        for (final SpecialtySkillBox skill : skills) {
             addSpecialtySkill(skill);
         }
     }
@@ -633,7 +633,7 @@ public final class DefaultPendragonHumanCharacter implements
         this.trusting.setValue(trusting);
     }
 
-    private final void assembleSpecialtySkill(final SpecialtySkill vhAdvSkill) {
+    private final void assembleSpecialtySkill(final SpecialtySkillBox vhAdvSkill) {
         // for (final String skill : vhAdvSkill.getSurrogatedSkills()) {
         // if (hasSkill(skill, "")) {
         // TODO: Do somehow
@@ -654,15 +654,15 @@ public final class DefaultPendragonHumanCharacter implements
         return passions;
     }
 
-    private final Collection<Skill> getSkillsModifiable() {
+    private final Collection<PendragonSkillBox> getSkillsModifiable() {
         return skills;
     }
 
-    private final Collection<SpecialtySkill> getSpecialtySkillsModifiable() {
+    private final Collection<SpecialtySkillBox> getSpecialtySkillsModifiable() {
         return skillsSpecialty;
     }
 
-    private final void registerIntoSpecialtySkill(final Skill vhSkill) {
+    private final void registerIntoSpecialtySkill(final PendragonSkillBox vhSkill) {
         // for (final SpecialtySkill skill : getSpecialtySkills()) {
         // TODO: Do somehow
         // if (skill.isSkillContained(vhSkill.getName())) {

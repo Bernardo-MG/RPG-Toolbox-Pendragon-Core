@@ -9,15 +9,15 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.dice.Dice;
-import com.wandrell.tabletop.skill.NameAndDescriptor;
+import com.wandrell.tabletop.skill.SkillName;
 
 public final class DefaultFatherClassTemplate implements FatherClassTemplate {
 
-    private final Map<NameAndDescriptor, Integer> directedTraits;
-    private final Map<NameAndDescriptor, Integer> directedTraitsBase;
+    private final Map<SkillName, Integer> directedTraits;
+    private final Map<SkillName, Integer> directedTraitsBase;
     private final Dice                            money;
     private final String                          name;
-    private final Collection<NameAndDescriptor>   skillsGroup;
+    private final Collection<SkillName>   skillsGroup;
     private final Integer                         skillsGroupPointsBonus;
     private final Integer                         skillsGroupPointsDivide;
     private final Integer                         skillsNonCombatPoints;
@@ -28,10 +28,10 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
             final Integer skillsGroupPoints,
             final Integer skillsGroupPointsDivide, final Integer skillsPoints,
             final Integer skillsNonCombatPoints, final Dice money,
-            final Collection<NameAndDescriptor> skillsGroup,
+            final Collection<SkillName> skillsGroup,
             final Map<String, Integer> specialtySkills,
-            final Map<NameAndDescriptor, Integer> directedTraits,
-            final Map<NameAndDescriptor, Integer> directedTraitsBase) {
+            final Map<SkillName, Integer> directedTraits,
+            final Map<SkillName, Integer> directedTraitsBase) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -82,12 +82,12 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getDirectedTraits() {
+    public final Map<SkillName, Integer> getDirectedTraits() {
         return Collections.unmodifiableMap(getDirectedTraitsModifiable());
     }
 
     @Override
-    public final Map<NameAndDescriptor, Integer> getDirectedTraitsBase() {
+    public final Map<SkillName, Integer> getDirectedTraitsBase() {
         return Collections.unmodifiableMap(getDirectedTraitsBaseModifiable());
     }
 
@@ -107,7 +107,7 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
     }
 
     @Override
-    public final Collection<NameAndDescriptor> getSkillsGroup() {
+    public final Collection<SkillName> getSkillsGroup() {
         return Collections.unmodifiableCollection(getSkillsGroupModifiable());
     }
 
@@ -141,16 +141,16 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final Map<NameAndDescriptor, Integer>
+    private final Map<SkillName, Integer>
             getDirectedTraitsBaseModifiable() {
         return directedTraitsBase;
     }
 
-    private final Map<NameAndDescriptor, Integer> getDirectedTraitsModifiable() {
+    private final Map<SkillName, Integer> getDirectedTraitsModifiable() {
         return directedTraits;
     }
 
-    private final Collection<NameAndDescriptor> getSkillsGroupModifiable() {
+    private final Collection<SkillName> getSkillsGroupModifiable() {
         return skillsGroup;
     }
 
