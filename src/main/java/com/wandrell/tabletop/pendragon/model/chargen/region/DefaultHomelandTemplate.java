@@ -10,7 +10,6 @@ import java.util.Map;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.wandrell.tabletop.pendragon.model.chargen.region.HomelandTemplate;
 import com.wandrell.tabletop.skill.SkillName;
 
 public final class DefaultHomelandTemplate implements HomelandTemplate {
@@ -67,7 +66,7 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     }
 
     @Override
-    public final String getHomeland() {
+    public final String getName() {
         return name;
     }
 
