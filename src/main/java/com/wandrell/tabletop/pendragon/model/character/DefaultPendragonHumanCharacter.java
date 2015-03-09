@@ -411,8 +411,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Integer getUnconsciousTreshold() {
-        return getBaseCharacter().getUnconsciousTreshold();
+    public final Integer getUnconciousTreshold() {
+        return getBaseCharacter().getUnconciousTreshold();
     }
 
     @Override

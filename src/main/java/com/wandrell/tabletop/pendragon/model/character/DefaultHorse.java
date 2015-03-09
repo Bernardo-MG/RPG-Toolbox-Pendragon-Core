@@ -140,8 +140,8 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public final Integer getUnconsciousTreshold() {
-        return getBaseCharacter().getUnconsciousTreshold();
+    public final Integer getUnconciousTreshold() {
+        return getBaseCharacter().getUnconciousTreshold();
     }
 
     @Override

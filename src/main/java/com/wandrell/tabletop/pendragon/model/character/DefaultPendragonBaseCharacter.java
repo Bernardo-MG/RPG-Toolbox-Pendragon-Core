@@ -51,8 +51,8 @@ public final class DefaultPendragonBaseCharacter implements
         this.healingRate = derivedBuilder.getHealingRate(this);
         this.hitPoints = derivedBuilder.getHitPoints(this);
         this.majorWoundTreshold = derivedBuilder.getMajorWoundTreshold(this);
-        this.movementRate = derivedBuilder.getMovementRate(this);
-        this.unconsciousTreshold = derivedBuilder.getUnconsciousTreshold(this);
+        this.movementRate = derivedBuilder.getMoveRate(this);
+        this.unconsciousTreshold = derivedBuilder.getUnconciousTreshold(this);
         this.weight = derivedBuilder.getWeight(this);
     }
 
@@ -80,9 +80,9 @@ public final class DefaultPendragonBaseCharacter implements
         this.hitPoints = derivedAttributeBuilder.getHitPoints(this);
         this.majorWoundTreshold = derivedAttributeBuilder
                 .getMajorWoundTreshold(this);
-        this.movementRate = derivedAttributeBuilder.getMovementRate(this);
+        this.movementRate = derivedAttributeBuilder.getMoveRate(this);
         this.unconsciousTreshold = derivedAttributeBuilder
-                .getUnconsciousTreshold(this);
+                .getUnconciousTreshold(this);
         this.weight = derivedAttributeBuilder.getWeight(this);
     }
 
@@ -167,7 +167,7 @@ public final class DefaultPendragonBaseCharacter implements
     }
 
     @Override
-    public final Integer getUnconsciousTreshold() {
+    public final Integer getUnconciousTreshold() {
         return unconsciousTreshold.getValue();
     }
 
