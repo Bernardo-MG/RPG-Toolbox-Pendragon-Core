@@ -2,7 +2,7 @@ package com.wandrell.tabletop.pendragon.model.character;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonBaseCharacter.DerivedAttributeBuilder;
+import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 
 public final class DefaultHorse implements Horse {
 
@@ -61,6 +61,12 @@ public final class DefaultHorse implements Horse {
         this.combat = combat;
         this.hunting = hunting;
         this.armored = armored;
+    }
+
+    @Override
+    public final void addPendragonCharacterListener(
+            final PendragonCharacterListener listener) {
+        getBaseCharacter().addPendragonCharacterListener(listener);
     }
 
     @Override
@@ -161,6 +167,12 @@ public final class DefaultHorse implements Horse {
     @Override
     public final Boolean isRuined() {
         return ruined;
+    }
+
+    @Override
+    public final void removePendragonCharacterListener(
+            final PendragonCharacterListener listener) {
+        getBaseCharacter().removePendragonCharacterListener(listener);
     }
 
     @Override

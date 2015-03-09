@@ -12,8 +12,8 @@ import com.wandrell.tabletop.skill.SkillName;
 public final class DefaultFamilyCharacteristicTemplate implements
         FamilyCharacteristicTemplate {
 
-    private final Map<String, Integer>            attributes;
-    private final String                          name;
+    private final Map<String, Integer>    attributes;
+    private final String                  name;
     private final Map<SkillName, Integer> skills;
 
     public DefaultFamilyCharacteristicTemplate(final String name,

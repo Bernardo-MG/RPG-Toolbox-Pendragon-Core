@@ -11,14 +11,14 @@ import com.wandrell.tabletop.skill.SkillName;
 public final class DefaultCultureCharacterTemplate implements
         CultureCharacterTemplate {
 
-    private final Map<String, Integer>            attributes;
-    private final Map<String, Dice>               attributesRandom;
+    private final Map<String, Integer>    attributes;
+    private final Map<String, Dice>       attributesRandom;
     private final Map<SkillName, Integer> directedTraits;
     private final Map<SkillName, Integer> passions;
     private final Map<SkillName, Dice>    passionsRandom;
     private final Map<SkillName, Integer> skills;
-    private final Map<String, Integer>            specialtySkills;
-    private final Map<String, Integer>            traits;
+    private final Map<String, Integer>    specialtySkills;
+    private final Map<String, Integer>    traits;
 
     public DefaultCultureCharacterTemplate(
             final Map<String, Integer> attributes,

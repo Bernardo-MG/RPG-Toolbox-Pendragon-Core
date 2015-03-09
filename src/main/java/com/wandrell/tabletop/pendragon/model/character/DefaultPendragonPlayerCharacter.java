@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.character.Gender;
-import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonBaseCharacter.DerivedAttributeBuilder;
+import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.follower.Follower;
 import com.wandrell.tabletop.pendragon.model.character.follower.Wife;
 import com.wandrell.tabletop.pendragon.model.glory.GloryManager;
@@ -25,7 +25,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     private final EditableValueBox               armor;
     private final String                         culture;
-    private final Collection<PendragonSkillBox>              exclusiveSkills = new LinkedHashSet<PendragonSkillBox>();
+    private final Collection<PendragonSkillBox>  exclusiveSkills = new LinkedHashSet<PendragonSkillBox>();
     private final String                         fatherClass;
     private final Collection<DistinctiveFeature> features        = new LinkedHashSet<DistinctiveFeature>();
     private final Collection<Follower>           followers       = new LinkedHashSet<Follower>();
@@ -177,6 +177,12 @@ public final class DefaultPendragonPlayerCharacter implements
         checkNotNull(passion, "Received a null pointer as passion");
 
         getBaseCharacter().addPassion(passion);
+    }
+
+    @Override
+    public final void addPendragonCharacterListener(
+            final PendragonCharacterListener listener) {
+        getBaseCharacter().addPendragonCharacterListener(listener);
     }
 
     @Override
@@ -627,6 +633,12 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
+    public final void removePendragonCharacterListener(
+            final PendragonCharacterListener listener) {
+        getBaseCharacter().removePendragonCharacterListener(listener);
+    }
+
+    @Override
     public final void removePet(final Pet pet) {
         getPetsModifiable().remove(pet);
     }
@@ -707,7 +719,8 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void setExclusiveSkills(final Collection<PendragonSkillBox> skills) {
+    public final void setExclusiveSkills(
+            final Collection<PendragonSkillBox> skills) {
         getExclusiveSkillsModifiable().clear();
         for (final PendragonSkillBox skill : skills) {
             addExclusiveSkill(skill);
@@ -840,8 +853,8 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void
-            setSpecialtySkills(final Collection<SpecialtySkillBox> skills) {
+    public final void setSpecialtySkills(
+            final Collection<SpecialtySkillBox> skills) {
         getBaseCharacter().setSpecialtySkills(skills);
     }
 

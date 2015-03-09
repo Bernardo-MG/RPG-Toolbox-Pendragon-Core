@@ -15,14 +15,14 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
 
     private final Map<SkillName, Integer> directedTraits;
     private final Map<SkillName, Integer> directedTraitsBase;
-    private final Dice                            money;
-    private final String                          name;
+    private final Dice                    money;
+    private final String                  name;
     private final Collection<SkillName>   skillsGroup;
-    private final Integer                         skillsGroupPointsBonus;
-    private final Integer                         skillsGroupPointsDivide;
-    private final Integer                         skillsNonCombatPoints;
-    private final Integer                         skillsPoints;
-    private final Map<String, Integer>            specialtySkills;
+    private final Integer                 skillsGroupPointsBonus;
+    private final Integer                 skillsGroupPointsDivide;
+    private final Integer                 skillsNonCombatPoints;
+    private final Integer                 skillsPoints;
+    private final Map<String, Integer>    specialtySkills;
 
     public DefaultFatherClassTemplate(final String name,
             final Integer skillsGroupPoints,
@@ -141,8 +141,7 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final Map<SkillName, Integer>
-            getDirectedTraitsBaseModifiable() {
+    private final Map<SkillName, Integer> getDirectedTraitsBaseModifiable() {
         return directedTraitsBase;
     }
 

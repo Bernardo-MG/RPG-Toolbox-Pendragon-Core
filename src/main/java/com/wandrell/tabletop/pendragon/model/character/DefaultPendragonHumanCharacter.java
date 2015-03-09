@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.character.Gender;
-import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonBaseCharacter.DerivedAttributeBuilder;
+import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.stats.PendragonSkillBox;
 import com.wandrell.tabletop.pendragon.model.stats.SpecialtySkillBox;
 import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
@@ -17,39 +17,39 @@ import com.wandrell.tabletop.valuebox.SkillBox;
 public final class DefaultPendragonHumanCharacter implements
         PendragonHumanCharacter {
 
-    private final EditableValueBox           appearance;
-    private final EditableValueBox           arbitrary;
-    private final PendragonBaseCharacter     baseCharacter;
-    private final EditableValueBox           chaste;
-    private final EditableValueBox           cowardly;
-    private final EditableValueBox           cruel;
-    private final EditableValueBox           deceitful;
-    private final Collection<SkillBox>       directedTraits  = new LinkedHashSet<SkillBox>();
-    private final EditableValueBox           energetic;
-    private final EditableValueBox           forgiving;
-    private Gender                           gender;
-    private final EditableValueBox           generous;
-    private final EditableValueBox           honest;
-    private final EditableValueBox           indulgent;
-    private final EditableValueBox           just;
-    private final EditableValueBox           lazy;
-    private final EditableValueBox           lustful;
-    private final EditableValueBox           merciful;
-    private final EditableValueBox           modest;
-    private final Collection<SkillBox>       passions        = new LinkedHashSet<SkillBox>();
-    private final EditableValueBox           pious;
-    private final EditableValueBox           proud;
-    private final EditableValueBox           prudent;
-    private final EditableValueBox           reckless;
-    private final EditableValueBox           selfish;
-    private final Collection<PendragonSkillBox>          skills          = new LinkedHashSet<PendragonSkillBox>();
+    private final EditableValueBox              appearance;
+    private final EditableValueBox              arbitrary;
+    private final PendragonBaseCharacter        baseCharacter;
+    private final EditableValueBox              chaste;
+    private final EditableValueBox              cowardly;
+    private final EditableValueBox              cruel;
+    private final EditableValueBox              deceitful;
+    private final Collection<SkillBox>          directedTraits  = new LinkedHashSet<SkillBox>();
+    private final EditableValueBox              energetic;
+    private final EditableValueBox              forgiving;
+    private Gender                              gender;
+    private final EditableValueBox              generous;
+    private final EditableValueBox              honest;
+    private final EditableValueBox              indulgent;
+    private final EditableValueBox              just;
+    private final EditableValueBox              lazy;
+    private final EditableValueBox              lustful;
+    private final EditableValueBox              merciful;
+    private final EditableValueBox              modest;
+    private final Collection<SkillBox>          passions        = new LinkedHashSet<SkillBox>();
+    private final EditableValueBox              pious;
+    private final EditableValueBox              proud;
+    private final EditableValueBox              prudent;
+    private final EditableValueBox              reckless;
+    private final EditableValueBox              selfish;
+    private final Collection<PendragonSkillBox> skills          = new LinkedHashSet<PendragonSkillBox>();
     private final Collection<SpecialtySkillBox> skillsSpecialty = new LinkedHashSet<SpecialtySkillBox>();
-    private final EditableValueBox           suspicious;
-    private final EditableValueBox           temperate;
-    private final EditableValueBox           trusting;
-    private final EditableValueBox           valorous;
-    private final EditableValueBox           vengeful;
-    private final EditableValueBox           worldly;
+    private final EditableValueBox              suspicious;
+    private final EditableValueBox              temperate;
+    private final EditableValueBox              trusting;
+    private final EditableValueBox              valorous;
+    private final EditableValueBox              vengeful;
+    private final EditableValueBox              worldly;
 
     public DefaultPendragonHumanCharacter(
             final DefaultPendragonHumanCharacter character) {
@@ -159,6 +159,12 @@ public final class DefaultPendragonHumanCharacter implements
         checkNotNull(passion, "Received a null pointer as passion");
 
         getPassionsModifiable().add(passion);
+    }
+
+    @Override
+    public final void addPendragonCharacterListener(
+            final PendragonCharacterListener listener) {
+        getBaseCharacter().addPendragonCharacterListener(listener);
     }
 
     @Override
@@ -440,6 +446,12 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
+    public final void removePendragonCharacterListener(
+            final PendragonCharacterListener listener) {
+        getBaseCharacter().removePendragonCharacterListener(listener);
+    }
+
+    @Override
     public final void removeSkill(final PendragonSkillBox skill) {
         getSkillsModifiable().remove(skill);
     }
@@ -603,8 +615,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final void
-            setSpecialtySkills(final Collection<SpecialtySkillBox> skills) {
+    public final void setSpecialtySkills(
+            final Collection<SpecialtySkillBox> skills) {
         checkNotNull(skills, "Received a null pointer as specialty skills");
 
         getSpecialtySkillsModifiable().clear();
@@ -633,7 +645,8 @@ public final class DefaultPendragonHumanCharacter implements
         this.trusting.setValue(trusting);
     }
 
-    private final void assembleSpecialtySkill(final SpecialtySkillBox vhAdvSkill) {
+    private final void
+            assembleSpecialtySkill(final SpecialtySkillBox vhAdvSkill) {
         // for (final String skill : vhAdvSkill.getSurrogatedSkills()) {
         // if (hasSkill(skill, "")) {
         // TODO: Do somehow
@@ -662,7 +675,8 @@ public final class DefaultPendragonHumanCharacter implements
         return skillsSpecialty;
     }
 
-    private final void registerIntoSpecialtySkill(final PendragonSkillBox vhSkill) {
+    private final void registerIntoSpecialtySkill(
+            final PendragonSkillBox vhSkill) {
         // for (final SpecialtySkill skill : getSpecialtySkills()) {
         // TODO: Do somehow
         // if (skill.isSkillContained(vhSkill.getName())) {

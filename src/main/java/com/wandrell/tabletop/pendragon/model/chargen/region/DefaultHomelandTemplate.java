@@ -15,15 +15,14 @@ import com.wandrell.tabletop.skill.SkillName;
 public final class DefaultHomelandTemplate implements HomelandTemplate {
 
     private final Collection<SkillName>   directedTraits  = new LinkedList<SkillName>();
-    private final String                          name;
+    private final String                  name;
     private final Collection<SkillName>   passions        = new LinkedList<SkillName>();
-    private final RegionTemplate                  region;
+    private final RegionTemplate          region;
     private final Map<SkillName, Integer> skills          = new LinkedHashMap<SkillName, Integer>();
-    private final Map<String, Integer>            specialtySkills = new LinkedHashMap<String, Integer>();
+    private final Map<String, Integer>    specialtySkills = new LinkedHashMap<String, Integer>();
 
     public DefaultHomelandTemplate(final String name,
-            final RegionTemplate region,
-            final Map<SkillName, Integer> skills,
+            final RegionTemplate region, final Map<SkillName, Integer> skills,
             final Map<String, Integer> specialtySkills,
             final Collection<SkillName> directedTraits,
             final Collection<SkillName> passions) {

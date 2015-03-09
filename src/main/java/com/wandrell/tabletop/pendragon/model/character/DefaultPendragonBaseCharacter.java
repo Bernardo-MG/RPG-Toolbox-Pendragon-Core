@@ -4,7 +4,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Objects;
 
+import javax.swing.event.EventListenerList;
+
 import com.google.common.base.MoreObjects;
+import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
 import com.wandrell.tabletop.valuebox.EditableValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
@@ -19,6 +22,7 @@ public final class DefaultPendragonBaseCharacter implements
     private final ValueBox                dexterityRoll;
     private final ValueBox                healingRate;
     private final ValueBox                hitPoints;
+    private final EventListenerList       listeners = new EventListenerList();
     private final ValueBox                majorWoundTreshold;
     private final ValueBox                movementRate;
     private final String                  name;
@@ -26,42 +30,6 @@ public final class DefaultPendragonBaseCharacter implements
     private final EditableValueBox        strength;
     private final ValueBox                unconsciousTreshold;
     private final ValueBox                weight;
-
-    public interface DerivedAttributeBuilder {
-
-        public ValueBox getDamage(final ValueBox constitution,
-                final ValueBox dexterity, final ValueBox size,
-                final ValueBox strength);
-
-        public ValueBox getDexterityRoll(final ValueBox constitution,
-                final ValueBox dexterity, final ValueBox size,
-                final ValueBox strength);
-
-        public ValueBox getHealingRate(final ValueBox constitution,
-                final ValueBox dexterity, final ValueBox size,
-                final ValueBox strength);
-
-        public ValueBox getHitPoints(final ValueBox constitution,
-                final ValueBox dexterity, final ValueBox size,
-                final ValueBox strength);
-
-        public ValueBox getMajorWoundTreshold(final ValueBox constitution,
-                final ValueBox dexterity, final ValueBox size,
-                final ValueBox strength);
-
-        public ValueBox getMovementRate(final ValueBox constitution,
-                final ValueBox dexterity, final ValueBox size,
-                final ValueBox strength);
-
-        public ValueBox getUnconsciousTreshold(final ValueBox constitution,
-                final ValueBox dexterity, final ValueBox size,
-                final ValueBox strength);
-
-        public ValueBox getWeight(final ValueBox constitution,
-                final ValueBox dexterity, final ValueBox size,
-                final ValueBox strength);
-
-    }
 
     public DefaultPendragonBaseCharacter(
             final DefaultPendragonBaseCharacter character) {
@@ -78,22 +46,14 @@ public final class DefaultPendragonBaseCharacter implements
 
         derivedBuilder = character.derivedBuilder;
 
-        this.damage = derivedBuilder.getDamage(constitution, dexterity, size,
-                strength);
-        this.dexterityRoll = derivedBuilder.getDexterityRoll(constitution,
-                dexterity, size, strength);
-        this.healingRate = derivedBuilder.getHealingRate(constitution,
-                dexterity, size, strength);
-        this.hitPoints = derivedBuilder.getHitPoints(constitution, dexterity,
-                size, strength);
-        this.majorWoundTreshold = derivedBuilder.getMajorWoundTreshold(
-                constitution, dexterity, size, strength);
-        this.movementRate = derivedBuilder.getMovementRate(constitution,
-                dexterity, size, strength);
-        this.unconsciousTreshold = derivedBuilder.getUnconsciousTreshold(
-                constitution, dexterity, size, strength);
-        this.weight = derivedBuilder.getWeight(constitution, dexterity, size,
-                strength);
+        this.damage = derivedBuilder.getDamage(this);
+        this.dexterityRoll = derivedBuilder.getDexterityRoll(this);
+        this.healingRate = derivedBuilder.getHealingRate(this);
+        this.hitPoints = derivedBuilder.getHitPoints(this);
+        this.majorWoundTreshold = derivedBuilder.getMajorWoundTreshold(this);
+        this.movementRate = derivedBuilder.getMovementRate(this);
+        this.unconsciousTreshold = derivedBuilder.getUnconsciousTreshold(this);
+        this.weight = derivedBuilder.getWeight(this);
     }
 
     public DefaultPendragonBaseCharacter(final String name,
@@ -114,22 +74,24 @@ public final class DefaultPendragonBaseCharacter implements
 
         derivedBuilder = derivedAttributeBuilder;
 
-        this.damage = derivedAttributeBuilder.getDamage(constitution,
-                dexterity, size, strength);
-        this.dexterityRoll = derivedAttributeBuilder.getDexterityRoll(
-                constitution, dexterity, size, strength);
-        this.healingRate = derivedAttributeBuilder.getHealingRate(constitution,
-                dexterity, size, strength);
-        this.hitPoints = derivedAttributeBuilder.getHitPoints(constitution,
-                dexterity, size, strength);
+        this.damage = derivedAttributeBuilder.getDamage(this);
+        this.dexterityRoll = derivedAttributeBuilder.getDexterityRoll(this);
+        this.healingRate = derivedAttributeBuilder.getHealingRate(this);
+        this.hitPoints = derivedAttributeBuilder.getHitPoints(this);
         this.majorWoundTreshold = derivedAttributeBuilder
-                .getMajorWoundTreshold(constitution, dexterity, size, strength);
-        this.movementRate = derivedAttributeBuilder.getMovementRate(
-                constitution, dexterity, size, strength);
+                .getMajorWoundTreshold(this);
+        this.movementRate = derivedAttributeBuilder.getMovementRate(this);
         this.unconsciousTreshold = derivedAttributeBuilder
-                .getUnconsciousTreshold(constitution, dexterity, size, strength);
-        this.weight = derivedAttributeBuilder.getWeight(constitution,
-                dexterity, size, strength);
+                .getUnconsciousTreshold(this);
+        this.weight = derivedAttributeBuilder.getWeight(this);
+    }
+
+    @Override
+    public final void addPendragonCharacterListener(
+            final PendragonCharacterListener listener) {
+        checkNotNull(listener, "Received a null pointer as listener");
+
+        getListeners().add(PendragonCharacterListener.class, listener);
     }
 
     @Override
@@ -220,6 +182,14 @@ public final class DefaultPendragonBaseCharacter implements
     }
 
     @Override
+    public final void removePendragonCharacterListener(
+            final PendragonCharacterListener listener) {
+        checkNotNull(listener, "Received a null pointer as listener");
+
+        getListeners().remove(PendragonCharacterListener.class, listener);
+    }
+
+    @Override
     public final void setConstitution(final Integer constitution) {
         getConstitutionValueBox().setValue(constitution);
     }
@@ -258,6 +228,10 @@ public final class DefaultPendragonBaseCharacter implements
 
     private final EditableValueBox getStrengthValueBox() {
         return strength;
+    }
+
+    protected final EventListenerList getListeners() {
+        return listeners;
     }
 
 }
