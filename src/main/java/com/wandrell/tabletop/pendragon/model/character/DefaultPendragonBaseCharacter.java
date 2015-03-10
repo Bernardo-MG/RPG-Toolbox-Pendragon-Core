@@ -7,6 +7,8 @@ import java.util.Objects;
 import javax.swing.event.EventListenerList;
 
 import com.google.common.base.MoreObjects;
+import com.wandrell.tabletop.event.ValueChangeEvent;
+import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
 import com.wandrell.tabletop.valuebox.EditableValueBox;
@@ -44,6 +46,43 @@ public final class DefaultPendragonBaseCharacter implements
         size = character.getSizeValueBox().createNewInstance();
         strength = character.getStrengthValueBox().createNewInstance();
 
+        constitution.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireConstitutionChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
+        dexterity.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireDexterityChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
+        size.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireSizeChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
+        strength.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireStrengthChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
+
         derivedBuilder = character.derivedBuilder;
 
         this.damage = derivedBuilder.getDamage(this);
@@ -67,10 +106,47 @@ public final class DefaultPendragonBaseCharacter implements
         this.name = name;
 
         // TODO: Maybe the attributes limits should be configurable
-        this.constitution = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.dexterity = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.size = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.strength = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        constitution = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        dexterity = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        size = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        strength = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+
+        constitution.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireConstitutionChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
+        dexterity.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireDexterityChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
+        size.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireSizeChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
+        strength.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireStrengthChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
 
         derivedBuilder = derivedAttributeBuilder;
 
@@ -147,7 +223,7 @@ public final class DefaultPendragonBaseCharacter implements
     }
 
     @Override
-    public final Integer getMovementRate() {
+    public final Integer getMoveRate() {
         return movementRate.getValue();
     }
 
@@ -228,6 +304,52 @@ public final class DefaultPendragonBaseCharacter implements
 
     private final EditableValueBox getStrengthValueBox() {
         return strength;
+    }
+
+    protected final void fireConstitutionChangedEvent(
+            final ValueChangeEvent event) {
+        final PendragonCharacterListener[] listnrs;
+
+        checkNotNull(event, "Received a null pointer as event");
+
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
+            l.constitutionChanged(event);
+        }
+    }
+
+    protected final void
+            fireDexterityChangedEvent(final ValueChangeEvent event) {
+        final PendragonCharacterListener[] listnrs;
+
+        checkNotNull(event, "Received a null pointer as event");
+
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
+            l.dexterityChanged(event);
+        }
+    }
+
+    protected final void fireSizeChangedEvent(final ValueChangeEvent event) {
+        final PendragonCharacterListener[] listnrs;
+
+        checkNotNull(event, "Received a null pointer as event");
+
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
+            l.sizeChanged(event);
+        }
+    }
+
+    protected final void fireStrengthChangedEvent(final ValueChangeEvent event) {
+        final PendragonCharacterListener[] listnrs;
+
+        checkNotNull(event, "Received a null pointer as event");
+
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
+            l.strengthChanged(event);
+        }
     }
 
     protected final EventListenerList getListeners() {

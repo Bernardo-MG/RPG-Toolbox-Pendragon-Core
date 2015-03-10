@@ -6,7 +6,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 
+import javax.swing.event.EventListenerList;
+
 import com.wandrell.tabletop.character.Gender;
+import com.wandrell.tabletop.event.ValueChangeEvent;
+import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.stats.PendragonSkillBox;
 import com.wandrell.tabletop.pendragon.model.stats.SpecialtySkillBox;
@@ -33,6 +37,7 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox              indulgent;
     private final EditableValueBox              just;
     private final EditableValueBox              lazy;
+    private final EventListenerList             listeners       = new EventListenerList();
     private final EditableValueBox              lustful;
     private final EditableValueBox              merciful;
     private final EditableValueBox              modest;
@@ -60,6 +65,16 @@ public final class DefaultPendragonHumanCharacter implements
         baseCharacter = character.baseCharacter.createNewInstance();
 
         appearance = character.appearance.createNewInstance();
+
+        appearance.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireAppearanceChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
 
         chaste = character.chaste.createNewInstance();
         energetic = character.energetic.createNewInstance();
@@ -118,6 +133,16 @@ public final class DefaultPendragonHumanCharacter implements
 
         this.appearance = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
 
+        appearance.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireAppearanceChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
+
         this.chaste = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
         this.energetic = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
         this.forgiving = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
@@ -164,6 +189,10 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final void addPendragonCharacterListener(
             final PendragonCharacterListener listener) {
+        checkNotNull(listener, "Received a null pointer as listener");
+
+        getListeners().add(PendragonCharacterListener.class, listener);
+
         getBaseCharacter().addPendragonCharacterListener(listener);
     }
 
@@ -335,8 +364,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Integer getMovementRate() {
-        return getBaseCharacter().getMovementRate();
+    public final Integer getMoveRate() {
+        return getBaseCharacter().getMoveRate();
     }
 
     @Override
@@ -448,6 +477,8 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final void removePendragonCharacterListener(
             final PendragonCharacterListener listener) {
+        checkNotNull(listener, "Received a null pointer as listener");
+
         getBaseCharacter().removePendragonCharacterListener(listener);
     }
 
@@ -683,6 +714,22 @@ public final class DefaultPendragonHumanCharacter implements
         // skill.registerSkill(vhSkill);
         // }
         // }
+    }
+
+    protected final void
+            fireAppearanceChangedEvent(final ValueChangeEvent event) {
+        final PendragonCharacterListener[] listnrs;
+
+        checkNotNull(event, "Received a null pointer as event");
+
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
+            l.appearanceChanged(event);
+        }
+    }
+
+    protected final EventListenerList getListeners() {
+        return listeners;
     }
 
 }

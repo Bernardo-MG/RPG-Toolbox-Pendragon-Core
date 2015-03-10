@@ -115,7 +115,7 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public final Integer getMovementRate() {
+    public final Integer getMoveRate() {
         return movement;
     }
 

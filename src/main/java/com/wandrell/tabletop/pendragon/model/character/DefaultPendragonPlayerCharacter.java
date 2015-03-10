@@ -467,8 +467,8 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Integer getMovementRate() {
-        return getBaseCharacter().getMovementRate();
+    public final Integer getMoveRate() {
+        return getBaseCharacter().getMoveRate();
     }
 
     @Override
