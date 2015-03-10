@@ -104,6 +104,8 @@ public final class DefaultPendragonHumanCharacter implements
         this.vengeful = character.vengeful.createNewInstance();
         this.worldly = character.worldly.createNewInstance();
 
+        setTraitsListeners();
+
         for (final SpecialtySkillBox skill : character.skillsSpecialty) {
             // TODO: Make sure this works
             skillsSpecialty.add(skill.createNewInstance());
@@ -143,33 +145,35 @@ public final class DefaultPendragonHumanCharacter implements
 
         });
 
-        this.chaste = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.energetic = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.forgiving = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.generous = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.honest = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.just = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.merciful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.modest = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.pious = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.prudent = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.temperate = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.trusting = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.valorous = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        chaste = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        energetic = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        forgiving = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        generous = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        honest = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        just = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        merciful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        modest = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        pious = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        prudent = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        temperate = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        trusting = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        valorous = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
 
-        this.arbitrary = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.cowardly = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.cruel = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.deceitful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.indulgent = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.lazy = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.lustful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.proud = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.reckless = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.selfish = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.suspicious = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.vengeful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        this.worldly = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        arbitrary = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        cowardly = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        cruel = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        deceitful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        indulgent = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        lazy = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        lustful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        proud = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        reckless = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        selfish = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        suspicious = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        vengeful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        worldly = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+
+        setTraitsListeners();
     }
 
     @Override
@@ -671,6 +675,48 @@ public final class DefaultPendragonHumanCharacter implements
         this.temperate.setValue(temperate);
     }
 
+    public final void setTraitsListeners() {
+        final ValueChangeListener listener;
+
+        listener = new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireTraitChangedEvent(new ValueChangeEvent(this,
+                        event.getOldValue(), event.getNewValue()));
+            }
+
+        };
+
+        chaste.addValueChangeListener(listener);
+        energetic.addValueChangeListener(listener);
+        forgiving.addValueChangeListener(listener);
+        generous.addValueChangeListener(listener);
+        honest.addValueChangeListener(listener);
+        just.addValueChangeListener(listener);
+        merciful.addValueChangeListener(listener);
+        modest.addValueChangeListener(listener);
+        pious.addValueChangeListener(listener);
+        prudent.addValueChangeListener(listener);
+        temperate.addValueChangeListener(listener);
+        trusting.addValueChangeListener(listener);
+        valorous.addValueChangeListener(listener);
+
+        arbitrary.addValueChangeListener(listener);
+        cowardly.addValueChangeListener(listener);
+        cruel.addValueChangeListener(listener);
+        deceitful.addValueChangeListener(listener);
+        indulgent.addValueChangeListener(listener);
+        lazy.addValueChangeListener(listener);
+        lustful.addValueChangeListener(listener);
+        proud.addValueChangeListener(listener);
+        reckless.addValueChangeListener(listener);
+        selfish.addValueChangeListener(listener);
+        suspicious.addValueChangeListener(listener);
+        vengeful.addValueChangeListener(listener);
+        worldly.addValueChangeListener(listener);
+    }
+
     @Override
     public final void setTrusting(final Integer trusting) {
         this.trusting.setValue(trusting);
@@ -730,6 +776,17 @@ public final class DefaultPendragonHumanCharacter implements
         listnrs = getListeners().getListeners(PendragonCharacterListener.class);
         for (final PendragonCharacterListener l : listnrs) {
             l.appearanceChanged(event);
+        }
+    }
+
+    protected final void fireTraitChangedEvent(final ValueChangeEvent event) {
+        final PendragonCharacterListener[] listnrs;
+
+        checkNotNull(event, "Received a null pointer as event");
+
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
+            l.traitChanged(event);
         }
     }
 
