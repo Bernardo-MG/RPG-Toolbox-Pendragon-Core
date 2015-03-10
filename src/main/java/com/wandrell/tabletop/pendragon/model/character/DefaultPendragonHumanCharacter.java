@@ -676,6 +676,11 @@ public final class DefaultPendragonHumanCharacter implements
         this.trusting.setValue(trusting);
     }
 
+    @Override
+    public final void setValorous(final Integer valorous) {
+        this.valorous.setValue(valorous);
+    }
+
     private final void
             assembleSpecialtySkill(final SpecialtySkillBox vhAdvSkill) {
         // for (final String skill : vhAdvSkill.getSurrogatedSkills()) {

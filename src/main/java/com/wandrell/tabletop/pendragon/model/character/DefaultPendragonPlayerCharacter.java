@@ -879,6 +879,11 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
+    public final void setValorous(final Integer valorous) {
+        getBaseCharacter().setValorous(valorous);
+    }
+
+    @Override
     public final void setWives(final Collection<Wife> wives) {
         getWivesModifiable().clear();
         for (final Wife wife : wives) {
