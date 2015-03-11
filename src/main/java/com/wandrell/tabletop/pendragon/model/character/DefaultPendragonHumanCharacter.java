@@ -33,6 +33,7 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox              forgiving;
     private Gender                              gender;
     private final EditableValueBox              generous;
+    private final EditableValueBox              glory;
     private final EditableValueBox              honest;
     private final EditableValueBox              indulgent;
     private final EditableValueBox              just;
@@ -75,6 +76,8 @@ public final class DefaultPendragonHumanCharacter implements
 
         });
 
+        glory = character.glory.createNewInstance();
+
         chaste = character.chaste.createNewInstance();
         energetic = character.energetic.createNewInstance();
         forgiving = character.forgiving.createNewInstance();
@@ -89,19 +92,19 @@ public final class DefaultPendragonHumanCharacter implements
         trusting = character.trusting.createNewInstance();
         valorous = character.valorous.createNewInstance();
 
-        this.arbitrary = character.arbitrary.createNewInstance();
-        this.cowardly = character.cowardly.createNewInstance();
-        this.cruel = character.cruel.createNewInstance();
-        this.deceitful = character.deceitful.createNewInstance();
-        this.indulgent = character.indulgent.createNewInstance();
-        this.lazy = character.lazy.createNewInstance();
-        this.lustful = character.lustful.createNewInstance();
-        this.proud = character.proud.createNewInstance();
-        this.reckless = character.reckless.createNewInstance();
-        this.selfish = character.selfish.createNewInstance();
-        this.suspicious = character.suspicious.createNewInstance();
-        this.vengeful = character.vengeful.createNewInstance();
-        this.worldly = character.worldly.createNewInstance();
+        arbitrary = character.arbitrary.createNewInstance();
+        cowardly = character.cowardly.createNewInstance();
+        cruel = character.cruel.createNewInstance();
+        deceitful = character.deceitful.createNewInstance();
+        indulgent = character.indulgent.createNewInstance();
+        lazy = character.lazy.createNewInstance();
+        lustful = character.lustful.createNewInstance();
+        proud = character.proud.createNewInstance();
+        reckless = character.reckless.createNewInstance();
+        selfish = character.selfish.createNewInstance();
+        suspicious = character.suspicious.createNewInstance();
+        vengeful = character.vengeful.createNewInstance();
+        worldly = character.worldly.createNewInstance();
 
         setTraitsListeners();
 
@@ -139,6 +142,8 @@ public final class DefaultPendragonHumanCharacter implements
             }
 
         });
+
+        glory = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
 
         chaste = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
         energetic = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
@@ -308,6 +313,11 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final Integer getGenerous() {
         return generous.getValue();
+    }
+
+    @Override
+    public final Integer getGlory() {
+        return glory.getValue();
     }
 
     @Override
@@ -554,6 +564,11 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final void setGenerous(final Integer generous) {
         this.generous.setValue(generous);
+    }
+
+    @Override
+    public final void setGlory(final Integer glory) {
+        this.glory.setValue(glory);
     }
 
     @Override

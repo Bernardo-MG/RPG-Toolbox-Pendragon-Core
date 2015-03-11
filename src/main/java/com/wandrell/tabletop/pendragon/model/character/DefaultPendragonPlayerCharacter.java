@@ -362,8 +362,8 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final GloryManager getGlory() {
-        return glory;
+    public final Integer getGlory() {
+        return getBaseCharacter().getGlory();
     }
 
     @Override
@@ -706,6 +706,11 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void setGenerous(final Integer generous) {
         getBaseCharacter().setGenerous(generous);
+    }
+
+    @Override
+    public final void setGlory(final Integer glory) {
+        getBaseCharacter().setGlory(glory);
     }
 
     @Override

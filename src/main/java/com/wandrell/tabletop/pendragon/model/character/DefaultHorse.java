@@ -200,6 +200,16 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
+    public final void setArmoredHorse(final Boolean armored) {
+        this.armored = armored;
+    }
+
+    @Override
+    public final void setCombatHorse(final Boolean combat) {
+        this.combat = combat;
+    }
+
+    @Override
     public final void setConstitution(final Integer constitution) {
         getBaseCharacter().setConstitution(constitution);
     }
@@ -207,6 +217,11 @@ public final class DefaultHorse implements Horse {
     @Override
     public final void setDexterity(final Integer dexterity) {
         getBaseCharacter().setDexterity(dexterity);
+    }
+
+    @Override
+    public final void setHuntingHorse(final Boolean hunting) {
+        this.hunting = hunting;
     }
 
     @Override
@@ -231,21 +246,6 @@ public final class DefaultHorse implements Horse {
 
     private final PendragonBaseCharacter getBaseCharacter() {
         return baseCharacter;
-    }
-
-    @Override
-    public final void setArmoredHorse(final Boolean armored) {
-        this.armored = armored;
-    }
-
-    @Override
-    public final void setCombatHorse(final Boolean combat) {
-        this.combat = combat;
-    }
-
-    @Override
-    public final void setHuntingHorse(final Boolean hunting) {
-        this.hunting = hunting;
     }
 
 }
