@@ -25,7 +25,6 @@ public final class DefaultPendragonPlayerCharacter implements
 
     private final EditableValueBox               armor;
     private final String                         culture;
-    private final Collection<PendragonSkillBox>  exclusiveSkills = new LinkedHashSet<PendragonSkillBox>();
     private final String                         fatherClass;
     private final Collection<DistinctiveFeature> features        = new LinkedHashSet<DistinctiveFeature>();
     private final Collection<Follower>           followers       = new LinkedHashSet<Follower>();
@@ -63,10 +62,6 @@ public final class DefaultPendragonPlayerCharacter implements
 
         for (final DistinctiveFeature feature : character.features) {
             features.add(feature);
-        }
-
-        for (final PendragonSkillBox skill : character.exclusiveSkills) {
-            exclusiveSkills.add(skill);
         }
 
         // TODO: Copy correctly
@@ -135,13 +130,6 @@ public final class DefaultPendragonPlayerCharacter implements
         checkNotNull(feature, "Received a null pointer as feature");
 
         getFeaturesModifiable().add(feature);
-    }
-
-    @Override
-    public final void addExclusiveSkill(final PendragonSkillBox skill) {
-        checkNotNull(skill, "Received a null pointer as skill");
-
-        getExclusiveSkillsModifiable().add(skill);
     }
 
     @Override
@@ -221,11 +209,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void clearDistinctiveFeatures() {
         getFeaturesModifiable().clear();
-    }
-
-    @Override
-    public final void clearExclusiveSkills() {
-        getExclusiveSkillsModifiable().clear();
     }
 
     @Override
@@ -351,12 +334,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final Integer getEnergetic() {
         return getBaseCharacter().getEnergetic();
-    }
-
-    @Override
-    public final Collection<PendragonSkillBox> getExclusiveSkills() {
-        return Collections
-                .unmodifiableCollection(getExclusiveSkillsModifiable());
     }
 
     @Override
@@ -603,11 +580,6 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void removeExclusiveSkill(final PendragonSkillBox skill) {
-        getExclusiveSkillsModifiable().remove(skill);
-    }
-
-    @Override
     public final void removeFollower(final Follower follower) {
         getFollowersModifiable().remove(follower);
     }
@@ -716,15 +688,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void setEnergetic(final Integer energetic) {
         getBaseCharacter().setEnergetic(energetic);
-    }
-
-    @Override
-    public final void setExclusiveSkills(
-            final Collection<PendragonSkillBox> skills) {
-        getExclusiveSkillsModifiable().clear();
-        for (final PendragonSkillBox skill : skills) {
-            addExclusiveSkill(skill);
-        }
     }
 
     @Override
@@ -897,10 +860,6 @@ public final class DefaultPendragonPlayerCharacter implements
 
     private final PendragonHumanCharacter getBaseCharacter() {
         return humanCharacter;
-    }
-
-    private final Collection<PendragonSkillBox> getExclusiveSkillsModifiable() {
-        return exclusiveSkills;
     }
 
     private final Collection<DistinctiveFeature> getFeaturesModifiable() {
