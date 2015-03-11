@@ -2,7 +2,10 @@ package com.wandrell.tabletop.pendragon.model.character;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
+
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
+import com.wandrell.tabletop.pendragon.model.stats.PendragonSkillBox;
 
 public final class DefaultHorse implements Horse {
 
@@ -67,6 +70,16 @@ public final class DefaultHorse implements Horse {
     public final void addPendragonCharacterListener(
             final PendragonCharacterListener listener) {
         getBaseCharacter().addPendragonCharacterListener(listener);
+    }
+
+    @Override
+    public final void addSkill(final PendragonSkillBox skill) {
+        getBaseCharacter().addSkill(skill);
+    }
+
+    @Override
+    public final void clearSkills() {
+        getBaseCharacter().clearSkills();
     }
 
     @Override
@@ -135,6 +148,11 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
+    public final Collection<PendragonSkillBox> getSkills() {
+        return getBaseCharacter().getSkills();
+    }
+
+    @Override
     public final Integer getStrength() {
         return getBaseCharacter().getStrength();
     }
@@ -176,6 +194,11 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
+    public final void removeSkill(final PendragonSkillBox skill) {
+        getBaseCharacter().removeSkill(skill);
+    }
+
+    @Override
     public final void setConstitution(final Integer constitution) {
         getBaseCharacter().setConstitution(constitution);
     }
@@ -193,6 +216,11 @@ public final class DefaultHorse implements Horse {
     @Override
     public final void setSize(final Integer size) {
         getBaseCharacter().setSize(size);
+    }
+
+    @Override
+    public void setSkills(Collection<PendragonSkillBox> skills) {
+        getBaseCharacter().setSkills(skills);
     }
 
     @Override

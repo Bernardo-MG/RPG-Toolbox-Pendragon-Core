@@ -2,6 +2,9 @@ package com.wandrell.tabletop.pendragon.model.character;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 
 import javax.swing.event.EventListenerList;
@@ -10,6 +13,7 @@ import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
+import com.wandrell.tabletop.pendragon.model.stats.PendragonSkillBox;
 import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
 import com.wandrell.tabletop.valuebox.EditableValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
@@ -17,21 +21,22 @@ import com.wandrell.tabletop.valuebox.ValueBox;
 public final class DefaultPendragonBaseCharacter implements
         PendragonBaseCharacter {
 
-    private final EditableValueBox        constitution;
-    private final ValueBox                damage;
-    private final DerivedAttributeBuilder derivedBuilder;
-    private final EditableValueBox        dexterity;
-    private final ValueBox                dexterityRoll;
-    private final ValueBox                healingRate;
-    private final ValueBox                hitPoints;
-    private final EventListenerList       listeners = new EventListenerList();
-    private final ValueBox                majorWoundTreshold;
-    private final ValueBox                movementRate;
-    private final String                  name;
-    private final EditableValueBox        size;
-    private final EditableValueBox        strength;
-    private final ValueBox                unconciousTreshold;
-    private final ValueBox                weight;
+    private final EditableValueBox              constitution;
+    private final ValueBox                      damage;
+    private final DerivedAttributeBuilder       derivedBuilder;
+    private final EditableValueBox              dexterity;
+    private final ValueBox                      dexterityRoll;
+    private final ValueBox                      healingRate;
+    private final ValueBox                      hitPoints;
+    private final EventListenerList             listeners = new EventListenerList();
+    private final ValueBox                      majorWoundTreshold;
+    private final ValueBox                      movementRate;
+    private final String                        name;
+    private final EditableValueBox              size;
+    private final Collection<PendragonSkillBox> skills    = new LinkedHashSet<PendragonSkillBox>();
+    private final EditableValueBox              strength;
+    private final ValueBox                      unconciousTreshold;
+    private final ValueBox                      weight;
 
     public DefaultPendragonBaseCharacter(
             final DefaultPendragonBaseCharacter character) {
@@ -60,6 +65,10 @@ public final class DefaultPendragonBaseCharacter implements
         weight = derivedBuilder.getWeight(this);
 
         setDerivedAttributesListeners();
+
+        for (final PendragonSkillBox skill : character.skills) {
+            skills.add(skill.createNewInstance());
+        }
     }
 
     public DefaultPendragonBaseCharacter(final String name,
@@ -100,6 +109,18 @@ public final class DefaultPendragonBaseCharacter implements
         checkNotNull(listener, "Received a null pointer as listener");
 
         getListeners().add(PendragonCharacterListener.class, listener);
+    }
+
+    @Override
+    public final void addSkill(final PendragonSkillBox skill) {
+        checkNotNull(skill, "Received a null pointer as skill");
+
+        getSkillsModifiable().add(skill);
+    }
+
+    @Override
+    public void clearSkills() {
+        getSkillsModifiable().clear();
     }
 
     @Override
@@ -170,6 +191,11 @@ public final class DefaultPendragonBaseCharacter implements
     }
 
     @Override
+    public final Collection<PendragonSkillBox> getSkills() {
+        return Collections.unmodifiableCollection(getSkillsModifiable());
+    }
+
+    @Override
     public final Integer getStrength() {
         return getStrengthValueBox().getValue();
     }
@@ -198,6 +224,11 @@ public final class DefaultPendragonBaseCharacter implements
     }
 
     @Override
+    public final void removeSkill(final PendragonSkillBox skill) {
+        getSkillsModifiable().remove(skill);
+    }
+
+    @Override
     public final void setConstitution(final Integer constitution) {
         getConstitutionValueBox().setValue(constitution);
     }
@@ -210,6 +241,17 @@ public final class DefaultPendragonBaseCharacter implements
     @Override
     public final void setSize(final Integer size) {
         getSizeValueBox().setValue(size);
+    }
+
+    @Override
+    public final void setSkills(final Collection<PendragonSkillBox> skills) {
+        checkNotNull(skills, "Received a null pointer as skills");
+
+        getSkillsModifiable().clear();
+
+        for (final PendragonSkillBox skill : skills) {
+            getSkillsModifiable().add(skill);
+        }
     }
 
     @Override
@@ -232,6 +274,10 @@ public final class DefaultPendragonBaseCharacter implements
 
     private final EditableValueBox getSizeValueBox() {
         return size;
+    }
+
+    private final Collection<PendragonSkillBox> getSkillsModifiable() {
+        return skills;
     }
 
     private final EditableValueBox getStrengthValueBox() {

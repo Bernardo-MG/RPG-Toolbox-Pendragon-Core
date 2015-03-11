@@ -47,7 +47,6 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox              prudent;
     private final EditableValueBox              reckless;
     private final EditableValueBox              selfish;
-    private final Collection<PendragonSkillBox> skills          = new LinkedHashSet<PendragonSkillBox>();
     private final Collection<SpecialtySkillBox> skillsSpecialty = new LinkedHashSet<SpecialtySkillBox>();
     private final EditableValueBox              suspicious;
     private final EditableValueBox              temperate;
@@ -117,10 +116,6 @@ public final class DefaultPendragonHumanCharacter implements
 
         for (final SkillBox passion : character.passions) {
             passions.add(passion.createNewInstance());
-        }
-
-        for (final PendragonSkillBox skill : character.skills) {
-            skills.add(skill.createNewInstance());
         }
 
         gender = character.gender;
@@ -202,9 +197,7 @@ public final class DefaultPendragonHumanCharacter implements
 
     @Override
     public final void addSkill(final PendragonSkillBox skill) {
-        checkNotNull(skill, "Received a null pointer as skill");
-
-        getSkillsModifiable().add(skill);
+        getBaseCharacter().addSkill(skill);
         registerIntoSpecialtySkill(skill);
     }
 
@@ -227,8 +220,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public void clearSkills() {
-        getSkillsModifiable().clear();
+    public final void clearSkills() {
+        getBaseCharacter().clearSkills();
     }
 
     @Override
@@ -414,7 +407,7 @@ public final class DefaultPendragonHumanCharacter implements
 
     @Override
     public final Collection<PendragonSkillBox> getSkills() {
-        return Collections.unmodifiableCollection(getSkillsModifiable());
+        return getBaseCharacter().getSkills();
     }
 
     @Override
@@ -488,7 +481,7 @@ public final class DefaultPendragonHumanCharacter implements
 
     @Override
     public final void removeSkill(final PendragonSkillBox skill) {
-        getSkillsModifiable().remove(skill);
+        getBaseCharacter().removeSkill(skill);
     }
 
     @Override
@@ -640,13 +633,7 @@ public final class DefaultPendragonHumanCharacter implements
 
     @Override
     public final void setSkills(final Collection<PendragonSkillBox> skills) {
-        checkNotNull(skills, "Received a null pointer as skills");
-
-        getSkillsModifiable().clear();
-
-        for (final PendragonSkillBox skill : skills) {
-            getSkillsModifiable().add(skill);
-        }
+        getBaseCharacter().setSkills(skills);
     }
 
     @Override
@@ -747,10 +734,6 @@ public final class DefaultPendragonHumanCharacter implements
 
     private final Collection<SkillBox> getPassionsModifiable() {
         return passions;
-    }
-
-    private final Collection<PendragonSkillBox> getSkillsModifiable() {
-        return skills;
     }
 
     private final Collection<SpecialtySkillBox> getSpecialtySkillsModifiable() {
