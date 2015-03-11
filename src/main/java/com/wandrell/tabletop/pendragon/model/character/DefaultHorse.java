@@ -9,11 +9,11 @@ import com.wandrell.tabletop.pendragon.model.stats.PendragonSkillBox;
 
 public final class DefaultHorse implements Horse {
 
-    private final Boolean                armored;
+    private Boolean                      armored;
     private final PendragonBaseCharacter baseCharacter;
-    private final Boolean                combat;
+    private Boolean                      combat;
     private final Integer                damage;
-    private final Boolean                hunting;
+    private Boolean                      hunting;
     private final Integer                movement;
     private final Integer                naturalArmor;
     private Boolean                      ruined;
@@ -57,6 +57,7 @@ public final class DefaultHorse implements Horse {
 
         this.type = type;
 
+        // TODO: These should be editable. Also inject them with the builder
         this.naturalArmor = naturalArmor;
         this.damage = damage;
         this.movement = movement;
@@ -230,6 +231,21 @@ public final class DefaultHorse implements Horse {
 
     private final PendragonBaseCharacter getBaseCharacter() {
         return baseCharacter;
+    }
+
+    @Override
+    public final void setArmoredHorse(final Boolean armored) {
+        this.armored = armored;
+    }
+
+    @Override
+    public final void setCombatHorse(final Boolean combat) {
+        this.combat = combat;
+    }
+
+    @Override
+    public final void setHuntingHorse(final Boolean hunting) {
+        this.hunting = hunting;
     }
 
 }
