@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.testing.pendragon.test.unit;
+package com.wandrell.tabletop.testing.pendragon.test.unit.character;
 
 import org.mockito.Matchers;
 import org.mockito.Mockito;

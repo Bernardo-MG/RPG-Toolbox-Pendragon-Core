@@ -11,7 +11,6 @@ import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterL
 import com.wandrell.tabletop.pendragon.model.character.follower.Follower;
 import com.wandrell.tabletop.pendragon.model.character.follower.Wife;
 import com.wandrell.tabletop.pendragon.model.glory.GloryManager;
-import com.wandrell.tabletop.pendragon.model.inventory.Item;
 import com.wandrell.tabletop.pendragon.model.inventory.Money;
 import com.wandrell.tabletop.pendragon.model.manor.Pet;
 import com.wandrell.tabletop.pendragon.model.stats.PendragonSkillBox;
@@ -26,20 +25,18 @@ public final class DefaultPendragonPlayerCharacter implements
     private final EditableValueBox               armor;
     private final String                         culture;
     private final String                         fatherClass;
-    private final Collection<DistinctiveFeature> features        = new LinkedHashSet<DistinctiveFeature>();
-    private final Collection<Follower>           followers       = new LinkedHashSet<Follower>();
+    private final Collection<DistinctiveFeature> features  = new LinkedHashSet<DistinctiveFeature>();
+    private final Collection<Follower>           followers = new LinkedHashSet<Follower>();
     private final GloryManager                   glory;
-    private final Collection<Item>               holdingsAtHome  = new LinkedHashSet<Item>();
-    private final Collection<Item>               holdingsCarried = new LinkedHashSet<Item>();
     private final String                         homeland;
-    private final Collection<Horse>              horses          = new LinkedHashSet<Horse>();
+    private final Collection<Horse>              horses    = new LinkedHashSet<Horse>();
     private final PendragonHumanCharacter        humanCharacter;
     private final Boolean                        knight;
     private final Money                          money;
-    private final Collection<Pet>                pets            = new LinkedHashSet<Pet>();
+    private final Collection<Pet>                pets      = new LinkedHashSet<Pet>();
     private final String                         playerName;
     private final String                         religion;
-    private final Collection<Wife>               wives           = new LinkedHashSet<Wife>();
+    private final Collection<Wife>               wives     = new LinkedHashSet<Wife>();
 
     public DefaultPendragonPlayerCharacter(
             final DefaultPendragonPlayerCharacter character) {
@@ -65,8 +62,6 @@ public final class DefaultPendragonPlayerCharacter implements
         }
 
         // TODO: Copy correctly
-        holdingsAtHome.addAll(character.holdingsAtHome);
-        holdingsCarried.addAll(character.holdingsCarried);
         wives.addAll(character.wives);
         followers.addAll(character.followers);
         horses.addAll(character.horses);
@@ -140,20 +135,6 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void addHoldingAtHome(final Item item) {
-        checkNotNull(item, "Received a null pointer as item");
-
-        getHoldingsAtHomeModifiable().add(item);
-    }
-
-    @Override
-    public final void addHoldingCarried(final Item item) {
-        checkNotNull(item, "Received a null pointer as item");
-
-        getHoldingsCarriedModifiable().add(item);
-    }
-
-    @Override
     public final void addHorse(final Horse horse) {
         checkNotNull(horse, "Received a null pointer as horse");
 
@@ -214,16 +195,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void clearFollowers() {
         getFollowersModifiable().clear();
-    }
-
-    @Override
-    public final void clearHoldingsAtHome() {
-        getHoldingsAtHomeModifiable().clear();
-    }
-
-    @Override
-    public final void clearHoldingsCarried() {
-        getHoldingsCarriedModifiable().clear();
     }
 
     @Override
@@ -374,18 +345,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final Integer getHitPoints() {
         return getBaseCharacter().getHitPoints();
-    }
-
-    @Override
-    public final Collection<Item> getHoldingsAtHome() {
-        return Collections
-                .unmodifiableCollection(getHoldingsAtHomeModifiable());
-    }
-
-    @Override
-    public final Collection<Item> getHoldingsCarried() {
-        return Collections
-                .unmodifiableCollection(getHoldingsCarriedModifiable());
     }
 
     @Override
@@ -585,16 +544,6 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void removeHoldingAtHome(final Item item) {
-        getHoldingsAtHomeModifiable().remove(item);
-    }
-
-    @Override
-    public final void removeHoldingCarried(final Item item) {
-        getHoldingsCarriedModifiable().remove(item);
-    }
-
-    @Override
     public final void removeHorse(final Horse horse) {
         getHorsesModifiable().remove(horse);
     }
@@ -711,22 +660,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void setGlory(final Integer glory) {
         getBaseCharacter().setGlory(glory);
-    }
-
-    @Override
-    public final void setHoldingsAtHome(final Collection<Item> items) {
-        getHoldingsAtHomeModifiable().clear();
-        for (final Item item : items) {
-            addHoldingAtHome(item);
-        }
-    }
-
-    @Override
-    public final void setHoldingsCarried(final Collection<Item> items) {
-        getHoldingsCarriedModifiable().clear();
-        for (final Item item : items) {
-            addHoldingCarried(item);
-        }
     }
 
     @Override
@@ -873,14 +806,6 @@ public final class DefaultPendragonPlayerCharacter implements
 
     private final Collection<Follower> getFollowersModifiable() {
         return followers;
-    }
-
-    private final Collection<Item> getHoldingsAtHomeModifiable() {
-        return holdingsAtHome;
-    }
-
-    private final Collection<Item> getHoldingsCarriedModifiable() {
-        return holdingsCarried;
     }
 
     private final Collection<Horse> getHorsesModifiable() {
