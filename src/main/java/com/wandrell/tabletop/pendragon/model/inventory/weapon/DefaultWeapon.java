@@ -1,10 +1,14 @@
-package com.wandrell.tabletop.pendragon.model.inventory;
+package com.wandrell.tabletop.pendragon.model.inventory.weapon;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Map;
 
 import com.google.common.base.MoreObjects;
+import com.wandrell.tabletop.pendragon.model.inventory.DefaultItem;
+import com.wandrell.tabletop.pendragon.model.inventory.Item;
+import com.wandrell.tabletop.pendragon.model.inventory.Money;
+import com.wandrell.tabletop.pendragon.model.inventory.armor.ArmorType;
 
 public final class DefaultWeapon implements Weapon {
 

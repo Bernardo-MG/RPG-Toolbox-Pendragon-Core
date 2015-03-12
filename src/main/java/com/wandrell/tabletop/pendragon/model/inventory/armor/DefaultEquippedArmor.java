@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.pendragon.model.inventory;
+package com.wandrell.tabletop.pendragon.model.inventory.armor;
 
 import java.util.Collection;
 import java.util.Collections;

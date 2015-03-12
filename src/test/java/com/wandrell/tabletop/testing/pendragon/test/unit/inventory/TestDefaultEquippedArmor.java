@@ -4,9 +4,9 @@ import org.mockito.Mockito;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.wandrell.tabletop.pendragon.model.inventory.ArmorPiece;
-import com.wandrell.tabletop.pendragon.model.inventory.DefaultEquippedArmor;
-import com.wandrell.tabletop.pendragon.model.inventory.EquippedArmor;
+import com.wandrell.tabletop.pendragon.model.inventory.armor.ArmorPiece;
+import com.wandrell.tabletop.pendragon.model.inventory.armor.DefaultEquippedArmor;
+import com.wandrell.tabletop.pendragon.model.inventory.armor.EquippedArmor;
 
 public final class TestDefaultEquippedArmor {
 
