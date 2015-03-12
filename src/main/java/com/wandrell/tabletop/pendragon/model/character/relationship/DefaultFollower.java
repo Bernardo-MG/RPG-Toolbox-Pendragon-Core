@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.pendragon.model.character.follower;
+package com.wandrell.tabletop.pendragon.model.character.relationship;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

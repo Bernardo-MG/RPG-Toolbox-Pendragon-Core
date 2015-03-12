@@ -37,6 +37,7 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox              honest;
     private final EditableValueBox              indulgent;
     private final EditableValueBox              just;
+    private Boolean                             knight          = false;
     private final EditableValueBox              lazy;
     private final EventListenerList             listeners       = new EventListenerList();
     private final EditableValueBox              lustful;
@@ -472,6 +473,11 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
+    public final Boolean isKnight() {
+        return knight;
+    }
+
+    @Override
     public final void removeDirectedTrait(final SkillBox directedTrait) {
         getDirectedTraitsModifiable().remove(directedTrait);
     }
@@ -584,6 +590,11 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final void setJust(final Integer just) {
         this.just.setValue(just);
+    }
+
+    @Override
+    public final void setKnight(final Boolean knight) {
+        this.knight = knight;
     }
 
     @Override

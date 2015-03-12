@@ -8,8 +8,6 @@ import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
-import com.wandrell.tabletop.pendragon.model.character.follower.Follower;
-import com.wandrell.tabletop.pendragon.model.character.follower.Wife;
 import com.wandrell.tabletop.pendragon.model.glory.GloryManager;
 import com.wandrell.tabletop.pendragon.model.inventory.Money;
 import com.wandrell.tabletop.pendragon.model.manor.Pet;
@@ -25,18 +23,14 @@ public final class DefaultPendragonPlayerCharacter implements
     private final EditableValueBox               armor;
     private final String                         culture;
     private final String                         fatherClass;
-    private final Collection<DistinctiveFeature> features  = new LinkedHashSet<DistinctiveFeature>();
-    private final Collection<Follower>           followers = new LinkedHashSet<Follower>();
+    private final Collection<DistinctiveFeature> features = new LinkedHashSet<DistinctiveFeature>();
     private final GloryManager                   glory;
     private final String                         homeland;
-    private final Collection<Horse>              horses    = new LinkedHashSet<Horse>();
     private final PendragonHumanCharacter        humanCharacter;
-    private final Boolean                        knight;
     private final Money                          money;
-    private final Collection<Pet>                pets      = new LinkedHashSet<Pet>();
+    private final Collection<Pet>                pets     = new LinkedHashSet<Pet>();
     private final String                         playerName;
     private final String                         religion;
-    private final Collection<Wife>               wives     = new LinkedHashSet<Wife>();
 
     public DefaultPendragonPlayerCharacter(
             final DefaultPendragonPlayerCharacter character) {
@@ -47,24 +41,16 @@ public final class DefaultPendragonPlayerCharacter implements
         humanCharacter = character.humanCharacter.createNewInstance();
 
         playerName = character.playerName;
-        knight = character.knight;
         homeland = character.homeland;
         fatherClass = character.fatherClass;
         culture = character.culture;
 
         // TODO: Copy correctly
-        followers.addAll(character.followers);
-        horses.addAll(character.horses);
         pets.addAll(character.pets);
 
         for (final DistinctiveFeature feature : character.features) {
             features.add(feature);
         }
-
-        // TODO: Copy correctly
-        wives.addAll(character.wives);
-        followers.addAll(character.followers);
-        horses.addAll(character.horses);
 
         // Initializes data holders
         armor = character.getArmorValueBox().createNewInstance();
@@ -105,8 +91,6 @@ public final class DefaultPendragonPlayerCharacter implements
         this.fatherClass = fatherClass;
         this.homeland = homeland;
 
-        this.knight = knight;
-
         // Initializes data holders
         this.glory = glory;
         this.money = money;
@@ -125,20 +109,6 @@ public final class DefaultPendragonPlayerCharacter implements
         checkNotNull(feature, "Received a null pointer as feature");
 
         getFeaturesModifiable().add(feature);
-    }
-
-    @Override
-    public final void addFollower(final Follower follower) {
-        checkNotNull(follower, "Received a null pointer as follower");
-
-        getFollowersModifiable().add(follower);
-    }
-
-    @Override
-    public final void addHorse(final Horse horse) {
-        checkNotNull(horse, "Received a null pointer as horse");
-
-        getHorsesModifiable().add(horse);
     }
 
     @Override
@@ -176,13 +146,6 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void addWife(final Wife wife) {
-        checkNotNull(wife, "Received a null pointer as wife");
-
-        getWivesModifiable().add(wife);
-    }
-
-    @Override
     public final void clearDirectedTraits() {
         getBaseCharacter().clearDirectedTraits();
     }
@@ -190,16 +153,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void clearDistinctiveFeatures() {
         getFeaturesModifiable().clear();
-    }
-
-    @Override
-    public final void clearFollowers() {
-        getFollowersModifiable().clear();
-    }
-
-    @Override
-    public final void clearHorses() {
-        getHorsesModifiable().clear();
     }
 
     @Override
@@ -223,11 +176,6 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void clearWives() {
-        getWivesModifiable().clear();
-    }
-
-    @Override
     public final DefaultPendragonPlayerCharacter createNewInstance() {
         return new DefaultPendragonPlayerCharacter(this);
     }
@@ -240,11 +188,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final Integer getArbitrary() {
         return getBaseCharacter().getArbitrary();
-    }
-
-    @Override
-    public final Integer getArmor() {
-        return getArmorValueBox().getValue();
     }
 
     @Override
@@ -313,11 +256,6 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Collection<Follower> getFollowers() {
-        return Collections.unmodifiableCollection(getFollowersModifiable());
-    }
-
-    @Override
     public final Integer getForgiving() {
         return getBaseCharacter().getForgiving();
     }
@@ -355,11 +293,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final Integer getHonest() {
         return getBaseCharacter().getHonest();
-    }
-
-    @Override
-    public final Collection<Horse> getHorses() {
-        return Collections.unmodifiableCollection(getHorsesModifiable());
     }
 
     @Override
@@ -513,18 +446,13 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Collection<Wife> getWives() {
-        return Collections.unmodifiableCollection(getWivesModifiable());
-    }
-
-    @Override
     public final Integer getWorldly() {
         return getBaseCharacter().getWorldly();
     }
 
     @Override
     public final Boolean isKnight() {
-        return knight;
+        return getBaseCharacter().isKnight();
     }
 
     @Override
@@ -536,16 +464,6 @@ public final class DefaultPendragonPlayerCharacter implements
     public final void
             removeDistinctiveFeature(final DistinctiveFeature feature) {
         getFeaturesModifiable().remove(feature);
-    }
-
-    @Override
-    public final void removeFollower(final Follower follower) {
-        getFollowersModifiable().remove(follower);
-    }
-
-    @Override
-    public final void removeHorse(final Horse horse) {
-        getHorsesModifiable().remove(horse);
     }
 
     @Override
@@ -572,11 +490,6 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void removeSpecialtySkill(final SpecialtySkillBox skill) {
         getBaseCharacter().removeSpecialtySkill(skill);
-    }
-
-    @Override
-    public final void removeWife(final Wife wife) {
-        getWivesModifiable().remove(wife);
     }
 
     @Override
@@ -640,14 +553,6 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void setFollowers(final Collection<Follower> followers) {
-        getFollowersModifiable().clear();
-        for (final Follower follower : followers) {
-            addFollower(follower);
-        }
-    }
-
-    @Override
     public final void setForgiving(final Integer forgiving) {
         getBaseCharacter().setForgiving(forgiving);
     }
@@ -668,14 +573,6 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final void setHorses(final Collection<Horse> horses) {
-        getHorsesModifiable().clear();
-        for (final Horse horse : horses) {
-            getHorsesModifiable().add(horse);
-        }
-    }
-
-    @Override
     public final void setIndulgent(final Integer indulgent) {
         getBaseCharacter().setIndulgent(indulgent);
     }
@@ -683,6 +580,11 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void setJust(final Integer just) {
         getBaseCharacter().setJust(just);
+    }
+
+    @Override
+    public final void setKnight(final Boolean knight) {
+        getBaseCharacter().setKnight(knight);
     }
 
     @Override
@@ -784,14 +686,6 @@ public final class DefaultPendragonPlayerCharacter implements
         getBaseCharacter().setValorous(valorous);
     }
 
-    @Override
-    public final void setWives(final Collection<Wife> wives) {
-        getWivesModifiable().clear();
-        for (final Wife wife : wives) {
-            addWife(wife);
-        }
-    }
-
     private final EditableValueBox getArmorValueBox() {
         return armor;
     }
@@ -804,20 +698,8 @@ public final class DefaultPendragonPlayerCharacter implements
         return features;
     }
 
-    private final Collection<Follower> getFollowersModifiable() {
-        return followers;
-    }
-
-    private final Collection<Horse> getHorsesModifiable() {
-        return horses;
-    }
-
     private final Collection<Pet> getPetsModifiable() {
         return pets;
-    }
-
-    private final Collection<Wife> getWivesModifiable() {
-        return wives;
     }
 
 }
