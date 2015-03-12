@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import com.wandrell.tabletop.character.Gender;
+import com.wandrell.tabletop.pendragon.model.character.background.Religion;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.glory.GloryManager;
 import com.wandrell.tabletop.pendragon.model.inventory.Money;
@@ -21,16 +22,13 @@ public final class DefaultPendragonPlayerCharacter implements
         PendragonPlayerCharacter {
 
     private final EditableValueBox               armor;
-    private final String                         culture;
     private final String                         fatherClass;
     private final Collection<DistinctiveFeature> features = new LinkedHashSet<DistinctiveFeature>();
     private final GloryManager                   glory;
     private final String                         homeland;
     private final PendragonHumanCharacter        humanCharacter;
-    private final Money                          money;
     private final Collection<Pet>                pets     = new LinkedHashSet<Pet>();
     private final String                         playerName;
-    private final String                         religion;
 
     public DefaultPendragonPlayerCharacter(
             final DefaultPendragonPlayerCharacter character) {
@@ -43,7 +41,6 @@ public final class DefaultPendragonPlayerCharacter implements
         playerName = character.playerName;
         homeland = character.homeland;
         fatherClass = character.fatherClass;
-        culture = character.culture;
 
         // TODO: Copy correctly
         pets.addAll(character.pets);
@@ -55,9 +52,6 @@ public final class DefaultPendragonPlayerCharacter implements
         // Initializes data holders
         armor = character.getArmorValueBox().createNewInstance();
         glory = character.glory;
-        money = character.money.createNewInstance();
-
-        religion = character.religion;
 
         // TODO: Handle this
         // getGloryData().setReligiousAnnualGlorySwitch(
@@ -67,7 +61,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     public DefaultPendragonPlayerCharacter(final String name,
             final DerivedAttributeBuilder derivedAttributeBuilder,
-            final String player, final String religion, final String culture,
+            final String player, final Religion religion, final String culture,
             final String fatherClass, final String homeland,
             final GloryManager glory, final Money money, final Boolean knight) {
         super();
@@ -82,18 +76,15 @@ public final class DefaultPendragonPlayerCharacter implements
         checkNotNull(knight, "Received a null pointer as knight flag");
 
         humanCharacter = new DefaultPendragonHumanCharacter(name,
-                derivedAttributeBuilder);
+                derivedAttributeBuilder, culture, religion);
 
         playerName = player;
 
-        this.religion = religion;
-        this.culture = culture;
         this.fatherClass = fatherClass;
         this.homeland = homeland;
 
         // Initializes data holders
         this.glory = glory;
-        this.money = money;
         this.armor = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
     }
 
@@ -212,7 +203,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     @Override
     public final String getCulture() {
-        return culture;
+        return getBaseCharacter().getCulture();
     }
 
     @Override
@@ -331,11 +322,6 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final Money getMoney() {
-        return money;
-    }
-
-    @Override
     public final Integer getMoveRate() {
         return getBaseCharacter().getMoveRate();
     }
@@ -381,8 +367,8 @@ public final class DefaultPendragonPlayerCharacter implements
     }
 
     @Override
-    public final String getReligion() {
-        return religion;
+    public final Religion getReligion() {
+        return getBaseCharacter().getReligion();
     }
 
     @Override
@@ -638,6 +624,11 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void setReckless(final Integer reckless) {
         getBaseCharacter().setReckless(reckless);
+    }
+
+    @Override
+    public final void setReligion(final Religion religion) {
+        getBaseCharacter().setReligion(religion);
     }
 
     @Override

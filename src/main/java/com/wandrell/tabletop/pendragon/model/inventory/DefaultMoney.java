@@ -13,6 +13,10 @@ public final class DefaultMoney implements Money {
     private final EditableValueBox denarii;
     private final EditableValueBox libra;
 
+    public DefaultMoney() {
+        this(0, 0);
+    }
+
     public DefaultMoney(final DefaultMoney money) {
         super();
 

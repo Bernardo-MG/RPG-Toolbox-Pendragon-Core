@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.pendragon.model.chargen;
+package com.wandrell.tabletop.pendragon.model.character.background;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 
-public final class DefaultReligionTemplate implements ReligionTemplate {
+public final class DefaultReligion implements Religion {
 
     private final Integer              bonusArmor;
     private final Integer              bonusDamage;
@@ -18,8 +18,7 @@ public final class DefaultReligionTemplate implements ReligionTemplate {
     private final String               name;
     private final Collection<String>   traits;
 
-    public DefaultReligionTemplate(final String name,
-            final Collection<String> traits,
+    public DefaultReligion(final String name, final Collection<String> traits,
             final Map<String, Integer> bonusDerived, final Integer bonusArmor,
             final Integer bonusDamage, final Integer bonusDamageDice) {
         super();
@@ -53,7 +52,7 @@ public final class DefaultReligionTemplate implements ReligionTemplate {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultReligionTemplate other = (DefaultReligionTemplate) obj;
+        DefaultReligion other = (DefaultReligion) obj;
         return Objects.equals(name, other.name);
     }
 

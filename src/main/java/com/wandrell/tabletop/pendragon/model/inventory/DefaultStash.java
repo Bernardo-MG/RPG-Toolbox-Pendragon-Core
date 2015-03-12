@@ -7,12 +7,14 @@ import java.util.LinkedList;
 public final class DefaultStash implements Stash {
 
     private final Collection<Item> items = new LinkedList<>();
+    private final Money            money;
     private final String           name;
 
     public DefaultStash(final String name) {
         super();
 
         this.name = name;
+        money = new DefaultMoney(0, 0);
     }
 
     @Override
@@ -28,6 +30,11 @@ public final class DefaultStash implements Stash {
     @Override
     public final Collection<Item> getItems() {
         return Collections.unmodifiableCollection(getItemsModifiable());
+    }
+
+    @Override
+    public final Money getMoney() {
+        return money;
     }
 
     @Override

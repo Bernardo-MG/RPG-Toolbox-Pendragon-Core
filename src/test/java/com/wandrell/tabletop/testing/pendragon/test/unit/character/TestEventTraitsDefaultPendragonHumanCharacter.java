@@ -9,6 +9,7 @@ import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonHumanChar
 import com.wandrell.tabletop.pendragon.model.character.DerivedAttributeBuilder;
 import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
 import com.wandrell.tabletop.pendragon.model.character.PendragonHumanCharacter;
+import com.wandrell.tabletop.pendragon.model.character.background.Religion;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
@@ -61,9 +62,12 @@ public final class TestEventTraitsDefaultPendragonHumanCharacter {
     public final void testSetArbitrary() {
         final PendragonHumanCharacter character;
         final PendragonCharacterListener listener;
+        final Religion religion;
+
+        religion = Mockito.mock(Religion.class);
 
         character = new DefaultPendragonHumanCharacter("character",
-                derivedBuilder);
+                derivedBuilder, "culture", religion);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 

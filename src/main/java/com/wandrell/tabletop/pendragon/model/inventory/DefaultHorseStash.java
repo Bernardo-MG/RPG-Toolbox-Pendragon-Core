@@ -37,6 +37,11 @@ public final class DefaultHorseStash implements HorseStash {
     }
 
     @Override
+    public final Money getMoney() {
+        return getBaseStash().getMoney();
+    }
+
+    @Override
     public final String getName() {
         return getBaseStash().getName();
     }

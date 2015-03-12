@@ -11,6 +11,7 @@ import javax.swing.event.EventListenerList;
 import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
+import com.wandrell.tabletop.pendragon.model.character.background.Religion;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.stats.PendragonSkillBox;
 import com.wandrell.tabletop.pendragon.model.stats.SpecialtySkillBox;
@@ -27,6 +28,7 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox              chaste;
     private final EditableValueBox              cowardly;
     private final EditableValueBox              cruel;
+    private final String                        culture;
     private final EditableValueBox              deceitful;
     private final Collection<SkillBox>          directedTraits  = new LinkedHashSet<SkillBox>();
     private final EditableValueBox              energetic;
@@ -48,6 +50,7 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox              proud;
     private final EditableValueBox              prudent;
     private final EditableValueBox              reckless;
+    private Religion                            religion;
     private final EditableValueBox              selfish;
     private final Collection<SpecialtySkillBox> skillsSpecialty = new LinkedHashSet<SpecialtySkillBox>();
     private final EditableValueBox              suspicious;
@@ -76,6 +79,14 @@ public final class DefaultPendragonHumanCharacter implements
             }
 
         });
+
+        gender = character.gender;
+
+        religion = character.religion;
+
+        knight = character.knight;
+
+        culture = character.culture;
 
         glory = character.glory.createNewInstance();
 
@@ -121,12 +132,11 @@ public final class DefaultPendragonHumanCharacter implements
         for (final SkillBox passion : character.passions) {
             passions.add(passion.createNewInstance());
         }
-
-        gender = character.gender;
     }
 
     public DefaultPendragonHumanCharacter(final String name,
-            final DerivedAttributeBuilder derivedAttributeBuilder) {
+            final DerivedAttributeBuilder derivedAttributeBuilder,
+            final String culture, final Religion religion) {
         super();
 
         this.baseCharacter = new DefaultPendragonBaseCharacter(name,
@@ -143,6 +153,9 @@ public final class DefaultPendragonHumanCharacter implements
             }
 
         });
+
+        this.culture = culture;
+        this.religion = religion;
 
         glory = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
 
@@ -268,6 +281,11 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final Integer getCruel() {
         return cruel.getValue();
+    }
+
+    @Override
+    public final String getCulture() {
+        return culture;
     }
 
     @Override
@@ -404,6 +422,11 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final Integer getReckless() {
         return reckless.getValue();
+    }
+
+    @Override
+    public final Religion getReligion() {
+        return religion;
     }
 
     @Override
@@ -547,6 +570,8 @@ public final class DefaultPendragonHumanCharacter implements
 
     @Override
     public final void setDirectedTraits(final Collection<SkillBox> traits) {
+        checkNotNull(traits, "Received a null pointer as directed traits");
+
         getDirectedTraitsModifiable().clear();
         for (final SkillBox trait : traits) {
             addDirectedTrait(trait);
@@ -564,6 +589,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     public final void setGender(final Gender gender) {
+        checkNotNull(gender, "Received a null pointer as gender");
+
         this.gender = gender;
     }
 
@@ -645,6 +672,13 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final void setReckless(final Integer reckless) {
         this.reckless.setValue(reckless);
+    }
+
+    @Override
+    public final void setReligion(final Religion religion) {
+        checkNotNull(religion, "Received a null pointer as religion");
+
+        this.religion = religion;
     }
 
     @Override
