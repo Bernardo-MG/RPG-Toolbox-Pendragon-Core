@@ -14,6 +14,17 @@ public final class DefaultAdditionalBelongingsTable implements
     private final String                              name;
     private final IntervalTable<AdditionalBelongings> table;
 
+    public DefaultAdditionalBelongingsTable(
+            final DefaultAdditionalBelongingsTable table) {
+        super();
+
+        checkNotNull(table,
+                "Received a null pointer as additional belongings table");
+
+        name = table.name;
+        this.table = table.table.createNewInstance();
+    }
+
     public DefaultAdditionalBelongingsTable(final String name,
             final Map<Interval, AdditionalBelongings> intervals) {
         super();
@@ -23,6 +34,11 @@ public final class DefaultAdditionalBelongingsTable implements
 
         this.name = name;
         table = new DefaultIntervalTable<AdditionalBelongings>(intervals);
+    }
+
+    @Override
+    public final DefaultAdditionalBelongingsTable createNewInstance() {
+        return new DefaultAdditionalBelongingsTable(this);
     }
 
     @Override

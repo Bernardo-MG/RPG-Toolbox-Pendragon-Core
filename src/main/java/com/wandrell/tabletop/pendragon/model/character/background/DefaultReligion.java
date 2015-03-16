@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
 
@@ -17,6 +18,23 @@ public final class DefaultReligion implements Religion {
     private final Map<String, Integer> bonusDerived;
     private final String               name;
     private final Collection<String>   traits;
+
+    public DefaultReligion(final DefaultReligion religion) {
+        super();
+
+        checkNotNull(religion, "Received a null pointer as religion");
+
+        name = religion.name;
+
+        bonusDerived = religion.bonusDerived;
+
+        bonusArmor = religion.bonusArmor;
+
+        bonusDamage = religion.bonusDamage;
+        bonusDamageDice = religion.bonusDamageDice;
+
+        traits = new LinkedList<>(religion.traits);
+    }
 
     public DefaultReligion(final String name, final Collection<String> traits,
             final Map<String, Integer> bonusDerived, final Integer bonusArmor,
@@ -42,6 +60,11 @@ public final class DefaultReligion implements Religion {
         this.bonusDamageDice = bonusDamageDice;
 
         this.traits = traits;
+    }
+
+    @Override
+    public final DefaultReligion createNewInstance() {
+        return new DefaultReligion(this);
     }
 
     @Override

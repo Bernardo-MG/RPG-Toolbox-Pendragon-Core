@@ -10,6 +10,16 @@ public final class DefaultItem implements Item {
     private final Money  money;
     private final String name;
 
+    public DefaultItem(final DefaultItem item) {
+        super();
+
+        checkNotNull(item, "Received a null pointer as item");
+
+        name = item.name;
+        description = item.description;
+        money = item.money;
+    }
+
     public DefaultItem(final String name, final String description,
             final Money money) {
         super();
@@ -21,6 +31,11 @@ public final class DefaultItem implements Item {
         this.name = name;
         this.description = description;
         this.money = money;
+    }
+
+    @Override
+    public final DefaultItem createNewInstance() {
+        return new DefaultItem(this);
     }
 
     @Override

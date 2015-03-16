@@ -40,6 +40,11 @@ public final class DefaultWife implements Wife {
     }
 
     @Override
+    public final DefaultWife createNewInstance() {
+        return new DefaultWife(this);
+    }
+
+    @Override
     public final boolean equals(final Object obj) {
         if (this == obj)
             return true;

@@ -15,6 +15,18 @@ public final class DefaultArmor implements Armor {
     private final Item      item;
     private final ArmorType type;
 
+    public DefaultArmor(final DefaultArmor armor) {
+        super();
+
+        checkNotNull(armor, "Received a null pointer as armor");
+
+        item = armor.item.createNewInstance();
+        type = armor.type;
+        armorValue = armor.armorValue;
+        dexModifier = armor.dexModifier;
+        heavyLoad = armor.heavyLoad;
+    }
+
     public DefaultArmor(final String name, final String description,
             final Money money, final ArmorType type, final Integer armorValue,
             final Integer dexModifier, final Boolean heavyLoad) {
@@ -31,6 +43,11 @@ public final class DefaultArmor implements Armor {
         this.armorValue = armorValue;
         this.dexModifier = dexModifier;
         this.heavyLoad = heavyLoad;
+    }
+
+    @Override
+    public final DefaultArmor createNewInstance() {
+        return new DefaultArmor(this);
     }
 
     @Override

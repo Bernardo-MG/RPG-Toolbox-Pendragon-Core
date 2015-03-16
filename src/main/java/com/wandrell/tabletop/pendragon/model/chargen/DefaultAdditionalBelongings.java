@@ -58,6 +58,32 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
         this.weapons = weapons;
     }
 
+    public DefaultAdditionalBelongings(
+            final DefaultAdditionalBelongings belongings) {
+        super();
+
+        checkNotNull(belongings,
+                "Received a null pointer as additional belongings");
+
+        hasToChoose = belongings.hasToChoose;
+        money = belongings.money;
+        nameMoney = belongings.nameMoney;
+        rerolls = belongings.rerolls;
+
+        table = belongings.table;
+
+        items = belongings.items;
+        horses = belongings.horses;
+        pets = belongings.pets;
+        shields = belongings.shields;
+        weapons = belongings.weapons;
+    }
+
+    @Override
+    public final DefaultAdditionalBelongings createNewInstance() {
+        return new DefaultAdditionalBelongings(this);
+    }
+
     @Override
     public final Collection<Horse> getHorses() {
         return Collections.unmodifiableCollection(getHorsesModifiable());

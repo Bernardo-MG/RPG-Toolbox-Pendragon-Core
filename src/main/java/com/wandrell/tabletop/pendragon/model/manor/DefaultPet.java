@@ -12,6 +12,16 @@ public final class DefaultPet implements Pet {
     private final String                          name;
     private final IntervalTable<AnimalYearResult> rolltable;
 
+    public DefaultPet(final DefaultPet pet) {
+        super();
+
+        checkNotNull(pet, "Received a null pointer as pet");
+
+        name = pet.name;
+
+        rolltable = pet.rolltable;
+    }
+
     public DefaultPet(final String name,
             final IntervalTable<AnimalYearResult> rolltable) {
         super();
@@ -22,6 +32,11 @@ public final class DefaultPet implements Pet {
         this.name = name;
 
         this.rolltable = rolltable;
+    }
+
+    @Override
+    public final DefaultPet createNewInstance() {
+        return new DefaultPet(this);
     }
 
     @Override

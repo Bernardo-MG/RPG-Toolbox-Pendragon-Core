@@ -1,5 +1,7 @@
 package com.wandrell.tabletop.pendragon.model.inventory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 
 import com.wandrell.tabletop.pendragon.model.character.Horse;
@@ -9,8 +11,20 @@ public final class DefaultHorseStash implements HorseStash {
     private final Stash baseStash;
     private Horse       horse;
 
+    public DefaultHorseStash(final DefaultHorseStash stash) {
+        super();
+
+        checkNotNull(stash, "Received a null pointer as stash");
+
+        baseStash = stash.baseStash.createNewInstance();
+        horse = stash.horse.createNewInstance();
+    }
+
     public DefaultHorseStash(final String name, final Horse horse) {
         super();
+
+        checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(horse, "Received a null pointer as horse");
 
         baseStash = new DefaultStash(name);
         this.horse = horse;
@@ -24,6 +38,11 @@ public final class DefaultHorseStash implements HorseStash {
     @Override
     public final void clearItems() {
         getBaseStash().clearItems();
+    }
+
+    @Override
+    public final DefaultHorseStash createNewInstance() {
+        return new DefaultHorseStash(this);
     }
 
     @Override

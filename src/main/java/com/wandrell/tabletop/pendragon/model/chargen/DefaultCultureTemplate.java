@@ -16,6 +16,25 @@ public final class DefaultCultureTemplate implements CultureTemplate {
     private final CultureCharacterTemplate     templateDefaultFemale;
     private final CultureCharacterTemplate     templateDefaultMale;
 
+    public DefaultCultureTemplate(final DefaultCultureTemplate culture) {
+        super();
+
+        checkNotNull(culture, "Received a null pointer as culture");
+
+        this.name = culture.name;
+
+        this.templateDefaultFemale = culture.templateDefaultFemale;
+        this.templateDefaultMale = culture.templateDefaultMale;
+
+        this.initialLuckFemale = culture.initialLuckFemale.createNewInstance();
+        this.initialLuckMale = culture.initialLuckMale.createNewInstance();
+
+        this.femaleFamilyCharacteristic = culture.femaleFamilyCharacteristic
+                .createNewInstance();
+        this.maleFamilyCharacteristic = culture.maleFamilyCharacteristic
+                .createNewInstance();
+    }
+
     public DefaultCultureTemplate(final String name,
             final CultureCharacterTemplate templateDefaultFemale,
             final CultureCharacterTemplate templateDefaultMale,
@@ -49,6 +68,11 @@ public final class DefaultCultureTemplate implements CultureTemplate {
 
         this.femaleFamilyCharacteristic = femaleFamilyCharacteristic;
         this.maleFamilyCharacteristic = maleFamilyCharacteristic;
+    }
+
+    @Override
+    public final DefaultCultureTemplate createNewInstance() {
+        return new DefaultCultureTemplate(this);
     }
 
     @Override

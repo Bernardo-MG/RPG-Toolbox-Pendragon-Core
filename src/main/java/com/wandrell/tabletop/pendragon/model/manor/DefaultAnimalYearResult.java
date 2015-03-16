@@ -14,6 +14,18 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
     private final String  name;
     private final String  puppy;
 
+    public DefaultAnimalYearResult(final DefaultAnimalYearResult result) {
+        super();
+
+        checkNotNull(result, "Received a null pointer as year result");
+
+        name = result.name;
+
+        money = result.money;
+        puppy = result.puppy;
+        dying = result.dying;
+    }
+
     public DefaultAnimalYearResult(final String name, final Money money,
             final String puppy, final Boolean dying) {
         super();
@@ -28,6 +40,11 @@ public final class DefaultAnimalYearResult implements AnimalYearResult {
         this.money = money;
         this.puppy = puppy;
         this.dying = dying;
+    }
+
+    @Override
+    public final DefaultAnimalYearResult createNewInstance() {
+        return new DefaultAnimalYearResult(this);
     }
 
     @Override

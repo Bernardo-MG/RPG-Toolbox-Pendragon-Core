@@ -16,6 +16,19 @@ public final class DefaultFamilyCharacteristicTemplate implements
     private final String                  name;
     private final Map<SkillName, Integer> skills;
 
+    public DefaultFamilyCharacteristicTemplate(
+            final DefaultFamilyCharacteristicTemplate characteristic) {
+        super();
+
+        checkNotNull(characteristic,
+                "Received a null pointer as family characteristic");
+
+        name = characteristic.name;
+
+        attributes = characteristic.attributes;
+        skills = characteristic.skills;
+    }
+
     public DefaultFamilyCharacteristicTemplate(final String name,
             final Map<String, Integer> attributes,
             final Map<SkillName, Integer> skills) {
@@ -29,6 +42,11 @@ public final class DefaultFamilyCharacteristicTemplate implements
 
         this.attributes = attributes;
         this.skills = skills;
+    }
+
+    @Override
+    public final DefaultFamilyCharacteristicTemplate createNewInstance() {
+        return new DefaultFamilyCharacteristicTemplate(this);
     }
 
     @Override

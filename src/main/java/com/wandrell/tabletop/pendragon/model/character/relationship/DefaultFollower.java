@@ -31,6 +31,11 @@ public final class DefaultFollower implements Follower {
     }
 
     @Override
+    public final DefaultFollower createNewInstance() {
+        return new DefaultFollower(this);
+    }
+
+    @Override
     public final boolean equals(final Object obj) {
         if (this == obj)
             return true;

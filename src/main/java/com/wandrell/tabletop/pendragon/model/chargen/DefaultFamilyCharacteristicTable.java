@@ -14,6 +14,17 @@ public final class DefaultFamilyCharacteristicTable implements
     private final String                                      name;
     private final IntervalTable<FamilyCharacteristicTemplate> table;
 
+    public DefaultFamilyCharacteristicTable(
+            final DefaultFamilyCharacteristicTable characteristic) {
+        super();
+
+        checkNotNull(characteristic,
+                "Received a null pointer as family characteristic");
+
+        name = characteristic.name;
+        table = characteristic.table.createNewInstance();
+    }
+
     public DefaultFamilyCharacteristicTable(final String name,
             final Map<Interval, FamilyCharacteristicTemplate> intervals) {
         super();
@@ -24,6 +35,11 @@ public final class DefaultFamilyCharacteristicTable implements
         this.name = name;
         table = new DefaultIntervalTable<FamilyCharacteristicTemplate>(
                 intervals);
+    }
+
+    @Override
+    public final DefaultFamilyCharacteristicTable createNewInstance() {
+        return new DefaultFamilyCharacteristicTable(this);
     }
 
     @Override

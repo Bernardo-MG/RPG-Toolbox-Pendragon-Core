@@ -14,6 +14,17 @@ public final class DefaultRangedWeapon implements RangedWeapon {
     private final Integer reload;
     private final Weapon  weapon;
 
+    public DefaultRangedWeapon(final DefaultRangedWeapon weapon) {
+        super();
+
+        checkNotNull(weapon, "Received a null pointer as ranged weapon");
+
+        this.weapon = weapon.weapon.createNewInstance();
+
+        range = weapon.range;
+        reload = weapon.reload;
+    }
+
     public DefaultRangedWeapon(final String name, final String description,
             final Money money, final String skill, final Integer damageBonus,
             final Integer damageDiceBonus, final Integer damageOverridenDice,
@@ -34,6 +45,11 @@ public final class DefaultRangedWeapon implements RangedWeapon {
 
         this.range = range;
         this.reload = reload;
+    }
+
+    @Override
+    public final DefaultRangedWeapon createNewInstance() {
+        return new DefaultRangedWeapon(this);
     }
 
     @Override

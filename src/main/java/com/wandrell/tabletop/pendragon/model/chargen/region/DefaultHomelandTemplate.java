@@ -21,6 +21,20 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     private final Map<SkillName, Integer> skills          = new LinkedHashMap<SkillName, Integer>();
     private final Map<String, Integer>    specialtySkills = new LinkedHashMap<String, Integer>();
 
+    public DefaultHomelandTemplate(final DefaultHomelandTemplate homeland) {
+        super();
+
+        checkNotNull(homeland, "Received a null pointer as homeland");
+
+        name = homeland.name;
+        region = homeland.region;
+
+        skills.putAll(homeland.skills);
+        specialtySkills.putAll(homeland.specialtySkills);
+        directedTraits.addAll(homeland.directedTraits);
+        passions.addAll(homeland.passions);
+    }
+
     public DefaultHomelandTemplate(final String name,
             final RegionTemplate region, final Map<SkillName, Integer> skills,
             final Map<String, Integer> specialtySkills,
@@ -44,6 +58,11 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
         this.specialtySkills.putAll(specialtySkills);
         this.directedTraits.addAll(directedTraits);
         this.passions.addAll(passions);
+    }
+
+    @Override
+    public final DefaultHomelandTemplate createNewInstance() {
+        return new DefaultHomelandTemplate(this);
     }
 
     @Override

@@ -12,6 +12,15 @@ public final class DefaultShield implements Shield {
     private final Integer armorValue;
     private final Item    item;
 
+    public DefaultShield(final DefaultShield shield) {
+        super();
+
+        checkNotNull(shield, "Received a null pointer as shield");
+
+        item = shield.item.createNewInstance();
+        armorValue = shield.armorValue;
+    }
+
     public DefaultShield(final String name, final String description,
             final Money money, final Integer armorValue) {
         super();
@@ -20,6 +29,11 @@ public final class DefaultShield implements Shield {
 
         this.item = new DefaultItem(name, description, money);
         this.armorValue = armorValue;
+    }
+
+    @Override
+    public final DefaultShield createNewInstance() {
+        return new DefaultShield(this);
     }
 
     @Override

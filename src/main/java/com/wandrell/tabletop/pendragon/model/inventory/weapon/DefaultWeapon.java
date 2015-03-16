@@ -25,6 +25,30 @@ public final class DefaultWeapon implements Weapon {
     private final String                  skill;
     private final Boolean                 twoHanded;
 
+    public DefaultWeapon(final DefaultWeapon weapon) {
+        super();
+
+        checkNotNull(weapon, "Received a null pointer as weapon");
+
+        item = weapon.item.createNewInstance();
+
+        skill = weapon.skill;
+
+        damageBonus = weapon.damageBonus;
+        damageDiceBonus = weapon.damageDiceBonus;
+
+        damageOverridenDice = weapon.damageOverridenDice;
+
+        armorBonus = weapon.armorBonus;
+
+        breakingEnemyOnDraw = weapon.breakingEnemyOnDraw;
+        breakingOnFumble = weapon.breakingOnFumble;
+        hittingBack = weapon.hittingBack;
+        ignoringShield = weapon.ignoringShield;
+        reducingShieldToRoll = weapon.reducingShieldToRoll;
+        twoHanded = weapon.twoHanded;
+    }
+
     public DefaultWeapon(final String name, final String description,
             final Money money, final String skill, final Integer damageBonus,
             final Integer damageDiceBonus, final Integer damageOverridenDice,
@@ -70,6 +94,11 @@ public final class DefaultWeapon implements Weapon {
         this.ignoringShield = ignoringShield;
         this.reducingShieldToRoll = reducingShieldToRoll;
         this.twoHanded = twoHanded;
+    }
+
+    @Override
+    public final DefaultWeapon createNewInstance() {
+        return new DefaultWeapon(this);
     }
 
     @Override

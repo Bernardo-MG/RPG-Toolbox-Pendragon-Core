@@ -1,5 +1,7 @@
 package com.wandrell.tabletop.pendragon.model.inventory;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -10,8 +12,19 @@ public final class DefaultStash implements Stash {
     private final Money            money;
     private final String           name;
 
+    public DefaultStash(final DefaultStash stash) {
+        super();
+
+        checkNotNull(stash, "Received a null pointer as stash");
+
+        name = stash.name;
+        money = stash.money.createNewInstance();
+    }
+
     public DefaultStash(final String name) {
         super();
+
+        checkNotNull(name, "Received a null pointer as name");
 
         this.name = name;
         money = new DefaultMoney(0, 0);
@@ -25,6 +38,11 @@ public final class DefaultStash implements Stash {
     @Override
     public final void clearItems() {
         getItemsModifiable().clear();
+    }
+
+    @Override
+    public final DefaultStash createNewInstance() {
+        return new DefaultStash(this);
     }
 
     @Override

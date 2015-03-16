@@ -12,6 +12,16 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
     private final String  name;
     private final Integer yearlyGlory;
 
+    public DefaultFatherClassGlory(final DefaultFatherClassGlory glory) {
+        super();
+
+        checkNotNull(glory, "Received a null pointer as father class glory");
+
+        name = glory.name;
+        baseGlory = glory.baseGlory;
+        yearlyGlory = glory.yearlyGlory;
+    }
+
     public DefaultFatherClassGlory(final String name, final Integer baseGlory,
             final Integer yearlyGlory) {
         super();
@@ -23,6 +33,11 @@ public final class DefaultFatherClassGlory implements FatherClassGlory {
         this.name = name;
         this.baseGlory = baseGlory;
         this.yearlyGlory = yearlyGlory;
+    }
+
+    @Override
+    public final DefaultFatherClassGlory createNewInstance() {
+        return new DefaultFatherClassGlory(this);
     }
 
     @Override

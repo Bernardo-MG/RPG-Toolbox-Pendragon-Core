@@ -10,6 +10,15 @@ public final class DefaultRegionTemplate implements RegionTemplate {
     private final String               regionName;
     private final Map<String, Integer> regionTraits = new LinkedHashMap<String, Integer>();
 
+    public DefaultRegionTemplate(final DefaultRegionTemplate region) {
+        super();
+
+        checkNotNull(region, "Received a null pointer as region");
+
+        regionName = region.regionName;
+        regionTraits.putAll(region.regionTraits);
+    }
+
     public DefaultRegionTemplate(final String name,
             final Map<String, Integer> traits) {
         super();
@@ -19,6 +28,11 @@ public final class DefaultRegionTemplate implements RegionTemplate {
 
         regionName = name;
         regionTraits.putAll(traits);
+    }
+
+    @Override
+    public final DefaultRegionTemplate createNewInstance() {
+        return new DefaultRegionTemplate(this);
     }
 
     @Override

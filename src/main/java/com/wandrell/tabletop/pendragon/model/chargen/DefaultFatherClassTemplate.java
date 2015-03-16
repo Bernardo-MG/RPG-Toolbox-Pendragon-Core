@@ -4,6 +4,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
 
@@ -23,6 +25,32 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
     private final Integer                 skillsNonCombatPoints;
     private final Integer                 skillsPoints;
     private final Map<String, Integer>    specialtySkills;
+
+    public DefaultFatherClassTemplate(
+            final DefaultFatherClassTemplate fatherClass) {
+        super();
+
+        checkNotNull(fatherClass, "Received a null pointer as father class");
+
+        name = fatherClass.name;
+
+        money = fatherClass.money;
+
+        skillsGroupPointsBonus = fatherClass.skillsGroupPointsBonus;
+        skillsGroupPointsDivide = fatherClass.skillsGroupPointsDivide;
+
+        // TODO: Copy this correctly
+        skillsGroup = new LinkedList<>(fatherClass.skillsGroup);
+        specialtySkills = new LinkedHashMap<>(fatherClass.specialtySkills);
+
+        // TODO: Copy this correctly
+        directedTraits = new LinkedHashMap<>(fatherClass.directedTraits);
+        directedTraitsBase = new LinkedHashMap<>(fatherClass.directedTraitsBase);
+
+        skillsPoints = fatherClass.skillsPoints;
+
+        skillsNonCombatPoints = fatherClass.skillsNonCombatPoints;
+    }
 
     public DefaultFatherClassTemplate(final String name,
             final Integer skillsGroupPoints,
@@ -67,6 +95,11 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
         this.skillsPoints = skillsPoints;
 
         this.skillsNonCombatPoints = skillsNonCombatPoints;
+    }
+
+    @Override
+    public final DefaultFatherClassTemplate createNewInstance() {
+        return new DefaultFatherClassTemplate(this);
     }
 
     @Override
