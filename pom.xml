@@ -22,20 +22,20 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:https://github.com/Bernardo-MG/Tabletop-Pendragon-Core.git</connection>
-		<developerConnection>scm:git:https://github.com/Bernardo-MG/Tabletop-Pendragon-Core.git</developerConnection>
+		<connection>scm:git:https://github.com/Bernardo-MG/Tabletop-Pendragon-Model.git</connection>
+		<developerConnection>scm:git:https://github.com/Bernardo-MG/Tabletop-Pendragon-Model.git</developerConnection>
 		<tag>head</tag>
-		<url>https://github.com/Bernardo-MG/Tabletop-Pendragon-Core</url>
+		<url>https://github.com/Bernardo-MG/Tabletop-Pendragon-Model</url>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/Bernardo-MG/Tabletop-Pendragon-Core/issues</url>
+		<url>https://github.com/Bernardo-MG/Tabletop-Pendragon-Model/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>Travis CI</system>
-		<url>https://travis-ci.org/Bernardo-MG/Tabletop-Pendragon-Core</url>
+		<url>https://travis-ci.org/Bernardo-MG/Tabletop-Pendragon-Model</url>
 		<notifiers />
 	</ciManagement>
 
@@ -44,7 +44,7 @@
 			<uniqueVersion>false</uniqueVersion>
 			<id>wandrell-releases</id>
 			<name>Wandrell releases repository</name>
-			<url>https://api.bintray.com/maven/bernardo-mg/maven/tabletop-pendragon-core</url>
+			<url>https://api.bintray.com/maven/bernardo-mg/maven/tabletop-pendragon-model</url>
 		</repository>
 		<snapshotRepository>
 			<uniqueVersion>true</uniqueVersion>
@@ -52,12 +52,33 @@
 			<name>Wandrell snapshots repository</name>
 			<url>ftp://maven.wandrell.com</url>
 		</snapshotRepository>
-		<site>
-			<id>wandrell-site</id>
-			<name>Wandrell Maven sites</name>
-			<url>ftp://docs.wandrell.com/tabletop-pendragon-core</url>
-		</site>
 	</distributionManagement>
+
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<distributionManagement>
+				<site>
+					<id>wandrell-site</id>
+					<name>Wandrell Maven sites</name>
+					<url>ftp://docs.wandrell.com/tabletop-pendragon-model</url>
+				</site>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<id>development</id>
+			<distributionManagement>
+				<site>
+					<id>wandrell-site-development</id>
+					<name>Wandrell Development Maven sites</name>
+					<url>ftp://docs.wandrell.com/tabletop-pendragon-model</url>
+				</site>
+			</distributionManagement>
+		</profile>
+	</profiles>
 
 	<organization>
 		<name />

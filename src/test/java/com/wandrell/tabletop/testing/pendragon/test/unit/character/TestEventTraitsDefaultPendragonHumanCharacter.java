@@ -73,7 +73,7 @@ public final class TestEventTraitsDefaultPendragonHumanCharacter {
 
         character.addPendragonCharacterListener(listener);
 
-        character.setArbitrary(1);
+        character.getTraits().setArbitrary(1);
 
         Mockito.verify(listener, Mockito.atLeastOnce()).traitChanged(
                 Matchers.any(ValueChangeEvent.class));
