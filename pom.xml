@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.wandrell.tabletop</groupId>
-	<artifactId>tabletop-pendragon-core</artifactId>
+	<artifactId>tabletop-pendragon-model</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Tabletop's Pendragon Core</name>
-	<description>Core library for the RPG Pendragon, part of the Tabletop project.</description>
+	<name>Tabletop's Pendragon Model</name>
+	<description>Model library for the RPG Pendragon, part of the Tabletop project.</description>
 	<url />
 
 	<licenses>
@@ -149,9 +149,9 @@
 			<version>${tabletop.version}</version>
 		</dependency>
 		<dependency>
-			<!-- Tabletop's Pendragon API -->
+			<!-- Tabletop's Pendragon Model API -->
 			<groupId>com.wandrell.tabletop</groupId>
-			<artifactId>tabletop-pendragon-api</artifactId>
+			<artifactId>tabletop-pendragon-model-api</artifactId>
 			<version>${tabletop.version}</version>
 		</dependency>
 		<dependency>

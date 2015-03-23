@@ -29,7 +29,7 @@ The code can be found at the GitHub [project page][].
 
 To acquire it through Git use the following clone URI:
 
-`git clone https://github.com/Bernardo-MG/Tabletop-Pendragon-Core.git`
+`git clone https://github.com/Bernardo-MG/Tabletop-Pendragon-Model.git`
 
 #### Repository
 Releases can be found in the [releases repository][] on Bintray.
@@ -44,9 +44,9 @@ The continuous integration information can be found at the [project CI page][] b
 The project is released under version 2.0 of the [Apache License][].
 
 [Apache License]: http://www.apache.org/licenses/LICENSE-2.0
-[Javadoc page]: http://docs.wandrell.com/maven/tabletop-pendragon-core/apidocs
-[Maven site]: http://docs.wandrell.com/maven/tabletop-pendragon-core
-[project CI page]: https://travis-ci.org/Bernardo-MG/Tabletop-Pendragon-Core
-[project issues page]: https://github.com/Bernardo-MG/Tabletop-Pendragon-Core/issues
-[project page]: http://github.com/Bernardo-MG/Tabletop-Pendragon-Core
-[releases repository]: http://dl.bintray.com/bernardo-mg/tabletop-pendragon-core
+[Javadoc page]: http://docs.wandrell.com/maven/tabletop-pendragon-model/apidocs
+[Maven site]: http://docs.wandrell.com/maven/tabletop-pendragon-model
+[project CI page]: https://travis-ci.org/Bernardo-MG/Tabletop-Pendragon-Model
+[project issues page]: https://github.com/Bernardo-MG/Tabletop-Pendragon-Model/issues
+[project page]: http://github.com/Bernardo-MG/Tabletop-Pendragon-Model
+[releases repository]: http://dl.bintray.com/bernardo-mg/tabletop-pendragon-model
