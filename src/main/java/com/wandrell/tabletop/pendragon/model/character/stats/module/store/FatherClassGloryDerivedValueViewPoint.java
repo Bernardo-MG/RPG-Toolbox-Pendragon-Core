@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.pendragon.model.stats.module.store;
+package com.wandrell.tabletop.pendragon.model.character.stats.module.store;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

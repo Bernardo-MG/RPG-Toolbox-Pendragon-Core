@@ -1,43 +1,54 @@
-package com.wandrell.tabletop.pendragon.model.stats;
+package com.wandrell.tabletop.pendragon.model.character.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.event.ValueChangeListener;
+import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
 import com.wandrell.tabletop.valuebox.DefaultSkillBox;
 import com.wandrell.tabletop.valuebox.SkillBox;
 
-public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
+public final class DefaultPendragonSkillBox implements PendragonSkillBox {
 
-    private final SkillBox           composite;
-    private final Collection<String> skills = new HashSet<String>();
+    private final Boolean  combatSkill;
+    private final SkillBox composite;
+    private final Boolean  courtlySkill;
+    private final Boolean  knightlySkill;
+    private final Boolean  knowledgeSkill;
 
-    public DefaultSpecialtySkillBox(final DefaultSpecialtySkillBox skill) {
+    public DefaultPendragonSkillBox(final DefaultPendragonSkillBox skill) {
         super();
 
         checkNotNull(skill, "Received a null pointer as skill");
 
         composite = skill.composite.createNewInstance();
 
-        skills.addAll(skill.skills);
+        combatSkill = skill.combatSkill;
+        knightlySkill = skill.knightlySkill;
+        knowledgeSkill = skill.knowledgeSkill;
+        courtlySkill = skill.courtlySkill;
     }
 
-    public DefaultSpecialtySkillBox(final String name, final Integer value,
+    public DefaultPendragonSkillBox(final String name, final Integer value,
             final Integer lowerLimit, final Integer upperLimit,
-            final Collection<String> skills) {
+            final Boolean combatSkill, final Boolean knightlySkill,
+            final Boolean knowledgeSkill, final Boolean courtlySkill) {
         super();
 
-        checkNotNull(name, "Received a null pointer as name");
-        checkNotNull(skills, "Received a null pointer as skills");
+        checkNotNull(combatSkill, "Received a null pointer as combat flag");
+        checkNotNull(knightlySkill, "Received a null pointer as knightly flag");
+        checkNotNull(knowledgeSkill,
+                "Received a null pointer as knowledge flag");
+        checkNotNull(courtlySkill, "Received a null pointer as courtly flag");
 
         composite = new DefaultSkillBox(name, value, lowerLimit, upperLimit);
 
-        setSurrogatedSkillsNames(skills);
+        this.combatSkill = combatSkill;
+        this.knightlySkill = knightlySkill;
+        this.knowledgeSkill = knowledgeSkill;
+        this.courtlySkill = courtlySkill;
     }
 
     @Override
@@ -47,8 +58,8 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
     }
 
     @Override
-    public final DefaultSpecialtySkillBox createNewInstance() {
-        return new DefaultSpecialtySkillBox(this);
+    public final DefaultPendragonSkillBox createNewInstance() {
+        return new DefaultPendragonSkillBox(this);
     }
 
     @Override
@@ -59,13 +70,13 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultSpecialtySkillBox other = (DefaultSpecialtySkillBox) obj;
+        DefaultPendragonSkillBox other = (DefaultPendragonSkillBox) obj;
         return Objects.equals(composite, other.composite);
     }
 
     @Override
     public final String getDescriptor() {
-        return "";
+        return getBaseSkill().getDescriptor();
     }
 
     @Override
@@ -76,12 +87,6 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
     @Override
     public final String getName() {
         return getBaseSkill().getName();
-    }
-
-    @Override
-    public final Collection<String> getSurrogatedSkills() {
-        return Collections
-                .unmodifiableCollection(getSurrogatedSkillsModifiable());
     }
 
     @Override
@@ -100,8 +105,28 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
     }
 
     @Override
+    public final Boolean isCombatSkill() {
+        return combatSkill;
+    }
+
+    @Override
+    public final Boolean isCourtlySkill() {
+        return courtlySkill;
+    }
+
+    @Override
     public final Boolean isDescribed() {
-        return false;
+        return getBaseSkill().isDescribed();
+    }
+
+    @Override
+    public final Boolean isKnightlySkill() {
+        return knightlySkill;
+    }
+
+    @Override
+    public final Boolean isKnowledgeSkill() {
+        return knowledgeSkill;
     }
 
     @Override
@@ -112,11 +137,14 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
 
     @Override
     public final void setDescribed(final Boolean described) {
-        getBaseSkill().setDescribed(described);
+        // TODO Auto-generated method stub
+
     }
 
     @Override
-    public final void setDescriptor(final String descriptor) {}
+    public final void setDescriptor(final String descriptor) {
+        getBaseSkill().setDescriptor(descriptor);
+    }
 
     @Override
     public final void setLowerLimit(final Integer lowerLimit) {
@@ -136,25 +164,12 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
     @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this).add("name", getName())
-                .add("value", getValue()).toString();
+                .add("descriptor", getDescriptor()).add("value", getValue())
+                .toString();
     }
 
     private final SkillBox getBaseSkill() {
         return composite;
-    }
-
-    private final Collection<String> getSurrogatedSkillsModifiable() {
-        return skills;
-    }
-
-    private final void
-            setSurrogatedSkillsNames(final Collection<String> skills) {
-        getSurrogatedSkillsModifiable().clear();
-        for (final String skill : skills) {
-            checkNotNull(skill, "Received a null pointer as skill");
-
-            getSurrogatedSkillsModifiable().add(skill);
-        }
     }
 
 }

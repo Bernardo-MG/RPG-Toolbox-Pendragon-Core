@@ -5,7 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Collection;
 
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
-import com.wandrell.tabletop.pendragon.model.stats.PendragonSkillBox;
+import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
 
 public final class DefaultHorse implements Horse {
 

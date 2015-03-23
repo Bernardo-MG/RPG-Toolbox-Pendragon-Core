@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.pendragon.model.stats;
+package com.wandrell.tabletop.pendragon.model.character.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -7,7 +7,8 @@ import javax.swing.event.EventListenerList;
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
-import com.wandrell.tabletop.pendragon.model.stats.listener.TraitsListener;
+import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.event.TraitsListener;
 import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
 import com.wandrell.tabletop.valuebox.EditableValueBox;
 
