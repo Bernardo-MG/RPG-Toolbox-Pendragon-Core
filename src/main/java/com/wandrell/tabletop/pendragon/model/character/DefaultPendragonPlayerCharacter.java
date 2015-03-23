@@ -22,12 +22,9 @@ public final class DefaultPendragonPlayerCharacter implements
         PendragonPlayerCharacter {
 
     private final EditableValueBox        armor;
-    private final String                  fatherClass;
     private final GloryManager            glory;
-    private final String                  homeland;
     private final PendragonHumanCharacter humanCharacter;
     private final Collection<Pet>         pets = new LinkedHashSet<Pet>();
-    private final String                  playerName;
 
     public DefaultPendragonPlayerCharacter(
             final DefaultPendragonPlayerCharacter character) {
@@ -36,10 +33,6 @@ public final class DefaultPendragonPlayerCharacter implements
         checkNotNull(character, "Received a null pointer as character");
 
         humanCharacter = character.humanCharacter.createNewInstance();
-
-        playerName = character.playerName;
-        homeland = character.homeland;
-        fatherClass = character.fatherClass;
 
         // TODO: Copy correctly
         pets.addAll(character.pets);
@@ -71,12 +64,8 @@ public final class DefaultPendragonPlayerCharacter implements
         checkNotNull(knight, "Received a null pointer as knight flag");
 
         humanCharacter = new DefaultPendragonHumanCharacter(name,
-                derivedAttributeBuilder, culture, religion);
-
-        playerName = player;
-
-        this.fatherClass = fatherClass;
-        this.homeland = homeland;
+                derivedAttributeBuilder, culture, religion, homeland,
+                fatherClass, player);
 
         // Initializes data holders
         this.glory = glory;
@@ -236,7 +225,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     @Override
     public final String getFatherClass() {
-        return fatherClass;
+        return getBaseCharacter().getFatherClass();
     }
 
     @Override
@@ -271,7 +260,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     @Override
     public final String getHomeland() {
-        return homeland;
+        return getBaseCharacter().getHomeland();
     }
 
     @Override
@@ -341,7 +330,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     @Override
     public final String getPlayerName() {
-        return playerName;
+        return getBaseCharacter().getPlayerName();
     }
 
     @Override

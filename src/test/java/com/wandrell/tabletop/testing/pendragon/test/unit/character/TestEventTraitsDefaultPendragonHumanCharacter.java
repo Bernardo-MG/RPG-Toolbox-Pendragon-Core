@@ -67,7 +67,7 @@ public final class TestEventTraitsDefaultPendragonHumanCharacter {
         religion = Mockito.mock(Religion.class);
 
         character = new DefaultPendragonHumanCharacter("character",
-                derivedBuilder, "culture", religion);
+                derivedBuilder, "culture", religion, "", "", "");
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 

@@ -67,7 +67,7 @@ public final class TestEventAttributesDefaultPendragonHumanCharacter {
         religion = Mockito.mock(Religion.class);
 
         character = new DefaultPendragonHumanCharacter("character",
-                derivedBuilder, "culture", religion);
+                derivedBuilder, "culture", religion, "", "", "");
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
@@ -89,7 +89,7 @@ public final class TestEventAttributesDefaultPendragonHumanCharacter {
         religion = Mockito.mock(Religion.class);
 
         character = new DefaultPendragonHumanCharacter("character",
-                derivedBuilder, "culture", religion);
+                derivedBuilder, "culture", religion, "", "", "");
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
@@ -111,7 +111,7 @@ public final class TestEventAttributesDefaultPendragonHumanCharacter {
         religion = Mockito.mock(Religion.class);
 
         character = new DefaultPendragonHumanCharacter("character",
-                derivedBuilder, "culture", religion);
+                derivedBuilder, "culture", religion, "", "", "");
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
@@ -133,7 +133,7 @@ public final class TestEventAttributesDefaultPendragonHumanCharacter {
         religion = Mockito.mock(Religion.class);
 
         character = new DefaultPendragonHumanCharacter("character",
-                derivedBuilder, "culture", religion);
+                derivedBuilder, "culture", religion, "", "", "");
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
@@ -155,7 +155,7 @@ public final class TestEventAttributesDefaultPendragonHumanCharacter {
         religion = Mockito.mock(Religion.class);
 
         character = new DefaultPendragonHumanCharacter("character",
-                derivedBuilder, "culture", religion);
+                derivedBuilder, "culture", religion, "", "", "");
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 

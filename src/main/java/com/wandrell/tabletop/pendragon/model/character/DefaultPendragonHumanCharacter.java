@@ -32,11 +32,13 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox               deceitful;
     private final Collection<SkillBox>           directedTraits  = new LinkedHashSet<SkillBox>();
     private final EditableValueBox               energetic;
+    private final String                         fatherClass;
     private final Collection<DistinctiveFeature> features        = new LinkedHashSet<DistinctiveFeature>();
     private final EditableValueBox               forgiving;
     private Gender                               gender;
     private final EditableValueBox               generous;
     private final EditableValueBox               glory;
+    private final String                         homeland;
     private final EditableValueBox               honest;
     private final EditableValueBox               indulgent;
     private final EditableValueBox               just;
@@ -48,6 +50,7 @@ public final class DefaultPendragonHumanCharacter implements
     private final EditableValueBox               modest;
     private final Collection<SkillBox>           passions        = new LinkedHashSet<SkillBox>();
     private final EditableValueBox               pious;
+    private final String                         playerName;
     private final EditableValueBox               proud;
     private final EditableValueBox               prudent;
     private final EditableValueBox               reckless;
@@ -88,6 +91,10 @@ public final class DefaultPendragonHumanCharacter implements
         knight = character.knight;
 
         culture = character.culture;
+
+        playerName = character.playerName;
+        homeland = character.homeland;
+        fatherClass = character.fatherClass;
 
         glory = character.glory.createNewInstance();
 
@@ -141,7 +148,8 @@ public final class DefaultPendragonHumanCharacter implements
 
     public DefaultPendragonHumanCharacter(final String name,
             final DerivedAttributeBuilder derivedAttributeBuilder,
-            final String culture, final Religion religion) {
+            final String culture, final Religion religion,
+            final String homeland, final String fatherClass, final String player) {
         super();
 
         this.baseCharacter = new DefaultPendragonBaseCharacter(name,
@@ -161,6 +169,10 @@ public final class DefaultPendragonHumanCharacter implements
 
         this.culture = culture;
         this.religion = religion;
+        playerName = player;
+
+        this.fatherClass = fatherClass;
+        this.homeland = homeland;
 
         glory = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
 
@@ -342,6 +354,11 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
+    public final String getFatherClass() {
+        return fatherClass;
+    }
+
+    @Override
     public final Integer getForgiving() {
         return forgiving.getValue();
     }
@@ -369,6 +386,11 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final Integer getHitPoints() {
         return getBaseCharacter().getHitPoints();
+    }
+
+    @Override
+    public final String getHomeland() {
+        return homeland;
     }
 
     @Override
@@ -429,6 +451,11 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final Integer getPious() {
         return pious.getValue();
+    }
+
+    @Override
+    public final String getPlayerName() {
+        return playerName;
     }
 
     @Override
