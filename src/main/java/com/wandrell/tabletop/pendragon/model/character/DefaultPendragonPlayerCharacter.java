@@ -21,14 +21,13 @@ import com.wandrell.tabletop.valuebox.SkillBox;
 public final class DefaultPendragonPlayerCharacter implements
         PendragonPlayerCharacter {
 
-    private final EditableValueBox               armor;
-    private final String                         fatherClass;
-    private final Collection<DistinctiveFeature> features = new LinkedHashSet<DistinctiveFeature>();
-    private final GloryManager                   glory;
-    private final String                         homeland;
-    private final PendragonHumanCharacter        humanCharacter;
-    private final Collection<Pet>                pets     = new LinkedHashSet<Pet>();
-    private final String                         playerName;
+    private final EditableValueBox        armor;
+    private final String                  fatherClass;
+    private final GloryManager            glory;
+    private final String                  homeland;
+    private final PendragonHumanCharacter humanCharacter;
+    private final Collection<Pet>         pets = new LinkedHashSet<Pet>();
+    private final String                  playerName;
 
     public DefaultPendragonPlayerCharacter(
             final DefaultPendragonPlayerCharacter character) {
@@ -44,10 +43,6 @@ public final class DefaultPendragonPlayerCharacter implements
 
         // TODO: Copy correctly
         pets.addAll(character.pets);
-
-        for (final DistinctiveFeature feature : character.features) {
-            features.add(feature);
-        }
 
         // Initializes data holders
         armor = character.getArmorValueBox().createNewInstance();
@@ -97,9 +92,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     @Override
     public final void addDistinctiveFeature(final DistinctiveFeature feature) {
-        checkNotNull(feature, "Received a null pointer as feature");
-
-        getFeaturesModifiable().add(feature);
+        getBaseCharacter().addDistinctiveFeature(feature);
     }
 
     @Override
@@ -143,7 +136,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     @Override
     public final void clearDistinctiveFeatures() {
-        getFeaturesModifiable().clear();
+        getBaseCharacter().clearDistinctiveFeatures();
     }
 
     @Override
@@ -233,7 +226,7 @@ public final class DefaultPendragonPlayerCharacter implements
 
     @Override
     public final Collection<DistinctiveFeature> getDistinctiveFeatures() {
-        return Collections.unmodifiableCollection(getFeaturesModifiable());
+        return getBaseCharacter().getDistinctiveFeatures();
     }
 
     @Override
@@ -449,7 +442,7 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void
             removeDistinctiveFeature(final DistinctiveFeature feature) {
-        getFeaturesModifiable().remove(feature);
+        getBaseCharacter().removeDistinctiveFeature(feature);
     }
 
     @Override
@@ -526,11 +519,7 @@ public final class DefaultPendragonPlayerCharacter implements
     @Override
     public final void setDistinctiveFeatures(
             final Collection<DistinctiveFeature> features) {
-        getFeaturesModifiable().clear();
-
-        for (final DistinctiveFeature feature : features) {
-            getFeaturesModifiable().add(feature);
-        }
+        getBaseCharacter().setDistinctiveFeatures(features);
     }
 
     @Override
@@ -683,10 +672,6 @@ public final class DefaultPendragonPlayerCharacter implements
 
     private final PendragonHumanCharacter getBaseCharacter() {
         return humanCharacter;
-    }
-
-    private final Collection<DistinctiveFeature> getFeaturesModifiable() {
-        return features;
     }
 
     private final Collection<Pet> getPetsModifiable() {
