@@ -75,7 +75,7 @@ public final class DefaultGloryEvent implements GloryEvent {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return MoreObjects.toStringHelper(this).add("description", description)
                 .add("glory", glory).add("year", year).toString();
     }

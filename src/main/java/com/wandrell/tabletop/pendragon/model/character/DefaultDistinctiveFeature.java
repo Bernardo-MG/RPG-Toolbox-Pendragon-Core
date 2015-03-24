@@ -8,7 +8,7 @@ import com.google.common.base.MoreObjects;
 
 public final class DefaultDistinctiveFeature implements DistinctiveFeature {
 
-    private String       descriptor = "";
+    private final String descriptor;
     private final String name;
 
     public DefaultDistinctiveFeature(final DefaultDistinctiveFeature feature) {
@@ -20,12 +20,14 @@ public final class DefaultDistinctiveFeature implements DistinctiveFeature {
         descriptor = feature.descriptor;
     }
 
-    public DefaultDistinctiveFeature(final String name) {
+    public DefaultDistinctiveFeature(final String name, final String descriptor) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
+        checkNotNull(descriptor, "Received a null pointer as descriptor");
 
         this.name = name;
+        this.descriptor = descriptor;
     }
 
     @Override
@@ -59,12 +61,6 @@ public final class DefaultDistinctiveFeature implements DistinctiveFeature {
     @Override
     public final int hashCode() {
         return Objects.hash(name, descriptor);
-    }
-
-    public final void setDescriptor(final String descriptor) {
-        checkNotNull(descriptor, "Received a null pointer as descriptor");
-
-        this.descriptor = descriptor;
     }
 
     @Override

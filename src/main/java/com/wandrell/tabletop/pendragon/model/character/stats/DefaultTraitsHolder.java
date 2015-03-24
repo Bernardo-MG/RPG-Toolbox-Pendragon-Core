@@ -425,6 +425,21 @@ public final class DefaultTraitsHolder implements TraitsHolder {
         this.valorous.setValue(valorous);
     }
 
+    private final void fireTraitChangedEvent(final ValueChangeEvent event) {
+        final TraitsListener[] listnrs;
+
+        checkNotNull(event, "Received a null pointer as event");
+
+        listnrs = getListeners().getListeners(TraitsListener.class);
+        for (final TraitsListener l : listnrs) {
+            l.traitChanged(event);
+        }
+    }
+
+    private final EventListenerList getListeners() {
+        return listeners;
+    }
+
     private final Integer getMirrorValue(final Integer value) {
         final Integer mirror;
 
@@ -483,21 +498,6 @@ public final class DefaultTraitsHolder implements TraitsHolder {
             }
 
         });
-    }
-
-    protected final void fireTraitChangedEvent(final ValueChangeEvent event) {
-        final TraitsListener[] listnrs;
-
-        checkNotNull(event, "Received a null pointer as event");
-
-        listnrs = getListeners().getListeners(TraitsListener.class);
-        for (final TraitsListener l : listnrs) {
-            l.traitChanged(event);
-        }
-    }
-
-    protected final EventListenerList getListeners() {
-        return listeners;
     }
 
 }

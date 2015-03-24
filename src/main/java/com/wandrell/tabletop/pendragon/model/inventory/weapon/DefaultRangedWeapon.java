@@ -5,8 +5,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Map;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.wandrell.tabletop.pendragon.model.inventory.Money;
 import com.wandrell.tabletop.pendragon.model.inventory.armor.ArmorType;
+import com.wandrell.tabletop.pendragon.model.inventory.armor.DefaultArmor;
 
 public final class DefaultRangedWeapon implements RangedWeapon {
 
@@ -50,6 +52,18 @@ public final class DefaultRangedWeapon implements RangedWeapon {
     @Override
     public final DefaultRangedWeapon createNewInstance() {
         return new DefaultRangedWeapon(this);
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultArmor other = (DefaultArmor) obj;
+        return Objects.equal(getName(), other.getName());
     }
 
     @Override
@@ -100,6 +114,11 @@ public final class DefaultRangedWeapon implements RangedWeapon {
     @Override
     public final String getSkill() {
         return getBaseWeapon().getSkill();
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(getName());
     }
 
     @Override

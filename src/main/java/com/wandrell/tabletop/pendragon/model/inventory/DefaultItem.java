@@ -3,6 +3,7 @@ package com.wandrell.tabletop.pendragon.model.inventory;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 
 public final class DefaultItem implements Item {
 
@@ -39,6 +40,18 @@ public final class DefaultItem implements Item {
     }
 
     @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultItem other = (DefaultItem) obj;
+        return Objects.equal(name, other.name);
+    }
+
+    @Override
     public final String getDescription() {
         return description;
     }
@@ -51,6 +64,11 @@ public final class DefaultItem implements Item {
     @Override
     public final String getName() {
         return name;
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(name);
     }
 
     @Override

@@ -5,9 +5,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 
 import javax.swing.event.EventListenerList;
 
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
@@ -221,6 +223,18 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultPendragonHumanCharacter other = (DefaultPendragonHumanCharacter) obj;
+        return Objects.equals(baseCharacter, other.baseCharacter);
+    }
+
+    @Override
     public final Integer getAppearance() {
         return appearance.getValue();
     }
@@ -358,6 +372,11 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
+    public final int hashCode() {
+        return Objects.hash(baseCharacter);
+    }
+
+    @Override
     public final Boolean isKnight() {
         return knight;
     }
@@ -488,6 +507,12 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final void setStrength(final Integer strength) {
         getBaseCharacter().setStrength(strength);
+    }
+
+    @Override
+    public final String toString() {
+        return MoreObjects.toStringHelper(this).add("name", getName())
+                .toString();
     }
 
     private final void

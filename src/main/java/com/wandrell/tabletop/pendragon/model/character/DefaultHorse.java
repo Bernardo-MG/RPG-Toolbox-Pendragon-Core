@@ -3,7 +3,9 @@ package com.wandrell.tabletop.pendragon.model.character;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Objects;
 
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
 
@@ -89,6 +91,19 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultHorse other = (DefaultHorse) obj;
+        return Objects.equals(getName(), other.getName())
+                && Objects.equals(type, other.type);
+    }
+
+    @Override
     public final Integer getConstitution() {
         return getBaseCharacter().getConstitution();
     }
@@ -169,6 +184,11 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
+    public final int hashCode() {
+        return Objects.hash(getName(), type);
+    }
+
+    @Override
     public final Boolean isArmored() {
         return armored;
     }
@@ -235,13 +255,19 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public void setSkills(Collection<PendragonSkillBox> skills) {
+    public final void setSkills(Collection<PendragonSkillBox> skills) {
         getBaseCharacter().setSkills(skills);
     }
 
     @Override
     public final void setStrength(final Integer strength) {
         getBaseCharacter().setStrength(strength);
+    }
+
+    @Override
+    public final String toString() {
+        return MoreObjects.toStringHelper(this).add("type", type)
+                .add("name", getName()).toString();
     }
 
     private final PendragonBaseCharacter getBaseCharacter() {

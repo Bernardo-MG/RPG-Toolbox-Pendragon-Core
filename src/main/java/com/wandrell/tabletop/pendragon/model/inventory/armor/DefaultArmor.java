@@ -3,6 +3,7 @@ package com.wandrell.tabletop.pendragon.model.inventory.armor;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.wandrell.tabletop.pendragon.model.inventory.DefaultItem;
 import com.wandrell.tabletop.pendragon.model.inventory.Item;
 import com.wandrell.tabletop.pendragon.model.inventory.Money;
@@ -51,6 +52,18 @@ public final class DefaultArmor implements Armor {
     }
 
     @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultArmor other = (DefaultArmor) obj;
+        return Objects.equal(getName(), other.getName());
+    }
+
+    @Override
     public final ArmorType getArmorType() {
         return type;
     }
@@ -78,6 +91,11 @@ public final class DefaultArmor implements Armor {
     @Override
     public final String getName() {
         return getBaseItem().getName();
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(getName());
     }
 
     @Override
