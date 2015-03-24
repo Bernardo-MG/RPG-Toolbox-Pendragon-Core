@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test_data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="value_mirror.xsd">
+	<data>
+		<value>1</value>
+		<mirror>19</mirror>
+	</data>
+	<data>
+		<value>10</value>
+		<mirror>10</mirror>
+	</data>
+	<data>
+		<value>19</value>
+		<mirror>1</mirror>
+	</data>
+	<data>
+		<value>20</value>
+		<mirror>0</mirror>
+	</data>
+	<data>
+		<value>21</value>
+		<mirror>0</mirror>
+	</data>
+	<data>
+		<value>25</value>
+		<mirror>0</mirror>
+	</data>
+	<data>
+		<value>30</value>
+		<mirror>0</mirror>
+	</data>
+</test_data>

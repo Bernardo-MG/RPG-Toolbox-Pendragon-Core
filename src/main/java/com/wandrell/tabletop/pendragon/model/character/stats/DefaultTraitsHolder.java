@@ -2,11 +2,13 @@ package com.wandrell.tabletop.pendragon.model.character.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
+import java.util.Vector;
+
 import javax.swing.event.EventListenerList;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
-import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.TraitsListener;
 import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
 import com.wandrell.tabletop.valuebox.EditableValueBox;
@@ -44,19 +46,20 @@ public final class DefaultTraitsHolder implements TraitsHolder {
     public DefaultTraitsHolder() {
         super();
 
-        chaste = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        energetic = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        forgiving = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        generous = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        honest = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        just = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        merciful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        modest = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        pious = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        prudent = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        temperate = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        trusting = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        valorous = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        // TODO: Maybe the max value should be configurable
+        chaste = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        energetic = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        forgiving = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        generous = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        honest = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        just = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        merciful = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        modest = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        pious = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        prudent = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        temperate = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        trusting = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
+        valorous = new DefaultEditableValueBox(20, 0, Integer.MAX_VALUE);
 
         arbitrary = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
         cowardly = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
@@ -72,6 +75,7 @@ public final class DefaultTraitsHolder implements TraitsHolder {
         vengeful = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
         worldly = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
 
+        linkTraits();
         setTraitsListeners();
     }
 
@@ -108,6 +112,7 @@ public final class DefaultTraitsHolder implements TraitsHolder {
         vengeful = holder.vengeful.createNewInstance();
         worldly = holder.worldly.createNewInstance();
 
+        linkTraits();
         setTraitsListeners();
     }
 
@@ -418,6 +423,66 @@ public final class DefaultTraitsHolder implements TraitsHolder {
     @Override
     public final void setValorous(final Integer valorous) {
         this.valorous.setValue(valorous);
+    }
+
+    private final Integer getMirrorValue(final Integer value) {
+        final Integer mirror;
+
+        if (value >= 20) {
+            mirror = 0;
+        } else {
+            mirror = 20 - value;
+        }
+
+        return mirror;
+    }
+
+    private final void linkTraits() {
+        linkTraits(chaste, lustful);
+        linkTraits(energetic, indulgent);
+        linkTraits(forgiving, vengeful);
+        linkTraits(generous, selfish);
+        linkTraits(honest, deceitful);
+        linkTraits(just, arbitrary);
+        linkTraits(merciful, cruel);
+        linkTraits(modest, proud);
+        linkTraits(pious, worldly);
+        linkTraits(prudent, reckless);
+        linkTraits(temperate, indulgent);
+        linkTraits(trusting, suspicious);
+        linkTraits(valorous, cowardly);
+    }
+
+    private final void linkTraits(final EditableValueBox trait1,
+            final EditableValueBox trait2) {
+        final Collection<Object> flagBag;
+
+        flagBag = new Vector<>();
+        trait1.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                if (flagBag.isEmpty()) {
+                    flagBag.add(true);
+                    trait2.setValue(getMirrorValue(event.getNewValue()));
+                    flagBag.clear();
+                }
+            }
+
+        });
+
+        trait2.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                if (flagBag.isEmpty()) {
+                    flagBag.add(true);
+                    trait1.setValue(getMirrorValue(event.getNewValue()));
+                    flagBag.clear();
+                }
+            }
+
+        });
     }
 
     protected final void fireTraitChangedEvent(final ValueChangeEvent event) {

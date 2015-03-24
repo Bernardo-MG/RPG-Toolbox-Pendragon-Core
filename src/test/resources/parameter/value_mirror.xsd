@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="test_data">
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="data" type="value" />
+			</xs:sequence>
+		</xs:complexType>
+		<xs:unique name="uniqueData">
+			<xs:selector xpath="data" />
+			<xs:field xpath="value" />
+		</xs:unique>
+	</xs:element>
+
+	<xs:complexType name="value">
+		<xs:sequence>
+			<xs:element name="value" type="xs:integer" />
+			<xs:element name="mirror" type="xs:integer" />
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>

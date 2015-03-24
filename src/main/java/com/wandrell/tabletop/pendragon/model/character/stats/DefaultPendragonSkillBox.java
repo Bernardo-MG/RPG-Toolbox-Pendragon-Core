@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.event.ValueChangeListener;
-import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
 import com.wandrell.tabletop.valuebox.DefaultSkillBox;
 import com.wandrell.tabletop.valuebox.SkillBox;
 
