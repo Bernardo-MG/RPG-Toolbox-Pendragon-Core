@@ -6,7 +6,6 @@ import javax.swing.event.EventListenerList;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
-import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.TraitsListener;
 import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
@@ -422,12 +421,12 @@ public final class DefaultTraitsHolder implements TraitsHolder {
     }
 
     protected final void fireTraitChangedEvent(final ValueChangeEvent event) {
-        final PendragonCharacterListener[] listnrs;
+        final TraitsListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
-        for (final PendragonCharacterListener l : listnrs) {
+        listnrs = getListeners().getListeners(TraitsListener.class);
+        for (final TraitsListener l : listnrs) {
             l.traitChanged(event);
         }
     }

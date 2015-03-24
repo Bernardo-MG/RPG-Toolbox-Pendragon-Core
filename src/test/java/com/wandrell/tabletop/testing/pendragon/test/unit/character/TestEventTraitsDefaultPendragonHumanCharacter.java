@@ -63,6 +63,8 @@ public final class TestEventTraitsDefaultPendragonHumanCharacter {
         final PendragonHumanCharacter character;
         final PendragonCharacterListener listener;
         final Religion religion;
+        
+        // TODO: Test this also on DefaultTraitsHolder
 
         religion = Mockito.mock(Religion.class);
 
