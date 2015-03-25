@@ -4,27 +4,25 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.dice.Dice;
-import com.wandrell.tabletop.skill.SkillName;
+import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultFatherClassTemplate implements FatherClassTemplate {
 
-    private final Map<SkillName, Integer> directedTraits;
-    private final Map<SkillName, Integer> directedTraitsBase;
-    private final Dice                    money;
-    private final String                  name;
-    private final Collection<SkillName>   skillsGroup;
-    private final Integer                 skillsGroupPointsBonus;
-    private final Integer                 skillsGroupPointsDivide;
-    private final Integer                 skillsNonCombatPoints;
-    private final Integer                 skillsPoints;
-    private final Map<String, Integer>    specialtySkills;
+    private final Collection<SkillBox> directedTraits;
+    private final Collection<SkillBox> directedTraitsBase;
+    private final Dice                 money;
+    private final String               name;
+    private final Collection<SkillBox> skillsGroup;
+    private final Integer              skillsGroupPointsBonus;
+    private final Integer              skillsGroupPointsDivide;
+    private final Integer              skillsNonCombatPoints;
+    private final Integer              skillsPoints;
+    private final Collection<SkillBox> specialtySkills;
 
     public DefaultFatherClassTemplate(
             final DefaultFatherClassTemplate fatherClass) {
@@ -41,11 +39,11 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
 
         // TODO: Copy this correctly
         skillsGroup = new LinkedList<>(fatherClass.skillsGroup);
-        specialtySkills = new LinkedHashMap<>(fatherClass.specialtySkills);
+        specialtySkills = new LinkedList<>(fatherClass.specialtySkills);
 
         // TODO: Copy this correctly
-        directedTraits = new LinkedHashMap<>(fatherClass.directedTraits);
-        directedTraitsBase = new LinkedHashMap<>(fatherClass.directedTraitsBase);
+        directedTraits = new LinkedList<>(fatherClass.directedTraits);
+        directedTraitsBase = new LinkedList<>(fatherClass.directedTraitsBase);
 
         skillsPoints = fatherClass.skillsPoints;
 
@@ -56,10 +54,10 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
             final Integer skillsGroupPoints,
             final Integer skillsGroupPointsDivide, final Integer skillsPoints,
             final Integer skillsNonCombatPoints, final Dice money,
-            final Collection<SkillName> skillsGroup,
-            final Map<String, Integer> specialtySkills,
-            final Map<SkillName, Integer> directedTraits,
-            final Map<SkillName, Integer> directedTraitsBase) {
+            final Collection<SkillBox> skillsGroup,
+            final Collection<SkillBox> specialtySkills,
+            final Collection<SkillBox> directedTraits,
+            final Collection<SkillBox> directedTraitsBase) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -115,13 +113,15 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
     }
 
     @Override
-    public final Map<SkillName, Integer> getDirectedTraits() {
-        return Collections.unmodifiableMap(getDirectedTraitsModifiable());
+    public final Collection<SkillBox> getDirectedTraits() {
+        return Collections
+                .unmodifiableCollection(getDirectedTraitsModifiable());
     }
 
     @Override
-    public final Map<SkillName, Integer> getDirectedTraitsBase() {
-        return Collections.unmodifiableMap(getDirectedTraitsBaseModifiable());
+    public final Collection<SkillBox> getDirectedTraitsBase() {
+        return Collections
+                .unmodifiableCollection(getDirectedTraitsBaseModifiable());
     }
 
     @Override
@@ -140,7 +140,7 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
     }
 
     @Override
-    public final Collection<SkillName> getSkillsGroup() {
+    public final Collection<SkillBox> getSkillsGroup() {
         return Collections.unmodifiableCollection(getSkillsGroupModifiable());
     }
 
@@ -160,8 +160,9 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
     }
 
     @Override
-    public final Map<String, Integer> getSpecialtySkills() {
-        return Collections.unmodifiableMap(getSpecialtySkillsModifiable());
+    public final Collection<SkillBox> getSpecialtySkills() {
+        return Collections
+                .unmodifiableCollection(getSpecialtySkillsModifiable());
     }
 
     @Override
@@ -174,19 +175,19 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final Map<SkillName, Integer> getDirectedTraitsBaseModifiable() {
+    private final Collection<SkillBox> getDirectedTraitsBaseModifiable() {
         return directedTraitsBase;
     }
 
-    private final Map<SkillName, Integer> getDirectedTraitsModifiable() {
+    private final Collection<SkillBox> getDirectedTraitsModifiable() {
         return directedTraits;
     }
 
-    private final Collection<SkillName> getSkillsGroupModifiable() {
+    private final Collection<SkillBox> getSkillsGroupModifiable() {
         return skillsGroup;
     }
 
-    private final Map<String, Integer> getSpecialtySkillsModifiable() {
+    private final Collection<SkillBox> getSpecialtySkillsModifiable() {
         return specialtySkills;
     }
 

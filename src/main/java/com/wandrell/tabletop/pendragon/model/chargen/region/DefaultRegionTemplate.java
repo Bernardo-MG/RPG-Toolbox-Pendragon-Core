@@ -2,16 +2,17 @@ package com.wandrell.tabletop.pendragon.model.chargen.region;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultRegionTemplate implements RegionTemplate {
 
     private final String               regionName;
-    private final Map<String, Integer> regionTraits = new LinkedHashMap<String, Integer>();
+    private final Collection<SkillBox> regionTraits = new LinkedList<SkillBox>();
 
     public DefaultRegionTemplate(final DefaultRegionTemplate region) {
         super();
@@ -19,18 +20,18 @@ public final class DefaultRegionTemplate implements RegionTemplate {
         checkNotNull(region, "Received a null pointer as region");
 
         regionName = region.regionName;
-        regionTraits.putAll(region.regionTraits);
+        regionTraits.addAll(region.regionTraits);
     }
 
     public DefaultRegionTemplate(final String name,
-            final Map<String, Integer> traits) {
+            final Collection<SkillBox> traits) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
         checkNotNull(traits, "Received a null pointer as traits");
 
         regionName = name;
-        regionTraits.putAll(traits);
+        regionTraits.addAll(traits);
     }
 
     @Override
@@ -56,7 +57,7 @@ public final class DefaultRegionTemplate implements RegionTemplate {
     }
 
     @Override
-    public final Map<String, Integer> getTraits() {
+    public final Collection<SkillBox> getTraits() {
         return regionTraits;
     }
 

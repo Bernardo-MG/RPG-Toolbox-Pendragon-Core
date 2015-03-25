@@ -2,19 +2,19 @@ package com.wandrell.tabletop.pendragon.model.chargen;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.wandrell.tabletop.skill.SkillName;
+import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultFamilyCharacteristicTemplate implements
         FamilyCharacteristicTemplate {
 
-    private final Map<String, Integer>    attributes;
-    private final String                  name;
-    private final Map<SkillName, Integer> skills;
+    private final Collection<SkillBox> attributes;
+    private final String               name;
+    private final Collection<SkillBox> skills;
 
     public DefaultFamilyCharacteristicTemplate(
             final DefaultFamilyCharacteristicTemplate characteristic) {
@@ -30,8 +30,8 @@ public final class DefaultFamilyCharacteristicTemplate implements
     }
 
     public DefaultFamilyCharacteristicTemplate(final String name,
-            final Map<String, Integer> attributes,
-            final Map<SkillName, Integer> skills) {
+            final Collection<SkillBox> attributes,
+            final Collection<SkillBox> skills) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -62,8 +62,8 @@ public final class DefaultFamilyCharacteristicTemplate implements
     }
 
     @Override
-    public final Map<String, Integer> getAttributes() {
-        return Collections.unmodifiableMap(getAttributesModifiable());
+    public final Collection<SkillBox> getAttributes() {
+        return Collections.unmodifiableCollection(getAttributesModifiable());
     }
 
     @Override
@@ -72,8 +72,8 @@ public final class DefaultFamilyCharacteristicTemplate implements
     }
 
     @Override
-    public final Map<SkillName, Integer> getSkills() {
-        return Collections.unmodifiableMap(getSkillsModifiable());
+    public final Collection<SkillBox> getSkills() {
+        return Collections.unmodifiableCollection(getSkillsModifiable());
     }
 
     @Override
@@ -86,11 +86,11 @@ public final class DefaultFamilyCharacteristicTemplate implements
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final Map<String, Integer> getAttributesModifiable() {
+    private final Collection<SkillBox> getAttributesModifiable() {
         return attributes;
     }
 
-    private final Map<SkillName, Integer> getSkillsModifiable() {
+    private final Collection<SkillBox> getSkillsModifiable() {
         return skills;
     }
 

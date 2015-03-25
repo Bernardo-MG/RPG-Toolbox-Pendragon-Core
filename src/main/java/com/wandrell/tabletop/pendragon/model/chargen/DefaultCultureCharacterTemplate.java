@@ -2,33 +2,34 @@ package com.wandrell.tabletop.pendragon.model.chargen;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
 import com.wandrell.tabletop.dice.Dice;
-import com.wandrell.tabletop.skill.SkillName;
+import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultCultureCharacterTemplate implements
         CultureCharacterTemplate {
 
-    private final Map<String, Integer>    attributes;
-    private final Map<String, Dice>       attributesRandom;
-    private final Map<SkillName, Integer> directedTraits;
-    private final Map<SkillName, Integer> passions;
-    private final Map<SkillName, Dice>    passionsRandom;
-    private final Map<SkillName, Integer> skills;
-    private final Map<String, Integer>    specialtySkills;
-    private final Map<String, Integer>    traits;
+    private final Collection<SkillBox> attributes;
+    private final Map<String, Dice>    attributesRandom;
+    private final Collection<SkillBox> directedTraits;
+    private final Collection<SkillBox> passions;
+    private final Map<SkillBox, Dice>  passionsRandom;
+    private final Collection<SkillBox> skills;
+    private final Collection<SkillBox> specialtySkills;
+    private final Collection<SkillBox> traits;
 
     public DefaultCultureCharacterTemplate(
-            final Map<String, Integer> attributes,
+            final Collection<SkillBox> attributes,
             final Map<String, Dice> attributesRandom,
-            final Map<SkillName, Integer> skills,
-            final Map<String, Integer> specialtySkills,
-            final Map<String, Integer> traits,
-            final Map<SkillName, Integer> directedTraits,
-            final Map<SkillName, Integer> passions,
-            Map<SkillName, Dice> passionsRandom) {
+            final Collection<SkillBox> skills,
+            final Collection<SkillBox> specialtySkills,
+            final Collection<SkillBox> traits,
+            final Collection<SkillBox> directedTraits,
+            final Collection<SkillBox> passions,
+            Map<SkillBox, Dice> passionsRandom) {
         super();
 
         checkNotNull(attributes, "Received a null pointer as attributes");
@@ -55,66 +56,76 @@ public final class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final Map<String, Integer> getAttributes() {
-        return Collections.unmodifiableMap(getAttributesModifiable());
+    public final Collection<SkillBox> getAttributes() {
+        return Collections.unmodifiableCollection(getAttributesModifiable());
     }
 
     @Override
     public final Map<String, Dice> getAttributesRandom() {
-        return attributesRandom;
+        return Collections.unmodifiableMap(getAttributesRandomModifiable());
     }
 
     @Override
-    public final Map<SkillName, Integer> getDirectedTraits() {
-        return Collections.unmodifiableMap(getDirectedTraitsModifiable());
+    public final Collection<SkillBox> getDirectedTraits() {
+        return Collections
+                .unmodifiableCollection(getDirectedTraitsModifiable());
     }
 
     @Override
-    public final Map<SkillName, Integer> getPassions() {
-        return Collections.unmodifiableMap(getPassionsModifiable());
+    public final Collection<SkillBox> getPassions() {
+        return Collections.unmodifiableCollection(getPassionsModifiable());
     }
 
     @Override
-    public final Map<SkillName, Dice> getPassionsRandom() {
-        return passionsRandom;
+    public final Map<SkillBox, Dice> getPassionsRandom() {
+        return Collections.unmodifiableMap(getPassionsRandomModifiable());
     }
 
     @Override
-    public final Map<SkillName, Integer> getSkills() {
-        return Collections.unmodifiableMap(getSkillsModifiable());
+    public final Collection<SkillBox> getSkills() {
+        return Collections.unmodifiableCollection(getSkillsModifiable());
     }
 
     @Override
-    public final Map<String, Integer> getSpecialtySkills() {
-        return Collections.unmodifiableMap(getSpecialtySkillsModifiable());
+    public final Collection<SkillBox> getSpecialtySkills() {
+        return Collections
+                .unmodifiableCollection(getSpecialtySkillsModifiable());
     }
 
     @Override
-    public final Map<String, Integer> getTraits() {
-        return Collections.unmodifiableMap(getTraitsModifiable());
+    public final Collection<SkillBox> getTraits() {
+        return Collections.unmodifiableCollection(getTraitsModifiable());
     }
 
-    private final Map<String, Integer> getAttributesModifiable() {
+    private final Collection<SkillBox> getAttributesModifiable() {
         return attributes;
     }
 
-    private final Map<SkillName, Integer> getDirectedTraitsModifiable() {
+    private final Map<String, Dice> getAttributesRandomModifiable() {
+        return attributesRandom;
+    }
+
+    private final Collection<SkillBox> getDirectedTraitsModifiable() {
         return directedTraits;
     }
 
-    private final Map<SkillName, Integer> getPassionsModifiable() {
+    private final Collection<SkillBox> getPassionsModifiable() {
         return passions;
     }
 
-    private final Map<SkillName, Integer> getSkillsModifiable() {
+    private final Map<SkillBox, Dice> getPassionsRandomModifiable() {
+        return passionsRandom;
+    }
+
+    private final Collection<SkillBox> getSkillsModifiable() {
         return skills;
     }
 
-    private final Map<String, Integer> getSpecialtySkillsModifiable() {
+    private final Collection<SkillBox> getSpecialtySkillsModifiable() {
         return specialtySkills;
     }
 
-    private final Map<String, Integer> getTraitsModifiable() {
+    private final Collection<SkillBox> getTraitsModifiable() {
         return traits;
     }
 

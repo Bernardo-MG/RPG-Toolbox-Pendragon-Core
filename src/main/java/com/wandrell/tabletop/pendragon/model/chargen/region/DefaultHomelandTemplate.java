@@ -4,22 +4,20 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.wandrell.tabletop.skill.SkillName;
+import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultHomelandTemplate implements HomelandTemplate {
 
-    private final Collection<SkillName>   directedTraits  = new LinkedList<SkillName>();
-    private final String                  name;
-    private final Collection<SkillName>   passions        = new LinkedList<SkillName>();
-    private final RegionTemplate          region;
-    private final Map<SkillName, Integer> skills          = new LinkedHashMap<SkillName, Integer>();
-    private final Map<String, Integer>    specialtySkills = new LinkedHashMap<String, Integer>();
+    private final Collection<SkillBox> directedTraits  = new LinkedList<>();
+    private final String               name;
+    private final Collection<SkillBox> passions        = new LinkedList<>();
+    private final RegionTemplate       region;
+    private final Collection<SkillBox> skills          = new LinkedList<>();
+    private final Collection<SkillBox> specialtySkills = new LinkedList<>();
 
     public DefaultHomelandTemplate(final DefaultHomelandTemplate homeland) {
         super();
@@ -29,17 +27,17 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
         name = homeland.name;
         region = homeland.region;
 
-        skills.putAll(homeland.skills);
-        specialtySkills.putAll(homeland.specialtySkills);
+        skills.addAll(homeland.skills);
+        specialtySkills.addAll(homeland.specialtySkills);
         directedTraits.addAll(homeland.directedTraits);
         passions.addAll(homeland.passions);
     }
 
     public DefaultHomelandTemplate(final String name,
-            final RegionTemplate region, final Map<SkillName, Integer> skills,
-            final Map<String, Integer> specialtySkills,
-            final Collection<SkillName> directedTraits,
-            final Collection<SkillName> passions) {
+            final RegionTemplate region, final Collection<SkillBox> skills,
+            final Collection<SkillBox> specialtySkills,
+            final Collection<SkillBox> directedTraits,
+            final Collection<SkillBox> passions) {
         super();
 
         checkNotNull(region, "Received a null pointer as region");
@@ -54,8 +52,8 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
         this.name = name;
         this.region = region;
 
-        this.skills.putAll(skills);
-        this.specialtySkills.putAll(specialtySkills);
+        this.skills.addAll(skills);
+        this.specialtySkills.addAll(specialtySkills);
         this.directedTraits.addAll(directedTraits);
         this.passions.addAll(passions);
     }
@@ -78,7 +76,7 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     }
 
     @Override
-    public final Collection<SkillName> getDirectedTraits() {
+    public final Collection<SkillBox> getDirectedTraits() {
         return Collections
                 .unmodifiableCollection(getDirectedTraitsModifiable());
     }
@@ -89,7 +87,7 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     }
 
     @Override
-    public final Collection<SkillName> getPassions() {
+    public final Collection<SkillBox> getPassions() {
         return Collections.unmodifiableCollection(getPassionsModifiable());
     }
 
@@ -99,13 +97,14 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
     }
 
     @Override
-    public final Map<SkillName, Integer> getSkills() {
-        return Collections.unmodifiableMap(getSkillsModifiable());
+    public final Collection<SkillBox> getSkills() {
+        return Collections.unmodifiableCollection(getSkillsModifiable());
     }
 
     @Override
-    public final Map<String, Integer> getSpecialtySkills() {
-        return Collections.unmodifiableMap(getSpecialtySkillsModifiable());
+    public final Collection<SkillBox> getSpecialtySkills() {
+        return Collections
+                .unmodifiableCollection(getSpecialtySkillsModifiable());
     }
 
     @Override
@@ -118,19 +117,19 @@ public final class DefaultHomelandTemplate implements HomelandTemplate {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final Collection<SkillName> getDirectedTraitsModifiable() {
+    private final Collection<SkillBox> getDirectedTraitsModifiable() {
         return directedTraits;
     }
 
-    private final Collection<SkillName> getPassionsModifiable() {
+    private final Collection<SkillBox> getPassionsModifiable() {
         return passions;
     }
 
-    private final Map<SkillName, Integer> getSkillsModifiable() {
+    private final Collection<SkillBox> getSkillsModifiable() {
         return skills;
     }
 
-    private final Map<String, Integer> getSpecialtySkillsModifiable() {
+    private final Collection<SkillBox> getSpecialtySkillsModifiable() {
         return specialtySkills;
     }
 

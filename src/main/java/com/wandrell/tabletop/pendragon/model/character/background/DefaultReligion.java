@@ -5,17 +5,17 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
+import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultReligion implements Religion {
 
     private final Integer              bonusArmor;
     private final Integer              bonusDamage;
     private final Integer              bonusDamageDice;
-    private final Map<String, Integer> bonusDerived;
+    private final Collection<SkillBox> bonusDerived;
     private final String               name;
     private final Collection<String>   traits;
 
@@ -37,7 +37,7 @@ public final class DefaultReligion implements Religion {
     }
 
     public DefaultReligion(final String name, final Collection<String> traits,
-            final Map<String, Integer> bonusDerived, final Integer bonusArmor,
+            final Collection<SkillBox> bonusDerived, final Integer bonusArmor,
             final Integer bonusDamage, final Integer bonusDamageDice) {
         super();
 
@@ -95,9 +95,9 @@ public final class DefaultReligion implements Religion {
     }
 
     @Override
-    public final Map<String, Integer> getDerivedAttributeBonus() {
+    public final Collection<SkillBox> getDerivedAttributeBonus() {
         return Collections
-                .unmodifiableMap(getDerivedAttributesBonusModifiable());
+                .unmodifiableCollection(getDerivedAttributesBonusModifiable());
     }
 
     @Override
@@ -121,7 +121,7 @@ public final class DefaultReligion implements Religion {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final Map<String, Integer> getDerivedAttributesBonusModifiable() {
+    private final Collection<SkillBox> getDerivedAttributesBonusModifiable() {
         return bonusDerived;
     }
 
