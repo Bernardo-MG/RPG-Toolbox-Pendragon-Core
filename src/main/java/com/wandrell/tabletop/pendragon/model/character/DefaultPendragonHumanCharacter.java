@@ -115,7 +115,7 @@ public final class DefaultPendragonHumanCharacter implements
         this.baseCharacter = new DefaultPendragonBaseCharacter(name,
                 derivedAttributeBuilder);
 
-        this.appearance = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        this.appearance = new DefaultEditableValueBox(0);
 
         appearance.addValueChangeListener(new ValueChangeListener() {
 
@@ -134,7 +134,7 @@ public final class DefaultPendragonHumanCharacter implements
         this.fatherClass = fatherClass;
         this.homeland = homeland;
 
-        glory = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        glory = new DefaultEditableValueBox(0);
 
         traits = new DefaultTraitsHolder();
         getTraits().addTraitsListener(new TraitsListener() {

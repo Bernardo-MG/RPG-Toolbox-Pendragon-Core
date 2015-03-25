@@ -32,9 +32,8 @@ public final class DefaultMoney implements Money {
         checkNotNull(denarii, "Received a null pointer as denarii");
         checkNotNull(libra, "Received a null pointer as libra");
 
-        this.denarii = new DefaultEditableValueBox(denarii, 0,
-                Integer.MAX_VALUE);
-        this.libra = new DefaultEditableValueBox(libra, 0, Integer.MAX_VALUE);
+        this.denarii = new DefaultEditableValueBox(denarii);
+        this.libra = new DefaultEditableValueBox(libra);
     }
 
     @Override

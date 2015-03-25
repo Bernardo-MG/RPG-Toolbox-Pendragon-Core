@@ -31,7 +31,6 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
     }
 
     public DefaultPendragonSkillBox(final String name, final Integer value,
-            final Integer lowerLimit, final Integer upperLimit,
             final Boolean combatSkill, final Boolean knightlySkill,
             final Boolean knowledgeSkill, final Boolean courtlySkill) {
         super();
@@ -42,7 +41,7 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
                 "Received a null pointer as knowledge flag");
         checkNotNull(courtlySkill, "Received a null pointer as courtly flag");
 
-        composite = new DefaultSkillBox(name, value, lowerLimit, upperLimit);
+        composite = new DefaultSkillBox(name, value);
 
         this.combatSkill = combatSkill;
         this.knightlySkill = knightlySkill;
@@ -79,18 +78,8 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
     }
 
     @Override
-    public final Integer getLowerLimit() {
-        return getBaseSkill().getLowerLimit();
-    }
-
-    @Override
     public final String getName() {
         return getBaseSkill().getName();
-    }
-
-    @Override
-    public final Integer getUpperLimit() {
-        return getBaseSkill().getUpperLimit();
     }
 
     @Override
@@ -143,16 +132,6 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
     @Override
     public final void setDescriptor(final String descriptor) {
         getBaseSkill().setDescriptor(descriptor);
-    }
-
-    @Override
-    public final void setLowerLimit(final Integer lowerLimit) {
-        getBaseSkill().setLowerLimit(lowerLimit);
-    }
-
-    @Override
-    public final void setUpperLimit(final Integer upperLimit) {
-        getBaseSkill().setUpperLimit(upperLimit);
     }
 
     @Override

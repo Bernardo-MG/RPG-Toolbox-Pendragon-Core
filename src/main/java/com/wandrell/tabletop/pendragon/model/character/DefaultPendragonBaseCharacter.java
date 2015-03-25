@@ -82,10 +82,10 @@ public final class DefaultPendragonBaseCharacter implements
         this.name = name;
 
         // TODO: Maybe the attributes limits should be configurable
-        constitution = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        dexterity = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        size = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
-        strength = new DefaultEditableValueBox(0, 0, Integer.MAX_VALUE);
+        constitution = new DefaultEditableValueBox(0);
+        dexterity = new DefaultEditableValueBox(0);
+        size = new DefaultEditableValueBox(0);
+        strength = new DefaultEditableValueBox(0);
 
         setAttributesListeners();
 

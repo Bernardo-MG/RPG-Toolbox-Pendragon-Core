@@ -28,14 +28,13 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
     }
 
     public DefaultSpecialtySkillBox(final String name, final Integer value,
-            final Integer lowerLimit, final Integer upperLimit,
             final Collection<String> skills) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
         checkNotNull(skills, "Received a null pointer as skills");
 
-        composite = new DefaultSkillBox(name, value, lowerLimit, upperLimit);
+        composite = new DefaultSkillBox(name);
 
         setSurrogatedSkillsNames(skills);
     }
@@ -69,11 +68,6 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
     }
 
     @Override
-    public final Integer getLowerLimit() {
-        return getBaseSkill().getLowerLimit();
-    }
-
-    @Override
     public final String getName() {
         return getBaseSkill().getName();
     }
@@ -82,11 +76,6 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
     public final Collection<String> getSurrogatedSkills() {
         return Collections
                 .unmodifiableCollection(getSurrogatedSkillsModifiable());
-    }
-
-    @Override
-    public final Integer getUpperLimit() {
-        return getBaseSkill().getUpperLimit();
     }
 
     @Override
@@ -117,16 +106,6 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
 
     @Override
     public final void setDescriptor(final String descriptor) {}
-
-    @Override
-    public final void setLowerLimit(final Integer lowerLimit) {
-        getBaseSkill().setLowerLimit(lowerLimit);
-    }
-
-    @Override
-    public final void setUpperLimit(final Integer upperLimit) {
-        getBaseSkill().setUpperLimit(upperLimit);
-    }
 
     @Override
     public final void setValue(final Integer value) {

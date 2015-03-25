@@ -15,30 +15,22 @@ import com.wandrell.tabletop.valuebox.EditableValueBox;
 public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
     private final EditableValueBox        damage      = new DefaultEditableValueBox(
-                                                              0, 0,
-                                                              Integer.MAX_VALUE);
+                                                              0);
     private final DerivedAttributeBuilder derivedBuilder;
     private final EditableValueBox        dexRoll     = new DefaultEditableValueBox(
-                                                              0, 0,
-                                                              Integer.MAX_VALUE);
+                                                              0);
     private final EditableValueBox        healingRate = new DefaultEditableValueBox(
-                                                              0, 0,
-                                                              Integer.MAX_VALUE);
+                                                              0);
     private final EditableValueBox        hitPoints   = new DefaultEditableValueBox(
-                                                              0, 0,
-                                                              Integer.MAX_VALUE);
+                                                              0);
     private final EditableValueBox        majorWound  = new DefaultEditableValueBox(
-                                                              0, 0,
-                                                              Integer.MAX_VALUE);
+                                                              0);
     private final EditableValueBox        moveRate    = new DefaultEditableValueBox(
-                                                              0, 0,
-                                                              Integer.MAX_VALUE);
+                                                              0);
     private final EditableValueBox        unconcious  = new DefaultEditableValueBox(
-                                                              0, 0,
-                                                              Integer.MAX_VALUE);
+                                                              0);
     private final EditableValueBox        weight      = new DefaultEditableValueBox(
-                                                              0, 0,
-                                                              Integer.MAX_VALUE);
+                                                              0);
 
     {
         derivedBuilder = Mockito.mock(DerivedAttributeBuilder.class);
