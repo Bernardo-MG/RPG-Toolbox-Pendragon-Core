@@ -1,10 +1,11 @@
-package com.wandrell.tabletop.pendragon.model.chargen;
+package com.wandrell.tabletop.pendragon.model.chargen.background;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
+import com.wandrell.tabletop.pendragon.model.chargen.inventory.AdditionalBelongingsTable;
 
 public final class DefaultCultureTemplate implements CultureTemplate {
 

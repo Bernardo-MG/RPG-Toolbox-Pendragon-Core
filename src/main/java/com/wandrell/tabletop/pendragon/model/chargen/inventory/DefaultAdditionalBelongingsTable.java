@@ -1,4 +1,4 @@
-package com.wandrell.tabletop.pendragon.model.chargen;
+package com.wandrell.tabletop.pendragon.model.chargen.inventory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
