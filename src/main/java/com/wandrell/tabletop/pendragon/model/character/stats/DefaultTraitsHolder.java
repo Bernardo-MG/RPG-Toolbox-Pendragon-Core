@@ -425,6 +425,16 @@ public final class DefaultTraitsHolder implements TraitsHolder {
         this.valorous.setValue(valorous);
     }
 
+    @Override
+    public final void setVengeful(final Integer vengeful) {
+        this.vengeful.setValue(vengeful);
+    }
+
+    @Override
+    public final void setWorldly(final Integer wordlly) {
+        this.worldly.setValue(wordlly);
+    }
+
     private final void fireTraitChangedEvent(final ValueChangeEvent event) {
         final TraitsListener[] listnrs;
 

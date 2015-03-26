@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import com.wandrell.tabletop.dice.Dice;
+import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
 import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultCultureCharacterTemplate implements
@@ -19,14 +20,14 @@ public final class DefaultCultureCharacterTemplate implements
     private final Map<SkillBox, Dice>  passionsRandom;
     private final Collection<SkillBox> skills;
     private final Collection<SkillBox> specialtySkills;
-    private final Collection<SkillBox> traits;
+    private final TraitsHolder         traits;
 
     public DefaultCultureCharacterTemplate(
             final Collection<SkillBox> attributes,
             final Map<String, Dice> attributesRandom,
             final Collection<SkillBox> skills,
             final Collection<SkillBox> specialtySkills,
-            final Collection<SkillBox> traits,
+            final TraitsHolder traits,
             final Collection<SkillBox> directedTraits,
             final Collection<SkillBox> passions,
             Map<SkillBox, Dice> passionsRandom) {
@@ -93,8 +94,8 @@ public final class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final Collection<SkillBox> getTraits() {
-        return Collections.unmodifiableCollection(getTraitsModifiable());
+    public final TraitsHolder getTraits() {
+        return traits;
     }
 
     private final Collection<SkillBox> getAttributesModifiable() {
@@ -123,10 +124,6 @@ public final class DefaultCultureCharacterTemplate implements
 
     private final Collection<SkillBox> getSpecialtySkillsModifiable() {
         return specialtySkills;
-    }
-
-    private final Collection<SkillBox> getTraitsModifiable() {
-        return traits;
     }
 
 }
