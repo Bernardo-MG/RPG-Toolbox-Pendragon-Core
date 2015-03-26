@@ -5,13 +5,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
-import com.wandrell.tabletop.valuebox.EditableValueBox;
+import com.wandrell.tabletop.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class DefaultMoney implements Money {
 
-    private final EditableValueBox denarii;
-    private final EditableValueBox libra;
+    private final ValueBox denarii;
+    private final ValueBox libra;
 
     public DefaultMoney() {
         this(0, 0);
@@ -32,8 +32,8 @@ public final class DefaultMoney implements Money {
         checkNotNull(denarii, "Received a null pointer as denarii");
         checkNotNull(libra, "Received a null pointer as libra");
 
-        this.denarii = new DefaultEditableValueBox(denarii);
-        this.libra = new DefaultEditableValueBox(libra);
+        this.denarii = new DefaultValueBox(denarii);
+        this.libra = new DefaultValueBox(libra);
     }
 
     @Override
@@ -86,11 +86,11 @@ public final class DefaultMoney implements Money {
                 .add("libra", getLibraValueBox().getValue()).toString();
     }
 
-    private final EditableValueBox getDenariiValueBox() {
+    private final ValueBox getDenariiValueBox() {
         return denarii;
     }
 
-    private final EditableValueBox getLibraValueBox() {
+    private final ValueBox getLibraValueBox() {
         return libra;
     }
 

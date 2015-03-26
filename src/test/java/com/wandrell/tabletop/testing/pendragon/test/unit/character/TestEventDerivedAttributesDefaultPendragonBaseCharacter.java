@@ -9,28 +9,20 @@ import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonBaseChara
 import com.wandrell.tabletop.pendragon.model.character.DerivedAttributeBuilder;
 import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
-import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
-import com.wandrell.tabletop.valuebox.EditableValueBox;
+import com.wandrell.tabletop.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
-    private final EditableValueBox        damage      = new DefaultEditableValueBox(
-                                                              0);
+    private final ValueBox                damage      = new DefaultValueBox(0);
     private final DerivedAttributeBuilder derivedBuilder;
-    private final EditableValueBox        dexRoll     = new DefaultEditableValueBox(
-                                                              0);
-    private final EditableValueBox        healingRate = new DefaultEditableValueBox(
-                                                              0);
-    private final EditableValueBox        hitPoints   = new DefaultEditableValueBox(
-                                                              0);
-    private final EditableValueBox        majorWound  = new DefaultEditableValueBox(
-                                                              0);
-    private final EditableValueBox        moveRate    = new DefaultEditableValueBox(
-                                                              0);
-    private final EditableValueBox        unconcious  = new DefaultEditableValueBox(
-                                                              0);
-    private final EditableValueBox        weight      = new DefaultEditableValueBox(
-                                                              0);
+    private final ValueBox                dexRoll     = new DefaultValueBox(0);
+    private final ValueBox                healingRate = new DefaultValueBox(0);
+    private final ValueBox                hitPoints   = new DefaultValueBox(0);
+    private final ValueBox                majorWound  = new DefaultValueBox(0);
+    private final ValueBox                moveRate    = new DefaultValueBox(0);
+    private final ValueBox                unconcious  = new DefaultValueBox(0);
+    private final ValueBox                weight      = new DefaultValueBox(0);
 
     {
         derivedBuilder = Mockito.mock(DerivedAttributeBuilder.class);

@@ -14,17 +14,16 @@ import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
-import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
-import com.wandrell.tabletop.valuebox.EditableValueBox;
+import com.wandrell.tabletop.valuebox.DefaultValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class DefaultPendragonBaseCharacter implements
         PendragonBaseCharacter {
 
-    private final EditableValueBox              constitution;
+    private final ValueBox                      constitution;
     private final ValueBox                      damage;
     private final DerivedAttributeBuilder       derivedBuilder;
-    private final EditableValueBox              dexterity;
+    private final ValueBox                      dexterity;
     private final ValueBox                      dexterityRoll;
     private final ValueBox                      healingRate;
     private final ValueBox                      hitPoints;
@@ -32,9 +31,9 @@ public final class DefaultPendragonBaseCharacter implements
     private final ValueBox                      majorWoundTreshold;
     private final ValueBox                      movementRate;
     private final String                        name;
-    private final EditableValueBox              size;
+    private final ValueBox                      size;
     private final Collection<PendragonSkillBox> skills    = new LinkedHashSet<PendragonSkillBox>();
-    private final EditableValueBox              strength;
+    private final ValueBox                      strength;
     private final ValueBox                      unconciousTreshold;
     private final ValueBox                      weight;
 
@@ -82,10 +81,10 @@ public final class DefaultPendragonBaseCharacter implements
         this.name = name;
 
         // TODO: Maybe the attributes limits should be configurable
-        constitution = new DefaultEditableValueBox(0);
-        dexterity = new DefaultEditableValueBox(0);
-        size = new DefaultEditableValueBox(0);
-        strength = new DefaultEditableValueBox(0);
+        constitution = new DefaultValueBox(0);
+        dexterity = new DefaultValueBox(0);
+        size = new DefaultValueBox(0);
+        strength = new DefaultValueBox(0);
 
         setAttributesListeners();
 
@@ -264,15 +263,15 @@ public final class DefaultPendragonBaseCharacter implements
         return MoreObjects.toStringHelper(this).add("name", name).toString();
     }
 
-    private final EditableValueBox getConstitutionValueBox() {
+    private final ValueBox getConstitutionValueBox() {
         return constitution;
     }
 
-    private final EditableValueBox getDexterityValueBox() {
+    private final ValueBox getDexterityValueBox() {
         return dexterity;
     }
 
-    private final EditableValueBox getSizeValueBox() {
+    private final ValueBox getSizeValueBox() {
         return size;
     }
 
@@ -280,7 +279,7 @@ public final class DefaultPendragonBaseCharacter implements
         return skills;
     }
 
-    private final EditableValueBox getStrengthValueBox() {
+    private final ValueBox getStrengthValueBox() {
         return strength;
     }
 

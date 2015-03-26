@@ -10,70 +10,70 @@ import javax.swing.event.EventListenerList;
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.TraitsListener;
-import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
-import com.wandrell.tabletop.valuebox.EditableValueBox;
+import com.wandrell.tabletop.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class DefaultTraitsHolder implements TraitsHolder {
 
-    private final EditableValueBox  arbitrary;
-    private final EditableValueBox  chaste;
-    private final EditableValueBox  cowardly;
-    private final EditableValueBox  cruel;
-    private final EditableValueBox  deceitful;
-    private final EditableValueBox  energetic;
-    private final EditableValueBox  forgiving;
-    private final EditableValueBox  generous;
-    private final EditableValueBox  honest;
-    private final EditableValueBox  indulgent;
-    private final EditableValueBox  just;
-    private final EditableValueBox  lazy;
+    private final ValueBox          arbitrary;
+    private final ValueBox          chaste;
+    private final ValueBox          cowardly;
+    private final ValueBox          cruel;
+    private final ValueBox          deceitful;
+    private final ValueBox          energetic;
+    private final ValueBox          forgiving;
+    private final ValueBox          generous;
+    private final ValueBox          honest;
+    private final ValueBox          indulgent;
+    private final ValueBox          just;
+    private final ValueBox          lazy;
     private final EventListenerList listeners = new EventListenerList();
-    private final EditableValueBox  lustful;
-    private final EditableValueBox  merciful;
-    private final EditableValueBox  modest;
-    private final EditableValueBox  pious;
-    private final EditableValueBox  proud;
-    private final EditableValueBox  prudent;
-    private final EditableValueBox  reckless;
-    private final EditableValueBox  selfish;
-    private final EditableValueBox  suspicious;
-    private final EditableValueBox  temperate;
-    private final EditableValueBox  trusting;
-    private final EditableValueBox  valorous;
-    private final EditableValueBox  vengeful;
-    private final EditableValueBox  worldly;
+    private final ValueBox          lustful;
+    private final ValueBox          merciful;
+    private final ValueBox          modest;
+    private final ValueBox          pious;
+    private final ValueBox          proud;
+    private final ValueBox          prudent;
+    private final ValueBox          reckless;
+    private final ValueBox          selfish;
+    private final ValueBox          suspicious;
+    private final ValueBox          temperate;
+    private final ValueBox          trusting;
+    private final ValueBox          valorous;
+    private final ValueBox          vengeful;
+    private final ValueBox          worldly;
 
     public DefaultTraitsHolder() {
         super();
 
         // TODO: Maybe the max value should be configurable
-        chaste = new DefaultEditableValueBox(20);
-        energetic = new DefaultEditableValueBox(20);
-        forgiving = new DefaultEditableValueBox(20);
-        generous = new DefaultEditableValueBox(20);
-        honest = new DefaultEditableValueBox(20);
-        just = new DefaultEditableValueBox(20);
-        merciful = new DefaultEditableValueBox(20);
-        modest = new DefaultEditableValueBox(20);
-        pious = new DefaultEditableValueBox(20);
-        prudent = new DefaultEditableValueBox(20);
-        temperate = new DefaultEditableValueBox(20);
-        trusting = new DefaultEditableValueBox(20);
-        valorous = new DefaultEditableValueBox(20);
+        chaste = new DefaultValueBox(20);
+        energetic = new DefaultValueBox(20);
+        forgiving = new DefaultValueBox(20);
+        generous = new DefaultValueBox(20);
+        honest = new DefaultValueBox(20);
+        just = new DefaultValueBox(20);
+        merciful = new DefaultValueBox(20);
+        modest = new DefaultValueBox(20);
+        pious = new DefaultValueBox(20);
+        prudent = new DefaultValueBox(20);
+        temperate = new DefaultValueBox(20);
+        trusting = new DefaultValueBox(20);
+        valorous = new DefaultValueBox(20);
 
-        arbitrary = new DefaultEditableValueBox(0);
-        cowardly = new DefaultEditableValueBox(0);
-        cruel = new DefaultEditableValueBox(0);
-        deceitful = new DefaultEditableValueBox(0);
-        indulgent = new DefaultEditableValueBox(0);
-        lazy = new DefaultEditableValueBox(0);
-        lustful = new DefaultEditableValueBox(0);
-        proud = new DefaultEditableValueBox(0);
-        reckless = new DefaultEditableValueBox(0);
-        selfish = new DefaultEditableValueBox(0);
-        suspicious = new DefaultEditableValueBox(0);
-        vengeful = new DefaultEditableValueBox(0);
-        worldly = new DefaultEditableValueBox(0);
+        arbitrary = new DefaultValueBox(0);
+        cowardly = new DefaultValueBox(0);
+        cruel = new DefaultValueBox(0);
+        deceitful = new DefaultValueBox(0);
+        indulgent = new DefaultValueBox(0);
+        lazy = new DefaultValueBox(0);
+        lustful = new DefaultValueBox(0);
+        proud = new DefaultValueBox(0);
+        reckless = new DefaultValueBox(0);
+        selfish = new DefaultValueBox(0);
+        suspicious = new DefaultValueBox(0);
+        vengeful = new DefaultValueBox(0);
+        worldly = new DefaultValueBox(0);
 
         linkTraits();
         setTraitsListeners();
@@ -468,8 +468,7 @@ public final class DefaultTraitsHolder implements TraitsHolder {
         linkTraits(valorous, cowardly);
     }
 
-    private final void linkTraits(final EditableValueBox trait1,
-            final EditableValueBox trait2) {
+    private final void linkTraits(final ValueBox trait1, final ValueBox trait2) {
         final Collection<Object> flagBag;
 
         flagBag = new Vector<>();

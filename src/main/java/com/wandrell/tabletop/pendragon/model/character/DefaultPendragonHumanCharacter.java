@@ -20,21 +20,21 @@ import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
 import com.wandrell.tabletop.pendragon.model.character.stats.SpecialtySkillBox;
 import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.TraitsListener;
-import com.wandrell.tabletop.valuebox.DefaultEditableValueBox;
-import com.wandrell.tabletop.valuebox.EditableValueBox;
+import com.wandrell.tabletop.valuebox.DefaultValueBox;
 import com.wandrell.tabletop.valuebox.SkillBox;
+import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class DefaultPendragonHumanCharacter implements
         PendragonHumanCharacter {
 
-    private final EditableValueBox               appearance;
+    private final ValueBox                       appearance;
     private final PendragonBaseCharacter         baseCharacter;
     private final String                         culture;
     private final Collection<SkillBox>           directedTraits  = new LinkedHashSet<SkillBox>();
     private final String                         fatherClass;
     private final Collection<DistinctiveFeature> features        = new LinkedHashSet<DistinctiveFeature>();
     private Gender                               gender;
-    private final EditableValueBox               glory;
+    private final ValueBox                       glory;
     private final String                         homeland;
     private Boolean                              knight          = false;
     private final EventListenerList              listeners       = new EventListenerList();
@@ -115,7 +115,7 @@ public final class DefaultPendragonHumanCharacter implements
         this.baseCharacter = new DefaultPendragonBaseCharacter(name,
                 derivedAttributeBuilder);
 
-        this.appearance = new DefaultEditableValueBox(0);
+        this.appearance = new DefaultValueBox(0);
 
         appearance.addValueChangeListener(new ValueChangeListener() {
 
@@ -134,7 +134,7 @@ public final class DefaultPendragonHumanCharacter implements
         this.fatherClass = fatherClass;
         this.homeland = homeland;
 
-        glory = new DefaultEditableValueBox(0);
+        glory = new DefaultValueBox(0);
 
         traits = new DefaultTraitsHolder();
         getTraits().addTraitsListener(new TraitsListener() {
