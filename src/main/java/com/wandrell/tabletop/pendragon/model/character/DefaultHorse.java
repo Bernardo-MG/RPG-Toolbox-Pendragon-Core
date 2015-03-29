@@ -7,6 +7,8 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
+import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
 
 public final class DefaultHorse implements Horse {
@@ -104,48 +106,18 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public final Integer getConstitution() {
-        return getBaseCharacter().getConstitution();
+    public final AttributesHolder getAttributes() {
+        return getBaseCharacter().getAttributes();
     }
 
     @Override
-    public final Integer getDamage() {
-        return damage;
-    }
-
-    @Override
-    public final Integer getDexterity() {
-        return getBaseCharacter().getConstitution();
-    }
-
-    @Override
-    public final Integer getDexterityRoll() {
-        return getBaseCharacter().getDexterityRoll();
-    }
-
-    @Override
-    public final Integer getHealingRate() {
-        return getBaseCharacter().getHealingRate();
-    }
-
-    @Override
-    public final Integer getHitPoints() {
-        return getBaseCharacter().getHitPoints();
+    public final DerivedAttributesHolder getDerivedAttributes() {
+        return getBaseCharacter().getDerivedAttributes();
     }
 
     @Override
     public final String getHorseType() {
         return type;
-    }
-
-    @Override
-    public final Integer getMajorWoundTreshold() {
-        return getBaseCharacter().getMajorWoundTreshold();
-    }
-
-    @Override
-    public final Integer getMoveRate() {
-        return movement;
     }
 
     @Override
@@ -159,28 +131,8 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public final Integer getSize() {
-        return getBaseCharacter().getSize();
-    }
-
-    @Override
     public final Collection<PendragonSkillBox> getSkills() {
         return getBaseCharacter().getSkills();
-    }
-
-    @Override
-    public final Integer getStrength() {
-        return getBaseCharacter().getStrength();
-    }
-
-    @Override
-    public final Integer getUnconciousTreshold() {
-        return getBaseCharacter().getUnconciousTreshold();
-    }
-
-    @Override
-    public final Integer getWeight() {
-        return getBaseCharacter().getWeight();
     }
 
     @Override
@@ -230,16 +182,6 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public final void setConstitution(final Integer constitution) {
-        getBaseCharacter().setConstitution(constitution);
-    }
-
-    @Override
-    public final void setDexterity(final Integer dexterity) {
-        getBaseCharacter().setDexterity(dexterity);
-    }
-
-    @Override
     public final void setHuntingHorse(final Boolean hunting) {
         this.hunting = hunting;
     }
@@ -250,18 +192,8 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public final void setSize(final Integer size) {
-        getBaseCharacter().setSize(size);
-    }
-
-    @Override
     public final void setSkills(Collection<PendragonSkillBox> skills) {
         getBaseCharacter().setSkills(skills);
-    }
-
-    @Override
-    public final void setStrength(final Integer strength) {
-        getBaseCharacter().setStrength(strength);
     }
 
     @Override

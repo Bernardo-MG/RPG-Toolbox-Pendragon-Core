@@ -7,23 +7,24 @@ import java.util.Collections;
 import java.util.Map;
 
 import com.wandrell.tabletop.dice.Dice;
+import com.wandrell.tabletop.pendragon.model.character.stats.HumanAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
 import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultCultureCharacterTemplate implements
         CultureCharacterTemplate {
 
-    private final Collection<SkillBox> attributes;
-    private final Map<String, Dice>    attributesRandom;
-    private final Collection<SkillBox> directedTraits;
-    private final Collection<SkillBox> passions;
-    private final Map<SkillBox, Dice>  passionsRandom;
-    private final Collection<SkillBox> skills;
-    private final Collection<SkillBox> specialtySkills;
-    private final TraitsHolder         traits;
+    private final HumanAttributesHolder attributes;
+    private final Map<String, Dice>     attributesRandom;
+    private final Collection<SkillBox>  directedTraits;
+    private final Collection<SkillBox>  passions;
+    private final Map<SkillBox, Dice>   passionsRandom;
+    private final Collection<SkillBox>  skills;
+    private final Collection<SkillBox>  specialtySkills;
+    private final TraitsHolder          traits;
 
     public DefaultCultureCharacterTemplate(
-            final Collection<SkillBox> attributes,
+            final HumanAttributesHolder attributes,
             final Map<String, Dice> attributesRandom,
             final Collection<SkillBox> skills,
             final Collection<SkillBox> specialtySkills,
@@ -57,8 +58,8 @@ public final class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final Collection<SkillBox> getAttributes() {
-        return Collections.unmodifiableCollection(getAttributesModifiable());
+    public final HumanAttributesHolder getAttributes() {
+        return attributes;
     }
 
     @Override
@@ -96,10 +97,6 @@ public final class DefaultCultureCharacterTemplate implements
     @Override
     public final TraitsHolder getTraits() {
         return traits;
-    }
-
-    private final Collection<SkillBox> getAttributesModifiable() {
-        return attributes;
     }
 
     private final Map<String, Dice> getAttributesRandomModifiable() {

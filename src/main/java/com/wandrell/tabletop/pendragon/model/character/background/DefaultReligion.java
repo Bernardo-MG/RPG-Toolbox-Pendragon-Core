@@ -8,16 +8,16 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.valuebox.SkillBox;
+import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
 
 public final class DefaultReligion implements Religion {
 
-    private final Integer              bonusArmor;
-    private final Integer              bonusDamage;
-    private final Integer              bonusDamageDice;
-    private final Collection<SkillBox> bonusDerived;
-    private final String               name;
-    private final Collection<String>   traits;
+    private final Integer                 bonusArmor;
+    private final Integer                 bonusDamage;
+    private final Integer                 bonusDamageDice;
+    private final DerivedAttributesHolder bonusDerived;
+    private final String                  name;
+    private final Collection<String>      traits;
 
     public DefaultReligion(final DefaultReligion religion) {
         super();
@@ -37,8 +37,9 @@ public final class DefaultReligion implements Religion {
     }
 
     public DefaultReligion(final String name, final Collection<String> traits,
-            final Collection<SkillBox> bonusDerived, final Integer bonusArmor,
-            final Integer bonusDamage, final Integer bonusDamageDice) {
+            final DerivedAttributesHolder bonusDerived,
+            final Integer bonusArmor, final Integer bonusDamage,
+            final Integer bonusDamageDice) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -95,9 +96,8 @@ public final class DefaultReligion implements Religion {
     }
 
     @Override
-    public final Collection<SkillBox> getDerivedAttributeBonus() {
-        return Collections
-                .unmodifiableCollection(getDerivedAttributesBonusModifiable());
+    public final DerivedAttributesHolder getDerivedAttributeBonus() {
+        return bonusDerived;
     }
 
     @Override
@@ -119,10 +119,6 @@ public final class DefaultReligion implements Religion {
     @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
-    }
-
-    private final Collection<SkillBox> getDerivedAttributesBonusModifiable() {
-        return bonusDerived;
     }
 
     private final Collection<String> getReligiousTraitsModifiable() {

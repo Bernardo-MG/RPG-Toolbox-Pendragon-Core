@@ -12,10 +12,12 @@ import javax.swing.event.EventListenerList;
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.character.Gender;
 import com.wandrell.tabletop.event.ValueChangeEvent;
-import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.background.Religion;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
+import com.wandrell.tabletop.pendragon.model.character.stats.DefaultHumanAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DefaultTraitsHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.HumanAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
 import com.wandrell.tabletop.pendragon.model.character.stats.SpecialtySkillBox;
 import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
@@ -27,7 +29,6 @@ import com.wandrell.tabletop.valuebox.ValueBox;
 public final class DefaultPendragonHumanCharacter implements
         PendragonHumanCharacter {
 
-    private final ValueBox                       appearance;
     private final PendragonBaseCharacter         baseCharacter;
     private final String                         culture;
     private final Collection<SkillBox>           directedTraits  = new LinkedHashSet<SkillBox>();
@@ -51,18 +52,6 @@ public final class DefaultPendragonHumanCharacter implements
         checkNotNull(character, "Received a null pointer as character");
 
         baseCharacter = character.baseCharacter.createNewInstance();
-
-        appearance = character.appearance.createNewInstance();
-
-        appearance.addValueChangeListener(new ValueChangeListener() {
-
-            @Override
-            public final void valueChanged(final ValueChangeEvent event) {
-                fireAppearanceChangedEvent(new ValueChangeEvent(this, event
-                        .getOldValue(), event.getNewValue()));
-            }
-
-        });
 
         gender = character.gender;
 
@@ -113,19 +102,7 @@ public final class DefaultPendragonHumanCharacter implements
         super();
 
         this.baseCharacter = new DefaultPendragonBaseCharacter(name,
-                derivedAttributeBuilder);
-
-        this.appearance = new DefaultValueBox(0);
-
-        appearance.addValueChangeListener(new ValueChangeListener() {
-
-            @Override
-            public final void valueChanged(final ValueChangeEvent event) {
-                fireAppearanceChangedEvent(new ValueChangeEvent(this, event
-                        .getOldValue(), event.getNewValue()));
-            }
-
-        });
+                new DefaultHumanAttributesHolder(), derivedAttributeBuilder);
 
         this.culture = culture;
         this.religion = religion;
@@ -235,13 +212,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Integer getAppearance() {
-        return appearance.getValue();
-    }
-
-    @Override
-    public final Integer getConstitution() {
-        return getBaseCharacter().getConstitution();
+    public final HumanAttributesHolder getAttributes() {
+        return (HumanAttributesHolder) getBaseCharacter().getAttributes();
     }
 
     @Override
@@ -250,18 +222,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Integer getDamage() {
-        return getBaseCharacter().getDamage();
-    }
-
-    @Override
-    public final Integer getDexterity() {
-        return getBaseCharacter().getDexterity();
-    }
-
-    @Override
-    public final Integer getDexterityRoll() {
-        return getBaseCharacter().getDexterityRoll();
+    public final DerivedAttributesHolder getDerivedAttributes() {
+        return getBaseCharacter().getDerivedAttributes();
     }
 
     @Override
@@ -291,28 +253,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Integer getHealingRate() {
-        return getBaseCharacter().getHealingRate();
-    }
-
-    @Override
-    public final Integer getHitPoints() {
-        return getBaseCharacter().getHitPoints();
-    }
-
-    @Override
     public final String getHomeland() {
         return homeland;
-    }
-
-    @Override
-    public final Integer getMajorWoundTreshold() {
-        return getBaseCharacter().getMajorWoundTreshold();
-    }
-
-    @Override
-    public final Integer getMoveRate() {
-        return getBaseCharacter().getMoveRate();
     }
 
     @Override
@@ -336,11 +278,6 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Integer getSize() {
-        return getBaseCharacter().getSize();
-    }
-
-    @Override
     public final Collection<PendragonSkillBox> getSkills() {
         return getBaseCharacter().getSkills();
     }
@@ -352,23 +289,8 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final Integer getStrength() {
-        return getBaseCharacter().getStrength();
-    }
-
-    @Override
     public final TraitsHolder getTraits() {
         return traits;
-    }
-
-    @Override
-    public final Integer getUnconciousTreshold() {
-        return getBaseCharacter().getUnconciousTreshold();
-    }
-
-    @Override
-    public final Integer getWeight() {
-        return getBaseCharacter().getWeight();
     }
 
     @Override
@@ -413,21 +335,6 @@ public final class DefaultPendragonHumanCharacter implements
     @Override
     public final void removeSpecialtySkill(final SpecialtySkillBox skill) {
         getSpecialtySkillsModifiable().remove(skill);
-    }
-
-    @Override
-    public final void setAppearance(final Integer appearance) {
-        this.appearance.setValue(appearance);
-    }
-
-    @Override
-    public final void setConstitution(final Integer constitution) {
-        getBaseCharacter().setConstitution(constitution);
-    }
-
-    @Override
-    public final void setDexterity(final Integer dexterity) {
-        getBaseCharacter().setDexterity(dexterity);
     }
 
     @Override
@@ -484,11 +391,6 @@ public final class DefaultPendragonHumanCharacter implements
     }
 
     @Override
-    public final void setSize(final Integer size) {
-        getBaseCharacter().setSize(size);
-    }
-
-    @Override
     public final void setSkills(final Collection<PendragonSkillBox> skills) {
         getBaseCharacter().setSkills(skills);
     }
@@ -502,11 +404,6 @@ public final class DefaultPendragonHumanCharacter implements
         for (final SpecialtySkillBox skill : skills) {
             addSpecialtySkill(skill);
         }
-    }
-
-    @Override
-    public final void setStrength(final Integer strength) {
-        getBaseCharacter().setStrength(strength);
     }
 
     @Override

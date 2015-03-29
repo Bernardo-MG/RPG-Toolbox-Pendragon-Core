@@ -7,14 +7,15 @@ import java.util.Collections;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.wandrell.tabletop.pendragon.model.character.stats.HumanAttributesHolder;
 import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultFamilyCharacteristicTemplate implements
         FamilyCharacteristicTemplate {
 
-    private final Collection<SkillBox> attributes;
-    private final String               name;
-    private final Collection<SkillBox> skills;
+    private final HumanAttributesHolder attributes;
+    private final String                name;
+    private final Collection<SkillBox>  skills;
 
     public DefaultFamilyCharacteristicTemplate(
             final DefaultFamilyCharacteristicTemplate characteristic) {
@@ -30,7 +31,7 @@ public final class DefaultFamilyCharacteristicTemplate implements
     }
 
     public DefaultFamilyCharacteristicTemplate(final String name,
-            final Collection<SkillBox> attributes,
+            final HumanAttributesHolder attributes,
             final Collection<SkillBox> skills) {
         super();
 
@@ -62,8 +63,8 @@ public final class DefaultFamilyCharacteristicTemplate implements
     }
 
     @Override
-    public final Collection<SkillBox> getAttributes() {
-        return Collections.unmodifiableCollection(getAttributesModifiable());
+    public final HumanAttributesHolder getAttributes() {
+        return attributes;
     }
 
     @Override
@@ -84,10 +85,6 @@ public final class DefaultFamilyCharacteristicTemplate implements
     @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this).add("name", name).toString();
-    }
-
-    private final Collection<SkillBox> getAttributesModifiable() {
-        return attributes;
     }
 
     private final Collection<SkillBox> getSkillsModifiable() {

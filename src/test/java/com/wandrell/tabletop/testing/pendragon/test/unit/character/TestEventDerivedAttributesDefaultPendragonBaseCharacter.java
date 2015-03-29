@@ -9,6 +9,8 @@ import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonBaseChara
 import com.wandrell.tabletop.pendragon.model.character.DerivedAttributeBuilder;
 import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
+import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
 import com.wandrell.tabletop.valuebox.DefaultValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
@@ -28,35 +30,43 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
         derivedBuilder = Mockito.mock(DerivedAttributeBuilder.class);
 
         Mockito.when(
-                derivedBuilder.getDamage(Matchers
-                        .any(PendragonBaseCharacter.class))).thenReturn(damage);
+                derivedBuilder.getDamage(Matchers.any(AttributesHolder.class),
+                        Matchers.any(DerivedAttributesHolder.class)))
+                .thenReturn(damage);
         Mockito.when(
-                derivedBuilder.getDexterityRoll(Matchers
-                        .any(PendragonBaseCharacter.class)))
+                derivedBuilder.getDexterityRoll(
+                        Matchers.any(AttributesHolder.class),
+                        Matchers.any(DerivedAttributesHolder.class)))
                 .thenReturn(dexRoll);
         Mockito.when(
-                derivedBuilder.getHealingRate(Matchers
-                        .any(PendragonBaseCharacter.class))).thenReturn(
-                healingRate);
+                derivedBuilder.getHealingRate(
+                        Matchers.any(AttributesHolder.class),
+                        Matchers.any(DerivedAttributesHolder.class)))
+                .thenReturn(healingRate);
         Mockito.when(
-                derivedBuilder.getHitPoints(Matchers
-                        .any(PendragonBaseCharacter.class))).thenReturn(
-                hitPoints);
+                derivedBuilder.getHitPoints(
+                        Matchers.any(AttributesHolder.class),
+                        Matchers.any(DerivedAttributesHolder.class)))
+                .thenReturn(hitPoints);
         Mockito.when(
-                derivedBuilder.getMajorWoundTreshold(Matchers
-                        .any(PendragonBaseCharacter.class))).thenReturn(
-                majorWound);
+                derivedBuilder.getMajorWoundTreshold(
+                        Matchers.any(AttributesHolder.class),
+                        Matchers.any(DerivedAttributesHolder.class)))
+                .thenReturn(majorWound);
         Mockito.when(
-                derivedBuilder.getMoveRate(Matchers
-                        .any(PendragonBaseCharacter.class))).thenReturn(
-                moveRate);
+                derivedBuilder.getMoveRate(
+                        Matchers.any(AttributesHolder.class),
+                        Matchers.any(DerivedAttributesHolder.class)))
+                .thenReturn(moveRate);
         Mockito.when(
-                derivedBuilder.getUnconciousTreshold(Matchers
-                        .any(PendragonBaseCharacter.class))).thenReturn(
-                unconcious);
+                derivedBuilder.getUnconciousTreshold(
+                        Matchers.any(AttributesHolder.class),
+                        Matchers.any(DerivedAttributesHolder.class)))
+                .thenReturn(unconcious);
         Mockito.when(
-                derivedBuilder.getWeight(Matchers
-                        .any(PendragonBaseCharacter.class))).thenReturn(weight);
+                derivedBuilder.getWeight(Matchers.any(AttributesHolder.class),
+                        Matchers.any(DerivedAttributesHolder.class)))
+                .thenReturn(weight);
     }
 
     public TestEventDerivedAttributesDefaultPendragonBaseCharacter() {
