@@ -9,12 +9,12 @@ import com.wandrell.tabletop.pendragon.model.character.DerivedAttributeBuilder;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DefaultAttributesHolder;
-import com.wandrell.tabletop.pendragon.model.character.stats.DefaultDerivedAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.GeneratedDerivedAttributesHolder;
 import com.wandrell.tabletop.valuebox.DefaultValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
-public final class TestEventDefaultDerivedAttributesHolder {
+public final class TestEventGeneratedDerivedAttributesHolder {
 
     private final ValueBox                damage      = new DefaultValueBox();
     private final ValueBox                dexRoll     = new DefaultValueBox();
@@ -76,11 +76,11 @@ public final class TestEventDefaultDerivedAttributesHolder {
                         Matchers.any(DerivedAttributesHolder.class)))
                 .thenReturn(weight);
 
-        holder = new DefaultDerivedAttributesHolder(
+        holder = new GeneratedDerivedAttributesHolder(
                 new DefaultAttributesHolder(), derivedBuilder);
     }
 
-    public TestEventDefaultDerivedAttributesHolder() {
+    public TestEventGeneratedDerivedAttributesHolder() {
         super();
     }
 

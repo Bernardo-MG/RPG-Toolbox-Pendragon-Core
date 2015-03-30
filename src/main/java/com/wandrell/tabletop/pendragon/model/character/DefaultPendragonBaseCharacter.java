@@ -14,8 +14,8 @@ import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DefaultAttributesHolder;
-import com.wandrell.tabletop.pendragon.model.character.stats.DefaultDerivedAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.GeneratedDerivedAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.AttributesListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.DerivedAttributesListener;
@@ -44,7 +44,8 @@ public final class DefaultPendragonBaseCharacter implements
 
         derivedBuilder = character.derivedBuilder;
 
-        derived = new DefaultDerivedAttributesHolder(attributes, derivedBuilder);
+        derived = new GeneratedDerivedAttributesHolder(attributes,
+                derivedBuilder);
         setDerivedAttributesListener();
 
         for (final PendragonSkillBox skill : character.skills) {
@@ -69,7 +70,7 @@ public final class DefaultPendragonBaseCharacter implements
 
         derivedBuilder = derivedAttributeBuilder;
 
-        derived = new DefaultDerivedAttributesHolder(attributes,
+        derived = new GeneratedDerivedAttributesHolder(attributes,
                 derivedAttributeBuilder);
         setDerivedAttributesListener();
     }

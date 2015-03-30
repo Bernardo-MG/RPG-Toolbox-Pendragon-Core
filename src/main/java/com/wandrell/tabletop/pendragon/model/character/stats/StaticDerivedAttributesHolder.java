@@ -6,33 +6,44 @@ import javax.swing.event.EventListenerList;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
-import com.wandrell.tabletop.pendragon.model.character.DerivedAttributeBuilder;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.DerivedAttributesListener;
+import com.wandrell.tabletop.valuebox.DefaultValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
-public final class DefaultDerivedAttributesHolder implements
+public final class StaticDerivedAttributesHolder implements
         DerivedAttributesHolder {
 
-    private AttributesHolder              attributesHolder;
-    private ValueBox                      damage;
-    private final DerivedAttributeBuilder derivedBuilder;
-    private ValueBox                      dexterityRoll;
-    private ValueBox                      healingRate;
-    private ValueBox                      hitPoints;
-    private ValueBox                      knockdown;
-    private final EventListenerList       listeners = new EventListenerList();
-    private ValueBox                      majorWoundTreshold;
-    private ValueBox                      moveRate;
-    private ValueBox                      unconciousTreshold;
-    private ValueBox                      weight;
+    private ValueBox                damage             = new DefaultValueBox();
+    private ValueBox                dexterityRoll      = new DefaultValueBox();
+    private ValueBox                healingRate        = new DefaultValueBox();
+    private ValueBox                hitPoints          = new DefaultValueBox();
+    private ValueBox                knockdown          = new DefaultValueBox();
+    private final EventListenerList listeners          = new EventListenerList();
+    private ValueBox                majorWoundTreshold = new DefaultValueBox();
+    private ValueBox                moveRate           = new DefaultValueBox();
+    private ValueBox                unconciousTreshold = new DefaultValueBox();
+    private ValueBox                weight             = new DefaultValueBox();
 
-    public DefaultDerivedAttributesHolder(final AttributesHolder attributes,
-            final DerivedAttributeBuilder derivedAttributeBuilder) {
+    {
+        setDerivedAttributesListeners();
+    }
+
+    public StaticDerivedAttributesHolder(final Integer damage,
+            final Integer dexterityRoll, final Integer healingRate,
+            final Integer hitPoints, final Integer knockdown,
+            final Integer majorWoundTreshold, final Integer moveRate,
+            final Integer unconciousTreshold, final Integer weight) {
         super();
 
-        derivedBuilder = derivedAttributeBuilder;
-
-        setAttributesHolder(attributes);
+        this.damage = new DefaultValueBox(damage);
+        this.dexterityRoll = new DefaultValueBox(dexterityRoll);
+        this.healingRate = new DefaultValueBox(healingRate);
+        this.hitPoints = new DefaultValueBox(hitPoints);
+        this.knockdown = new DefaultValueBox(knockdown);
+        this.majorWoundTreshold = new DefaultValueBox(majorWoundTreshold);
+        this.moveRate = new DefaultValueBox(moveRate);
+        this.unconciousTreshold = new DefaultValueBox(unconciousTreshold);
+        this.weight = new DefaultValueBox(weight);
     }
 
     @Override
@@ -95,21 +106,7 @@ public final class DefaultDerivedAttributesHolder implements
     }
 
     @Override
-    public final void setAttributesHolder(final AttributesHolder attributes) {
-        damage = derivedBuilder.getDamage(attributesHolder, this);
-        dexterityRoll = derivedBuilder.getDexterityRoll(attributesHolder, this);
-        healingRate = derivedBuilder.getHealingRate(attributesHolder, this);
-        hitPoints = derivedBuilder.getHitPoints(attributesHolder, this);
-        knockdown = derivedBuilder.getKnockdown(attributesHolder, this);
-        majorWoundTreshold = derivedBuilder.getMajorWoundTreshold(
-                attributesHolder, this);
-        moveRate = derivedBuilder.getMoveRate(attributesHolder, this);
-        unconciousTreshold = derivedBuilder.getUnconciousTreshold(
-                attributesHolder, this);
-        weight = derivedBuilder.getWeight(attributesHolder, this);
-
-        setDerivedAttributesListeners();
-    }
+    public final void setAttributesHolder(final AttributesHolder attributes) {}
 
     private final void fireDamageChangedEvent(final ValueChangeEvent event) {
         final DerivedAttributesListener[] listnrs;

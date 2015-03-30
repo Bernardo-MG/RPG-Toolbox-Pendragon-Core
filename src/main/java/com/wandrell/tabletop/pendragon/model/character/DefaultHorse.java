@@ -9,19 +9,21 @@ import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.HorseDerivedAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
 
 public final class DefaultHorse implements Horse {
 
-    private Boolean                      armored;
-    private final PendragonBaseCharacter baseCharacter;
-    private Boolean                      combat;
-    private final Integer                damage;
-    private Boolean                      hunting;
-    private final Integer                movement;
-    private final Integer                naturalArmor;
-    private Boolean                      ruined;
-    private final String                 type;
+    private Boolean                       armored;
+    private final PendragonBaseCharacter  baseCharacter;
+    private Boolean                       combat;
+    private final Integer                 damage;
+    private final DerivedAttributesHolder derived;
+    private Boolean                       hunting;
+    private final Integer                 moveRate;
+    private final Integer                 naturalArmor;
+    private Boolean                       ruined;
+    private final String                  type;
 
     public DefaultHorse(final DefaultHorse horse) {
         super();
@@ -34,7 +36,9 @@ public final class DefaultHorse implements Horse {
 
         naturalArmor = horse.naturalArmor;
         damage = horse.damage;
-        movement = horse.movement;
+        moveRate = horse.moveRate;
+        this.derived = new HorseDerivedAttributesHolder(baseCharacter, damage,
+                moveRate);
 
         combat = horse.combat;
         hunting = horse.hunting;
@@ -44,14 +48,14 @@ public final class DefaultHorse implements Horse {
     public DefaultHorse(final String name,
             final DerivedAttributeBuilder derivedAttributeBuilder,
             final String type, final Integer naturalArmor,
-            final Integer damage, final Integer movement, final Boolean combat,
+            final Integer damage, final Integer moveRate, final Boolean combat,
             final Boolean hunting, final Boolean armored) {
         super();
 
         checkNotNull(type, "Received a null pointer as type");
         checkNotNull(naturalArmor, "Received a null pointer as natural armor");
         checkNotNull(damage, "Received a null pointer as damage");
-        checkNotNull(movement, "Received a null pointer as movement");
+        checkNotNull(moveRate, "Received a null pointer as move rate");
         checkNotNull(combat, "Received a null pointer as combat flag");
         checkNotNull(hunting, "Received a null pointer as hunting flag");
         checkNotNull(armored, "Received a null pointer as armored flag");
@@ -61,10 +65,12 @@ public final class DefaultHorse implements Horse {
 
         this.type = type;
 
-        // TODO: These should be editable. Also inject them with the builder
+        // TODO: These should be editable
         this.naturalArmor = naturalArmor;
         this.damage = damage;
-        this.movement = movement;
+        this.moveRate = moveRate;
+        this.derived = new HorseDerivedAttributesHolder(baseCharacter, damage,
+                moveRate);
 
         this.combat = combat;
         this.hunting = hunting;
@@ -112,7 +118,7 @@ public final class DefaultHorse implements Horse {
 
     @Override
     public final DerivedAttributesHolder getDerivedAttributes() {
-        return getBaseCharacter().getDerivedAttributes();
+        return derived;
     }
 
     @Override
