@@ -2,6 +2,8 @@ package com.wandrell.tabletop.pendragon.model.character.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Objects;
+
 import javax.swing.event.EventListenerList;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
@@ -47,6 +49,20 @@ public final class DefaultAttributesHolder implements AttributesHolder {
     @Override
     public final DefaultAttributesHolder createNewInstance() {
         return new DefaultAttributesHolder(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultAttributesHolder other = (DefaultAttributesHolder) obj;
+        return Objects.equals(con, other.con) && Objects.equals(dex, other.dex)
+                && Objects.equals(siz, other.siz)
+                && Objects.equals(str, other.str);
     }
 
     @Override

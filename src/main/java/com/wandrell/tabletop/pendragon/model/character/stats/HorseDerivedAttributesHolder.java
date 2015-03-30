@@ -1,5 +1,7 @@
 package com.wandrell.tabletop.pendragon.model.character.stats;
 
+import java.util.Objects;
+
 import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.DerivedAttributesListener;
 
@@ -26,6 +28,21 @@ public final class HorseDerivedAttributesHolder implements
             final DerivedAttributesListener listener) {
         getPendragonBaseCharacter().getDerivedAttributes()
                 .addDerivedAttributesListener(listener);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        HorseDerivedAttributesHolder other = (HorseDerivedAttributesHolder) obj;
+        return Objects.equals(baseCharacter.getDerivedAttributes(),
+                other.baseCharacter.getDerivedAttributes())
+                && Objects.equals(damage, other.damage)
+                && Objects.equals(moveRate, other.moveRate);
     }
 
     @Override

@@ -46,7 +46,8 @@ public final class DefaultTraitsHolder implements TraitsHolder {
     public DefaultTraitsHolder() {
         super();
 
-        // TODO: Maybe the max value should be configurable
+        // TODO: Add the equals method
+
         chaste = new DefaultValueBox(20);
         energetic = new DefaultValueBox(20);
         forgiving = new DefaultValueBox(20);

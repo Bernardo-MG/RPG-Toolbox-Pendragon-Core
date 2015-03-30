@@ -2,6 +2,8 @@ package com.wandrell.tabletop.pendragon.model.character.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Objects;
+
 import javax.swing.event.EventListenerList;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
@@ -58,6 +60,19 @@ public final class DefaultHumanAttributesHolder implements
     @Override
     public final DefaultHumanAttributesHolder createNewInstance() {
         return new DefaultHumanAttributesHolder(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultHumanAttributesHolder other = (DefaultHumanAttributesHolder) obj;
+        return Objects.equals(baseAttributes, other.baseAttributes)
+                && Objects.equals(app, other.app);
     }
 
     @Override

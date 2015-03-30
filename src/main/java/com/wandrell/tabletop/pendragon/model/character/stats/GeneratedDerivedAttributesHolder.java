@@ -2,6 +2,8 @@ package com.wandrell.tabletop.pendragon.model.character.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Objects;
+
 import javax.swing.event.EventListenerList;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
@@ -41,6 +43,26 @@ public final class GeneratedDerivedAttributesHolder implements
         checkNotNull(listener, "Received a null pointer as listener");
 
         getListeners().add(DerivedAttributesListener.class, listener);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        GeneratedDerivedAttributesHolder other = (GeneratedDerivedAttributesHolder) obj;
+        return Objects.equals(damage, other.damage)
+                && Objects.equals(dexterityRoll, other.dexterityRoll)
+                && Objects.equals(healingRate, other.healingRate)
+                && Objects.equals(hitPoints, other.hitPoints)
+                && Objects.equals(knockdown, other.knockdown)
+                && Objects.equals(majorWoundTreshold, other.majorWoundTreshold)
+                && Objects.equals(moveRate, other.moveRate)
+                && Objects.equals(unconciousTreshold, other.unconciousTreshold)
+                && Objects.equals(weight, other.weight);
     }
 
     @Override
