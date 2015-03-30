@@ -1,26 +1,26 @@
-package com.wandrell.tabletop.testing.pendragon.test.unit.character;
+package com.wandrell.tabletop.testing.pendragon.test.unit.character.stats;
 
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
-import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonBaseCharacter;
 import com.wandrell.tabletop.pendragon.model.character.DerivedAttributeBuilder;
-import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.DefaultAttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.DefaultDerivedAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
 import com.wandrell.tabletop.valuebox.DefaultValueBox;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
-public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
+public final class TestEventDefaultDerivedAttributesHolder {
 
     private final ValueBox                damage      = new DefaultValueBox();
-    private final DerivedAttributeBuilder derivedBuilder;
     private final ValueBox                dexRoll     = new DefaultValueBox();
     private final ValueBox                healingRate = new DefaultValueBox();
     private final ValueBox                hitPoints   = new DefaultValueBox();
+    private final DerivedAttributesHolder holder;
     private final ValueBox                knockdown   = new DefaultValueBox();
     private final ValueBox                majorWound  = new DefaultValueBox();
     private final ValueBox                moveRate    = new DefaultValueBox();
@@ -28,6 +28,8 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
     private final ValueBox                weight      = new DefaultValueBox();
 
     {
+        final DerivedAttributeBuilder derivedBuilder;
+
         derivedBuilder = Mockito.mock(DerivedAttributeBuilder.class);
 
         Mockito.when(
@@ -73,23 +75,22 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
                 derivedBuilder.getWeight(Matchers.any(AttributesHolder.class),
                         Matchers.any(DerivedAttributesHolder.class)))
                 .thenReturn(weight);
+
+        holder = new DefaultDerivedAttributesHolder(
+                new DefaultAttributesHolder(), derivedBuilder);
     }
 
-    public TestEventDerivedAttributesDefaultPendragonBaseCharacter() {
+    public TestEventDefaultDerivedAttributesHolder() {
         super();
     }
 
     @Test
     public final void testDexRoll() {
-        final PendragonBaseCharacter character;
         final PendragonCharacterListener listener;
-
-        character = new DefaultPendragonBaseCharacter("character",
-                derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
-        character.addPendragonCharacterListener(listener);
+        holder.addDerivedAttributesListener(listener);
 
         dexRoll.setValue(1);
 
@@ -100,15 +101,11 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
     @Test
     public final void testHealingRate() {
-        final PendragonBaseCharacter character;
         final PendragonCharacterListener listener;
-
-        character = new DefaultPendragonBaseCharacter("character",
-                derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
-        character.addPendragonCharacterListener(listener);
+        holder.addDerivedAttributesListener(listener);
 
         healingRate.setValue(1);
 
@@ -119,15 +116,11 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
     @Test
     public final void testHitPoints() {
-        final PendragonBaseCharacter character;
         final PendragonCharacterListener listener;
-
-        character = new DefaultPendragonBaseCharacter("character",
-                derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
-        character.addPendragonCharacterListener(listener);
+        holder.addDerivedAttributesListener(listener);
 
         hitPoints.setValue(1);
 
@@ -138,15 +131,11 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
     @Test
     public final void testKnockdown() {
-        final PendragonBaseCharacter character;
         final PendragonCharacterListener listener;
-
-        character = new DefaultPendragonBaseCharacter("character",
-                derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
-        character.addPendragonCharacterListener(listener);
+        holder.addDerivedAttributesListener(listener);
 
         knockdown.setValue(1);
 
@@ -157,15 +146,11 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
     @Test
     public final void testMajorWound() {
-        final PendragonBaseCharacter character;
         final PendragonCharacterListener listener;
-
-        character = new DefaultPendragonBaseCharacter("character",
-                derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
-        character.addPendragonCharacterListener(listener);
+        holder.addDerivedAttributesListener(listener);
 
         majorWound.setValue(1);
 
@@ -176,15 +161,11 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
     @Test
     public final void testMoveRate() {
-        final PendragonBaseCharacter character;
         final PendragonCharacterListener listener;
-
-        character = new DefaultPendragonBaseCharacter("character",
-                derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
-        character.addPendragonCharacterListener(listener);
+        holder.addDerivedAttributesListener(listener);
 
         moveRate.setValue(1);
 
@@ -195,15 +176,11 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
     @Test
     public final void testSetDamage() {
-        final PendragonBaseCharacter character;
         final PendragonCharacterListener listener;
-
-        character = new DefaultPendragonBaseCharacter("character",
-                derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
-        character.addPendragonCharacterListener(listener);
+        holder.addDerivedAttributesListener(listener);
 
         damage.setValue(1);
 
@@ -214,15 +191,11 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
     @Test
     public final void testUnconcious() {
-        final PendragonBaseCharacter character;
         final PendragonCharacterListener listener;
-
-        character = new DefaultPendragonBaseCharacter("character",
-                derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
-        character.addPendragonCharacterListener(listener);
+        holder.addDerivedAttributesListener(listener);
 
         unconcious.setValue(1);
 
@@ -233,15 +206,11 @@ public final class TestEventDerivedAttributesDefaultPendragonBaseCharacter {
 
     @Test
     public final void testWeight() {
-        final PendragonBaseCharacter character;
         final PendragonCharacterListener listener;
-
-        character = new DefaultPendragonBaseCharacter("character",
-                derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 
-        character.addPendragonCharacterListener(listener);
+        holder.addDerivedAttributesListener(listener);
 
         weight.setValue(1);
 

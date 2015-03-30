@@ -41,6 +41,11 @@ public final class TestEventAttributesDefaultPendragonHumanCharacter {
                         Matchers.any(DerivedAttributesHolder.class)))
                 .thenReturn(Mockito.mock(ValueBox.class));
         Mockito.when(
+                derivedBuilder.getKnockdown(
+                        Matchers.any(AttributesHolder.class),
+                        Matchers.any(DerivedAttributesHolder.class)))
+                .thenReturn(Mockito.mock(ValueBox.class));
+        Mockito.when(
                 derivedBuilder.getMajorWoundTreshold(
                         Matchers.any(AttributesHolder.class),
                         Matchers.any(DerivedAttributesHolder.class)))

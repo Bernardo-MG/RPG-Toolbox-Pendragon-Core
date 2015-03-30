@@ -169,158 +169,158 @@ public final class DefaultPendragonBaseCharacter implements
     }
 
     private final void fireAppearanceChangedEvent(final ValueChangeEvent event) {
-        final AttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(AttributesListener.class);
-        for (final AttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.appearanceChanged(event);
         }
     }
 
     private final void
             fireConstitutionChangedEvent(final ValueChangeEvent event) {
-        final AttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(AttributesListener.class);
-        for (final AttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.constitutionChanged(event);
         }
     }
 
     private final void fireDamageChangedEvent(final ValueChangeEvent event) {
-        final DerivedAttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(DerivedAttributesListener.class);
-        for (final DerivedAttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.damageChanged(event);
         }
     }
 
     private final void fireDexterityChangedEvent(final ValueChangeEvent event) {
-        final AttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(AttributesListener.class);
-        for (final AttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.dexterityChanged(event);
         }
     }
 
     private final void fireDexterityRollChangedEvent(
             final ValueChangeEvent event) {
-        final DerivedAttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(DerivedAttributesListener.class);
-        for (final DerivedAttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.dexterityRollChanged(event);
         }
     }
 
     private final void
             fireHealingRateChangedEvent(final ValueChangeEvent event) {
-        final DerivedAttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(DerivedAttributesListener.class);
-        for (final DerivedAttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.healingRateChanged(event);
         }
     }
 
     private final void fireHitPointsChangedEvent(final ValueChangeEvent event) {
-        final DerivedAttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(DerivedAttributesListener.class);
-        for (final DerivedAttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.hitPointsChanged(event);
         }
     }
 
     private final void fireKnockdownChangedEvent(final ValueChangeEvent event) {
-        final DerivedAttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(DerivedAttributesListener.class);
-        for (final DerivedAttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.knockdownChanged(event);
         }
     }
 
     private final void fireMajorWoundChangedEvent(final ValueChangeEvent event) {
-        final DerivedAttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(DerivedAttributesListener.class);
-        for (final DerivedAttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.majorWoundChanged(event);
         }
     }
 
     private final void fireMoveRateChangedEvent(final ValueChangeEvent event) {
-        final DerivedAttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(DerivedAttributesListener.class);
-        for (final DerivedAttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.moveRateChanged(event);
         }
     }
 
     private final void fireSizeChangedEvent(final ValueChangeEvent event) {
-        final AttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(AttributesListener.class);
-        for (final AttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.sizeChanged(event);
         }
     }
 
     private final void fireStrengthChangedEvent(final ValueChangeEvent event) {
-        final AttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(AttributesListener.class);
-        for (final AttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.strengthChanged(event);
         }
     }
 
     private final void fireUnconciousChangedEvent(final ValueChangeEvent event) {
-        final DerivedAttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(DerivedAttributesListener.class);
-        for (final DerivedAttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.unconciousChanged(event);
         }
     }
 
     private final void fireWeightChangedEvent(final ValueChangeEvent event) {
-        final DerivedAttributesListener[] listnrs;
+        final PendragonCharacterListener[] listnrs;
 
         checkNotNull(event, "Received a null pointer as event");
 
-        listnrs = getListeners().getListeners(DerivedAttributesListener.class);
-        for (final DerivedAttributesListener l : listnrs) {
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
             l.weightChanged(event);
         }
     }
