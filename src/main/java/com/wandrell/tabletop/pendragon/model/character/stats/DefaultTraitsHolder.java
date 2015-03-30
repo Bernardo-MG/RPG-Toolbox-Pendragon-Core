@@ -3,6 +3,7 @@ package com.wandrell.tabletop.pendragon.model.character.stats;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.event.EventListenerList;
@@ -127,6 +128,30 @@ public final class DefaultTraitsHolder implements TraitsHolder {
     @Override
     public final DefaultTraitsHolder createNewInstance() {
         return new DefaultTraitsHolder(this);
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultTraitsHolder other = (DefaultTraitsHolder) obj;
+        return Objects.equals(chaste, other.chaste)
+                && Objects.equals(energetic, other.energetic)
+                && Objects.equals(forgiving, other.forgiving)
+                && Objects.equals(generous, other.generous)
+                && Objects.equals(honest, other.honest)
+                && Objects.equals(just, other.just)
+                && Objects.equals(merciful, other.merciful)
+                && Objects.equals(modest, other.modest)
+                && Objects.equals(pious, other.pious)
+                && Objects.equals(prudent, other.prudent)
+                && Objects.equals(temperate, other.temperate)
+                && Objects.equals(trusting, other.trusting)
+                && Objects.equals(valorous, other.valorous);
     }
 
     @Override
