@@ -155,6 +155,17 @@ public final class PendragonEventThrower {
         }
     }
 
+    public final void fireTraitChangedEvent(final ValueChangeEvent event) {
+        final PendragonCharacterListener[] listnrs;
+
+        checkNotNull(event, "Received a null pointer as event");
+
+        listnrs = getListeners().getListeners(PendragonCharacterListener.class);
+        for (final PendragonCharacterListener l : listnrs) {
+            l.traitChanged(event);
+        }
+    }
+
     public final void fireUnconciousChangedEvent(final ValueChangeEvent event) {
         final PendragonCharacterListener[] listnrs;
 

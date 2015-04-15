@@ -13,6 +13,7 @@ import com.wandrell.tabletop.pendragon.model.character.background.BackgroundInfo
 import com.wandrell.tabletop.pendragon.model.character.background.DefaultBackgroundInfo;
 import com.wandrell.tabletop.pendragon.model.character.event.CharacterEchoAttributesListener;
 import com.wandrell.tabletop.pendragon.model.character.event.CharacterEchoDerivedAttributesListener;
+import com.wandrell.tabletop.pendragon.model.character.event.CharacterEchoTraitsListener;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonEventThrower;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
@@ -61,6 +62,8 @@ public final class DefaultPendragonCharacter implements PendragonCharacter {
 
         traits = character.traits.createNewInstance();
 
+        setTraitsListeners();
+
         glory = character.glory.createNewInstance();
 
         skills = character.skills.createNewInstance();
@@ -90,6 +93,8 @@ public final class DefaultPendragonCharacter implements PendragonCharacter {
         background = new DefaultBackgroundInfo();
 
         traits = new DefaultTraitsHolder();
+
+        setTraitsListeners();
 
         glory = new DefaultValueBox();
 
@@ -235,6 +240,11 @@ public final class DefaultPendragonCharacter implements PendragonCharacter {
         getDerivedAttributes().addDerivedAttributesListener(
                 new CharacterEchoDerivedAttributesListener(this,
                         getEventThrower()));
+    }
+
+    private final void setTraitsListeners() {
+        getTraits().addTraitsListener(
+                new CharacterEchoTraitsListener(this, getEventThrower()));
     }
 
 }
