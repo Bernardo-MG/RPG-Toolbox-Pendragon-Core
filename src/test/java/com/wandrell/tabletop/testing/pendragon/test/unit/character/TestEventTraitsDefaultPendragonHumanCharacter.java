@@ -5,10 +5,9 @@ import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
-import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonHumanCharacter;
+import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonCharacter;
 import com.wandrell.tabletop.pendragon.model.character.DerivedAttributeBuilder;
-import com.wandrell.tabletop.pendragon.model.character.PendragonHumanCharacter;
-import com.wandrell.tabletop.pendragon.model.character.background.Religion;
+import com.wandrell.tabletop.pendragon.model.character.PendragonCharacter;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
@@ -72,16 +71,10 @@ public final class TestEventTraitsDefaultPendragonHumanCharacter {
 
     @Test
     public final void testSetArbitrary() {
-        final PendragonHumanCharacter character;
+        final PendragonCharacter character;
         final PendragonCharacterListener listener;
-        final Religion religion;
 
-        // TODO: Test this also on DefaultTraitsHolder
-
-        religion = Mockito.mock(Religion.class);
-
-        character = new DefaultPendragonHumanCharacter("character",
-                derivedBuilder, "culture", religion, "", "", "");
+        character = new DefaultPendragonCharacter("character", derivedBuilder);
 
         listener = Mockito.mock(PendragonCharacterListener.class);
 

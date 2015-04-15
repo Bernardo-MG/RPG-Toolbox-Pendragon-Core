@@ -6,16 +6,19 @@ import java.util.Collection;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
+import com.wandrell.tabletop.character.Gender;
+import com.wandrell.tabletop.pendragon.model.character.background.BackgroundInfo;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.HorseDerivedAttributesHolder;
-import com.wandrell.tabletop.pendragon.model.character.stats.PendragonSkillBox;
+import com.wandrell.tabletop.pendragon.model.character.stats.SkillsHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
 
 public final class DefaultHorse implements Horse {
 
     private Boolean                       armored;
-    private final PendragonBaseCharacter  baseCharacter;
+    private final PendragonCharacter      baseCharacter;
     private Boolean                       combat;
     private final Integer                 damage;
     private final DerivedAttributesHolder derived;
@@ -60,7 +63,7 @@ public final class DefaultHorse implements Horse {
         checkNotNull(hunting, "Received a null pointer as hunting flag");
         checkNotNull(armored, "Received a null pointer as armored flag");
 
-        baseCharacter = new DefaultPendragonBaseCharacter(name,
+        baseCharacter = new DefaultPendragonCharacter(name,
                 derivedAttributeBuilder);
 
         this.type = type;
@@ -78,19 +81,19 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
+    public final void addDistinctiveFeature(final DistinctiveFeature feature) {
+        getBaseCharacter().addDistinctiveFeature(feature);
+    }
+
+    @Override
     public final void addPendragonCharacterListener(
             final PendragonCharacterListener listener) {
         getBaseCharacter().addPendragonCharacterListener(listener);
     }
 
     @Override
-    public final void addSkill(final PendragonSkillBox skill) {
-        getBaseCharacter().addSkill(skill);
-    }
-
-    @Override
-    public final void clearSkills() {
-        getBaseCharacter().clearSkills();
+    public final void clearDistinctiveFeatures() {
+        getBaseCharacter().clearDistinctiveFeatures();
     }
 
     @Override
@@ -117,8 +120,28 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
+    public final BackgroundInfo getBackgroundInfo() {
+        return getBaseCharacter().getBackgroundInfo();
+    }
+
+    @Override
     public final DerivedAttributesHolder getDerivedAttributes() {
         return derived;
+    }
+
+    @Override
+    public final Collection<DistinctiveFeature> getDistinctiveFeatures() {
+        return getBaseCharacter().getDistinctiveFeatures();
+    }
+
+    @Override
+    public final Gender getGender() {
+        return getBaseCharacter().getGender();
+    }
+
+    @Override
+    public final Integer getGlory() {
+        return getBaseCharacter().getGlory();
     }
 
     @Override
@@ -137,8 +160,13 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public final Collection<PendragonSkillBox> getSkills() {
+    public final SkillsHolder getSkills() {
         return getBaseCharacter().getSkills();
+    }
+
+    @Override
+    public final TraitsHolder getTraits() {
+        return getBaseCharacter().getTraits();
     }
 
     @Override
@@ -167,14 +195,15 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public final void removePendragonCharacterListener(
-            final PendragonCharacterListener listener) {
-        getBaseCharacter().removePendragonCharacterListener(listener);
+    public final void
+            removeDistinctiveFeature(final DistinctiveFeature feature) {
+        getBaseCharacter().removeDistinctiveFeature(feature);
     }
 
     @Override
-    public final void removeSkill(final PendragonSkillBox skill) {
-        getBaseCharacter().removeSkill(skill);
+    public final void removePendragonCharacterListener(
+            final PendragonCharacterListener listener) {
+        getBaseCharacter().removePendragonCharacterListener(listener);
     }
 
     @Override
@@ -188,6 +217,17 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
+    public final void setDistinctiveFeatures(
+            final Collection<DistinctiveFeature> features) {
+        getBaseCharacter().setDistinctiveFeatures(features);
+    }
+
+    @Override
+    public final void setGlory(final Integer glory) {
+        getBaseCharacter().setGlory(glory);
+    }
+
+    @Override
     public final void setHuntingHorse(final Boolean hunting) {
         this.hunting = hunting;
     }
@@ -198,17 +238,12 @@ public final class DefaultHorse implements Horse {
     }
 
     @Override
-    public final void setSkills(Collection<PendragonSkillBox> skills) {
-        getBaseCharacter().setSkills(skills);
-    }
-
-    @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this).add("type", type)
                 .add("name", getName()).toString();
     }
 
-    private final PendragonBaseCharacter getBaseCharacter() {
+    private final PendragonCharacter getBaseCharacter() {
         return baseCharacter;
     }
 

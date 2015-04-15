@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.pendragon.model.character.DefaultHorse;
 import com.wandrell.tabletop.pendragon.model.character.DerivedAttributeBuilder;
-import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
+import com.wandrell.tabletop.pendragon.model.character.PendragonCharacter;
 import com.wandrell.tabletop.pendragon.model.character.event.PendragonCharacterListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
@@ -71,7 +71,7 @@ public final class TestEventAttributesDefaultHorse {
 
     @Test
     public final void testSetConstitution() {
-        final PendragonBaseCharacter character;
+        final PendragonCharacter character;
         final PendragonCharacterListener listener;
 
         character = new DefaultHorse("character", derivedBuilder, "type", 0, 0,
@@ -90,7 +90,7 @@ public final class TestEventAttributesDefaultHorse {
 
     @Test
     public final void testSetDexterity() {
-        final PendragonBaseCharacter character;
+        final PendragonCharacter character;
         final PendragonCharacterListener listener;
 
         character = new DefaultHorse("character", derivedBuilder, "type", 0, 0,
@@ -109,7 +109,7 @@ public final class TestEventAttributesDefaultHorse {
 
     @Test
     public final void testSetSize() {
-        final PendragonBaseCharacter character;
+        final PendragonCharacter character;
         final PendragonCharacterListener listener;
 
         character = new DefaultHorse("character", derivedBuilder, "type", 0, 0,
@@ -128,7 +128,7 @@ public final class TestEventAttributesDefaultHorse {
 
     @Test
     public final void testSetStrength() {
-        final PendragonBaseCharacter character;
+        final PendragonCharacter character;
         final PendragonCharacterListener listener;
 
         character = new DefaultHorse("character", derivedBuilder, "type", 0, 0,

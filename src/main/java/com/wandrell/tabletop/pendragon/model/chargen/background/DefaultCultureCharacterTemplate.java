@@ -7,24 +7,23 @@ import java.util.Collections;
 import java.util.Map;
 
 import com.wandrell.tabletop.dice.Dice;
-import com.wandrell.tabletop.pendragon.model.character.stats.HumanAttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
 import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultCultureCharacterTemplate implements
         CultureCharacterTemplate {
 
-    private final HumanAttributesHolder attributes;
-    private final Map<String, Dice>     attributesRandom;
-    private final Collection<SkillBox>  directedTraits;
-    private final Collection<SkillBox>  passions;
-    private final Map<SkillBox, Dice>   passionsRandom;
-    private final Collection<SkillBox>  skills;
-    private final Collection<SkillBox>  specialtySkills;
-    private final TraitsHolder          traits;
+    private final AttributesHolder     attributes;
+    private final Map<String, Dice>    attributesRandom;
+    private final Collection<SkillBox> directedTraits;
+    private final Collection<SkillBox> passions;
+    private final Map<SkillBox, Dice>  passionsRandom;
+    private final Collection<SkillBox> skills;
+    private final Collection<SkillBox> specialtySkills;
+    private final TraitsHolder         traits;
 
-    public DefaultCultureCharacterTemplate(
-            final HumanAttributesHolder attributes,
+    public DefaultCultureCharacterTemplate(final AttributesHolder attributes,
             final Map<String, Dice> attributesRandom,
             final Collection<SkillBox> skills,
             final Collection<SkillBox> specialtySkills,
@@ -58,7 +57,7 @@ public final class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final HumanAttributesHolder getAttributes() {
+    public final AttributesHolder getAttributes() {
         return attributes;
     }
 

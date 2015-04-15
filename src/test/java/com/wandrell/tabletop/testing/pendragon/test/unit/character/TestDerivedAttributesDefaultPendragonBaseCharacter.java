@@ -4,16 +4,16 @@ import org.mockito.Mockito;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonBaseCharacter;
+import com.wandrell.tabletop.pendragon.model.character.DefaultPendragonCharacter;
 import com.wandrell.tabletop.pendragon.model.character.DerivedAttributeBuilder;
-import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
+import com.wandrell.tabletop.pendragon.model.character.PendragonCharacter;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHolder;
 import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class TestDerivedAttributesDefaultPendragonBaseCharacter {
 
-    private final PendragonBaseCharacter character;
+    private final PendragonCharacter character;
 
     {
         final DerivedAttributeBuilder builder;
@@ -137,7 +137,7 @@ public final class TestDerivedAttributesDefaultPendragonBaseCharacter {
 
         };
 
-        character = new DefaultPendragonBaseCharacter("character", builder);
+        character = new DefaultPendragonCharacter("character", builder);
     }
 
     public TestDerivedAttributesDefaultPendragonBaseCharacter() {

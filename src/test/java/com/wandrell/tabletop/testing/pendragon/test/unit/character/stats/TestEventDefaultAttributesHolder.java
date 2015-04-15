@@ -18,6 +18,21 @@ public final class TestEventDefaultAttributesHolder {
     }
 
     @Test
+    public final void testSetAppearance() {
+        final AttributesListener listener;
+
+        listener = Mockito.mock(AttributesListener.class);
+
+        attributes.addAttributesListener(listener);
+
+        attributes.setAppearance(1);
+
+        Mockito.verify(listener, Mockito.atLeastOnce()).appearanceChanged(
+                Matchers.any(ValueChangeEvent.class));
+        Mockito.verifyNoMoreInteractions(listener);
+    }
+
+    @Test
     public final void testSetConstitution() {
         final AttributesListener listener;
 

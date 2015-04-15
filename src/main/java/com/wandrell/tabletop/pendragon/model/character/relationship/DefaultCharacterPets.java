@@ -4,15 +4,15 @@ import java.util.Collection;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.pendragon.model.character.PendragonHumanCharacter;
+import com.wandrell.tabletop.pendragon.model.character.PendragonCharacter;
 import com.wandrell.tabletop.pendragon.model.manor.Pet;
 
 public final class DefaultCharacterPets implements CharacterPets {
 
-    private final PendragonHumanCharacter character;
-    private final Collection<Pet>         pets;
+    private final PendragonCharacter character;
+    private final Collection<Pet>    pets;
 
-    public DefaultCharacterPets(final PendragonHumanCharacter character,
+    public DefaultCharacterPets(final PendragonCharacter character,
             final Collection<Pet> pets) {
         super();
 
@@ -33,7 +33,7 @@ public final class DefaultCharacterPets implements CharacterPets {
     }
 
     @Override
-    public final PendragonHumanCharacter getCharacter() {
+    public final PendragonCharacter getCharacter() {
         return character;
     }
 

@@ -7,15 +7,15 @@ import java.util.Collections;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.wandrell.tabletop.pendragon.model.character.stats.HumanAttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultFamilyCharacteristicTemplate implements
         FamilyCharacteristicTemplate {
 
-    private final HumanAttributesHolder attributes;
-    private final String                name;
-    private final Collection<SkillBox>  skills;
+    private final AttributesHolder     attributes;
+    private final String               name;
+    private final Collection<SkillBox> skills;
 
     public DefaultFamilyCharacteristicTemplate(
             final DefaultFamilyCharacteristicTemplate characteristic) {
@@ -31,8 +31,7 @@ public final class DefaultFamilyCharacteristicTemplate implements
     }
 
     public DefaultFamilyCharacteristicTemplate(final String name,
-            final HumanAttributesHolder attributes,
-            final Collection<SkillBox> skills) {
+            final AttributesHolder attributes, final Collection<SkillBox> skills) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -63,7 +62,7 @@ public final class DefaultFamilyCharacteristicTemplate implements
     }
 
     @Override
-    public final HumanAttributesHolder getAttributes() {
+    public final AttributesHolder getAttributes() {
         return attributes;
     }
 

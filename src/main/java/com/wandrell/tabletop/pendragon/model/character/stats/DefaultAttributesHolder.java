@@ -14,6 +14,7 @@ import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class DefaultAttributesHolder implements AttributesHolder {
 
+    private final ValueBox          app       = new DefaultValueBox();
     private final ValueBox          con       = new DefaultValueBox();
     private final ValueBox          dex       = new DefaultValueBox();
     private final EventListenerList listeners = new EventListenerList();
@@ -33,6 +34,7 @@ public final class DefaultAttributesHolder implements AttributesHolder {
 
         checkNotNull(holder, "Received a null pointer as attributes holder");
 
+        app.setValue(holder.app.getValue());
         con.setValue(holder.con.getValue());
         dex.setValue(holder.dex.getValue());
         siz.setValue(holder.con.getValue());
@@ -60,9 +62,15 @@ public final class DefaultAttributesHolder implements AttributesHolder {
         if (getClass() != obj.getClass())
             return false;
         DefaultAttributesHolder other = (DefaultAttributesHolder) obj;
-        return Objects.equals(con, other.con) && Objects.equals(dex, other.dex)
+        return Objects.equals(app, other.app) && Objects.equals(con, other.con)
+                && Objects.equals(dex, other.dex)
                 && Objects.equals(siz, other.siz)
                 && Objects.equals(str, other.str);
+    }
+
+    @Override
+    public final Integer getAppearance() {
+        return app.getValue();
     }
 
     @Override
@@ -92,6 +100,11 @@ public final class DefaultAttributesHolder implements AttributesHolder {
     }
 
     @Override
+    public final void setAppearance(final Integer appearance) {
+        app.setValue(appearance);
+    }
+
+    @Override
     public final void setConstitution(final Integer constitution) {
         con.setValue(constitution);
     }
@@ -109,6 +122,17 @@ public final class DefaultAttributesHolder implements AttributesHolder {
     @Override
     public final void setStrength(final Integer strength) {
         str.setValue(strength);
+    }
+
+    private final void fireAppearanceChangedEvent(final ValueChangeEvent event) {
+        final AttributesListener[] listnrs;
+
+        checkNotNull(event, "Received a null pointer as event");
+
+        listnrs = getListeners().getListeners(AttributesListener.class);
+        for (final AttributesListener l : listnrs) {
+            l.appearanceChanged(event);
+        }
     }
 
     private final void
@@ -161,6 +185,15 @@ public final class DefaultAttributesHolder implements AttributesHolder {
     }
 
     private final void setAttributesListeners() {
+        app.addValueChangeListener(new ValueChangeListener() {
+
+            @Override
+            public final void valueChanged(final ValueChangeEvent event) {
+                fireAppearanceChangedEvent(new ValueChangeEvent(this, event
+                        .getOldValue(), event.getNewValue()));
+            }
+
+        });
         con.addValueChangeListener(new ValueChangeListener() {
 
             @Override

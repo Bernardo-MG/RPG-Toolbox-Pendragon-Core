@@ -3,17 +3,17 @@ package com.wandrell.tabletop.pendragon.model.character.event;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.wandrell.tabletop.event.ValueChangeEvent;
-import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
+import com.wandrell.tabletop.pendragon.model.character.PendragonCharacter;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.DerivedAttributesListener;
 
 public final class CharacterEchoDerivedAttributesListener implements
         DerivedAttributesListener {
 
-    private final PendragonBaseCharacter character;
-    private final PendragonEventThrower  eventThrower;
+    private final PendragonCharacter    character;
+    private final PendragonEventThrower eventThrower;
 
     public CharacterEchoDerivedAttributesListener(
-            final PendragonBaseCharacter character,
+            final PendragonCharacter character,
             final PendragonEventThrower eventThrower) {
         super();
 

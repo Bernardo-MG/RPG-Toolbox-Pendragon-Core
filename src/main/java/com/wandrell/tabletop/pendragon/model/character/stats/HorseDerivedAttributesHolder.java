@@ -2,19 +2,18 @@ package com.wandrell.tabletop.pendragon.model.character.stats;
 
 import java.util.Objects;
 
-import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
+import com.wandrell.tabletop.pendragon.model.character.PendragonCharacter;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.DerivedAttributesListener;
 
 public final class HorseDerivedAttributesHolder implements
         DerivedAttributesHolder {
 
-    private final PendragonBaseCharacter baseCharacter;
-    private final Integer                damage;
-    private final Integer                moveRate;
+    private final PendragonCharacter baseCharacter;
+    private final Integer            damage;
+    private final Integer            moveRate;
 
-    public HorseDerivedAttributesHolder(
-            final PendragonBaseCharacter baseCharacter, final Integer damage,
-            final Integer moveRate) {
+    public HorseDerivedAttributesHolder(final PendragonCharacter baseCharacter,
+            final Integer damage, final Integer moveRate) {
         super();
 
         this.baseCharacter = baseCharacter;
@@ -109,7 +108,7 @@ public final class HorseDerivedAttributesHolder implements
                 attributes);
     }
 
-    private final PendragonBaseCharacter getPendragonBaseCharacter() {
+    private final PendragonCharacter getPendragonBaseCharacter() {
         return baseCharacter;
     }
 

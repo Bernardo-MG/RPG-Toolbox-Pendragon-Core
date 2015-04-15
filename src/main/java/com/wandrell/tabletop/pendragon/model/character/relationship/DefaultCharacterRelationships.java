@@ -6,16 +6,16 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.pendragon.model.character.PendragonBaseCharacter;
+import com.wandrell.tabletop.pendragon.model.character.PendragonCharacter;
 
 public final class DefaultCharacterRelationships implements
         CharacterRelationships {
 
-    private final PendragonBaseCharacter character;
-    private final Collection<Follower>   followers = new LinkedHashSet<>();
-    private final Collection<Wife>       wives     = new LinkedHashSet<>();
+    private final PendragonCharacter   character;
+    private final Collection<Follower> followers = new LinkedHashSet<>();
+    private final Collection<Wife>     wives     = new LinkedHashSet<>();
 
-    public DefaultCharacterRelationships(final PendragonBaseCharacter character) {
+    public DefaultCharacterRelationships(final PendragonCharacter character) {
         super();
 
         this.character = character;
@@ -54,7 +54,7 @@ public final class DefaultCharacterRelationships implements
     }
 
     @Override
-    public final PendragonBaseCharacter getCharacter() {
+    public final PendragonCharacter getCharacter() {
         return character;
     }
 
