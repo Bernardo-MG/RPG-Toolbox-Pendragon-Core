@@ -4,33 +4,33 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
 
-import com.wandrell.tabletop.dice.Dice;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
+import com.wandrell.tabletop.pendragon.model.character.stats.AttributesRandom;
+import com.wandrell.tabletop.pendragon.model.character.stats.RandomSkill;
 import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
 import com.wandrell.tabletop.valuebox.SkillBox;
 
 public final class DefaultCultureCharacterTemplate implements
         CultureCharacterTemplate {
 
-    private final AttributesHolder     attributes;
-    private final Map<String, Dice>    attributesRandom;
-    private final Collection<SkillBox> directedTraits;
-    private final Collection<SkillBox> passions;
-    private final Map<SkillBox, Dice>  passionsRandom;
-    private final Collection<SkillBox> skills;
-    private final Collection<SkillBox> specialtySkills;
-    private final TraitsHolder         traits;
+    private final AttributesHolder        attributes;
+    private final AttributesRandom        attributesRandom;
+    private final Collection<SkillBox>    directedTraits;
+    private final Collection<SkillBox>    passions;
+    private final Collection<RandomSkill> passionsRandom;
+    private final Collection<SkillBox>    skills;
+    private final Collection<SkillBox>    specialtySkills;
+    private final TraitsHolder            traits;
 
     public DefaultCultureCharacterTemplate(final AttributesHolder attributes,
-            final Map<String, Dice> attributesRandom,
+            final AttributesRandom attributesRandom,
             final Collection<SkillBox> skills,
             final Collection<SkillBox> specialtySkills,
             final TraitsHolder traits,
             final Collection<SkillBox> directedTraits,
             final Collection<SkillBox> passions,
-            Map<SkillBox, Dice> passionsRandom) {
+            final Collection<RandomSkill> passionsRandom) {
         super();
 
         checkNotNull(attributes, "Received a null pointer as attributes");
@@ -62,8 +62,8 @@ public final class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final Map<String, Dice> getAttributesRandom() {
-        return Collections.unmodifiableMap(getAttributesRandomModifiable());
+    public final AttributesRandom getAttributesRandom() {
+        return attributesRandom;
     }
 
     @Override
@@ -78,8 +78,9 @@ public final class DefaultCultureCharacterTemplate implements
     }
 
     @Override
-    public final Map<SkillBox, Dice> getPassionsRandom() {
-        return Collections.unmodifiableMap(getPassionsRandomModifiable());
+    public final Collection<RandomSkill> getPassionsRandom() {
+        return Collections
+                .unmodifiableCollection(getPassionsRandomModifiable());
     }
 
     @Override
@@ -98,10 +99,6 @@ public final class DefaultCultureCharacterTemplate implements
         return traits;
     }
 
-    private final Map<String, Dice> getAttributesRandomModifiable() {
-        return attributesRandom;
-    }
-
     private final Collection<SkillBox> getDirectedTraitsModifiable() {
         return directedTraits;
     }
@@ -110,7 +107,7 @@ public final class DefaultCultureCharacterTemplate implements
         return passions;
     }
 
-    private final Map<SkillBox, Dice> getPassionsRandomModifiable() {
+    private final Collection<RandomSkill> getPassionsRandomModifiable() {
         return passionsRandom;
     }
 
