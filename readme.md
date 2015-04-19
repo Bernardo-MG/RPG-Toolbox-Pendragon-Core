@@ -1,5 +1,5 @@
-# Tabletop's Pendragon Core library
-Default implementation of the Pendragon's API extension for the library for the Tabletop project.
+# Tabletop's Pendragon Model
+Default implementation of the Pendragon's Model API.
 
 ### Webpage
 Currently the project has no webpage.
