@@ -2,6 +2,9 @@ package com.wandrell.tabletop.pendragon.model.character.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.dice.Dice;
 
 public final class DefaultRandomSkill implements RandomSkill {
@@ -24,6 +27,20 @@ public final class DefaultRandomSkill implements RandomSkill {
     }
 
     @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultRandomSkill other = (DefaultRandomSkill) obj;
+        return Objects.equals(name, other.name)
+                && Objects.equals(descriptor, other.descriptor)
+                && Objects.equals(dice, other.dice);
+    }
+
+    @Override
     public final String getDescriptor() {
         return descriptor;
     }
@@ -36,6 +53,18 @@ public final class DefaultRandomSkill implements RandomSkill {
     @Override
     public final Dice getValue() {
         return dice;
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(descriptor, name, dice);
+    }
+
+    @Override
+    public final String toString() {
+        return MoreObjects.toStringHelper(this).add("name", name)
+                .add("descriptor", descriptor)
+                .add("value", dice.getTextValue()).toString();
     }
 
 }

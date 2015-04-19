@@ -2,6 +2,9 @@ package com.wandrell.tabletop.pendragon.model.character.stats;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Objects;
+
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.dice.Dice;
 
 public final class DefaultAttributesRandom implements AttributesRandom {
@@ -31,6 +34,22 @@ public final class DefaultAttributesRandom implements AttributesRandom {
     }
 
     @Override
+    public final boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DefaultAttributesRandom other = (DefaultAttributesRandom) obj;
+        return Objects.equals(appearance, other.appearance)
+                && Objects.equals(constitution, other.constitution)
+                && Objects.equals(dexterity, other.dexterity)
+                && Objects.equals(size, other.size)
+                && Objects.equals(strength, other.strength);
+    }
+
+    @Override
     public final Dice getAppearance() {
         return appearance;
     }
@@ -53,6 +72,22 @@ public final class DefaultAttributesRandom implements AttributesRandom {
     @Override
     public final Dice getStrength() {
         return strength;
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects
+                .hash(appearance, constitution, dexterity, size, strength);
+    }
+
+    @Override
+    public final String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("appearance", appearance.getTextValue())
+                .add("constitution", constitution.getTextValue())
+                .add("dexterity", dexterity.getTextValue())
+                .add("size", size.getTextValue())
+                .add("strength", strength.getTextValue()).toString();
     }
 
 }

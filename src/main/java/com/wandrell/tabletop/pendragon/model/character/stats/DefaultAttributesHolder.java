@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.swing.event.EventListenerList;
 
+import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.AttributesListener;
@@ -14,12 +15,12 @@ import com.wandrell.tabletop.valuebox.ValueBox;
 
 public final class DefaultAttributesHolder implements AttributesHolder {
 
-    private final ValueBox          app       = new DefaultValueBox();
-    private final ValueBox          con       = new DefaultValueBox();
-    private final ValueBox          dex       = new DefaultValueBox();
-    private final EventListenerList listeners = new EventListenerList();
-    private final ValueBox          siz       = new DefaultValueBox();
-    private final ValueBox          str       = new DefaultValueBox();
+    private final ValueBox          appearance   = new DefaultValueBox();
+    private final ValueBox          constitution = new DefaultValueBox();
+    private final ValueBox          dexterity    = new DefaultValueBox();
+    private final EventListenerList listeners    = new EventListenerList();
+    private final ValueBox          size         = new DefaultValueBox();
+    private final ValueBox          strength     = new DefaultValueBox();
 
     {
         setAttributesListeners();
@@ -34,11 +35,11 @@ public final class DefaultAttributesHolder implements AttributesHolder {
 
         checkNotNull(holder, "Received a null pointer as attributes holder");
 
-        app.setValue(holder.app.getValue());
-        con.setValue(holder.con.getValue());
-        dex.setValue(holder.dex.getValue());
-        siz.setValue(holder.con.getValue());
-        str.setValue(holder.str.getValue());
+        appearance.setValue(holder.appearance.getValue());
+        constitution.setValue(holder.constitution.getValue());
+        dexterity.setValue(holder.dexterity.getValue());
+        size.setValue(holder.constitution.getValue());
+        strength.setValue(holder.strength.getValue());
     }
 
     @Override
@@ -62,35 +63,42 @@ public final class DefaultAttributesHolder implements AttributesHolder {
         if (getClass() != obj.getClass())
             return false;
         DefaultAttributesHolder other = (DefaultAttributesHolder) obj;
-        return Objects.equals(app, other.app) && Objects.equals(con, other.con)
-                && Objects.equals(dex, other.dex)
-                && Objects.equals(siz, other.siz)
-                && Objects.equals(str, other.str);
+        return Objects.equals(appearance, other.appearance)
+                && Objects.equals(constitution, other.constitution)
+                && Objects.equals(dexterity, other.dexterity)
+                && Objects.equals(size, other.size)
+                && Objects.equals(strength, other.strength);
     }
 
     @Override
     public final Integer getAppearance() {
-        return app.getValue();
+        return appearance.getValue();
     }
 
     @Override
     public final Integer getConstitution() {
-        return con.getValue();
+        return constitution.getValue();
     }
 
     @Override
     public final Integer getDexterity() {
-        return dex.getValue();
+        return dexterity.getValue();
     }
 
     @Override
     public final Integer getSize() {
-        return siz.getValue();
+        return size.getValue();
     }
 
     @Override
     public final Integer getStrength() {
-        return str.getValue();
+        return strength.getValue();
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects
+                .hash(appearance, constitution, dexterity, size, strength);
     }
 
     @Override
@@ -101,27 +109,37 @@ public final class DefaultAttributesHolder implements AttributesHolder {
 
     @Override
     public final void setAppearance(final Integer appearance) {
-        app.setValue(appearance);
+        this.appearance.setValue(appearance);
     }
 
     @Override
     public final void setConstitution(final Integer constitution) {
-        con.setValue(constitution);
+        this.constitution.setValue(constitution);
     }
 
     @Override
     public final void setDexterity(final Integer dexterity) {
-        dex.setValue(dexterity);
+        this.dexterity.setValue(dexterity);
     }
 
     @Override
     public final void setSize(final Integer size) {
-        siz.setValue(size);
+        this.size.setValue(size);
     }
 
     @Override
     public final void setStrength(final Integer strength) {
-        str.setValue(strength);
+        this.strength.setValue(strength);
+    }
+
+    @Override
+    public final String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("appearance", appearance.getValue())
+                .add("constitution", constitution.getValue())
+                .add("dexterity", dexterity.getValue())
+                .add("size", size.getValue())
+                .add("strength", strength.getValue()).toString();
     }
 
     private final void fireAppearanceChangedEvent(final ValueChangeEvent event) {
@@ -185,7 +203,7 @@ public final class DefaultAttributesHolder implements AttributesHolder {
     }
 
     private final void setAttributesListeners() {
-        app.addValueChangeListener(new ValueChangeListener() {
+        appearance.addValueChangeListener(new ValueChangeListener() {
 
             @Override
             public final void valueChanged(final ValueChangeEvent event) {
@@ -194,7 +212,7 @@ public final class DefaultAttributesHolder implements AttributesHolder {
             }
 
         });
-        con.addValueChangeListener(new ValueChangeListener() {
+        constitution.addValueChangeListener(new ValueChangeListener() {
 
             @Override
             public final void valueChanged(final ValueChangeEvent event) {
@@ -203,7 +221,7 @@ public final class DefaultAttributesHolder implements AttributesHolder {
             }
 
         });
-        dex.addValueChangeListener(new ValueChangeListener() {
+        dexterity.addValueChangeListener(new ValueChangeListener() {
 
             @Override
             public final void valueChanged(final ValueChangeEvent event) {
@@ -212,7 +230,7 @@ public final class DefaultAttributesHolder implements AttributesHolder {
             }
 
         });
-        siz.addValueChangeListener(new ValueChangeListener() {
+        size.addValueChangeListener(new ValueChangeListener() {
 
             @Override
             public final void valueChanged(final ValueChangeEvent event) {
@@ -221,7 +239,7 @@ public final class DefaultAttributesHolder implements AttributesHolder {
             }
 
         });
-        str.addValueChangeListener(new ValueChangeListener() {
+        strength.addValueChangeListener(new ValueChangeListener() {
 
             @Override
             public final void valueChanged(final ValueChangeEvent event) {
