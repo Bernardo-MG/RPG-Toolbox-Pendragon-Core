@@ -8,7 +8,7 @@ import java.util.Collections;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
-import com.wandrell.tabletop.valuebox.SkillBox;
+import com.wandrell.tabletop.stat.valuebox.SkillBox;
 
 public final class DefaultFamilyCharacteristicTemplate implements
         FamilyCharacteristicTemplate {

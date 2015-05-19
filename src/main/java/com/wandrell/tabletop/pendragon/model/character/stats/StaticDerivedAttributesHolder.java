@@ -6,11 +6,11 @@ import java.util.Objects;
 
 import javax.swing.event.EventListenerList;
 
-import com.wandrell.tabletop.event.ValueChangeEvent;
-import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.DerivedAttributesListener;
-import com.wandrell.tabletop.valuebox.DefaultValueBox;
-import com.wandrell.tabletop.valuebox.ValueBox;
+import com.wandrell.tabletop.stat.event.ValueChangeEvent;
+import com.wandrell.tabletop.stat.event.ValueChangeListener;
+import com.wandrell.tabletop.stat.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.stat.valuebox.ValueBox;
 
 public final class StaticDerivedAttributesHolder implements
         DerivedAttributesHolder {

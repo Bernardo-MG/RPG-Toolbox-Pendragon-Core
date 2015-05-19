@@ -2,9 +2,9 @@ package com.wandrell.tabletop.pendragon.model.character.event;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.wandrell.tabletop.event.ValueChangeEvent;
 import com.wandrell.tabletop.pendragon.model.character.PendragonCharacter;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.DerivedAttributesListener;
+import com.wandrell.tabletop.stat.event.ValueChangeEvent;
 
 public final class CharacterEchoDerivedAttributesListener implements
         DerivedAttributesListener {

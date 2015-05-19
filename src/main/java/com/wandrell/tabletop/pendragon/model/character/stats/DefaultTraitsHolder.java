@@ -8,11 +8,11 @@ import java.util.Vector;
 
 import javax.swing.event.EventListenerList;
 
-import com.wandrell.tabletop.event.ValueChangeEvent;
-import com.wandrell.tabletop.event.ValueChangeListener;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.TraitsListener;
-import com.wandrell.tabletop.valuebox.DefaultValueBox;
-import com.wandrell.tabletop.valuebox.ValueBox;
+import com.wandrell.tabletop.stat.event.ValueChangeEvent;
+import com.wandrell.tabletop.stat.event.ValueChangeListener;
+import com.wandrell.tabletop.stat.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.stat.valuebox.ValueBox;
 
 public final class DefaultTraitsHolder implements TraitsHolder {
 
@@ -86,33 +86,33 @@ public final class DefaultTraitsHolder implements TraitsHolder {
 
         checkNotNull(holder, "Received a null pointer as traits holder");
 
-        chaste = holder.chaste.createNewInstance();
-        energetic = holder.energetic.createNewInstance();
-        forgiving = holder.forgiving.createNewInstance();
-        generous = holder.generous.createNewInstance();
-        honest = holder.honest.createNewInstance();
-        just = holder.just.createNewInstance();
-        merciful = holder.merciful.createNewInstance();
-        modest = holder.modest.createNewInstance();
-        pious = holder.pious.createNewInstance();
-        prudent = holder.prudent.createNewInstance();
-        temperate = holder.temperate.createNewInstance();
-        trusting = holder.trusting.createNewInstance();
-        valorous = holder.valorous.createNewInstance();
+        chaste = new DefaultValueBox(holder.chaste.getValue());
+        energetic = new DefaultValueBox(holder.energetic.getValue());
+        forgiving = new DefaultValueBox(holder.forgiving.getValue());
+        generous = new DefaultValueBox(holder.generous.getValue());
+        honest = new DefaultValueBox(holder.honest.getValue());
+        just = new DefaultValueBox(holder.just.getValue());
+        merciful = new DefaultValueBox(holder.merciful.getValue());
+        modest = new DefaultValueBox(holder.modest.getValue());
+        pious = new DefaultValueBox(holder.pious.getValue());
+        prudent = new DefaultValueBox(holder.prudent.getValue());
+        temperate = new DefaultValueBox(holder.temperate.getValue());
+        trusting = new DefaultValueBox(holder.trusting.getValue());
+        valorous = new DefaultValueBox(holder.valorous.getValue());
 
-        arbitrary = holder.arbitrary.createNewInstance();
-        cowardly = holder.cowardly.createNewInstance();
-        cruel = holder.cruel.createNewInstance();
-        deceitful = holder.deceitful.createNewInstance();
-        indulgent = holder.indulgent.createNewInstance();
-        lazy = holder.lazy.createNewInstance();
-        lustful = holder.lustful.createNewInstance();
-        proud = holder.proud.createNewInstance();
-        reckless = holder.reckless.createNewInstance();
-        selfish = holder.selfish.createNewInstance();
-        suspicious = holder.suspicious.createNewInstance();
-        vengeful = holder.vengeful.createNewInstance();
-        worldly = holder.worldly.createNewInstance();
+        arbitrary = new DefaultValueBox(holder.arbitrary.getValue());
+        cowardly = new DefaultValueBox(holder.cowardly.getValue());
+        cruel = new DefaultValueBox(holder.cruel.getValue());
+        deceitful = new DefaultValueBox(holder.deceitful.getValue());
+        indulgent = new DefaultValueBox(holder.indulgent.getValue());
+        lazy = new DefaultValueBox(holder.lazy.getValue());
+        lustful = new DefaultValueBox(holder.lustful.getValue());
+        proud = new DefaultValueBox(holder.proud.getValue());
+        reckless = new DefaultValueBox(holder.reckless.getValue());
+        selfish = new DefaultValueBox(holder.selfish.getValue());
+        suspicious = new DefaultValueBox(holder.suspicious.getValue());
+        vengeful = new DefaultValueBox(holder.vengeful.getValue());
+        worldly = new DefaultValueBox(holder.worldly.getValue());
 
         linkTraits();
         setTraitsListeners();

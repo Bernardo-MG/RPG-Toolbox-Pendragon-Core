@@ -5,8 +5,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.valuebox.DefaultValueBox;
-import com.wandrell.tabletop.valuebox.ValueBox;
+import com.wandrell.tabletop.stat.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.stat.valuebox.ValueBox;
 
 public final class DefaultMoney implements Money {
 
@@ -22,8 +22,8 @@ public final class DefaultMoney implements Money {
 
         checkNotNull(money, "Received a null pointer as money");
 
-        denarii = money.getDenariiValueBox().createNewInstance();
-        libra = money.getLibraValueBox().createNewInstance();
+        denarii = new DefaultValueBox(money.denarii.getValue());
+        libra = new DefaultValueBox(money.libra.getValue());
     }
 
     public DefaultMoney(final Integer libra, final Integer denarii) {

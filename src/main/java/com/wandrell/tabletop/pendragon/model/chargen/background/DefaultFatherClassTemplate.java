@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 import com.wandrell.tabletop.dice.Dice;
-import com.wandrell.tabletop.valuebox.SkillBox;
+import com.wandrell.tabletop.stat.valuebox.SkillBox;
 
 public final class DefaultFatherClassTemplate implements FatherClassTemplate {
 

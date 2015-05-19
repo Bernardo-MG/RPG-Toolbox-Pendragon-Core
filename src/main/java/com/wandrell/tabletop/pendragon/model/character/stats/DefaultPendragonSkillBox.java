@@ -5,9 +5,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.event.ValueChangeListener;
-import com.wandrell.tabletop.valuebox.DefaultSkillBox;
-import com.wandrell.tabletop.valuebox.SkillBox;
+import com.wandrell.tabletop.stat.event.ValueChangeListener;
+import com.wandrell.tabletop.stat.valuebox.DefaultSkillBox;
+import com.wandrell.tabletop.stat.valuebox.SkillBox;
 
 public final class DefaultPendragonSkillBox implements PendragonSkillBox {
 
@@ -22,12 +22,26 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
 
         checkNotNull(skill, "Received a null pointer as skill");
 
-        composite = skill.composite.createNewInstance();
+        composite = new DefaultSkillBox(skill.composite.getName(),
+                skill.composite.getValue());
 
         combatSkill = skill.combatSkill;
         knightlySkill = skill.knightlySkill;
         knowledgeSkill = skill.knowledgeSkill;
         courtlySkill = skill.courtlySkill;
+    }
+
+    public DefaultPendragonSkillBox(final PendragonSkillBox skill) {
+        super();
+
+        checkNotNull(skill, "Received a null pointer as skill");
+
+        composite = new DefaultSkillBox(skill.getName(), skill.getValue());
+
+        combatSkill = skill.isCombatSkill();
+        knightlySkill = skill.isKnightlySkill();
+        knowledgeSkill = skill.isKnowledgeSkill();
+        courtlySkill = skill.isCourtlySkill();
     }
 
     public DefaultPendragonSkillBox(final String name, final Integer value,
@@ -53,11 +67,6 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
     public final void
             addValueChangeListener(final ValueChangeListener listener) {
         getBaseSkill().addValueChangeListener(listener);
-    }
-
-    @Override
-    public final DefaultPendragonSkillBox createNewInstance() {
-        return new DefaultPendragonSkillBox(this);
     }
 
     @Override
@@ -103,11 +112,6 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
     }
 
     @Override
-    public final Boolean isDescribed() {
-        return getBaseSkill().isDescribed();
-    }
-
-    @Override
     public final Boolean isKnightlySkill() {
         return knightlySkill;
     }
@@ -121,17 +125,6 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
     public final void removeValueChangeListener(
             final ValueChangeListener listener) {
         getBaseSkill().removeValueChangeListener(listener);
-    }
-
-    @Override
-    public final void setDescribed(final Boolean described) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public final void setDescriptor(final String descriptor) {
-        getBaseSkill().setDescriptor(descriptor);
     }
 
     @Override

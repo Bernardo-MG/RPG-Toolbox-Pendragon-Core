@@ -24,8 +24,8 @@ import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHo
 import com.wandrell.tabletop.pendragon.model.character.stats.GeneratedDerivedAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.SkillsHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
-import com.wandrell.tabletop.valuebox.DefaultValueBox;
-import com.wandrell.tabletop.valuebox.ValueBox;
+import com.wandrell.tabletop.stat.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.stat.valuebox.ValueBox;
 
 public final class DefaultPendragonCharacter implements PendragonCharacter {
 
@@ -64,7 +64,7 @@ public final class DefaultPendragonCharacter implements PendragonCharacter {
 
         setTraitsListeners();
 
-        glory = character.glory.createNewInstance();
+        glory = new DefaultValueBox(character.glory.getValue());
 
         skills = character.skills.createNewInstance();
     }

@@ -6,7 +6,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 
-import com.wandrell.tabletop.valuebox.SkillBox;
+import com.wandrell.tabletop.stat.valuebox.DefaultSkillBox;
+import com.wandrell.tabletop.stat.valuebox.SkillBox;
 
 public final class DefaultSkillsHolder implements SkillsHolder {
 
@@ -23,19 +24,21 @@ public final class DefaultSkillsHolder implements SkillsHolder {
         super();
 
         for (final SkillBox passion : skills.passions) {
-            passions.add(passion.createNewInstance());
+            passions.add(new DefaultSkillBox(passion.getName(), passion
+                    .getDescriptor(), passion.getValue()));
         }
 
         for (final SpecialtySkillBox skill : skills.skillsSpecialty) {
-            skillsSpecialty.add(skill.createNewInstance());
+            skillsSpecialty.add(new DefaultSpecialtySkillBox(skill));
         }
 
         for (final PendragonSkillBox skill : skills.skills) {
-            this.skills.add(skill.createNewInstance());
+            this.skills.add(new DefaultPendragonSkillBox(skill));
         }
 
         for (final SkillBox skill : skills.directedTraits) {
-            directedTraits.add(skill.createNewInstance());
+            directedTraits.add(new DefaultSkillBox(skill.getName(), skill
+                    .getDescriptor(), skill.getValue()));
         }
     }
 

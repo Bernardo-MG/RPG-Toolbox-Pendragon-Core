@@ -9,7 +9,7 @@ import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesRandom;
 import com.wandrell.tabletop.pendragon.model.character.stats.RandomSkill;
 import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
-import com.wandrell.tabletop.valuebox.SkillBox;
+import com.wandrell.tabletop.stat.valuebox.SkillBox;
 
 public final class DefaultCultureCharacterTemplate implements
         CultureCharacterTemplate {

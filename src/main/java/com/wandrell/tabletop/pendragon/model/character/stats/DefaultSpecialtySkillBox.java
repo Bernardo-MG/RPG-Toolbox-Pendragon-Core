@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.event.ValueChangeListener;
-import com.wandrell.tabletop.valuebox.DefaultSkillBox;
-import com.wandrell.tabletop.valuebox.SkillBox;
+import com.wandrell.tabletop.stat.event.ValueChangeListener;
+import com.wandrell.tabletop.stat.valuebox.DefaultSkillBox;
+import com.wandrell.tabletop.stat.valuebox.SkillBox;
 
 public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
 
@@ -22,9 +22,21 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
 
         checkNotNull(skill, "Received a null pointer as skill");
 
-        composite = skill.composite.createNewInstance();
+        composite = new DefaultSkillBox(skill.composite.getName(),
+                skill.composite.getDescriptor(), skill.composite.getValue());
 
         skills.addAll(skill.skills);
+    }
+
+    public DefaultSpecialtySkillBox(final SpecialtySkillBox skill) {
+        super();
+
+        checkNotNull(skill, "Received a null pointer as skill");
+
+        composite = new DefaultSkillBox(skill.getName(), skill.getDescriptor(),
+                skill.getValue());
+
+        skills.addAll(skill.getSurrogatedSkills());
     }
 
     public DefaultSpecialtySkillBox(final String name, final Integer value,
@@ -43,11 +55,6 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
     public final void
             addValueChangeListener(final ValueChangeListener listener) {
         getBaseSkill().addValueChangeListener(listener);
-    }
-
-    @Override
-    public final DefaultSpecialtySkillBox createNewInstance() {
-        return new DefaultSpecialtySkillBox(this);
     }
 
     @Override
@@ -89,23 +96,10 @@ public final class DefaultSpecialtySkillBox implements SpecialtySkillBox {
     }
 
     @Override
-    public final Boolean isDescribed() {
-        return false;
-    }
-
-    @Override
     public final void removeValueChangeListener(
             final ValueChangeListener listener) {
         getBaseSkill().removeValueChangeListener(listener);
     }
-
-    @Override
-    public final void setDescribed(final Boolean described) {
-        getBaseSkill().setDescribed(described);
-    }
-
-    @Override
-    public final void setDescriptor(final String descriptor) {}
 
     @Override
     public final void setValue(final Integer value) {
