@@ -24,8 +24,8 @@ import com.wandrell.tabletop.pendragon.model.character.stats.DerivedAttributesHo
 import com.wandrell.tabletop.pendragon.model.character.stats.GeneratedDerivedAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.SkillsHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.TraitsHolder;
-import com.wandrell.tabletop.stat.valuebox.DefaultValueBox;
-import com.wandrell.tabletop.stat.valuebox.ValueBox;
+import com.wandrell.tabletop.stats.valuebox.DefaultValueBox;
+import com.wandrell.tabletop.stats.valuebox.ValueBox;
 
 public final class DefaultPendragonCharacter implements PendragonCharacter {
 

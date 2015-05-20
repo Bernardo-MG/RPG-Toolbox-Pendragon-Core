@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.wandrell.tabletop.pendragon.model.character.stats.AttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.DefaultAttributesHolder;
 import com.wandrell.tabletop.pendragon.model.character.stats.event.AttributesListener;
-import com.wandrell.tabletop.stat.event.ValueChangeEvent;
+import com.wandrell.tabletop.stats.event.ValueChangeEvent;
 
 public final class TestEventDefaultAttributesHolder {
 

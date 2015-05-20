@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 
-import com.wandrell.tabletop.stat.valuebox.DefaultSkillBox;
-import com.wandrell.tabletop.stat.valuebox.SkillBox;
+import com.wandrell.tabletop.stats.valuebox.DefaultSkillBox;
+import com.wandrell.tabletop.stats.valuebox.SkillBox;
 
 public final class DefaultSkillsHolder implements SkillsHolder {
 

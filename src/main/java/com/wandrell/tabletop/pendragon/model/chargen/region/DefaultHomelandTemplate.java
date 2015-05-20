@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.wandrell.tabletop.stat.valuebox.SkillBox;
+import com.wandrell.tabletop.stats.valuebox.SkillBox;
 
 public final class DefaultHomelandTemplate implements HomelandTemplate {
 
