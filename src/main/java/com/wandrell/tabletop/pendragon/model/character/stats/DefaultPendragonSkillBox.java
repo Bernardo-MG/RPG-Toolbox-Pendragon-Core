@@ -47,6 +47,12 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
     public DefaultPendragonSkillBox(final String name, final Integer value,
             final Boolean combatSkill, final Boolean knightlySkill,
             final Boolean knowledgeSkill, final Boolean courtlySkill) {
+       this(name,"",value,combatSkill,knightlySkill,knowledgeSkill,courtlySkill);
+    }
+
+    public DefaultPendragonSkillBox(final String name,final String descriptor, final Integer value,
+            final Boolean combatSkill, final Boolean knightlySkill,
+            final Boolean knowledgeSkill, final Boolean courtlySkill) {
         super();
 
         checkNotNull(combatSkill, "Received a null pointer as combat flag");
@@ -55,7 +61,7 @@ public final class DefaultPendragonSkillBox implements PendragonSkillBox {
                 "Received a null pointer as knowledge flag");
         checkNotNull(courtlySkill, "Received a null pointer as courtly flag");
 
-        composite = new DefaultSkillBox(name, value);
+        composite = new DefaultSkillBox(name,descriptor, value);
 
         this.combatSkill = combatSkill;
         this.knightlySkill = knightlySkill;
