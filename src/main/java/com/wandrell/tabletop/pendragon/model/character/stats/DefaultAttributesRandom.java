@@ -5,19 +5,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.dice.Dice;
+import com.wandrell.tabletop.dice.notation.DiceFormula;
 
 public final class DefaultAttributesRandom implements AttributesRandom {
 
-    private final Dice appearance;
-    private final Dice constitution;
-    private final Dice dexterity;
-    private final Dice size;
-    private final Dice strength;
+    private final DiceFormula appearance;
+    private final DiceFormula constitution;
+    private final DiceFormula dexterity;
+    private final DiceFormula size;
+    private final DiceFormula strength;
 
-    public DefaultAttributesRandom(final Dice appearance,
-            final Dice constitution, final Dice dexterity, final Dice size,
-            final Dice strength) {
+    public DefaultAttributesRandom(final DiceFormula appearance,
+            final DiceFormula constitution, final DiceFormula dexterity,
+            final DiceFormula size, final DiceFormula strength) {
         super();
 
         checkNotNull(appearance, "Received a null pointer as appearance");
@@ -50,27 +50,27 @@ public final class DefaultAttributesRandom implements AttributesRandom {
     }
 
     @Override
-    public final Dice getAppearance() {
+    public final DiceFormula getAppearance() {
         return appearance;
     }
 
     @Override
-    public final Dice getConstitution() {
+    public final DiceFormula getConstitution() {
         return constitution;
     }
 
     @Override
-    public final Dice getDexterity() {
+    public final DiceFormula getDexterity() {
         return dexterity;
     }
 
     @Override
-    public final Dice getSize() {
+    public final DiceFormula getSize() {
         return size;
     }
 
     @Override
-    public final Dice getStrength() {
+    public final DiceFormula getStrength() {
         return strength;
     }
 
@@ -83,11 +83,11 @@ public final class DefaultAttributesRandom implements AttributesRandom {
     @Override
     public final String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("appearance", appearance.getTextValue())
-                .add("constitution", constitution.getTextValue())
-                .add("dexterity", dexterity.getTextValue())
-                .add("size", size.getTextValue())
-                .add("strength", strength.getTextValue()).toString();
+                .add("appearance", appearance.getPrintableText())
+                .add("constitution", constitution.getPrintableText())
+                .add("dexterity", dexterity.getPrintableText())
+                .add("size", size.getPrintableText())
+                .add("strength", strength.getPrintableText()).toString();
     }
 
 }

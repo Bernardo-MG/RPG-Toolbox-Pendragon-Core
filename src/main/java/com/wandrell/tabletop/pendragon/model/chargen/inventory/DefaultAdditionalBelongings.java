@@ -5,7 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Collection;
 import java.util.Collections;
 
-import com.wandrell.tabletop.dice.Dice;
+import com.wandrell.tabletop.dice.notation.DiceFormula;
 import com.wandrell.tabletop.pendragon.model.character.Horse;
 import com.wandrell.tabletop.pendragon.model.inventory.Item;
 import com.wandrell.tabletop.pendragon.model.inventory.Money;
@@ -15,22 +15,23 @@ import com.wandrell.tabletop.pendragon.model.manor.Pet;
 
 public final class DefaultAdditionalBelongings implements AdditionalBelongings {
 
-    private final Boolean            hasToChoose;
-    private final Collection<Horse>  horses;
-    private final Collection<Item>   items;
-    private final Money              money;
-    private final String             nameMoney;
-    private final Collection<Pet>    pets;
-    private final Collection<Dice>   rerolls;
-    private final Collection<Shield> shields;
-    private final String             table;
-    private final Collection<Weapon> weapons;
+    private final Boolean                 hasToChoose;
+    private final Collection<Horse>       horses;
+    private final Collection<Item>        items;
+    private final Money                   money;
+    private final String                  nameMoney;
+    private final Collection<Pet>         pets;
+    private final Collection<DiceFormula> rerolls;
+    private final Collection<Shield>      shields;
+    private final String                  table;
+    private final Collection<Weapon>      weapons;
 
     public DefaultAdditionalBelongings(final Boolean hasToChoose,
             final Money money, final String nameMoney, final String table,
-            final Collection<Dice> rerolls, final Collection<Item> items,
-            final Collection<Horse> horses, final Collection<Pet> pets,
-            final Collection<Shield> shields, final Collection<Weapon> weapons) {
+            final Collection<DiceFormula> rerolls,
+            final Collection<Item> items, final Collection<Horse> horses,
+            final Collection<Pet> pets, final Collection<Shield> shields,
+            final Collection<Weapon> weapons) {
         super();
 
         checkNotNull(hasToChoose, "Received a null pointer as choose flag");
@@ -110,7 +111,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
     }
 
     @Override
-    public final Collection<Dice> getRerolls() {
+    public final Collection<DiceFormula> getRerolls() {
         return Collections.unmodifiableCollection(getRerollsModifiable());
     }
 
@@ -146,7 +147,7 @@ public final class DefaultAdditionalBelongings implements AdditionalBelongings {
         return pets;
     }
 
-    private final Collection<Dice> getRerollsModifiable() {
+    private final Collection<DiceFormula> getRerollsModifiable() {
         return rerolls;
     }
 
