@@ -5,19 +5,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.dice.notation.DiceFormula;
+import com.wandrell.tabletop.dice.notation.DiceExpression;
 
 public final class DefaultAttributesRandom implements AttributesRandom {
 
-    private final DiceFormula appearance;
-    private final DiceFormula constitution;
-    private final DiceFormula dexterity;
-    private final DiceFormula size;
-    private final DiceFormula strength;
+    private final DiceExpression appearance;
+    private final DiceExpression constitution;
+    private final DiceExpression dexterity;
+    private final DiceExpression size;
+    private final DiceExpression strength;
 
-    public DefaultAttributesRandom(final DiceFormula appearance,
-            final DiceFormula constitution, final DiceFormula dexterity,
-            final DiceFormula size, final DiceFormula strength) {
+    public DefaultAttributesRandom(final DiceExpression appearance,
+            final DiceExpression constitution, final DiceExpression dexterity,
+            final DiceExpression size, final DiceExpression strength) {
         super();
 
         checkNotNull(appearance, "Received a null pointer as appearance");
@@ -50,27 +50,27 @@ public final class DefaultAttributesRandom implements AttributesRandom {
     }
 
     @Override
-    public final DiceFormula getAppearance() {
+    public final DiceExpression getAppearance() {
         return appearance;
     }
 
     @Override
-    public final DiceFormula getConstitution() {
+    public final DiceExpression getConstitution() {
         return constitution;
     }
 
     @Override
-    public final DiceFormula getDexterity() {
+    public final DiceExpression getDexterity() {
         return dexterity;
     }
 
     @Override
-    public final DiceFormula getSize() {
+    public final DiceExpression getSize() {
         return size;
     }
 
     @Override
-    public final DiceFormula getStrength() {
+    public final DiceExpression getStrength() {
         return strength;
     }
 

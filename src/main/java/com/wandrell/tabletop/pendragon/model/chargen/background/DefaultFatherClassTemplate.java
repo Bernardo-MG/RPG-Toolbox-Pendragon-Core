@@ -8,14 +8,14 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.dice.notation.DiceFormula;
+import com.wandrell.tabletop.dice.notation.DiceExpression;
 import com.wandrell.tabletop.stats.valuebox.SkillBox;
 
 public final class DefaultFatherClassTemplate implements FatherClassTemplate {
 
     private final Collection<SkillBox> directedTraits;
     private final Collection<SkillBox> directedTraitsBase;
-    private final DiceFormula          money;
+    private final DiceExpression       money;
     private final String               name;
     private final Collection<SkillBox> skillsGroup;
     private final Integer              skillsGroupPointsBonus;
@@ -53,7 +53,7 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
     public DefaultFatherClassTemplate(final String name,
             final Integer skillsGroupPoints,
             final Integer skillsGroupPointsDivide, final Integer skillsPoints,
-            final Integer skillsNonCombatPoints, final DiceFormula money,
+            final Integer skillsNonCombatPoints, final DiceExpression money,
             final Collection<SkillBox> skillsGroup,
             final Collection<SkillBox> specialtySkills,
             final Collection<SkillBox> directedTraits,
@@ -125,7 +125,7 @@ public final class DefaultFatherClassTemplate implements FatherClassTemplate {
     }
 
     @Override
-    public final DiceFormula getMoney() {
+    public final DiceExpression getMoney() {
         return money;
     }
 

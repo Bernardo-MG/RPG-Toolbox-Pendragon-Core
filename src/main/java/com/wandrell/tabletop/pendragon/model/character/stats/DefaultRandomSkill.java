@@ -5,16 +5,16 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
-import com.wandrell.tabletop.dice.notation.DiceFormula;
+import com.wandrell.tabletop.dice.notation.DiceExpression;
 
 public final class DefaultRandomSkill implements RandomSkill {
 
-    private final String      descriptor;
-    private final DiceFormula dice;
-    private final String      name;
+    private final String         descriptor;
+    private final DiceExpression dice;
+    private final String         name;
 
     public DefaultRandomSkill(final String name, final String descriptor,
-            final DiceFormula dice) {
+            final DiceExpression dice) {
         super();
 
         checkNotNull(name, "Received a null pointer as name");
@@ -51,7 +51,7 @@ public final class DefaultRandomSkill implements RandomSkill {
     }
 
     @Override
-    public final DiceFormula getValue() {
+    public final DiceExpression getValue() {
         return dice;
     }
 
